@@ -411,44 +411,6 @@ Shader "IronBrawler/Character Goblin Helmet"
 
 		Pass
 		{
-			Name "ShadowCaster"
-			Tags
-			{
-				"LightMode" = "ShadowCaster"
-			}
-
-			ZWrite On
-			ZTest LEqual
-
-			HLSLPROGRAM
-			// Required to compile gles 2.0 with standard srp library
-			#pragma prefer_hlslcc gles
-			#pragma exclude_renderers d3d11_9x
-			#pragma target 2.0
-
-			// using simple #define doesn't work, we have to use this instead
-			#pragma multi_compile SHADOW_CASTER_PASS
-
-			// -------------------------------------
-			// Material Keywords
-			//#pragma shader_feature _ALPHATEST_ON
-			//#pragma shader_feature _GLOSSINESS_FROM_BASE_ALPHA
-
-			//--------------------------------------
-			// GPU Instancing
-			#pragma multi_compile_instancing
-
-			#pragma vertex ShadowDepthPassVertex
-			#pragma fragment ShadowDepthPassFragment
-			
-			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
-
-			ENDHLSL
-		}
-
-		Pass
-		{
 			Name "DepthOnly"
 			Tags
 			{
@@ -489,5 +451,5 @@ Shader "IronBrawler/Character Goblin Helmet"
 	CustomEditor "ToonyColorsPro.ShaderGenerator.MaterialInspector_SG2"
 }
 
-/* TCP_DATA u config(unity:"2020.1.3f1";ver:"2.6.0";tmplt:"SG2_Template_URP";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","UNITY_2019_1","UNITY_2019_2","UNITY_2019_3","RIM","RIM_SHADER_FEATURE","TEMPLATE_LWRP"];flags:list[];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0",RIM_LABEL="Rim Lighting"];shaderProperties:list[];customTextures:list[];codeInjection:codeInjection(injectedFiles:list[];mark:False)) */
-/* TCP_HASH 60ca5d765984d4c0dfa6b8f5a5953b30 */
+/* TCP_DATA u config(unity:"2020.1.3f1";ver:"2.6.0";tmplt:"SG2_Template_URP";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","UNITY_2019_1","UNITY_2019_2","UNITY_2019_3","RIM","RIM_SHADER_FEATURE","TEMPLATE_LWRP","DISABLE_SHADOW_CASTING"];flags:list[];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0",RIM_LABEL="Rim Lighting"];shaderProperties:list[];customTextures:list[];codeInjection:codeInjection(injectedFiles:list[];mark:False)) */
+/* TCP_HASH 8225e9e9958e99a0e96c73426281cb9b */

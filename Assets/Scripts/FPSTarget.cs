@@ -8,7 +8,7 @@ public class FPSTarget : MonoBehaviour
 
     private void Awake()
     {
-        QualitySettings.vSyncCount = 0;
+        QualitySettings.vSyncCount = 1;
         Application.targetFrameRate = target;
     }
     // Update is called once per frame

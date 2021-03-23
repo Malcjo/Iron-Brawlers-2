@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Goblin Helmet
-  m_Shader: {fileID: 4800000, guid: 7973bdcc21e361d4386923de08b2e303, type: 3}
+  m_Shader: {fileID: 4800000, guid: 17da4eef888a07d4aaf3bb0461e8479d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
