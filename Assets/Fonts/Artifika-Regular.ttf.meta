@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 7f05c39bb49ff8a45b0e457c6dbf0f4f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Artifika
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: c35eee321419c7b47bd8e0bb8b8890aa, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
