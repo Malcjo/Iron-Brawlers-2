@@ -81,21 +81,26 @@ public class PlayerActions : MonoBehaviour
         hitboxScript._attackDir = Attackdirection.Forward;
         hitboxScript._attackType = AttackType.Jab;
         hitboxManager.JabAttack(0.5f);
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.75f)
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.25f)
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.75f)
             {
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.25f)
+                {
+                    yield return null;
+                }
+                if (canMove == true)
+                {
+                    Debug.Log("Move Character");
+                    self.MoveCharacterWithAttacks(JabMoveValue);
+                }
+                canMove = false;
+
                 yield return null;
             }
-            if (canMove == true)
-            {
-                Debug.Log("Move Character");
-                self.MoveCharacterWithAttacks(JabMoveValue);
-            }
-            canMove = false;
-
             yield return null;
         }
+
 
         self.SetState(new IdleState());
     }
