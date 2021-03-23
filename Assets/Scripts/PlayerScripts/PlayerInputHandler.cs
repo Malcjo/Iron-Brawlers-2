@@ -292,6 +292,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
     [SerializeField] float joyStickDelay;
+    [SerializeField] float contextValue;
     public void HorizontalInput(CallbackContext context)
     {
         print("hit button1");
@@ -301,25 +302,24 @@ public class PlayerInputHandler : MonoBehaviour
             if (context.started)
             {
 
-                float ContextValue = 0;
-                if(joyStickDelay > 0.5f)
+                if(joyStickDelay > 0.1f)
                 {
-                    ContextValue = context.ReadValue<float>();
-                    if (ContextValue < 0)
+                    contextValue = context.ReadValue<float>();
+                    if (contextValue < 0)
                     {
-                        ContextValue = -1;
+                        contextValue = -1;
                     }
-                    else if (ContextValue > 0)
+                    else if (contextValue > 0)
                     {
-                        ContextValue = 1;
+                        contextValue = 1;
                     }
                     joyStickDelay = 0;
                 }
 
-                testfloat = ContextValue;
+                testfloat = contextValue;
 
                 primed = false;
-                if(ContextValue >= 1f)
+                if(contextValue >= 1f)
                 {
                     if (!ChooseLevel)
                     {
@@ -348,7 +348,7 @@ public class PlayerInputHandler : MonoBehaviour
                         }
                     }
                 }
-                else if (ContextValue <= 1f)
+                else if (contextValue <= 1f)
                 {
                     if (!ChooseLevel)
                     {
