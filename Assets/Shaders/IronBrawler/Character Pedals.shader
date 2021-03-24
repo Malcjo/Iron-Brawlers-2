@@ -25,6 +25,8 @@ Shader "IronBrawler/Character"
 		_RimMax ("Rim Max", Range(0,2)) = 1
 		[TCP2Separator]
 		
+		[ToggleOff(_RECEIVE_SHADOWS_OFF)] _ReceiveShadowsOff ("Receive Shadows", Float) = 1
+
 		//Avoid compile error if the properties are ending with a drawer
 		[HideInInspector] __dummy__ ("unused", Float) = 0
 	}
@@ -89,7 +91,7 @@ Shader "IronBrawler/Character"
 			// -------------------------------------
 			// Material keywords
 			//#pragma shader_feature _ALPHATEST_ON
-			#pragma multi_compile _RECEIVE_SHADOWS_OFF
+			#pragma shader_feature _ _RECEIVE_SHADOWS_OFF
 
 			// -------------------------------------
 			// Universal Render Pipeline keywords
@@ -409,6 +411,44 @@ Shader "IronBrawler/Character"
 
 		Pass
 		{
+			Name "ShadowCaster"
+			Tags
+			{
+				"LightMode" = "ShadowCaster"
+			}
+
+			ZWrite On
+			ZTest LEqual
+
+			HLSLPROGRAM
+			// Required to compile gles 2.0 with standard srp library
+			#pragma prefer_hlslcc gles
+			#pragma exclude_renderers d3d11_9x
+			#pragma target 2.0
+
+			// using simple #define doesn't work, we have to use this instead
+			#pragma multi_compile SHADOW_CASTER_PASS
+
+			// -------------------------------------
+			// Material Keywords
+			//#pragma shader_feature _ALPHATEST_ON
+			//#pragma shader_feature _GLOSSINESS_FROM_BASE_ALPHA
+
+			//--------------------------------------
+			// GPU Instancing
+			#pragma multi_compile_instancing
+
+			#pragma vertex ShadowDepthPassVertex
+			#pragma fragment ShadowDepthPassFragment
+			
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
+
+			ENDHLSL
+		}
+
+		Pass
+		{
 			Name "DepthOnly"
 			Tags
 			{
@@ -449,5 +489,5 @@ Shader "IronBrawler/Character"
 	CustomEditor "ToonyColorsPro.ShaderGenerator.MaterialInspector_SG2"
 }
 
-/* TCP_DATA u config(unity:"2020.1.3f1";ver:"2.6.0";tmplt:"SG2_Template_URP";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","UNITY_2019_1","UNITY_2019_2","UNITY_2019_3","DISABLE_SHADOW_RECEIVING","RIM","RIM_SHADER_FEATURE","TEMPLATE_LWRP","DISABLE_SHADOW_CASTING"];flags:list[];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0",RIM_LABEL="Rim Lighting"];shaderProperties:list[];customTextures:list[];codeInjection:codeInjection(injectedFiles:list[];mark:False)) */
-/* TCP_HASH accddf53a5bcb9ec89e64b6a1fcf6aa9 */
+/* TCP_DATA u config(unity:"2020.1.3f1";ver:"2.6.0";tmplt:"SG2_Template_URP";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","UNITY_2019_1","UNITY_2019_2","UNITY_2019_3","RIM","RIM_SHADER_FEATURE","MATCAP_PERSPECTIVE_CORRECTION","TEMPLATE_LWRP"];flags:list[];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0",RIM_LABEL="Rim Lighting"];shaderProperties:list[];customTextures:list[];codeInjection:codeInjection(injectedFiles:list[];mark:False)) */
+/* TCP_HASH 30f6a0c3f200f244e0194a72341d981b */
