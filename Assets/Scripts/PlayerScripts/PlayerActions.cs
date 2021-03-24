@@ -231,7 +231,7 @@ public class PlayerActions : MonoBehaviour
     {
         self.landing = true;
         anim.Play("LANDING");
-        anim.speed = 2;
+        anim.speed = 1;
         self.SetState(new BusyState());
         yield return null;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
@@ -244,8 +244,9 @@ public class PlayerActions : MonoBehaviour
 
     public void Idle()
     {
-        anim.Play("IDLE");
         anim.speed = 1;
+        anim.Play("IDLE");
+
     }
 
     public void Crouching()
