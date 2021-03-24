@@ -13,13 +13,14 @@ public class BlockState : PlayerState
         body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
         if (BlockCheck(input.blockInput))
         {
-            actions.EnterBlock();
+            actions.Block();
             self.Blocking = true;
             body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
             self.SetState(new BlockState());
         }
         if (!BlockCheck(input.blockInput))
         {
+            self.SetState(new IdleState());
             self.Blocking = false;
             actions.ExitBlock();
         }
