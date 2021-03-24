@@ -99,7 +99,6 @@ public class Raycasts : MonoBehaviour
         else
         {
             player.PlayerGroundedIsFalse();
-            Debug.Log("Not on ground");
         }
     }
 }

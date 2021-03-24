@@ -516,7 +516,6 @@ public class Player : MonoBehaviour
         //hitStun = true;
         hitStunTimer = maxHitStunTime;
         addForceValue = AddForce(Power - (( new Vector3(_attackersFacingDirection.x * armourCheck.knockBackResistance.x, 1 * armourCheck.knockBackResistance.y, 0) + knockbackResistance)));
-        Debug.Log("KnockBackPlayer " + addForceValue);
     }
     private Vector3 AddForce(Vector3 hitStrength)
     {

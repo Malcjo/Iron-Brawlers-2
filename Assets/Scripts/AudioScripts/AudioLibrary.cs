@@ -27,7 +27,6 @@ public class AudioLibrary : MonoBehaviour
     {
         var s = ChooseSound();
         s.source.Play();
-        //Debug.Log("Got to here!");  
     }
 
     private Sound ChooseSound()

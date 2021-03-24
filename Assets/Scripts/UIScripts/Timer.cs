@@ -41,7 +41,6 @@ public class Timer : MonoBehaviour
         }
         if (timer < (int)minTimer)
         {
-            Debug.Log("Run Out Of Time!");
             ResetTimer();
             GameManager.instance.TimerRunOut();
         }

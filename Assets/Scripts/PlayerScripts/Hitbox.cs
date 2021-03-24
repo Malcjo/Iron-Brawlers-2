@@ -242,7 +242,6 @@ public class Hitbox : MonoBehaviour
             HurtBox tempHurtBox = other.gameObject.GetComponent<HurtBox>();
             var tempHitPosiiton = other.transform.position;
             tempHurtBox.TurnOnHitBoxHit();
-            Debug.Log("Hit Character");
             if (tempDefendingPlayer.Blocking == true)
             {
                 if(_attackType != AttackType.LegSweep)
@@ -299,7 +298,6 @@ public class Hitbox : MonoBehaviour
     }
     void ApplyDamageToPlayer(Player defendingPlayer, Player attackingPlayer, AttackType attackType)
     {
-        Debug.Log("Defender hit stun");
 
 
         defendingPlayer.FreezeCharacterBeingAttacked(KnockBackStrength(), attackingPlayer.GetFacingDirection());

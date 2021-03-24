@@ -390,14 +390,7 @@ public class PlayerInputHandler : MonoBehaviour
                 horizontalInput = context.ReadValue<float>();
                 if (horizontalInput <= 0.35f && horizontalInput >= -0.35f)
                 {
-                    if (horizontalInput < 0 && horizontalInput >= -0.35f)
-                    {
-                        horizontalInput = -0;
-                    }
-                    else if (horizontalInput > 0 && horizontalInput <= 0.35f)
-                    {
-                        horizontalInput = 0;
-                    }
+                    horizontalInput = 0;
                 }
                 HorizontalValue = horizontalInput;
                 player.GetPlayerInputFromInputScript(HorizontalValue);

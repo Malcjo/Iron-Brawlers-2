@@ -13,12 +13,11 @@ public class MovingState : PlayerState
     {
 
         if (self.VerticalState == Player.VState.grounded)
-        {
-
-            actions.Running();
+        {;
             self.SlideValue += self.SliderCountUpSetValue * Time.deltaTime;
             if (MovementCheck(input.horizontalInput))
             {
+                actions.Running();
                 self.Moving = true;
                 self.InteruptSliderSetToZero = true;
 
@@ -44,6 +43,7 @@ public class MovingState : PlayerState
 
             if (!MovementCheck(input.horizontalInput))
             {
+                actions.Idle();
                 self.Moving = false;
                 if(self.SlideValue >= self.maxSliderValue)
                 {
@@ -231,7 +231,6 @@ public class MovingState : PlayerState
                             body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce + 2, body.velocity.z)) + calculate.addForce;
                             self.JumpingOrFallingAnimations();
                             self.AddOneToJumpIndex();
-                            Debug.Log("DoubleJump");
                             self.PlayParticle(ParticleType.DoubleJump, Vector3.zero);
                             actions.DoubleJump();
                             self.SetState(new JumpingState());

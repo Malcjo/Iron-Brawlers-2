@@ -49,7 +49,6 @@ public class HurtBox : MonoBehaviour
     public void TurnOnHitBoxHit()
     {
         HasBeenHit = true;
-        Debug.Log("Hurtbox has been hit");
     }
     public void SetRadius(float externalRadius)
     {

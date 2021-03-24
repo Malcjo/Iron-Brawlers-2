@@ -11,16 +11,16 @@ public class IdleState : PlayerState
     public override void RunState(Player self, Rigidbody body, PlayerActions actions, ArmourCheck armour, InputState input, Calculating calculate)
     {
         self.CanMove = true;
-        actions.Idle();
         if(self.VerticalState == Player.VState.grounded)
         {
+            var actionTaken = false;
             if (MovementCheck(input.horizontalInput))
             {
-                self.CanMove = true;
                 self.CanTurn = true;
                 body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0) + calculate.addForce;
 
                 self.SetState(new MovingState());
+                actionTaken = true;
             }
             if (!MovementCheck(input.horizontalInput))
             {
@@ -28,10 +28,10 @@ public class IdleState : PlayerState
             }
             if (CrouchingCheck(input.crouchInput))
             {
-                Debug.Log("Crouching");
                 //body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                 body.velocity = new Vector3(0, 0, 0) + calculate.addForce;
                 self.SetState(new CrouchingState());
+                actionTaken = true;
             }
 
             if (JumpingCheck(input.jumpInput))
@@ -44,6 +44,7 @@ public class IdleState : PlayerState
                     self.JumpingOrFallingAnimations();
                     self.AddOneToJumpIndex();
                     self.SetState(new JumpingState());
+                    actionTaken = true;
                 }
             }
             if (AttackCheck(input.attackInput))
@@ -54,6 +55,7 @@ public class IdleState : PlayerState
                 self.CanTurn = false;
                 actions.JabCombo();
                 self.SetState(new BusyState());
+                actionTaken = true;
             }
             if (HeavyCheck(input.heavyInput))
             {
@@ -63,6 +65,7 @@ public class IdleState : PlayerState
                 self.SetState(new BusyState());
                 body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                 //self.StopMovingCharacterOnXAxis();
+                actionTaken = true;
             }
             if (BlockCheck(input.blockInput))
             {
@@ -70,10 +73,15 @@ public class IdleState : PlayerState
                 self.Blocking = true;
                 body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                 self.SetState(new BlockState());
+                actionTaken = true;
             }
             if (!BlockCheck(input.blockInput))
             {
                 self.Blocking = false;
+            }
+            if (!actionTaken)
+            {
+                actions.Idle();
             }
         }
         else

@@ -68,7 +68,6 @@ public class JumpingState : PlayerState
                         body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce + 2, body.velocity.z)) + calculate.addForce;
                         self.JumpingOrFallingAnimations();
                         self.AddOneToJumpIndex();
-                        Debug.Log("DoubleJump");
                         self.PlayParticle(ParticleType.DoubleJump, Vector3.zero);
                         actions.DoubleJump();
                         self.SetState(new JumpingState());

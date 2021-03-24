@@ -59,7 +59,6 @@ public class BusyState : PlayerState
             if (CrouchingCheck(input.crouchInput))
             {
                 self.landing = false;
-                Debug.Log("Crouching");
                 //body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                 body.velocity = new Vector3(0, 0, 0) + calculate.addForce;
                 self.SetState(new CrouchingState());

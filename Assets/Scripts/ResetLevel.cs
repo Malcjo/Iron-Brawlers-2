@@ -10,6 +10,5 @@ public class ResetLevel : MonoBehaviour
         var otherPlayer = GetComponent<Player>();
         other.gameObject.transform.position = new Vector3(0, 10, 0);
         other.gameObject.GetComponentInParent<Player>().lives -= 1;
-        Debug.Log("Player Dead");
     }
 }
