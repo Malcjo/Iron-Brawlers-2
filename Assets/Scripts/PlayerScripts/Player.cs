@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -683,29 +683,37 @@ public class Player : MonoBehaviour
     #region Jumping or Falling
     public void JumpingOrFallingAnimations()
     {
-        switch (_currentVerticalState)
+        if (HitStun == false)
         {
-            case VState.falling:
-                playerActions.Falling();
-                break;
-            case VState.jumping:
-                playerActions.Jumping();
-                break;
+            switch (_currentVerticalState)
+            {
+                case VState.falling:
+                    playerActions.Falling();
+                    break;
+                case VState.jumping:
+                    playerActions.Jumping();
+                    break;
+            }
         }
+
     }
     void JumpingOrFallingTracker()
     {
-        if (rb.velocity.y != 0)
+        if(Landed == false)
         {
-            if (rb.velocity.y > 0f)
+            if (rb.velocity.y != 0)
             {
-                _currentVerticalState = VState.jumping;
-            }
-            else if (rb.velocity.y < -0f)
-            {
-                _currentVerticalState = VState.falling;
+                if (rb.velocity.y > 0f)
+                {
+                    _currentVerticalState = VState.jumping;
+                }
+                else if (rb.velocity.y < -0f)
+                {
+                    _currentVerticalState = VState.falling;
+                }
             }
         }
+
     }
     #endregion
     #region Raycasts
@@ -728,12 +736,18 @@ public class Player : MonoBehaviour
                 PlayParticle(ParticleType.Landing,Vector3.zero);
                 if(_hitStun != true)
                 {
-                    playerActions.Landing();
+                    if(Landed == false)
+                    {
+                        //landing = true;
+                        //MyState = (new BusyState());
+                        playerActions.Landing();
+                    }
                 }
                 LandOnGround(hit);
             }
         }
     }
+    public bool Landed = false;
     public void SetJumpIndexTo1()
     {
         _currentJumpIndex = 1;

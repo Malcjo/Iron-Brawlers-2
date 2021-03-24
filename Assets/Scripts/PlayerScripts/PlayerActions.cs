@@ -239,6 +239,7 @@ public class PlayerActions : MonoBehaviour
             yield return null;
         }
         self.landing = false;
+        self.Landed = true;
         self.SetState(new IdleState());
     }
 
