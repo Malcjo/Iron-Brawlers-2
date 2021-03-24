@@ -183,20 +183,26 @@ public class Hitbox : MonoBehaviour
         tipHitBox.gameObject.transform.position = new Vector3(leftFoot.transform.position.x, leftFoot.transform.position.y, 0);
         tipHitBox.gameObject.transform.rotation = leftFoot.transform.rotation;
     }
+    [SerializeField] private Vector3 JabStrength;//30,3
+    [SerializeField] private Vector3 LegSweepStrength;//20,7
+    [SerializeField] private Vector3 AerialStrength;//35,-0.5f
+    [SerializeField] private Vector3 ArmourBreakStrength;//50,2
+    [SerializeField] private Vector3 HeavyStrength;//40,2
+
     public Vector3 KnockBackStrength()
     {
         switch (_attackType)
         {
             case AttackType.Jab:
-                return new Vector3(player.GetFacingDirection() * 30, 3, 0);
+                return new Vector3(player.GetFacingDirection() * JabStrength.x, JabStrength.y, 0);
             case AttackType.LegSweep:
-                return new Vector3(player.GetFacingDirection() * 20, 7, 0);
+                return new Vector3(player.GetFacingDirection() * LegSweepStrength.x, LegSweepStrength.y, 0);
             case AttackType.Aerial:
-                return new Vector3(player.GetFacingDirection() * 35, -0.5f, 0);
+                return new Vector3(player.GetFacingDirection() * AerialStrength.x, AerialStrength.y, 0);
             case AttackType.ArmourBreak:
-                return new Vector3(player.GetFacingDirection() * 50, 2, 0);
+                return new Vector3(player.GetFacingDirection() * ArmourBreakStrength.x, ArmourBreakStrength.y, 0);
             case AttackType.HeavyJab:
-                return new Vector3(player.GetFacingDirection() * 40, 2, 0);
+                return new Vector3(player.GetFacingDirection() * HeavyStrength.x, HeavyStrength.y, 0);
         }
         return new Vector3(player.GetFacingDirection() * 5, 2, 0);
     }
@@ -292,22 +298,34 @@ public class Hitbox : MonoBehaviour
     }
     void ApplyDamageToPlayer(Player defendingPlayer, Player attackingPlayer, AttackType attackType)
     {
+        Debug.Log("Defender hit stun");
+
 
         defendingPlayer.FreezeCharacterBeingAttacked(KnockBackStrength(), attackingPlayer.GetFacingDirection());
         attackingPlayer.FreezeCharacterAttacking();
         if(attackType == AttackType.Aerial || attackType == AttackType.ArmourBreak || attackType == AttackType.HeavyJab)
         {
+            defendingPlayer.MaxHitStun = 1.5f;
+            defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
+            defendingPlayer.HitStun = true;
             defendingPlayer.KnockDown();
         }
         else if(attackType == AttackType.LegSweep)
         {
+            defendingPlayer.MaxHitStun = 1.5f;
+            defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
+            defendingPlayer.HitStun = true;
             defendingPlayer.KnockDown();
 
         }
         else if(attackType == AttackType.Jab)
         {
+            defendingPlayer.MaxHitStun = 1f;
+            defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
+            defendingPlayer.HitStun = true;
             defendingPlayer.JabKnockBack();
         }
+
         ResetMoveValues(defendingPlayer, attackingPlayer);
         HideHitBoxes();
     }

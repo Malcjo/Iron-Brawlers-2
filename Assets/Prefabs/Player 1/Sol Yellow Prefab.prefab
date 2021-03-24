@@ -386,6 +386,8 @@ MonoBehaviour:
   IsDoubleJump: 0
   comboStep: 0
   comboTimer: 0
+  JabMoveValue: 200
+  heavyAttackMoveValue: 600
 --- !u!1 &658631414417313013
 GameObject:
   m_ObjectHideFlags: 0
@@ -3612,6 +3614,11 @@ MonoBehaviour:
   dustHitParticle: {fileID: 1525828961861715399, guid: 4898a9aab1a0cf34da8871afb0b6e002,
     type: 3}
   particleManager: {fileID: 8197868842654377680}
+  JabStrength: {x: 30, y: 3, z: 0}
+  LegSweepStrength: {x: 20, y: 7, z: 0}
+  AerialStrength: {x: 35, y: -0.5, z: 0}
+  ArmourBreakStrength: {x: 10, y: 2, z: 0}
+  HeavyStrength: {x: 40, y: 2, z: 0}
 --- !u!1 &3938678240040364670
 GameObject:
   m_ObjectHideFlags: 0

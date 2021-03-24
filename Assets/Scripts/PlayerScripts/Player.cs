@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerActions playerActions;
     [SerializeField] private GaugeManager gaugeManager;
     [SerializeField] private ParticleManager particleManager;
-    
+
     private bool _DecreaseSlide;
     public bool DecreaseSlide { get { return _DecreaseSlide; } set { _DecreaseSlide = value; } }
     [Range(0, 5)]
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     public float maxSliderValue;
     public int SliderCountUpSetValue;
     public float SlideValue { get { return _SlideValue; } set { _SlideValue = value; } }
-    
+
 
     [Header("UI")]
     [SerializeField] public TMP_Text playerLives;
@@ -63,7 +63,9 @@ public class Player : MonoBehaviour
     private float distanceToLeft;
     [SerializeField] private float jumpForce = 9;
     private float hitStunTimer;
-
+    public float HitStunTimer { get{ return hitStunTimer; } set { hitStunTimer = value; } }
+    [SerializeField] private float maxHitStunTime;
+    public float MaxHitStun { get{ return maxHitStunTime; }set  { maxHitStunTime = value; } }
     private bool canHitBox;
     private bool hasArmour;
     [SerializeField] private bool _hitStun;
@@ -507,7 +509,7 @@ public class Player : MonoBehaviour
     {
         playerActions.HitKnockBack();
     }
-    [SerializeField] private float maxHitStunTime;
+
     public void Damage(Vector3 Power)
     {
 
