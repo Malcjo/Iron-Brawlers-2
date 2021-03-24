@@ -33,7 +33,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: e05446a1f5c65cb4fa85df4fcaa29e33, type: 3}
+        m_Texture: {fileID: 2800000, guid: 75fd049118d591d40bec52249371cce4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -56,12 +56,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 0
+    - _BandsCount: 4
+    - _BandsSmoothing: 0.1
     - _Blend: 0
     - _BumpScale: 1
     - _Cull: 2
@@ -74,8 +80,10 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
-    - _RampSmoothing: 0.55
-    - _RampThreshold: 0.25
+    - _RampSmoothing: 0.131
+    - _RampSmoothingOtherLights: 0.5
+    - _RampThreshold: 0.089
+    - _RampThresholdOtherLights: 0.5
     - _ReceiveShadows: 1
     - _ReceiveShadowsOff: 1
     - _RimMax: 1.3
@@ -92,9 +100,10 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HColor: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
     - _RimColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.5}
-    - _SColor: {r: 0.11591314, g: 0.13435012, b: 0.1509434, a: 1}
+    - _SColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
