@@ -618,9 +618,10 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator RoundStartLooper()
     {
-        //yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.01f);
         while (_RoundStart)
         {
+
             bool ReadyActive = false;
             bool FightActive = false;
             Debug.Log("looping?");
@@ -633,18 +634,18 @@ public class GameManager : MonoBehaviour
             bindToPlayer.players[0].gameObject.SetActive(false);
 
 
-            if (roundStartCounter >= 1 && ReadyActive == false)
+            if ((int)roundStartCounter >= 0.5f && ReadyActive == false)
             {
                 ReadyActive = true;
                 ReadyUI.SetActive(true);
             }
-            if (roundStartCounter >= 3 && FightActive == false)
+            if ((int)roundStartCounter >= 1.5f && FightActive == false)
             {
                 FightActive = true;
                 ReadyUI.SetActive(false);
                 FightUI.SetActive(true);
             }
-            if (roundStartCounter >= 4 && FightActive == true && ReadyActive == true)
+            if ((int)roundStartCounter >= 2.5f && FightActive == true && ReadyActive == true)
             {
                 FightUI.SetActive(false);
 
