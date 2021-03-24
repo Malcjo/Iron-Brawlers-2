@@ -699,18 +699,15 @@ public class Player : MonoBehaviour
     }
     void JumpingOrFallingTracker()
     {
-        if(Landed == false)
+        if (rb.velocity.y != 0)
         {
-            if (rb.velocity.y != 0)
+            if (rb.velocity.y > 0f)
             {
-                if (rb.velocity.y > 0f)
-                {
-                    _currentVerticalState = VState.jumping;
-                }
-                else if (rb.velocity.y < -0f)
-                {
-                    _currentVerticalState = VState.falling;
-                }
+                _currentVerticalState = VState.jumping;
+            }
+            else if (rb.velocity.y < -0f)
+            {
+                _currentVerticalState = VState.falling;
             }
         }
 
@@ -736,11 +733,12 @@ public class Player : MonoBehaviour
                 PlayParticle(ParticleType.Landing,Vector3.zero);
                 if(_hitStun != true)
                 {
-                    if(Landed == false)
+                    playerActions.Landing();
+                    if (Landed == false)
                     {
                         //landing = true;
                         //MyState = (new BusyState());
-                        playerActions.Landing();
+
                     }
                 }
                 LandOnGround(hit);
