@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int sceneIndex;
     private CameraScript cameraScript;
     public GameObject uimodule;
-    [SerializeField] private int leftBounds, rightBounds, belowBounds, highBounds;
+    [SerializeField] private float leftBounds, rightBounds, belowBounds, highBounds;
 
     [Header("In Game UI")]
     [SerializeField] GameObject player1Wins, player2Wins, player1Loses, bothLose;

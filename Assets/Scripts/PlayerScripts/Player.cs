@@ -714,7 +714,10 @@ public class Player : MonoBehaviour
     }
     #endregion
     #region Raycasts
-
+    public void SetVelocityToZero()
+    {
+        rb.velocity = Vector3.zero;
+    }
     public Wall GetCurrentWall()
     {
         return currentWall;

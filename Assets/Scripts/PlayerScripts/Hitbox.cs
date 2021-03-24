@@ -268,6 +268,7 @@ public class Hitbox : MonoBehaviour
     private void DamagingPlayer(Player DefendingPlayer, Player attackingPlayer, ArmourCheck armourCheck, HurtBox hurtBox)
     {
         DefendingPlayer.SetAddforceZero();
+        DefendingPlayer.SetVelocityToZero();
         DefendingPlayer.changeHeavyMoveValue(AttackType.HeavyJab ,0);
         DefendingPlayer.changeHeavyMoveValue(AttackType.Jab, 0);
         ApplyDamageToPlayer(DefendingPlayer, attackingPlayer, _attackType);
