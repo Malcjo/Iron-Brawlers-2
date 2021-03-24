@@ -1880,7 +1880,6 @@ Transform:
   - {fileID: 434138513200412084}
   - {fileID: 3096620735271383089}
   - {fileID: 3089005687951652787}
-  - {fileID: 6473247267805189435}
   - {fileID: 4849401485085409374}
   m_Father: {fileID: 4731719009213980586}
   m_RootOrder: 0
@@ -3330,7 +3329,7 @@ MonoBehaviour:
   ChestArmourMesh:
   - {fileID: 1456583493708856795}
   - {fileID: 5699843280091606759}
-  - {fileID: 5953275727548485505}
+  - {fileID: 0}
   - {fileID: 6755610840135456512}
   - {fileID: 7117338792149338845}
   - {fileID: 853247779606567556}
@@ -5753,87 +5752,6 @@ Transform:
   m_Father: {fileID: 3938678240389829088}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5953275727548485505
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6473247267805189435}
-  - component: {fileID: 7960749519686392478}
-  - component: {fileID: 5304876196282248788}
-  m_Layer: 0
-  m_Name: Flowerboi_Fist
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6473247267805189435
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5953275727548485505}
-  m_LocalRotation: {x: -0.45371696, y: 0.8900668, z: -0.022859175, w: 0.03741035}
-  m_LocalPosition: {x: 0.54203546, y: 0.9721167, z: 0.027679998}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5252328623272716175}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0.386, y: 174.989, z: -54.038}
---- !u!33 &7960749519686392478
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5953275727548485505}
-  m_Mesh: {fileID: 8277755530066937625, guid: 4ad9303e46b51a94ebc401b43166fe66, type: 3}
---- !u!23 &5304876196282248788
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5953275727548485505}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: c37ecc0d23a3a94488ffa89a7e6cec05, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6030745935270125730
 GameObject:
   m_ObjectHideFlags: 0
@@ -9088,7 +9006,7 @@ PrefabInstance:
     - target: {fileID: 4118374453891220294, guid: 63f5238cfe7aa2a42bc942442726cc8a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4118374453891220294, guid: 63f5238cfe7aa2a42bc942442726cc8a,
         type: 3}
