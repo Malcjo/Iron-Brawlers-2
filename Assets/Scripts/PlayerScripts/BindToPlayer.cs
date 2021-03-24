@@ -90,6 +90,13 @@ public class BindToPlayer : MonoBehaviour
         SceneManager.LoadScene(LevelSelectNumber);
         GameManager.instance.ConnectToGameManager(1);
         GameManager.instance.inGame = true;
+        StartCoroutine(delayRoundStart());
+    }
+    IEnumerator delayRoundStart()
+    {
+        yield return new WaitForSeconds(0.1f);
+        GameManager.instance.RoundStart = true;
+        GameManager.instance.RoundStartCountDown();
     }
     public void JoinGame(PlayerInput input)
     {

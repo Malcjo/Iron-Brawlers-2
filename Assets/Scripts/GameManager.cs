@@ -134,8 +134,12 @@ public class GameManager : MonoBehaviour
      * cross fade
      * 
      */
-
     public static GameManager instance;
+    [SerializeField] private bool _RoundStart;
+    public bool RoundStart {get { return _RoundStart; } set { _RoundStart = value; } }
+    [SerializeField] private float roundStartCounter;
+    [SerializeField] private GameObject ReadyUI;
+    [SerializeField] private GameObject FightUI;
 
     private void Awake()
     {
@@ -606,6 +610,55 @@ public class GameManager : MonoBehaviour
     {
         players.Add(player);
     }
+
+    public void RoundStartCountDown()
+    {
+        roundStartCounter = 0;
+        StartCoroutine(RoundStartLooper());
+    }
+    private IEnumerator RoundStartLooper()
+    {
+        //yield return new WaitForSeconds(0.5f);
+        while (_RoundStart)
+        {
+            bool ReadyActive = false;
+            bool FightActive = false;
+            Debug.Log("looping?");
+            roundStartCounter += 1 * Time.deltaTime;
+            if (players.Count > 0)
+            {
+                bindToPlayer.players[1].gameObject.SetActive(false);
+
+            }
+            bindToPlayer.players[0].gameObject.SetActive(false);
+
+
+            if (roundStartCounter >= 1 && ReadyActive == false)
+            {
+                ReadyActive = true;
+                ReadyUI.SetActive(true);
+            }
+            if (roundStartCounter >= 3 && FightActive == false)
+            {
+                FightActive = true;
+                ReadyUI.SetActive(false);
+                FightUI.SetActive(true);
+            }
+            if (roundStartCounter >= 4 && FightActive == true && ReadyActive == true)
+            {
+                FightUI.SetActive(false);
+
+                if (players.Count > 0)
+                {
+                    bindToPlayer.players[1].gameObject.SetActive(true);
+                }
+                bindToPlayer.players[0].gameObject.SetActive(true);
+                _RoundStart = false;
+            }
+
+            yield return null;
+        }
+    }
     private void TrackPlayerRounds()
     {
         TrackPlayer1Rounds();
@@ -650,7 +703,10 @@ public class GameManager : MonoBehaviour
             players[0].GetComponent<Player>().ResetGuage();
             player2Rounds++;
             ResetPlayers();
+            _RoundStart = true;
+            RoundStartCountDown();
         }
+
     }
     private void TrackPlayer2()
     {
@@ -659,7 +715,10 @@ public class GameManager : MonoBehaviour
             players[1].GetComponent<Player>().ResetGuage();
             player1Rounds++;
             ResetPlayers();
+            _RoundStart = true;
+            RoundStartCountDown();
         }
+
     }
     private void ResetPlayers()
     {
