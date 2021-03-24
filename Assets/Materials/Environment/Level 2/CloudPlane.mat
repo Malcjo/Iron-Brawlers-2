@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: CloudPlane
-  m_Shader: {fileID: -6465566751694194690, guid: a7ec879bf5d1aed48850a02f7a271fec,
+  m_Shader: {fileID: -6465566751694194690, guid: cbff3160850c933468ff10968270a8ae,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -124,21 +124,21 @@ Material:
     m_Floats:
     - Vector1_1C0AA6E0: 0.01
     - Vector1_28D287DC: 1
-    - Vector1_39277DFB: 5.9
+    - Vector1_39277DFB: 2.44
     - Vector1_3A7CFCC: 0
     - Vector1_457C9AA5: 0.6
     - Vector1_476B07D0: 0
-    - Vector1_54007CED: -3.74
+    - Vector1_54007CED: -4.75
     - Vector1_5C021DC1: 8.63
-    - Vector1_72070197: 0.46
-    - Vector1_77C7DB1D: 1.56
+    - Vector1_72070197: 0.34
+    - Vector1_77C7DB1D: 1.1
     - Vector1_7B39CAD0: 2.69
-    - Vector1_7EF99DF9: 1
+    - Vector1_7EF99DF9: 9.35
     - Vector1_839B7914: 0.008
     - Vector1_969FDC1F: 0
     - Vector1_9BC750AE: 0.01
     - Vector1_AA0ADF88: 2.5
-    - Vector1_ADB196EA: 6
+    - Vector1_ADB196EA: 4.7
     - Vector1_C4722B7C: 0
     - Vector1_CAE078CF: 0
     - Vector1_CBB7799C: 1
@@ -199,7 +199,7 @@ Material:
     - Color_8A477D84: {r: 1, g: 0, b: 0, a: 1}
     - Color_92797C55: {r: 0, g: 0, b: 0, a: 0}
     - Color_A8E3C850: {r: 1, g: 0, b: 0, a: 0}
-    - Color_DD18F21F: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}
+    - Color_DD18F21F: {r: 1, g: 1, b: 1, a: 1}
     - _Albedo1: {r: 1, g: 1, b: 1, a: 1}
     - _Albedo_SC: {r: 0.01, g: 0, b: 0, a: 0}
     - _Albedo_SinAnimParams: {r: 1, g: 0.05, b: 1, a: 0}
