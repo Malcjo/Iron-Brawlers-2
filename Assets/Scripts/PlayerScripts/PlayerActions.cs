@@ -14,13 +14,10 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] ArmourCheck armourCheck;
     [SerializeField] ParticleSystem ParticleSmearLines;
     public bool IsDoubleJump = false;
-    private string LastState;
+
 
     public int comboStep;
     public float comboTimer;
-
-
-
     private void Awake()
     {
         ParticleSmearLines.Stop();
@@ -65,6 +62,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.DebugModeOn == true)
         {
+            Debug.Log("Jab");
         }
         StartCoroutine(Jab()); 
     }
@@ -93,6 +91,7 @@ public class PlayerActions : MonoBehaviour
                 }
                 if (canMove == true)
                 {
+                    Debug.Log("Move Character");
                     self.MoveCharacterWithAttacks(JabMoveValue);
                 }
                 canMove = false;
@@ -110,6 +109,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.DebugModeOn == true)
         {
+            Debug.Log("Heavy");
         }
         StartCoroutine(_Heavy()); 
     }
@@ -141,6 +141,7 @@ public class PlayerActions : MonoBehaviour
                     }
                     if (canMove == true)
                     {
+                        Debug.Log("Move Character");
                         self.MoveCharacterWithAttacks(heavyAttackMoveValue);
                         canMove = false;
                     }
@@ -156,6 +157,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.DebugModeOn == true)
         {
+            Debug.Log("Aerial Attack");
         }
         StartCoroutine(_AerialAttack());
     }
@@ -190,6 +192,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.DebugModeOn == true)
         {
+            Debug.Log("Forward Aerial Attack");
         }
         self.SetState(new JumpingState());
     }
@@ -197,6 +200,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.DebugModeOn == true)
         {
+            Debug.Log("Back Aerial Attack");
         }
         self.SetState(new JumpingState());
     }
@@ -214,6 +218,11 @@ public class PlayerActions : MonoBehaviour
     //    }
     //    self.SetState(new IdleState());
     //}
+    public void Running()
+    {
+        anim.Play("RUN");
+        anim.speed = self.GetAbsolutInputValueForMovingAnimationSpeed();
+    }
     public void Landing()
     {
         StartCoroutine(_Landing());
@@ -233,26 +242,11 @@ public class PlayerActions : MonoBehaviour
         self.SetState(new IdleState());
     }
 
-    public const string RUNKEY = "RUN";
-    const string IDLEKEY = "IDLE";
-    private void TransitionToAnimation(string animation, float time)
-    {
-        if (LastState != animation)
-        {
-            anim.CrossFade(animation, time);
-            LastState = animation;
-        }
-    }
-    public void Running()
-    {
-        TransitionToAnimation(RUNKEY, 0.02f);
-        anim.speed = self.GetAbsolutInputValueForMovingAnimationSpeed();
-    }
-
     public void Idle()
     {
         anim.speed = 1;
-        TransitionToAnimation(IDLEKEY, 0.1f);
+        anim.Play("IDLE");
+
     }
 
     public void Crouching()
@@ -276,6 +270,7 @@ public class PlayerActions : MonoBehaviour
     }
     private IEnumerator _ExitCrouch()
     {
+        yield return null;
         for (int i = 0; i < playerLegGeometry.Length; i++)
         {
             var tempMaterial = playerLegGeometry[i].GetComponent<SkinnedMeshRenderer>();
@@ -287,7 +282,6 @@ public class PlayerActions : MonoBehaviour
             tempMaterial.material = armourMaterial;
         }
         self.SetState(new IdleState());
-        return null;
     }
     public void StopCrouchBlock()
     {
@@ -295,6 +289,7 @@ public class PlayerActions : MonoBehaviour
     }
     private IEnumerator _StopCrouchBlock()
     {
+        yield return null;
         for (int i = 0; i < playerLegGeometry.Length; i++)
         {
             var tempMaterial = playerLegGeometry[i].GetComponent<SkinnedMeshRenderer>();
@@ -305,7 +300,6 @@ public class PlayerActions : MonoBehaviour
             var tempMaterial = playerArmourLegGeometry[i].GetComponent<MeshRenderer>();
             tempMaterial.material = armourMaterial;
         }
-        return null;
     }
     public void LegSweep()
     {
@@ -396,6 +390,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.VerticalState == Player.VState.grounded)
         {
+            Debug.Log("End hit stun");
             self.SetState(new IdleState());
         }
         else
