@@ -10,29 +10,44 @@ public class CrouchingState : PlayerState
     }
     public override void RunState(Player self, Rigidbody body, PlayerActions actions, ArmourCheck armour, InputState input, Calculating calculate)
     {
+        //var actionTaken = false;
         body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.addForce;
-        actions.Crouching();
+
+        if (CrouchingCheck(input.crouchInput))
+        {
+            self.Crouching = true;
+            actions.Crouching();
+            if (HeavyCheck(input.heavyInput))
+            {
+                //actionTaken = true;
+                self.CanMove = false;
+                self.CanTurn = false;
+                actions.LegSweep();
+                self.SetState(new BusyState());
+            }
+            if (ArmourBreakCheck(input.armourBreakInput))
+            {
+                //actionTaken = false;
+                if (armour.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none && armour.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none)
+                {
+                    return;
+                }
+                self.PlayParticle(ParticleType.ArmourBreak, Vector3.zero);
+                actions.ArmourBreak();
+                self.SetState(new BusyState());
+            }
+        }
         if (!CrouchingCheck(input.crouchInput))
         {
+            self.Crouching = false;
             actions.ExitCrouch();
+            //actions.Idle();
         }
-        if (HeavyCheck(input.heavyInput))
-        {
-            self.CanMove = false;
-            self.CanTurn = false;
-            actions.LegSweep();
-            self.SetState(new BusyState());
-        }
-        if (ArmourBreakCheck(input.armourBreakInput))
-        {
-            if(armour.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none && armour.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none)
-            {
-                return;
-            }
-            self.PlayParticle(ParticleType.ArmourBreak, Vector3.zero);
-            actions.ArmourBreak();
-            self.SetState(new BusyState());
-        }
+
+        //if (!actionTaken)
+        //{
+        //    self.SetState(new IdleState());
+        //}
 
     }
 }
