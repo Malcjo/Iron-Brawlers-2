@@ -9,8 +9,7 @@
         "OPTIONS",
         "STYLIZATION",
         "SPECIAL EFFECTS",
-        "SHADER STATES",
-        "LIGHTING"
+        "SHADER STATES"
     ],
     "UseCustomFont": true,
     "CustomFont": {
