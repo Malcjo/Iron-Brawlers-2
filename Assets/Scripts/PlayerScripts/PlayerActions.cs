@@ -234,11 +234,7 @@ public class PlayerActions : MonoBehaviour
     //    }
     //    self.SetState(new IdleState());
     //}
-    public void Running()
-    {
-        anim.Play("RUN");
-        anim.speed = self.GetAbsolutInputValueForMovingAnimationSpeed();
-    }
+
     public void Landing()
     {
         StartCoroutine(_Landing());
@@ -259,7 +255,7 @@ public class PlayerActions : MonoBehaviour
         self.SetState(new IdleState());
     }
 
-
+    private string LastState;
     private void TransitionToAnimation(string animation, float time)
     {
         if (LastState != animation)
@@ -277,7 +273,7 @@ public class PlayerActions : MonoBehaviour
     public void Idle()
     {
         anim.speed = 1;
-        anim.Play("IDLE");
+        TransitionToAnimation(IDLEKEY, 0.02f);
 
     }
 
