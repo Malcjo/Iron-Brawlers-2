@@ -29,6 +29,9 @@ public class PlayerActions : MonoBehaviour
     const string JUMPINGKEY = "JUMP";
     const string ARMOURBREAKKEY = "ARMOUR_BREAK";
     const string BLOCKKEY = "BLOCK_IDLE";
+    const string NORMALHITSTUNKEY = "HITSTUN_NORMAL_HIT";
+    const string KNOCKDOWNKEY = "KNOCKDOWN_NORMAL";
+    const string GETTINGUPKEY = "GETTING_UP_NORMAL";
 
     private void Awake()
     {
@@ -273,20 +276,13 @@ public class PlayerActions : MonoBehaviour
             var tempMaterial = playerLegGeometry[i].GetComponent<SkinnedMeshRenderer>();
             tempMaterial.material = legBlocking;
         }
-        for (int i = 0; i < playerArmourLegGeometry.Length; i++)
-        {
-            var tempMaterial = playerArmourLegGeometry[i].GetComponent<MeshRenderer>();
-            tempMaterial.material = armourBlocking;
-        }
+        SetArmourToCrouchBlock();
+
         TransitionToAnimation(CROUCHKEY, 0.01f);
         //anim.Play("CROUCH_IDLE");
         anim.speed = 1;
     }
     public void ExitCrouch()
-    {
-        StartCoroutine(_ExitCrouch());
-    }
-    private IEnumerator _ExitCrouch()
     {
         for (int i = 0; i < playerLegGeometry.Length; i++)
         {
@@ -299,6 +295,11 @@ public class PlayerActions : MonoBehaviour
             tempMaterial.material = armourMaterial;
         }
         self.SetState(new IdleState());
+        //StartCoroutine(_ExitCrouch());
+    }
+    private IEnumerator _ExitCrouch()
+    {
+
         return null;
     }
     public void StopCrouchBlock()
@@ -433,16 +434,7 @@ public class PlayerActions : MonoBehaviour
             var tempMaterial = playerGeometry[i].GetComponent<SkinnedMeshRenderer>();
             tempMaterial.material = normalSkinBlocking;
         }
-        for (int i = 0; i < playerArmourHeadGeometry.Length; i++)
-        {
-            var tempMaterial = playerArmourHeadGeometry[i].GetComponent<MeshRenderer>();
-            tempMaterial.material = armourBlocking;
-        }
-        for (int i = 0; i < playerArmourTorsoGeometry.Length; i++)
-        {
-            var tempMaterial = playerArmourTorsoGeometry[i].GetComponent<MeshRenderer>();
-            tempMaterial.material = armourBlocking;
-        }
+        SetArmourToNormalBlock();
         TransitionToAnimation(BLOCKKEY, 0.01f);
         //StartCoroutine(_EnterBlock());
     }
@@ -519,6 +511,27 @@ public class PlayerActions : MonoBehaviour
         {
             var tempMaterial = playerArmourLegGeometry[i].GetComponent<MeshRenderer>();
             tempMaterial.material = armourDamage;
+        }
+    }
+    public void SetArmourToNormalBlock()
+    {
+        for (int i = 0; i < playerArmourHeadGeometry.Length; i++)
+        {
+            var tempMaterial = playerArmourHeadGeometry[i].GetComponent<MeshRenderer>();
+            tempMaterial.material = armourBlocking;
+        }
+        for (int i = 0; i < playerArmourTorsoGeometry.Length; i++)
+        {
+            var tempMaterial = playerArmourTorsoGeometry[i].GetComponent<MeshRenderer>();
+            tempMaterial.material = armourBlocking;
+        }
+    }
+    public void SetArmourToCrouchBlock()
+    {
+        for (int i = 0; i < playerArmourLegGeometry.Length; i++)
+        {
+            var tempMaterial = playerArmourLegGeometry[i].GetComponent<MeshRenderer>();
+            tempMaterial.material = armourBlocking;
         }
     }
     public void ResetArmourDamage()
@@ -614,12 +627,14 @@ public class PlayerActions : MonoBehaviour
     {
         StartCoroutine(KnockBack());
     }
+
     IEnumerator KnockBack()
     {
         self.HitStun = true;
         self.SetState(new BusyState());
         yield return null;
-        anim.Play("HITSTUN_NORMAL_HIT");
+        TransitionToAnimation(NORMALHITSTUNKEY, 0.01f);
+        //anim.Play("HITSTUN_NORMAL_HIT");
         anim.speed = 2;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
@@ -637,7 +652,8 @@ public class PlayerActions : MonoBehaviour
         self.HitStun = true;
         self.CanTurn = false;
         self.SetState(new BusyState());
-        anim.Play("HITSTUN_NORMAL_HIT");
+        TransitionToAnimation(NORMALHITSTUNKEY, 0.01f);
+        //anim.Play("HITSTUN_NORMAL_HIT");
         anim.speed = 2;
         yield return null;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
@@ -655,13 +671,15 @@ public class PlayerActions : MonoBehaviour
     {
         StartCoroutine(_KnockDown());
     }
+
     private IEnumerator _KnockDown()
     {
         self.HitStun = true;
         self.CanTurn = false;
         self.SetState(new BusyState());
+        TransitionToAnimation(KNOCKDOWNKEY, 0.01f);
         //anim.Play("HITSTUN_NORMAL_HIT");
-        anim.Play("KNOCKDOWN_NORMAL");
+        //anim.Play("KNOCKDOWN_NORMAL");
         anim.speed = 2.5f;
         yield return null;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
@@ -676,11 +694,13 @@ public class PlayerActions : MonoBehaviour
         self.SetState(new BusyState());
         StartCoroutine(GetBackUp());
     }
+
     private IEnumerator GetBackUp()
     {
         self.HitStun = true;
         self.CanTurn = false;
-        anim.Play("GETTING_UP_NORMAL");
+        TransitionToAnimation(GETTINGUPKEY, 0.01f);
+        //anim.Play("GETTING_UP_NORMAL");
         anim.speed = 2;
         yield return null;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.8f)

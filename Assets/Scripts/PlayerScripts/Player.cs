@@ -98,7 +98,9 @@ public class Player : MonoBehaviour
     public int characterType;
     private bool _inAir;
     [SerializeField] private bool _moving;
-    public bool Moving {get { return _moving; } set { _moving = value; } }
+
+
+    public bool Moving { get { return _moving; } set { _moving = value; } }
     public bool WasAttacking { get { return _wasAttacking; } set { _wasAttacking = value; } }
     public bool UseGravity { get { return _gravityOn; } set { _gravityOn = value; } }
     public bool InAir { get { return _inAir; } set { _inAir = value; } }
@@ -114,7 +116,8 @@ public class Player : MonoBehaviour
     public float SlideFricton { get { return _SlideFriction; } }
     public VState VerticalState { get { return _currentVerticalState; } set { _currentVerticalState = value; } }
     //public VState PreviousVerticalState { get { return _previousVerticalState; } set { _previousVerticalState = value; } }
-
+    private bool _crouching;
+    public bool Crouching {get { return _crouching; } set { _crouching = value; } }
 
     [SerializeField] private float attackedFreezeCounter;
     [SerializeField] private float MaxFreezeCounter;

@@ -15,6 +15,7 @@ public class CrouchingState : PlayerState
 
         if (CrouchingCheck(input.crouchInput))
         {
+            self.Crouching = true;
             actions.Crouching();
             if (HeavyCheck(input.heavyInput))
             {
@@ -38,7 +39,9 @@ public class CrouchingState : PlayerState
         }
         if (!CrouchingCheck(input.crouchInput))
         {
-            actions.Idle();
+            self.Crouching = false;
+            actions.ExitCrouch();
+            //actions.Idle();
         }
 
         //if (!actionTaken)
