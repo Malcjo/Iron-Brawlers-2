@@ -22,8 +22,10 @@ public class PlayerActions : MonoBehaviour
     const string IDLEKEY = "IDLE";
     const string CROUCHKEY = "CROUCH_IDLE";
     const string SWEEPKEY = "SWEEP";
+    const string HEAVYKEY = "HEAVY";
     const string LANDKEY = "LANDING";
     const string JABKEY = "JAB";
+    const string AERIALKEY = "AERIAL";
     const string DOUBLEJUMPKEY = "DOUBLE_JUMP";
     const string FALLINGKEY = "FALLING";
     const string JUMPINGKEY = "JUMP";
@@ -77,7 +79,6 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.DebugModeOn == true)
         {
-            Debug.Log("Jab");
         }
         StartCoroutine(Jab()); 
     }
@@ -107,7 +108,7 @@ public class PlayerActions : MonoBehaviour
                 }
                 if (canMove == true)
                 {
-                    Debug.Log("Move Character");
+
                     self.MoveCharacterWithAttacks(JabMoveValue);
                 }
                 canMove = false;
@@ -125,7 +126,6 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.DebugModeOn == true)
         {
-            Debug.Log("Heavy");
         }
         StartCoroutine(_Heavy()); 
     }
@@ -133,7 +133,7 @@ public class PlayerActions : MonoBehaviour
     private IEnumerator _Heavy()
     {
         bool canMove = true;
-        anim.Play("HEAVY");
+        TransitionToAnimation(HEAVYKEY, 0.02f);
         FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
         anim.speed = 1;
         yield return null;
@@ -157,7 +157,7 @@ public class PlayerActions : MonoBehaviour
                     }
                     if (canMove == true)
                     {
-                        Debug.Log("Move Character");
+
                         self.MoveCharacterWithAttacks(heavyAttackMoveValue);
                         canMove = false;
                     }
@@ -173,7 +173,6 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.DebugModeOn == true)
         {
-            Debug.Log("Aerial Attack");
         }
         StartCoroutine(_AerialAttack());
     }
@@ -181,7 +180,8 @@ public class PlayerActions : MonoBehaviour
     private IEnumerator _AerialAttack()
     {
         //self.MoveCharacterWithAttacks(200);
-        anim.Play("AERIAL");
+
+        TransitionToAnimation(AERIALKEY, 0.01f);
         FindObjectOfType<AudioManager>().Play(AudioManager.AERIALMISS);
         anim.speed = 1;
         self.CanTurn = false;
@@ -208,7 +208,6 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.DebugModeOn == true)
         {
-            Debug.Log("Forward Aerial Attack");
         }
         self.SetState(new JumpingState());
     }
@@ -216,7 +215,6 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.DebugModeOn == true)
         {
-            Debug.Log("Back Aerial Attack");
         }
         self.SetState(new JumpingState());
     }
@@ -424,7 +422,6 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.VerticalState == Player.VState.grounded)
         {
-            Debug.Log("End hit stun");
             self.SetState(new IdleState());
         }
         else
@@ -662,9 +659,10 @@ public class PlayerActions : MonoBehaviour
         self.HitStun = true;
         self.CanTurn = false;
         self.SetState(new BusyState());
+        anim.speed = 2;
         TransitionToAnimation(NORMALHITSTUNKEY, 0.01f);
         //anim.Play("HITSTUN_NORMAL_HIT");
-        anim.speed = 2;
+
         yield return null;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
@@ -687,14 +685,21 @@ public class PlayerActions : MonoBehaviour
         self.HitStun = true;
         self.CanTurn = false;
         self.SetState(new BusyState());
+        anim.speed = 2.5f;
         TransitionToAnimation(KNOCKDOWNKEY, 0.01f);
         //anim.Play("HITSTUN_NORMAL_HIT");
         //anim.Play("KNOCKDOWN_NORMAL");
-        anim.speed = 2.5f;
+        //grab stuff off server and do boots
+
         yield return null;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
-            yield return null;
+            anim.speed = 3f;
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.5f)
+            {
+                yield return null;
+            }
+                yield return null;
         }
         _GetBackUp();
         StopCoroutine(_KnockDown());
@@ -709,9 +714,10 @@ public class PlayerActions : MonoBehaviour
     {
         self.HitStun = true;
         self.CanTurn = false;
+        anim.speed = 3;
         TransitionToAnimation(GETTINGUPKEY, 0.01f);
         //anim.Play("GETTING_UP_NORMAL");
-        anim.speed = 2;
+
         yield return null;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.8f)
         {

@@ -20,7 +20,7 @@ public class IdleState : PlayerState
             {
                 self.CanMove = true;
                 self.CanTurn = true;
-                body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0) + calculate.addForce;
+                body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0);
 
                 self.SetState(new MovingState());
                 //actionTaken = true;
@@ -32,9 +32,8 @@ public class IdleState : PlayerState
             }
             if (CrouchingCheck(input.crouchInput))
             {
-                Debug.Log("Crouching");
                 //body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
-                body.velocity = new Vector3(0, 0, 0) + calculate.addForce;
+                body.velocity = new Vector3(0, 0, 0);
                 self.SetState(new CrouchingState());
                 //actionTaken = true;
             }
@@ -45,7 +44,7 @@ public class IdleState : PlayerState
                 {
                     self.CanTurn = false;
                     self.InAir = true;
-                    body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce, body.velocity.z)) + calculate.addForce;
+                    body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce, body.velocity.z));
                     self.JumpingOrFallingAnimations();
                     self.AddOneToJumpIndex();
                     self.SetState(new JumpingState());

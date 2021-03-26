@@ -3406,7 +3406,6 @@ MonoBehaviour:
   friction: 5
   normalFriction: 0.3
   slideFriction: 0.1
-  maxLives: 3
   landing: 0
   speed: 6.5
   weight: 22
@@ -3427,9 +3426,13 @@ MonoBehaviour:
   playerImage: {fileID: 0}
   CurrentVelocity: 0
   YVelocity: 0
-  V3Velocity: {x: 0, y: 0, z: 0}
   DebugModeOn: 0
   jumpForce: 9
+  jabHitStun: 0.5
+  sweepHitStun: 0.75
+  heavyHitStun: 0.75
+  aerialHitStun: 0.75
+  armourBreakHitStun: 1
   maxHitStunTime: 1
   _hitStun: 0
   _blocking: 0
@@ -3437,15 +3440,13 @@ MonoBehaviour:
   _gravityOn: 0
   canDoubleJump: 0
   _currentJumpIndex: 0
-  addForceValue: {x: 0, y: 0, z: 0}
+  overrideForce: {x: 0, y: 0, z: 0}
   facingDirection: 0
   lives: 0
-  characterType: 0
   _moving: 0
   _SlideFriction: 0
   attackedFreezeCounter: 0
   MaxFreezeCounter: 1
-  _TempAttackedVelocity: {x: 0, y: 0, z: 0}
   freezeAttackedPlayer: 0
   attackingFreezeCounter: 0
   _TempAttackingVelocity: {x: 0, y: 0, z: 0}
@@ -3455,7 +3456,7 @@ MonoBehaviour:
   StandaloneSpawnPoint: {fileID: 0}
   _interuptSliderSetToZero: 0
   Delaycounter: 0
-  Landed: 0
+  V3Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1181940027119994825
 MonoBehaviour:
   m_ObjectHideFlags: 0

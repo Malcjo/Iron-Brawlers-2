@@ -38,7 +38,7 @@ public class MovingState : PlayerState
                 self.CanMove = true;
                 self.CanTurn = true;
                 //body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.addForce;
-                body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0) + calculate.addForce;
+                body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0);
             }
 
             if (!MovementCheck(input.horizontalInput))
@@ -58,10 +58,10 @@ public class MovingState : PlayerState
                 //self.StopRunningParticle();
                 self.CanMove = true;
                 self.CanTurn = true;
-                body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0) + calculate.addForce;
+                body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                 if (body.velocity.x < 0.25f && body.velocity.x > -0.25f)
                 {
-                    body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.addForce;
+                    body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.overrideForce;
                 }
                 if (body.velocity.x == 0)
                 {
@@ -114,7 +114,7 @@ public class MovingState : PlayerState
             if (CrouchingCheck(input.crouchInput))
             {
                 //body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
-                body.velocity = new Vector3(0, 0, 0) + calculate.addForce;
+                body.velocity = new Vector3(0, 0, 0) + calculate.overrideForce;
                 actions.Crouching();
                 self.SetState(new CrouchingState());
             }
@@ -160,7 +160,7 @@ public class MovingState : PlayerState
                 if (MovementCheck(input.horizontalInput))
                 {
                     //body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.addForce;
-                    body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0) + calculate.addForce;
+                    body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0);
 
                     if (self.CanTurn == true)
                     {
@@ -228,7 +228,7 @@ public class MovingState : PlayerState
                             self.canDoubleJump = false;
                             self.CanTurn = false;
                             self.InAir = true;
-                            body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce + 2, body.velocity.z)) + calculate.addForce;
+                            body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce + 2, body.velocity.z));
                             self.JumpingOrFallingAnimations();
                             self.AddOneToJumpIndex();
                             self.PlayParticle(ParticleType.DoubleJump, Vector3.zero);
@@ -245,10 +245,10 @@ public class MovingState : PlayerState
                 self.CanMove = true;
                 self.CanTurn = false;
                 self.InAir = true;
-                body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0) + calculate.addForce;
+                body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                 if (body.velocity.x < 0.25f && body.velocity.x > -0.25f)
                 {
-                    body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.addForce;
+                    body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.overrideForce;
                 }
                 if (body.velocity.x == 0)
                 {
@@ -263,7 +263,7 @@ public class MovingState : PlayerState
             {
                 self.CanTurn = false;
                 self.InAir = true;
-                body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce + 2, body.velocity.z)) + calculate.addForce;
+                body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce + 2, body.velocity.z));
                 self.JumpingOrFallingAnimations();
                 self.AddOneToJumpIndex();
                 self.SetState(new JumpingState());

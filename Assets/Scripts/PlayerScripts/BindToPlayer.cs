@@ -40,20 +40,20 @@ public class BindToPlayer : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            LevelSelectNumber = 1;
-            SetLevelSelectedNumber(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            LevelSelectNumber = 2;
-            SetLevelSelectedNumber(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            GameManager.instance.StartGame = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha9))
+        //{
+        //    LevelSelectNumber = 1;
+        //    SetLevelSelectedNumber(1);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha0))
+        //{
+        //    LevelSelectNumber = 2;
+        //    SetLevelSelectedNumber(2);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha8))
+        //{
+        //    GameManager.instance.StartGame = true;
+        //}
         if (SceneManager.GetActiveScene() == menuScene)
         {
             if (GameManager.instance.GetPlayer1Ready() == true && GameManager.instance.GetPlayer2Ready() == true)

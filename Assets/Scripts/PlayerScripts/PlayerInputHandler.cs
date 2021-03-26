@@ -79,7 +79,7 @@ public class PlayerInputHandler : MonoBehaviour
         //currentWall = player.GetCurrentWall();
         if(playerCharacter == null)
         {
-            print("player in null");
+
 
             if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
             {
@@ -295,10 +295,9 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] float contextValue;
     public void HorizontalInput(CallbackContext context)
     {
-        print("hit button1");
+
         if (currentScene.buildIndex == SceneManager.GetSceneByBuildIndex(0).buildIndex && canAct)
         {
-            print("hit button2");
             if (context.started)
             {
 

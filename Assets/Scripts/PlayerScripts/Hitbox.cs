@@ -266,10 +266,6 @@ public class Hitbox : MonoBehaviour
     }
     private void DamagingPlayer(Player DefendingPlayer, Player attackingPlayer, ArmourCheck armourCheck, HurtBox hurtBox)
     {
-        DefendingPlayer.SetAddforceZero();
-        DefendingPlayer.SetVelocityToZero();
-        DefendingPlayer.changeHeavyMoveValue(AttackType.HeavyJab ,0);
-        DefendingPlayer.changeHeavyMoveValue(AttackType.Jab, 0);
         ApplyDamageToPlayer(DefendingPlayer, attackingPlayer, _attackType);
         if (hurtBox.BodyLocation == LocationTag.Chest)
         {
@@ -298,20 +294,32 @@ public class Hitbox : MonoBehaviour
     }
     void ApplyDamageToPlayer(Player defendingPlayer, Player attackingPlayer, AttackType attackType)
     {
-
-
         defendingPlayer.FreezeCharacterBeingAttacked(KnockBackStrength(), attackingPlayer.GetFacingDirection());
         attackingPlayer.FreezeCharacterAttacking();
-        if(attackType == AttackType.Aerial || attackType == AttackType.ArmourBreak || attackType == AttackType.HeavyJab)
+        if(attackType == AttackType.Aerial)
         {
-            defendingPlayer.MaxHitStun = 1.5f;
+            defendingPlayer.MaxHitStun = defendingPlayer.aerialHitStun;
+            defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
+            defendingPlayer.HitStun = true;
+            defendingPlayer.KnockDown();
+        }
+        else if (attackType == AttackType.HeavyJab)
+        {
+            defendingPlayer.MaxHitStun = defendingPlayer.heavyHitStun;
+            defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
+            defendingPlayer.HitStun = true;
+            defendingPlayer.KnockDown();
+        }
+        else if(attackType == AttackType.ArmourBreak)
+        {
+            defendingPlayer.MaxHitStun = defendingPlayer.armourBreakHitStun;
             defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
             defendingPlayer.HitStun = true;
             defendingPlayer.KnockDown();
         }
         else if(attackType == AttackType.LegSweep)
         {
-            defendingPlayer.MaxHitStun = 1.5f;
+            defendingPlayer.MaxHitStun = defendingPlayer.sweepHitStun;
             defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
             defendingPlayer.HitStun = true;
             defendingPlayer.KnockDown();
@@ -319,7 +327,7 @@ public class Hitbox : MonoBehaviour
         }
         else if(attackType == AttackType.Jab)
         {
-            defendingPlayer.MaxHitStun = 1f;
+            defendingPlayer.MaxHitStun = defendingPlayer.jabHitStun;
             defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
             defendingPlayer.HitStun = true;
             defendingPlayer.JabKnockBack();

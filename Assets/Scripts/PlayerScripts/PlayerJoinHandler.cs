@@ -11,7 +11,7 @@ public class PlayerJoinHandler : MonoBehaviour
     {
         if (GameManager.instance.canJoin == true)
         {
-            print("Spawn Player");
+
             currentPlayerBind.JoinGame(input);
         }
     }

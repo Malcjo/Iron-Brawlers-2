@@ -20,7 +20,8 @@ public abstract class PlayerState
         public float jumpForce;
         public float friction;
         public float characterSpeed;
-        public Vector3 addForce;
+        public Vector3 overrideForce;
+        public float gravityValue;
     }
     /*
     * idle state doing nothing

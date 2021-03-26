@@ -11,7 +11,7 @@ public class CrouchingState : PlayerState
     public override void RunState(Player self, Rigidbody body, PlayerActions actions, ArmourCheck armour, InputState input, Calculating calculate)
     {
         //var actionTaken = false;
-        body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.addForce;
+        body.velocity = new Vector3(0, body.velocity.y, 0);
 
         if (CrouchingCheck(input.crouchInput))
         {

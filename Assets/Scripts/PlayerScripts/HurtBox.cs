@@ -42,7 +42,7 @@ public class HurtBox : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         transform.localPosition = Vector3.zero;
     }

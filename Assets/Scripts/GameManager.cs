@@ -155,7 +155,6 @@ public class GameManager : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        print(sceneIndex);
         sceneIndex = 0;
         if (eventSystem != null)
         {
@@ -347,7 +346,6 @@ public class GameManager : MonoBehaviour
         SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
         CharacterSelect.SetActive(false);
         MainMenu.SetActive(true);
-        print(GameObject.FindGameObjectWithTag("Event"));
         eventSystem = GameObject.FindGameObjectWithTag("Event");
         inputManager = eventSystem.gameObject.GetComponent<PlayerInputManager>();
         eventSystem.gameObject.GetComponent<EventSystem>().firstSelectedGameObject = PlayButton.gameObject;
@@ -624,7 +622,7 @@ public class GameManager : MonoBehaviour
 
             bool ReadyActive = false;
             bool FightActive = false;
-            Debug.Log("looping?");
+
             roundStartCounter += 1 * Time.deltaTime;
             if (players.Count > 0)
             {

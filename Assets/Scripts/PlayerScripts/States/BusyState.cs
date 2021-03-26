@@ -5,46 +5,31 @@ using UnityEngine.UI;
 
 public class BusyState : PlayerState
 {
+    private float gravityAdder;
     public override string GiveName()
     {
         return "BusyState";
     }
     public override void RunState(Player self, Rigidbody body, PlayerActions actions, ArmourCheck armour, InputState input, Calculating calculate)
     {
-        if (self.CanMove == true)
+        // when bouncing do not use overrideforce, set velocity directly
+        gravityAdder += calculate.gravityValue * Time.deltaTime;
+        if (self.VerticalState == Player.VState.grounded)
         {
-            if (self.VerticalState == Player.VState.grounded)
+            body.velocity = calculate.overrideForce;
+        } else
+        {
+            if (!self.CanMove)
             {
-                body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0) + calculate.addForce;
+                body.velocity = calculate.overrideForce + Vector3.down * gravityAdder;
+
             }
             else
             {
-                body.velocity = new Vector3(input.horizontalInput * (calculate.characterSpeed / 1.5f), body.velocity.y, 0) + calculate.addForce;
-                //body.velocity = new Vector3(body.velocity.x, body.velocity.y, 0) + calculate.addForce;
+                body.velocity = new Vector3((calculate.overrideForce.x + (input.horizontalInput * calculate.characterSpeed)), calculate.overrideForce.y, 0) + Vector3.down * gravityAdder;
             }
         }
-        else if (self.CanMove == false)
-        {
-            //body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.addForce;
-            //body.velocity = new Vector3(body.velocity.x, body.velocity.y, 0) + calculate.addForce;
-            //self.CanMove = true;
-            //body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
-            body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0) + calculate.addForce;
-            if (self.GetFacingDirection() > 0)
-            {
-                if (body.velocity.x < 0.1f)
-                {
-                    body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.addForce;
-                }
-            }
-            else if (self.GetFacingDirection() < 0)
-            {
-                if (body.velocity.x > -0.1f)
-                {
-                    body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.addForce;
-                }
-            }
-        }
+        //need to add a can act out of bool to exit out of busy state, need to be set in player actions script near the end of certain animations
         if (self.landing == true)
         {
             if (MovementCheck(input.horizontalInput))
@@ -52,7 +37,7 @@ public class BusyState : PlayerState
                 self.landing = false;
                 self.CanMove = true;
                 self.CanTurn = true;
-                body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0) + calculate.addForce;
+                body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0) + calculate.overrideForce;
 
                 self.SetState(new MovingState());
             }
@@ -60,7 +45,7 @@ public class BusyState : PlayerState
             {
                 self.landing = false;
                 //body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
-                body.velocity = new Vector3(0, 0, 0) + calculate.addForce;
+                body.velocity = new Vector3(0, 0, 0) + calculate.overrideForce;
                 self.SetState(new CrouchingState());
             }
         }

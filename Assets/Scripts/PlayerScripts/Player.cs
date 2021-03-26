@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     [SerializeField] public float gravityValue = -10f;
     [SerializeField] private float friction = 0.25f;
     [SerializeField] private float normalFriction, slideFriction;
-    [SerializeField] private int maxLives = 3;
     public bool landing = false;
     [SerializeField] private float speed = 6.5f;
 
@@ -53,7 +52,6 @@ public class Player : MonoBehaviour
     [Header("Observation Values")]
     [SerializeField] private float CurrentVelocity;
     [SerializeField] private float YVelocity;
-    [SerializeField] private Vector3 V3Velocity;
 
     public bool DebugModeOn;
 
@@ -63,11 +61,10 @@ public class Player : MonoBehaviour
     private float distanceToLeft;
     [SerializeField] private float jumpForce = 9;
     private float hitStunTimer;
+    public float jabHitStun, sweepHitStun, heavyHitStun, aerialHitStun, armourBreakHitStun;
     public float HitStunTimer { get{ return hitStunTimer; } set { hitStunTimer = value; } }
     [SerializeField] private float maxHitStunTime;
     public float MaxHitStun { get{ return maxHitStunTime; }set  { maxHitStunTime = value; } }
-    private bool canHitBox;
-    private bool hasArmour;
     [SerializeField] private bool _hitStun;
 
     [SerializeField] private bool _blocking;
@@ -75,9 +72,7 @@ public class Player : MonoBehaviour
     private bool _canBlock;
     [SerializeField] private bool _canMove;
 
-    private bool canJump;
     private bool canAirMove;
-    private bool reduceAddForce;
 
     [SerializeField] private bool _gravityOn;
 
@@ -86,8 +81,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int _currentJumpIndex;
     private int maxJumps = 2;
 
-    [SerializeField] private Vector3 addForceValue;
-    private Vector3 hitDirection;
+    [SerializeField] private Vector3 overrideForce;
 
     private Wall currentWall;
     private PlayerState MyState;
@@ -95,7 +89,6 @@ public class Player : MonoBehaviour
     private bool _wasAttacking;
     [SerializeField] private int facingDirection;
     public int lives;
-    public int characterType;
     private bool _inAir;
     [SerializeField] private bool _moving;
 
@@ -121,7 +114,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float attackedFreezeCounter;
     [SerializeField] private float MaxFreezeCounter;
-    [SerializeField] private Vector3 _TempAttackedVelocity;
     [SerializeField] private bool freezeAttackedPlayer;
 
     [SerializeField] private float attackingFreezeCounter;
@@ -130,6 +122,7 @@ public class Player : MonoBehaviour
     private float _PlayerInput;
     private Vector3 _TempDirection;
     private Vector3 _tempPower;
+    private Vector3 _attackersFacingDirection;
     [SerializeField] private bool isDummy;
 
     [SerializeField] private Transform SpawnPoint;
@@ -212,7 +205,7 @@ public class Player : MonoBehaviour
             }
             Delaycounter = 0;
         }
-        CheckDirection();
+
 
     }
     [SerializeField] private bool _interuptSliderSetToZero;
@@ -256,10 +249,11 @@ public class Player : MonoBehaviour
     }
     public void SetAddforceZero()
     {
-        addForceValue = Vector3.zero;
+        overrideForce = Vector3.zero;
     }
     private void FixedUpdate()
     {
+        CheckDirection();
         FindFacingDirection();
         CharacterStates();
         Observation();
@@ -298,10 +292,11 @@ public class Player : MonoBehaviour
                 jumpForce = JumpForceCalculator(),
                 friction = friction,
                 characterSpeed = SetPlayerSpeed(),
-                addForce = addForceValue
+                overrideForce = overrideForce,
+                gravityValue = _gravityOn ? totalGravityValue : 0
             }
-            ); ; ;
-        Debug.DrawRay(rb.position, addForceValue);
+            );
+        Debug.DrawRay(rb.position, overrideForce * 10, Color.yellow);
     }
 
     public PlayerState GetMyState()
@@ -380,7 +375,7 @@ public class Player : MonoBehaviour
     {
         if (rb.velocity.y < -20)
         {
-            rb.velocity = new Vector3(playerInputHandler.GetHorizontal() * SetPlayerSpeed(), -20, 0) + addForceValue;
+            rb.velocity = new Vector3(playerInputHandler.GetHorizontal() * SetPlayerSpeed(), -20, 0) + overrideForce;
         }
     }
     void GravityCheck()
@@ -400,7 +395,7 @@ public class Player : MonoBehaviour
         rb.AddForce(new Vector3((facingDirection * MoveStrength), rb.velocity.y, 0));
         StartCoroutine(StopCharacter());
     }
-
+    private float totalGravityValue;
     void Gravity()
     {
         TerminalVelocity();
@@ -419,7 +414,8 @@ public class Player : MonoBehaviour
                 }
                 gravityValue = 10;
             }
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + -(gravityValue * ((weight + armourCheck.armourWeight) / 10)) * Time.deltaTime, 0);
+            totalGravityValue = gravityValue * ((weight + armourCheck.armourWeight) / 10);
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + -totalGravityValue * Time.deltaTime, 0);
         }
         else if (_currentVerticalState == VState.grounded && MyState.StickToGround())
         {
@@ -442,7 +438,7 @@ public class Player : MonoBehaviour
         if (attackedFreezeCounter <= 0.001f)
         {
             attackedFreezeCounter = 0;
-            if (freezeAttackedPlayer == true)
+            if (freezeAttackedPlayer)
             {
                 //rb.velocity = _TempAttackedVelocity;
                 UseGravity = true;
@@ -469,13 +465,12 @@ public class Player : MonoBehaviour
     }
     void ReduceHitForce()
     {
-        addForceValue.x = Mathf.Lerp(addForceValue.x, 0, 7f * Time.deltaTime);
-        addForceValue.y = Mathf.Lerp(addForceValue.y, 0, 27f * Time.deltaTime);
-
+        overrideForce.x = Mathf.Lerp(overrideForce.x, 0, 7f * Time.deltaTime);
+        overrideForce.y = Mathf.Lerp(overrideForce.y, 0, 7f * Time.deltaTime);
         //reducing to zero if small value
-        if (addForceValue.sqrMagnitude < 0.05f)
+        if (overrideForce.sqrMagnitude < 0.05f)
         {
-            addForceValue = Vector3.zero;
+            overrideForce = Vector3.zero;
         }
     }
 
@@ -515,15 +510,12 @@ public class Player : MonoBehaviour
 
     public void Damage(Vector3 Power)
     {
-
         //hitStun = true;
         hitStunTimer = maxHitStunTime;
-        addForceValue = AddForce(Power - (( new Vector3(_attackersFacingDirection.x * armourCheck.knockBackResistance.x, 1 * armourCheck.knockBackResistance.y, 0) + knockbackResistance)));
-    }
-    private Vector3 AddForce(Vector3 hitStrength)
-    {
-        Vector3 addForceValue = hitStrength;
-        return addForceValue;
+        overrideForce = Power - new Vector3(_attackersFacingDirection.x * armourCheck.knockBackResistance.x, 1 * armourCheck.knockBackResistance.y, 0) + knockbackResistance;
+        // use knockbackValue x and y to determine reaction
+        // if y > 15, you're being kicked into the air
+        // if total magnitude > 40, you're going flying
     }
     public void FreezeCharacterAttacking()
     {
@@ -535,18 +527,15 @@ public class Player : MonoBehaviour
         attackingFreezeCounter = MaxFreezeCounter;
         _tempPower = Vector3.zero;
     }
-    private Vector3 _attackersFacingDirection;
     public void FreezeCharacterBeingAttacked(Vector3 Power, int facingDirection)
     {
         playerActions.PauseCurrentAnimation();
         freezeAttackedPlayer = true;
-        _TempAttackedVelocity = rb.velocity;
-        rb.velocity = Vector3.zero;
         UseGravity = false;
         attackedFreezeCounter = MaxFreezeCounter;
-        addForceValue = Vector3.zero;
         _tempPower = Power;
-        _attackersFacingDirection = new Vector3(facingDirection, 0, 0); 
+        _attackersFacingDirection = new Vector3(facingDirection, 0, 0);
+
     }
     public void ResetGuage()
     {
@@ -739,18 +728,11 @@ public class Player : MonoBehaviour
                 if(_hitStun != true)
                 {
                     playerActions.Landing();
-                    if (Landed == false)
-                    {
-                        //landing = true;
-                        //MyState = (new BusyState());
-
-                    }
                 }
                 LandOnGround(hit);
             }
         }
     }
-    public bool Landed = false;
     public void SetJumpIndexTo1()
     {
         _currentJumpIndex = 1;
@@ -842,6 +824,7 @@ public class Player : MonoBehaviour
         distanceToCeiling = hit.distance;
     }
     #endregion
+    [SerializeField] Vector3 V3Velocity;
     void Observation()
     {
         V3Velocity = rb.velocity;

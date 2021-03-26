@@ -28,7 +28,7 @@ public class BlockState : PlayerState
         {
             self.CanMove = true;
             self.CanTurn = true;
-            body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0) + calculate.addForce;
+            body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0);
 
             self.SetState(new MovingState());
         }
@@ -38,7 +38,7 @@ public class BlockState : PlayerState
             {
                 self.CanTurn = false;
                 self.InAir = true;
-                body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce, body.velocity.z)) + calculate.addForce;
+                body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce, body.velocity.z));
                 self.JumpingOrFallingAnimations();
                 self.AddOneToJumpIndex();
                 self.SetState(new JumpingState());
