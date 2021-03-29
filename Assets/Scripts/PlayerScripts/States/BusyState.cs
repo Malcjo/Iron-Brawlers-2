@@ -32,7 +32,7 @@ public class BusyState : PlayerState
         //need to add a can act out of bool to exit out of busy state, need to be set in player actions script near the end of certain animations
         if (self.CanActOutOf)
         {
-            if (AttackCheck(input.attackInput))
+            if (AttackCheck(input.attackInput) && !MovementCheck(input.horizontalInput))
             {
                 self.CanActOutOf = false;
                 self.CanMove = false;
@@ -51,6 +51,14 @@ public class BusyState : PlayerState
                 self.CanTurn = false;
                 actions.JabCombo();
                 self.SetState(new BusyState());
+            }
+            if (MovementCheck(input.horizontalInput))
+            {
+                self.CanMove = true;
+                self.CanTurn = true;
+                body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0);
+
+                self.SetState(new MovingState());
             }
         }
         if (self.landing == true)

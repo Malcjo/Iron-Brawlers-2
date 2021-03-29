@@ -35,6 +35,24 @@ public class PlayerActions : MonoBehaviour
     const string KNOCKDOWNKEY = "KNOCKDOWN_NORMAL";
     const string GETTINGUPKEY = "GETTING_UP_NORMAL";
 
+
+
+
+
+    [Header("JabVariables")]
+    public float JabMoveValue = 200;
+    [SerializeField] private float JabCANCELTIME; // 0.75f
+    [SerializeField] private float jabMOVECharTIME; // 0.25f
+    [SerializeField] private float jabPARTICLESmearTIME;
+    [SerializeField] private bool useHitSmearOnJab;
+
+    [Header("HeavyVariables")]
+    public float heavyAttackMoveValue = 600;
+    [SerializeField] private float heavyCANELTIME;
+    [SerializeField] private float heavyMOVECharTIME;
+    [SerializeField] private float heavyPARTICLETIME;
+    [SerializeField] private bool useHitSmearOnHeavy;
+
     private void Awake()
     {
         ParticleSmearLines.Stop();
@@ -82,7 +100,10 @@ public class PlayerActions : MonoBehaviour
         }
         StartCoroutine(Jab()); 
     }
-    public float JabMoveValue = 200;
+
+    
+
+
 
     private IEnumerator Jab()
     {
@@ -100,9 +121,9 @@ public class PlayerActions : MonoBehaviour
         hitboxManager.JabAttack(0.5f);
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.75f)
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < JabCANCELTIME)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.25f)
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabMOVECharTIME)
                 {
                     yield return null;
                 }
@@ -130,7 +151,7 @@ public class PlayerActions : MonoBehaviour
         }
         StartCoroutine(_Heavy()); 
     }
-    public float heavyAttackMoveValue = 600;
+
     private IEnumerator _Heavy()
     {
         bool canMove = true;
@@ -150,7 +171,10 @@ public class PlayerActions : MonoBehaviour
                 yield return null;
                 while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.65f)
                 {
-                    ParticleSmearLines.Play();
+                    if (useHitSmearOnHeavy)
+                    {
+                        ParticleSmearLines.Play();
+                    }
                     yield return null;
                     while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.2f)
                     {

@@ -66,6 +66,10 @@ public class PlayerInputHandler : MonoBehaviour
 
     private CameraScript cameraScript;
 
+
+    [SerializeField] private float canReceiveCounter;
+    [SerializeField] private bool canReceiveInput = true;
+
     private void Awake()
     {
         currentScene = SceneManager.GetActiveScene();
@@ -76,7 +80,9 @@ public class PlayerInputHandler : MonoBehaviour
     private void Update()
     {
         joyStickDelay += 1 * Time.deltaTime;
+        canReceiveCounter += 2 * Time.deltaTime;
         //currentWall = player.GetCurrentWall();
+
         if(playerCharacter == null)
         {
 
@@ -91,7 +97,25 @@ public class PlayerInputHandler : MonoBehaviour
         {
             GameManager.instance.ReadyPlayer(PlayerIndex);
         }
+
+
+
+
+
+
     }
+    //private void FixedUpdate()
+    //{
+    //    HorizontalValue = 1;
+    //    if (AttackInputQueued)
+    //    {
+    //        AttackInputQueued = false;
+    //    }
+    //    if (AttackInputQueued == false)
+    //    {
+    //        AttackInputQueued = true;
+    //    }
+    //}
     private void StartGame()
     {
         playerCharacter = Instantiate(playerPrefab);
@@ -534,6 +558,7 @@ public class PlayerInputHandler : MonoBehaviour
         if (context.started)
         {
             JumpInputQueued = true;
+
         }
     }
 
@@ -541,7 +566,11 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (context.started)
         {
-            AttackInputQueued = true;
+            if(canReceiveCounter >= 0.1f)
+            {
+                AttackInputQueued = true;
+                canReceiveCounter = 0;
+            }
         }
     }
     public void CrouchInput(CallbackContext context)

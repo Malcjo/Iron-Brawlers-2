@@ -387,7 +387,12 @@ MonoBehaviour:
   comboStep: 0
   comboTimer: 0
   JabMoveValue: 200
+  JabCANCELTIME: 0.75
+  jabMOVECharTIME: 0.25
   heavyAttackMoveValue: 600
+  heavyCANELTIME: 0.8
+  heavyMOVECharTIME: 0.2
+  heavyPARTICLETIME: 0.65
 --- !u!1 &658631414417313013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,6 +2529,7 @@ MonoBehaviour:
   isDummy: 0
   SpawnPoint: {fileID: 0}
   StandaloneSpawnPoint: {fileID: 0}
+  CanActOutOf: 0
   _interuptSliderSetToZero: 0
   Delaycounter: 0
   V3Velocity: {x: 0, y: 0, z: 0}
