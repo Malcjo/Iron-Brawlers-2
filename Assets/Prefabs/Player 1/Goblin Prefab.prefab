@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 0
-  Location: {fileID: 0}
+  Location: {fileID: 551761692940858858}
   Radius: 1
 --- !u!1 &416765300703958550
 GameObject:
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 541737405448195075}
   Radius: 1
 --- !u!1 &1108496942826028192
 GameObject:
@@ -852,7 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 1821710722007803195}
   Radius: 1
 --- !u!1 &1319036833611398105
 GameObject:
@@ -949,7 +949,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 1154733978594008350}
   Radius: 1
 --- !u!1 &1548339274987178637
 GameObject:
@@ -1121,7 +1121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 699945452938883369}
   Radius: 1
 --- !u!1 &1762454648232484547
 GameObject:
@@ -1249,7 +1249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 0
-  Location: {fileID: 0}
+  Location: {fileID: 4856773957213226010}
   Radius: 1
 --- !u!1 &1987514414496696148
 GameObject:
@@ -1346,7 +1346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 8816193085284313971}
   Radius: 1
 --- !u!1 &2038307836040438874
 GameObject:
@@ -1443,7 +1443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 0
-  Location: {fileID: 0}
+  Location: {fileID: 5453996436554109571}
   Radius: 1
 --- !u!1 &2114003602094927112
 GameObject:
@@ -1571,7 +1571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 3873005549916180844}
   Radius: 1
 --- !u!1 &2147921880191041270
 GameObject:
@@ -1668,7 +1668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 1203843700354816312}
   Radius: 1
 --- !u!1 &2300447987813703958
 GameObject:
@@ -1796,7 +1796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 0
-  Location: {fileID: 0}
+  Location: {fileID: 551761692940858858}
   Radius: 1
 --- !u!1 &2467983117299733742
 GameObject:
@@ -1893,7 +1893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 0
-  Location: {fileID: 0}
+  Location: {fileID: 4856773957213226010}
   Radius: 1
 --- !u!1 &2486914696236868093
 GameObject:
@@ -2434,6 +2434,7 @@ MonoBehaviour:
   isDummy: 0
   SpawnPoint: {fileID: 0}
   StandaloneSpawnPoint: {fileID: 0}
+  CanActOutOf: 0
   _interuptSliderSetToZero: 0
   Delaycounter: 0
   V3Velocity: {x: 0, y: 0, z: 0}
@@ -2744,7 +2745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 8816193085284313971}
   Radius: 1
 --- !u!1 &3535596993614541956
 GameObject:
@@ -2872,7 +2873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 8816193085284313971}
   Radius: 1
 --- !u!1 &3570100288923338221
 GameObject:
@@ -2969,7 +2970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 0
-  Location: {fileID: 0}
+  Location: {fileID: 3747179051724143703}
   Radius: 1
 --- !u!1 &3741101237758967032
 GameObject:
@@ -3066,7 +3067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 437566447087513614}
   Radius: 1
 --- !u!1 &3938678239750794650
 GameObject:
@@ -3532,7 +3533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 6132435104627365920}
   Radius: 1
 --- !u!1 &4188271521076612801
 GameObject:
@@ -3629,7 +3630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 8816193085284313971}
   Radius: 1
 --- !u!1 &4295869416143062440
 GameObject:
@@ -3885,7 +3886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 8816193085284313971}
   Radius: 1
 --- !u!1 &4797785210396675127
 GameObject:
@@ -4187,7 +4188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 1427132636170485626}
   Radius: 1
 --- !u!1 &5298818421044169267
 GameObject:
@@ -4471,7 +4472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 105146163820331298}
   Radius: 1
 --- !u!1 &5777213654266314696
 GameObject:
@@ -4953,7 +4954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 8816193085284313971}
   Radius: 1
 --- !u!1 &6426956569413657307
 GameObject:
@@ -5118,7 +5119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 8816193085284313971}
   Radius: 1
 --- !u!1 &6512532405824039734
 GameObject:
@@ -5534,7 +5535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 0
-  Location: {fileID: 0}
+  Location: {fileID: 551761692940858858}
   Radius: 1
 --- !u!1 &6845519473135630214
 GameObject:
@@ -5757,7 +5758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 8816193085284313971}
   Radius: 1
 --- !u!1 &7216452133410473006
 GameObject:
@@ -5854,7 +5855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 0
-  Location: {fileID: 0}
+  Location: {fileID: 4856773957213226010}
   Radius: 1
 --- !u!1 &7233324544375963467
 GameObject:
@@ -5982,7 +5983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 7973415137895743126}
   Radius: 1
 --- !u!1 &7339336206976732260
 GameObject:
@@ -6415,7 +6416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 0
-  Location: {fileID: 0}
+  Location: {fileID: 1888131704093155800}
   Radius: 1
 --- !u!1 &7830093559208856367
 GameObject:
@@ -6512,7 +6513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 7973415137895743126}
   Radius: 1
 --- !u!1 &7850434153059947924
 GameObject:
@@ -6609,7 +6610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 437566447087513614}
   Radius: 1
 --- !u!1 &7975547770428871577
 GameObject:
@@ -6858,7 +6859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 8816193085284313971}
   Radius: 1
 --- !u!1 &8184117132460154516
 GameObject:
@@ -6955,7 +6956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 1821710722007803195}
   Radius: 1
 --- !u!1 &8363918645057805826
 GameObject:
@@ -7052,7 +7053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 9181748188411990910}
   Radius: 1
 --- !u!1 &8365032732147486023
 GameObject:
@@ -7149,7 +7150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 9181748188411990910}
   Radius: 1
 --- !u!1 &8415603422170924670
 GameObject:
@@ -7504,7 +7505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 8816193085284313971}
   Radius: 1
 --- !u!1 &8629209907544304020
 GameObject:
@@ -7725,7 +7726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BodyLocation: 1
-  Location: {fileID: 0}
+  Location: {fileID: 1828526062639344734}
   Radius: 1
 --- !u!1 &9059050431607260430
 GameObject:
