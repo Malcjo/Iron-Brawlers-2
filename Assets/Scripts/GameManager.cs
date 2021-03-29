@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     public GameObject level1DisplayImage, level1HighlightImage;
     public GameObject level2DisplayImage, level2HighlightImage;
 
+    public GameObject player1pressAToJoinUI, player2pressAToJoinUI;
     public GameObject player1Character1Background, player1Character2Background;
     public GameObject player2Character1Background, player2Character2Background;
 
