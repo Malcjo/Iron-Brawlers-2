@@ -86,6 +86,7 @@ public class MovingState : PlayerState
             }
             if (AttackCheck(input.attackInput) && MovementCheck(input.horizontalInput))
             {
+                self.CanActOutOf = false;
                 self.CanMove = false;
                 //body.velocity = new Vector3(0, body.velocity.y, 0);
                 body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
@@ -96,6 +97,7 @@ public class MovingState : PlayerState
 
             if (AttackCheck(input.attackInput) && !MovementCheck(input.horizontalInput))
             {
+                self.CanActOutOf = false;
                 self.CanMove = false;
                 body.velocity = new Vector3(0, body.velocity.y, 0);
                 self.CanTurn = false;

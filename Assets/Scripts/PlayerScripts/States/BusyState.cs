@@ -30,6 +30,29 @@ public class BusyState : PlayerState
             }
         }
         //need to add a can act out of bool to exit out of busy state, need to be set in player actions script near the end of certain animations
+        if (self.CanActOutOf)
+        {
+            if (AttackCheck(input.attackInput))
+            {
+                self.CanActOutOf = false;
+                self.CanMove = false;
+                //body.velocity = new Vector3(0, body.velocity.y, 0);
+                body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+                self.CanTurn = false;
+                actions.JabCombo();
+                self.SetState(new BusyState());
+            }
+            if(AttackCheck(input.attackInput) && MovementCheck(input.horizontalInput))
+            {
+                self.CanActOutOf = false;
+                self.CanMove = false;
+                //body.velocity = new Vector3(0, body.velocity.y, 0);
+                body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+                self.CanTurn = false;
+                actions.JabCombo();
+                self.SetState(new BusyState());
+            }
+        }
         if (self.landing == true)
         {
             if (MovementCheck(input.horizontalInput))

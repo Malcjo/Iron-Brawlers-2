@@ -127,6 +127,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Transform SpawnPoint;
     [SerializeField] private Transform StandaloneSpawnPoint;
+
+    public bool CanActOutOf;
     public void SetUpInputDetectionScript(PlayerInputHandler _playerInputDetection)
     {
         playerInputHandler = _playerInputDetection;
@@ -181,7 +183,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-
+        CallRunState();
         if (_SlideValue < 0)
         {
             _SlideValue = 0;
@@ -251,6 +253,8 @@ public class Player : MonoBehaviour
     {
         overrideForce = Vector3.zero;
     }
+
+
     private void FixedUpdate()
     {
         CheckDirection();
@@ -260,7 +264,35 @@ public class Player : MonoBehaviour
         GravityCheck();
         ReduceCounter();
     }
-    
+    private void CallRunState()
+    {
+        MyState.RunState
+    (
+    this,
+    rb,
+    playerActions,
+    armourCheck,
+    new PlayerState.InputState()
+    {
+        horizontalInput = playerInputHandler.GetHorizontal(),
+        attackInput = playerInputHandler.ShouldAttack(),
+        jumpInput = playerInputHandler.ShouldJump(),
+        crouchInput = playerInputHandler.ShouldCrouch(),
+        armourBreakInput = playerInputHandler.ShouldArmourBreak(),
+        blockInput = playerInputHandler.ShouldBlock(),
+        heavyInput = playerInputHandler.ShouldHeavy(),
+        upDirectionInput = playerInputHandler.ShouldUpDirection()
+    },
+    new PlayerState.Calculating()
+    {
+        jumpForce = JumpForceCalculator(),
+        friction = friction,
+        characterSpeed = SetPlayerSpeed(),
+        overrideForce = overrideForce,
+        gravityValue = _gravityOn ? totalGravityValue : 0
+    }
+    );
+    }
     #region State Machine
     private void CharacterStates()
     {
@@ -270,32 +302,7 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        MyState.RunState
-            (
-            this,
-            rb,
-            playerActions,
-            armourCheck,
-            new PlayerState.InputState()
-            {
-                horizontalInput = playerInputHandler.GetHorizontal(),
-                attackInput = playerInputHandler.ShouldAttack(),
-                jumpInput = playerInputHandler.ShouldJump(),
-                crouchInput = playerInputHandler.ShouldCrouch(),
-                armourBreakInput = playerInputHandler.ShouldArmourBreak(),
-                blockInput = playerInputHandler.ShouldBlock(),
-                heavyInput = playerInputHandler.ShouldHeavy(),
-                upDirectionInput = playerInputHandler.ShouldUpDirection()
-            },
-            new PlayerState.Calculating()
-            {
-                jumpForce = JumpForceCalculator(),
-                friction = friction,
-                characterSpeed = SetPlayerSpeed(),
-                overrideForce = overrideForce,
-                gravityValue = _gravityOn ? totalGravityValue : 0
-            }
-            );
+
         Debug.DrawRay(rb.position, overrideForce * 10, Color.yellow);
     }
 

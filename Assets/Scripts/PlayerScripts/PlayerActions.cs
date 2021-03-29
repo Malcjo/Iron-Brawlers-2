@@ -116,6 +116,7 @@ public class PlayerActions : MonoBehaviour
                 yield return null;
             }
             yield return null;
+            self.CanActOutOf = true;
         }
 
 
