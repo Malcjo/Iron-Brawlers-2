@@ -64,6 +64,7 @@ public class IdleState : PlayerState
             }
             if (HeavyCheck(input.heavyInput))
             {
+                self.CanActOutOf = false;
                 self.CanMove = false;
                 actions.Heavy();
                 self.CanTurn = false;

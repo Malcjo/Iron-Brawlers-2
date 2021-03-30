@@ -387,12 +387,15 @@ MonoBehaviour:
   comboStep: 0
   comboTimer: 0
   JabMoveValue: 200
-  JabCANCELTIME: 0.75
+  JabCANCELTIME: 0.5
   jabMOVECharTIME: 0.25
+  jabPARTICLESmearTIME: 0
+  useHitSmearOnJab: 0
   heavyAttackMoveValue: 600
-  heavyCANELTIME: 0.8
+  heavyCANELTIME: 0.6
   heavyMOVECharTIME: 0.2
   heavyPARTICLETIME: 0.65
+  useHitSmearOnHeavy: 0
 --- !u!1 &658631414417313013
 GameObject:
   m_ObjectHideFlags: 0

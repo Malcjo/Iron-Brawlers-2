@@ -78,6 +78,7 @@ public class MovingState : PlayerState
 
             if (HeavyCheck(input.heavyInput) && MovementCheck(input.horizontalInput))
             {
+                self.CanActOutOf = false;
                 self.CanMove = false;
                 actions.Heavy();
                 self.CanTurn = false;
@@ -106,6 +107,7 @@ public class MovingState : PlayerState
             }
             if (HeavyCheck(input.heavyInput) && !MovementCheck(input.horizontalInput))
             {
+                self.CanActOutOf = false;
                 self.CanMove = false;
                 actions.Heavy();
                 self.CanTurn = false;
@@ -132,6 +134,7 @@ public class MovingState : PlayerState
         {
             if (HeavyCheck(input.heavyInput) && MovementCheck(input.horizontalInput))
             {
+                self.CanActOutOf = false;
                 actions.AerialAttack();
                 self.CanTurn = false;
                 self.WasAttacking = true;
@@ -139,6 +142,7 @@ public class MovingState : PlayerState
             }
             if (HeavyCheck(input.heavyInput))
             {
+                self.CanActOutOf = false;
                 actions.AerialAttack();
                 self.CanTurn = false;
                 self.WasAttacking = true;
@@ -178,6 +182,7 @@ public class MovingState : PlayerState
 
                     if (HeavyCheck(input.heavyInput) && MovementCheck(input.horizontalInput))
                     {
+                        self.CanActOutOf = false;
                         actions.AerialAttack();
                         self.CanTurn = false;
                         self.WasAttacking = true;

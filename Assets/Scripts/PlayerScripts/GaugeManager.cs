@@ -88,7 +88,7 @@ public class GaugeManager : MonoBehaviour
         }
         else if (currentGauge > armourBreakingPoint)
         {
-            if (!self.Crouching || !self.Blocking)
+            if (!self.Crouching && !self.Blocking)
             {
                 actions.ResetArmourDamage();
             }

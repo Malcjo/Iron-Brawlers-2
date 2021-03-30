@@ -30,6 +30,7 @@ public class JumpingState : PlayerState
         {
             if (HeavyCheck(input.heavyInput))
             {
+                self.CanActOutOf = false;
                 actions.AerialAttack();
                 self.CanTurn = false;
                 self.WasAttacking = true;
@@ -37,6 +38,7 @@ public class JumpingState : PlayerState
             }
             if (HeavyCheck(input.heavyInput) && (self.GetFacingDirection() > 0 || self.GetFacingDirection() < 0))
             {
+                self.CanActOutOf = false;
                 actions.AerialAttack();
                 self.CanTurn = false;
                 self.WasAttacking = true;
@@ -91,6 +93,7 @@ public class JumpingState : PlayerState
 
         if (HeavyCheck(input.heavyInput))
         {
+            self.CanActOutOf = false;
             actions.AerialAttack();
             self.CanTurn = false;
             self.WasAttacking = true;

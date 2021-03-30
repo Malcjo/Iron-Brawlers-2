@@ -165,7 +165,7 @@ public class PlayerActions : MonoBehaviour
         hitboxManager.JabAttack(0.5f);
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.8f)
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyCANELTIME)
             {
                 ParticleSmearLines.Stop();
                 yield return null;
@@ -188,6 +188,7 @@ public class PlayerActions : MonoBehaviour
                     }
                 }
             }
+            self.CanActOutOf = true;
             ParticleSmearLines.Stop();
             yield return null;
         }
@@ -466,7 +467,17 @@ public class PlayerActions : MonoBehaviour
             var tempMaterial = playerGeometry[i].GetComponent<SkinnedMeshRenderer>();
             tempMaterial.material = normalSkinBlocking;
         }
-        SetArmourToNormalBlock();
+        for (int i = 0; i < playerArmourHeadGeometry.Length; i++)
+        {
+            var tempMaterial = playerArmourHeadGeometry[i].GetComponent<MeshRenderer>();
+            tempMaterial.material = armourBlocking;
+        }
+        for (int i = 0; i < playerArmourTorsoGeometry.Length; i++)
+        {
+            var tempMaterial = playerArmourTorsoGeometry[i].GetComponent<MeshRenderer>();
+            tempMaterial.material = armourBlocking;
+        }
+        //SetArmourToNormalBlock();
         TransitionToAnimation(BLOCKKEY, 0.01f);
         //StartCoroutine(_EnterBlock());
     }
@@ -571,7 +582,7 @@ public class PlayerActions : MonoBehaviour
         for (int i = 0; i < playerArmourHeadGeometry.Length; i++)
         {
             var tempMaterial = playerArmourHeadGeometry[i].GetComponent<MeshRenderer>();
-            tempMaterial.material = armourMaterial;
+            tempMaterial.material = headArmourMaterial;
         }
         for (int i = 0; i < playerArmourTorsoGeometry.Length; i++)
         {

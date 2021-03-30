@@ -32,34 +32,75 @@ public class BusyState : PlayerState
         //need to add a can act out of bool to exit out of busy state, need to be set in player actions script near the end of certain animations
         if (self.CanActOutOf)
         {
-            if (AttackCheck(input.attackInput) && !MovementCheck(input.horizontalInput))
+            if(self.VerticalState != Player.VState.grounded)
             {
-                self.CanActOutOf = false;
-                self.CanMove = false;
-                //body.velocity = new Vector3(0, body.velocity.y, 0);
-                body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
-                self.CanTurn = false;
-                actions.JabCombo();
-                self.SetState(new BusyState());
+                if (HeavyCheck(input.heavyInput))
+                {
+                    self.CanActOutOf = false;
+                    actions.AerialAttack();
+                    self.CanTurn = false;
+                    self.WasAttacking = true;
+                    self.SetState(new BusyState());
+                }
+                if (HeavyCheck(input.heavyInput) && (self.GetFacingDirection() > 0 || self.GetFacingDirection() < 0))
+                {
+                    self.CanActOutOf = false;
+                    actions.AerialAttack();
+                    self.CanTurn = false;
+                    self.WasAttacking = true;
+                    self.SetState(new BusyState());
+                }
             }
-            if(AttackCheck(input.attackInput) && MovementCheck(input.horizontalInput))
+            else
             {
-                self.CanActOutOf = false;
-                self.CanMove = false;
-                //body.velocity = new Vector3(0, body.velocity.y, 0);
-                body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
-                self.CanTurn = false;
-                actions.JabCombo();
-                self.SetState(new BusyState());
-            }
-            if (MovementCheck(input.horizontalInput))
-            {
-                self.CanMove = true;
-                self.CanTurn = true;
-                body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0);
+                if (HeavyCheck(input.heavyInput))
+                {
+                    self.CanActOutOf = false;
+                    self.CanMove = false;
+                    actions.Heavy();
+                    self.CanTurn = false;
+                    self.SetState(new BusyState());
+                    body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+                }
+                if (HeavyCheck(input.heavyInput) && MovementCheck(input.horizontalInput))
+                {
+                    self.CanActOutOf = false;
+                    self.CanMove = false;
+                    actions.Heavy();
+                    self.CanTurn = false;
+                    self.SetState(new BusyState());
+                    self.StopMovingCharacterOnXAxis();
+                }
+                if (AttackCheck(input.attackInput))
+                {
+                    self.CanActOutOf = false;
+                    self.CanMove = false;
+                    //body.velocity = new Vector3(0, body.velocity.y, 0);
+                    body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+                    self.CanTurn = false;
+                    actions.JabCombo();
+                    self.SetState(new BusyState());
+                }
+                if (AttackCheck(input.attackInput) && MovementCheck(input.horizontalInput))
+                {
+                    self.CanActOutOf = false;
+                    self.CanMove = false;
+                    //body.velocity = new Vector3(0, body.velocity.y, 0);
+                    body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+                    self.CanTurn = false;
+                    actions.JabCombo();
+                    self.SetState(new BusyState());
+                }
+                if (MovementCheck(input.horizontalInput))
+                {
+                    self.CanMove = true;
+                    self.CanTurn = true;
+                    body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0);
 
-                self.SetState(new MovingState());
+                    self.SetState(new MovingState());
+                }
             }
+
         }
         if (self.landing == true)
         {
