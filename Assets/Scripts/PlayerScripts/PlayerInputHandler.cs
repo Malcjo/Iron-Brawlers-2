@@ -98,10 +98,8 @@ public class PlayerInputHandler : MonoBehaviour
             GameManager.instance.ReadyPlayer(PlayerIndex);
         }
         if(SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
-        if (ShouldPause())
         {
-            _Paused = !_Paused;
-            GameManager.instance.PausedGame(_Paused);
+            ShouldPause();
         }
         
 
@@ -232,6 +230,14 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if(pausedQueued)
         {
+            if (GameManager.instance.Paused)
+            {
+                GameManager.instance.PausedGame(false);
+            }
+            else if (GameManager.instance.Paused == false)
+            {
+                GameManager.instance.PausedGame(true);
+            }
             pausedQueued = false;
             return true;
         }

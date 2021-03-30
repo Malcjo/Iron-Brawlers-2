@@ -143,6 +143,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject FightUI;
 
     private bool paused;
+    public bool Paused { get{ return paused; }}
     public void PausedGame(bool val)
     {
         if(val == true)

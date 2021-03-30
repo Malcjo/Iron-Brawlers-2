@@ -120,6 +120,7 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator Jab()
     {
+        self.CanActOutOf = false;
         self.MoveCharacterMaxValue = jabMoveStrength;
         bool canMove = true;
         //anim.Play(animlist[comboStep]);
@@ -353,8 +354,16 @@ public class PlayerActions : MonoBehaviour
 
     public void Idle()
     {
-        anim.speed = 1;
-        TransitionToAnimation(IDLEKEY, 0.02f);
+        if(self.VerticalState != Player.VState.grounded)
+        {
+            self.SetState(new JumpingState());
+        }
+        else
+        {
+            anim.speed = 1;
+            TransitionToAnimation(IDLEKEY, 0.02f);
+        }
+
     }
 
     public void Crouching()
