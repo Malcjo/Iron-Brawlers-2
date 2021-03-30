@@ -4022,7 +4022,7 @@ MonoBehaviour:
   angleUpdateSpeed: 7
   positionUpdateSpeed: 5
   depthMax: -4
-  depthMin: -13
+  depthMin: -9
   angleMax: 11
   angleMin: 3
 --- !u!1001 &213833658
