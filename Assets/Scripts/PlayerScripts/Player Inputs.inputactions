@@ -92,6 +92,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "RightTrigger",
+                    "type": "PassThrough",
+                    "id": "14d97ec6-dc76-4539-851f-1372ec983090",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold"
+                },
+                {
+                    "name": "LeftTrigger",
+                    "type": "Button",
+                    "id": "4a7f47e8-d9b0-4ade-ac0b-e3a05286badb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold"
                 }
             ],
             "bindings": [
@@ -554,6 +570,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "01f13198-f693-4a85-a121-0e6e53aeca57",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5fb81a56-8ba5-4883-97ed-7bbb0d038c26",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
