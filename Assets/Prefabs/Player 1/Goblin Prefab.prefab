@@ -4261,9 +4261,9 @@ MonoBehaviour:
   _hitBoxScale: 0
   _attackDir: 0
   _attackType: 0
-  HeadArmourPosition: {fileID: 0}
-  ChestArmourPosition: {fileID: 0}
-  LegArmourPosition: {fileID: 0}
+  HeadArmourPosition: {fileID: 4092204009917520403}
+  ChestArmourPosition: {fileID: 8587426863808159756}
+  LegArmourPosition: {fileID: 4978630946425699683}
   LegLocationOffset: 0
   freezeCounter: 0
   freezeStep: 0.05
@@ -5213,15 +5213,17 @@ MonoBehaviour:
   useHitSmearOnJab: 0
   jabMovveCharValue: 0.5
   heavyMoveStrength: 10
-  heavyCANELTIME: 0.75
+  heavyCANCELTIME: 0.8
   heavyMOVECharTIME: 0.1
   heavyPARTICLETIME: 0
   useHitSmearOnHeavy: 0
   heavyMoveCharValue: 1
-  aerialCANELTIME: 0.8
+  aerialCANCELTIME: 0
   aerialMOVECharTIME: 0
   aerialPARTICLETIME: 0
   useHitSmearOnAerial: 0
+  sweepCANCELTIME: 0.6
+  sweepPARTICLETIME: 0
 --- !u!1 &4674036146457986405
 GameObject:
   m_ObjectHideFlags: 0

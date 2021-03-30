@@ -50,17 +50,21 @@ public class PlayerActions : MonoBehaviour
 
     [Header("HeavyVariables")]
     public float heavyMoveStrength;
-    [SerializeField] private float heavyCANELTIME;
+    [SerializeField] private float heavyCANCELTIME;
     [SerializeField] private float heavyMOVECharTIME;
     [SerializeField] private float heavyPARTICLETIME;
     [SerializeField] private bool useHitSmearOnHeavy;
     [SerializeField] private float heavyMoveCharValue;
 
     [Header("AerialVariables")]
-    [SerializeField] private float aerialCANELTIME;
+    [SerializeField] private float aerialCANCELTIME;
     [SerializeField] private float aerialMOVECharTIME;
     [SerializeField] private float aerialPARTICLETIME;
     [SerializeField] private bool useHitSmearOnAerial;
+
+    [Header("SweepVariables")]
+    [SerializeField] private float sweepCANCELTIME;
+    [SerializeField] private float sweepPARTICLETIME;
 
     private void Awake()
     {
@@ -119,7 +123,7 @@ public class PlayerActions : MonoBehaviour
         self.MoveCharacterMaxValue = jabMoveStrength;
         bool canMove = true;
         //anim.Play(animlist[comboStep]);
-        TransitionToAnimation(JABKEY, 0.01f);
+        TransitionToAnimation(JABKEY, 0.03f);
         anim.speed = 1;
         FindObjectOfType<AudioManager>().Play(AudioManager.JABMISS);
         comboStep++;
@@ -166,6 +170,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (self.CanDoAttack)
         {
+            self.CanActOutOf = false;
             self.MoveCharacterMaxValue = heavyMoveCharValue;
             bool canMove = true;
             TransitionToAnimation(HEAVYKEY, 0.02f);
@@ -178,7 +183,7 @@ public class PlayerActions : MonoBehaviour
             hitboxManager.JabAttack(0.5f);
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyCANELTIME)
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyCANCELTIME)
                 {
                     while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.65f)
                     {
@@ -214,7 +219,36 @@ public class PlayerActions : MonoBehaviour
         }
 
     }
-   
+    public void LegSweep()
+    {
+        StopCrouchBlock();
+        StartCoroutine(_LegSweep());
+    }
+    private IEnumerator _LegSweep()
+    {
+        //ResetMaterial(); // might cause issues with the damage material resetting as well
+
+
+        TransitionToAnimation(SWEEPKEY, 0.01f);
+        //anim.Play("SWEEP");
+        anim.speed = 1;
+        self.CanTurn = false;
+        yield return null;
+        hitboxManager.SwapHands(1);
+        hitboxScript._attackDir = Attackdirection.Low;
+        hitboxScript._attackType = AttackType.LegSweep;
+        hitboxManager.LegSweep(0.5f);
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        {
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < sweepCANCELTIME)
+            {
+                yield return null;
+            }
+            self.CanActOutOf = true;
+            yield return null;
+        }
+        self.SetState(new CrouchingState());
+    }
     public void AerialAttack()
     {
         if (self.DebugModeOn == true)
@@ -240,7 +274,7 @@ public class PlayerActions : MonoBehaviour
 
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < aerialCANELTIME)
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < aerialCANCELTIME)
             {
                 yield return null;
 
@@ -359,6 +393,13 @@ public class PlayerActions : MonoBehaviour
     }
     public void StopCrouchBlock()
     {
+
+        StartCoroutine(_StopCrouchBlock());
+    }
+    private IEnumerator _StopCrouchBlock()
+    {
+
+        yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < playerLegGeometry.Length; i++)
         {
             var tempMaterial = playerLegGeometry[i].GetComponent<SkinnedMeshRenderer>();
@@ -369,36 +410,8 @@ public class PlayerActions : MonoBehaviour
             var tempMaterial = playerArmourLegGeometry[i].GetComponent<MeshRenderer>();
             tempMaterial.material = armourMaterial;
         }
-        //StartCoroutine(_StopCrouchBlock());
     }
-    private IEnumerator _StopCrouchBlock()
-    {
 
-        return null;
-    }
-    public void LegSweep()
-    {
-        StartCoroutine(_LegSweep());
-    }
-    private IEnumerator _LegSweep()
-    {
-        //ResetMaterial(); // might cause issues with the damage material resetting as well
-        StopCrouchBlock();
-        TransitionToAnimation(SWEEPKEY, 0);
-        //anim.Play("SWEEP");
-        anim.speed = 1;
-        self.CanTurn = false;
-        yield return null;
-        hitboxManager.SwapHands(1);
-        hitboxScript._attackDir = Attackdirection.Low;
-        hitboxScript._attackType = AttackType.LegSweep;
-        hitboxManager.LegSweep(0.5f);
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-        {
-            yield return null;
-        }
-        self.SetState(new CrouchingState());
-    }
 
     public void Falling()
     {

@@ -393,15 +393,17 @@ MonoBehaviour:
   useHitSmearOnJab: 0
   jabMovveCharValue: 0.5
   heavyMoveStrength: 3
-  heavyCANELTIME: 0.6
+  heavyCANCELTIME: 0.8
   heavyMOVECharTIME: 0.2
   heavyPARTICLETIME: 0.65
   useHitSmearOnHeavy: 0
   heavyMoveCharValue: 0.5
-  aerialCANELTIME: 0.8
+  aerialCANCELTIME: 0.7
   aerialMOVECharTIME: 0
   aerialPARTICLETIME: 0
   useHitSmearOnAerial: 0
+  sweepCANCELTIME: 0.6
+  sweepPARTICLETIME: 0
 --- !u!1 &658631414417313013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2541,6 +2543,7 @@ MonoBehaviour:
   CanActOutOf: 0
   _interuptSliderSetToZero: 0
   Delaycounter: 0
+  moveCharacterStrength: 0
   moveCharacterCounter: 0
   moveCharacterMaxValue: 0.1
   V3Velocity: {x: 0, y: 0, z: 0}

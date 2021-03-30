@@ -97,8 +97,13 @@ public class PlayerInputHandler : MonoBehaviour
         {
             GameManager.instance.ReadyPlayer(PlayerIndex);
         }
-
-
+        if(SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
+        if (ShouldPause())
+        {
+            _Paused = !_Paused;
+            GameManager.instance.PausedGame(_Paused);
+        }
+        
 
 
 
@@ -218,6 +223,21 @@ public class PlayerInputHandler : MonoBehaviour
         return UpDirectionHeld;
     }
     #endregion
+
+    private bool _Paused;
+    public bool Paused { get { return _Paused; } set { _Paused = value; } }
+    private bool pausedQueued;
+
+    public bool ShouldPause()
+    {
+        if(pausedQueued)
+        {
+            pausedQueued = false;
+            return true;
+        }
+        return false;
+    }
+
 
     void CharacterSwitch()
     {
@@ -408,16 +428,19 @@ public class PlayerInputHandler : MonoBehaviour
         }
         else
         {
-            if (player != null)
+            if (!_Paused)
             {
-                horizontalInput = context.ReadValue<float>();
-                if (horizontalInput <= 0.35f && horizontalInput >= -0.35f)
+                if (player != null)
                 {
-                    horizontalInput = 0;
+                    horizontalInput = context.ReadValue<float>();
+                    if (horizontalInput <= 0.35f && horizontalInput >= -0.35f)
+                    {
+                        horizontalInput = 0;
+                    }
+                    HorizontalValue = horizontalInput;
+                    player.GetPlayerInputFromInputScript(HorizontalValue);
+                    WallCheck();
                 }
-                HorizontalValue = horizontalInput;
-                player.GetPlayerInputFromInputScript(HorizontalValue);
-                WallCheck();
             }
         }
     }
@@ -555,61 +578,85 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void JumpInput(CallbackContext context)
     {
-        if (context.started)
+        if (!_Paused)
         {
-            JumpInputQueued = true;
+            if (context.started)
+            {
+                JumpInputQueued = true;
 
+            }
         }
+
     }
 
     public void AttackInput(CallbackContext context)
     {
-        if (context.started)
+        if (!_Paused)
         {
-            if(canReceiveCounter >= 0.1f)
+            if (context.started)
             {
-                AttackInputQueued = true;
-                canReceiveCounter = 0;
+                if (canReceiveCounter >= 0.1f)
+                {
+                    AttackInputQueued = true;
+                    canReceiveCounter = 0;
+                }
             }
         }
+
     }
     public void CrouchInput(CallbackContext context)
     {
-        if (context.started)
+        if (!_Paused)
         {
-            CrouchInputHeld = true;
+            if (context.started)
+            {
+                CrouchInputHeld = true;
+            }
+            if (context.canceled)
+            {
+                CrouchInputHeld = false;
+            }
         }
-        if (context.canceled)
-        {
-            CrouchInputHeld = false;
-        }
+
     }
 
     public void BlockInput(CallbackContext context)
     {
-        if (context.started)
+        if (!_Paused)
         {
-            blockInputHeld = true;
+            if (context.started)
+            {
+                blockInputHeld = true;
+            }
+            if (context.canceled)
+            {
+                blockInputHeld = false;
+            }
         }
-        if (context.canceled)
-        {
-            blockInputHeld = false;
-        }
+
     }
 
     public void ArmourBreakInput(CallbackContext context)
     {
-        if (context.started)
+        if (!_Paused)
         {
-            ArmourBreakInputQueued = true;
+            if (context.started)
+            {
+                ArmourBreakInputQueued = true;
+            }
         }
+
     }
     public void HeavyInput(CallbackContext context)
     {
-        if (context.started)
+        if (!_Paused)
         {
-            heavyQueued = true;
+            if (context.started)
+            {
+                heavyQueued = true;
+            }
         }
+
     }
 
     public void UpDirectionInput(CallbackContext context)
@@ -621,6 +668,14 @@ public class PlayerInputHandler : MonoBehaviour
         if (context.canceled)
         {
             UpDirectionHeld = false;
+        }
+    }
+
+    public void StartButton(CallbackContext context)
+    {
+        if (context.started)
+        {
+            pausedQueued = true;
         }
     }
 

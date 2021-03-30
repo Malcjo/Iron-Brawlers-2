@@ -142,6 +142,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject ReadyUI;
     [SerializeField] private GameObject FightUI;
 
+    private bool paused;
+    public void PausedGame(bool val)
+    {
+        if(val == true)
+        {
+            paused = val;
+            Time.timeScale = 0;
+        }
+        else if (val == false)
+        {
+            paused = val;
+            Time.timeScale = 1;
+        }
+    }
+
     private void Awake()
     {
         if (instance == null)

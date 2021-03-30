@@ -19,6 +19,7 @@ public class CrouchingState : PlayerState
             actions.Crouching();
             if (HeavyCheck(input.heavyInput))
             {
+                self.CanActOutOf = false;
                 //actionTaken = true;
                 self.CanMove = false;
                 self.CanTurn = false;

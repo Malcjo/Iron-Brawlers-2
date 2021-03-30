@@ -199,7 +199,19 @@ MonoBehaviour:
     m_ActionId: 5de74386-ecd3-48b7-923e-6118961232b2
     m_ActionName: Player/ArmourBreak[/Keyboard/h]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -9111263377578361054}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: StartButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: fb8dcb07-6b45-4dea-be72-14e353da06d2
     m_ActionName: Player/Pause[/DualShock4GamepadHID/start,/Keyboard/escape]
   - m_PersistentCalls:
@@ -296,6 +308,8 @@ MonoBehaviour:
   UpDirectionHeld: 0
   currentWall: 0
   Standalone: 0
+  canReceiveCounter: 0
+  canReceiveInput: 1
   ChooseLevel: 0
   joyStickDelay: 0
   contextValue: 0
