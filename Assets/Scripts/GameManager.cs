@@ -601,6 +601,10 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void ExitBackToMenu()
+    {
+        Invoke("TransisitonBackToMainMenu", 2);
+    }
     private void TransisitonBackToMainMenu()
     {
         player1Round1.SetActive(false);

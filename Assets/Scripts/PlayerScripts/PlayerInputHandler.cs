@@ -101,7 +101,14 @@ public class PlayerInputHandler : MonoBehaviour
         {
             ShouldPause();
         }
-        
+        if (GameManager.instance.Paused)
+        {
+            if(ShouldRightTrigger() && ShouldLeftTrigger())
+            {
+                ShouldPause();
+                GameManager.instance.ExitBackToMenu();
+            }
+        }
 
 
 
@@ -196,6 +203,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool ShouldBlock()
     {
         return blockInputHeld;
+        
     }
     public bool ShouldArmourBreak()
     {
@@ -243,7 +251,16 @@ public class PlayerInputHandler : MonoBehaviour
         }
         return false;
     }
-
+    private bool rightTriggerHeld;
+    private bool leftTriggetHeld;
+    public bool ShouldRightTrigger()
+    {
+        return rightTriggerHeld;
+    }
+    public bool ShouldLeftTrigger()
+    {
+        return leftTriggetHeld;
+    }
 
     void CharacterSwitch()
     {
@@ -589,10 +606,8 @@ public class PlayerInputHandler : MonoBehaviour
             if (context.started)
             {
                 JumpInputQueued = true;
-
             }
         }
-
     }
 
     public void AttackInput(CallbackContext context)
@@ -640,6 +655,29 @@ public class PlayerInputHandler : MonoBehaviour
             }
         }
 
+    }
+
+    public void RightTriggerInput(CallbackContext context)
+    {
+        if (context.started)
+        {
+            rightTriggerHeld = true;
+        }
+        if (context.canceled)
+        {
+            rightTriggerHeld = false;
+        }
+    }
+    public void LeftTriggerInput(CallbackContext context)
+    {
+        if (context.started)
+        {
+            leftTriggetHeld = true;
+        }
+        if (context.canceled)
+        {
+            leftTriggetHeld = false;
+        }
     }
 
     public void ArmourBreakInput(CallbackContext context)
