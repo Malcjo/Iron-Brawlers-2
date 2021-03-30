@@ -80,7 +80,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
-    - _RampSmoothing: 0.131
+    - _RampSmoothing: 0.15
     - _RampSmoothingOtherLights: 0.5
     - _RampThreshold: 0.089
     - _RampThresholdOtherLights: 0.5
