@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FlowerBoyArmorFinal Damged
+  m_Name: Goblin_Armor_Damged
   m_Shader: {fileID: 4800000, guid: b7c388630dd726c4db0b21c27ad546eb, type: 3}
   m_ShaderKeywords: _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 4
@@ -21,7 +21,7 @@ Material:
     m_TexEnvs:
     - _Albedo:
         m_Texture: {fileID: 2800000, guid: 3af820d5b62fb0845be404e391343e0a, type: 3}
-        m_Scale: {x: 2, y: 2}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 5ef411b1e338a2f42a6c1cfe796ccb5a, type: 3}
@@ -89,7 +89,7 @@ Material:
     - _ZWrite: 1
     - __dummy__: 0
     m_Colors:
-    - _Albedo_SinAnimParams: {r: 8, g: 0.02, b: 1, a: 0}
+    - _Albedo_SinAnimParams: {r: 8, g: 0.03, b: 70, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseMap_SC: {r: 2.4, g: 0.01, b: 0, a: 0}
     - _BaseMap_SinAnimParams: {r: 15, g: 0.01, b: 0.58, a: 1}
