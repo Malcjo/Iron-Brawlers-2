@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
         player1Character1PortraitPuck.SetActive(false);
         player1Character2PortraitPuck.SetActive(false);
 
-        player1CharacterPuck.SetActive(false);
+        //player1CharacterPuck.SetActive(false);
 
 
         player2SolAnimated.SetActive(false);
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         player2Character1PortraitPuck.SetActive(false);
         player2Character2PortraitPuck.SetActive(false);
 
-        player2CharacterPuck.SetActive(false);
+        //player2CharacterPuck.SetActive(false);
     }
 
     public bool Character1BeenPicked = true;
