@@ -39,19 +39,28 @@ public class PlayerActions : MonoBehaviour
 
 
 
+
     [Header("JabVariables")]
-    public float JabMoveValue = 200;
+    public float jabMoveStrength;
     [SerializeField] private float JabCANCELTIME; // 0.75f
     [SerializeField] private float jabMOVECharTIME; // 0.25f
     [SerializeField] private float jabPARTICLESmearTIME;
     [SerializeField] private bool useHitSmearOnJab;
+    [SerializeField] private float jabMovveCharValue;
 
     [Header("HeavyVariables")]
-    public float heavyAttackMoveValue = 600;
+    public float heavyMoveStrength;
     [SerializeField] private float heavyCANELTIME;
     [SerializeField] private float heavyMOVECharTIME;
     [SerializeField] private float heavyPARTICLETIME;
     [SerializeField] private bool useHitSmearOnHeavy;
+    [SerializeField] private float heavyMoveCharValue;
+
+    [Header("AerialVariables")]
+    [SerializeField] private float aerialCANELTIME;
+    [SerializeField] private float aerialMOVECharTIME;
+    [SerializeField] private float aerialPARTICLETIME;
+    [SerializeField] private bool useHitSmearOnAerial;
 
     private void Awake()
     {
@@ -107,6 +116,7 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator Jab()
     {
+        self.MoveCharacterMaxValue = jabMoveStrength;
         bool canMove = true;
         //anim.Play(animlist[comboStep]);
         TransitionToAnimation(JABKEY, 0.01f);
@@ -130,7 +140,7 @@ public class PlayerActions : MonoBehaviour
                 if (canMove == true)
                 {
 
-                    self.MoveCharacterWithAttacks(JabMoveValue);
+                   // self.SetMoveCharacterStrength(jabMoveStrength);
                 }
                 canMove = false;
 
@@ -154,45 +164,55 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator _Heavy()
     {
-        bool canMove = true;
-        TransitionToAnimation(HEAVYKEY, 0.02f);
-        FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
-        anim.speed = 1;
-        yield return null;
-        hitboxManager.SwapHands(1);
-        hitboxScript._attackDir = Attackdirection.Forward;
-        hitboxScript._attackType = AttackType.HeavyJab;
-        hitboxManager.JabAttack(0.5f);
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        if (self.CanDoAttack)
         {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyCANELTIME)
+            self.MoveCharacterMaxValue = heavyMoveCharValue;
+            bool canMove = true;
+            TransitionToAnimation(HEAVYKEY, 0.02f);
+            FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
+            anim.speed = 1;
+            yield return null;
+            hitboxManager.SwapHands(1);
+            hitboxScript._attackDir = Attackdirection.Forward;
+            hitboxScript._attackType = AttackType.HeavyJab;
+            hitboxManager.JabAttack(0.5f);
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyCANELTIME)
+                {
+                    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.65f)
+                    {
+                        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyMOVECharTIME)
+                        {
+                            yield return null;
+                        }
+                        yield return null;
+                        if (useHitSmearOnHeavy)
+                        {
+                            ParticleSmearLines.Play();
+                        }
+                        if (canMove == true)
+                        {
+                            self.SetMoveCharacterStrength(heavyMoveStrength);
+                            //self.MoveCharacterWithAttacks(heavyAttackMoveValue);
+                            canMove = false;
+                        }
+                    }
+                    ParticleSmearLines.Stop();
+                    yield return null;
+                }
+                self.CanActOutOf = true;
                 ParticleSmearLines.Stop();
                 yield return null;
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.65f)
-                {
-                    if (useHitSmearOnHeavy)
-                    {
-                        ParticleSmearLines.Play();
-                    }
-                    yield return null;
-                    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.2f)
-                    {
-                        yield return null;
-                    }
-                    if (canMove == true)
-                    {
-
-                        self.MoveCharacterWithAttacks(heavyAttackMoveValue);
-                        canMove = false;
-                    }
-                }
             }
-            self.CanActOutOf = true;
-            ParticleSmearLines.Stop();
-            yield return null;
+            self.SetState(new IdleState());
         }
-        self.SetState(new IdleState());
+        else
+        {
+            self.CanDoAttack = true;
+            self.SetState(new IdleState());
+        }
+
     }
    
     public void AerialAttack()
@@ -220,10 +240,13 @@ public class PlayerActions : MonoBehaviour
 
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.4f)
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < aerialCANELTIME)
             {
                 yield return null;
+
             }
+            self.CanActOutOf = true;
+
             //self.UseGravity = true;
             yield return null;
         }
@@ -298,7 +321,6 @@ public class PlayerActions : MonoBehaviour
     {
         anim.speed = 1;
         TransitionToAnimation(IDLEKEY, 0.02f);
-
     }
 
     public void Crouching()
@@ -440,6 +462,7 @@ public class PlayerActions : MonoBehaviour
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
                 yield return null;
+
             }
             RevertBackToIdleState();
         }

@@ -3188,7 +3188,7 @@ Transform:
   m_GameObject: {fileID: 3180238274731884556}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.94, y: 1.88, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_Children:
   - {fileID: 3938678240389829088}
   - {fileID: 139190473704580777}
@@ -3283,6 +3283,9 @@ MonoBehaviour:
   CanActOutOf: 0
   _interuptSliderSetToZero: 0
   Delaycounter: 0
+  moveCharacterStrength: 0
+  moveCharacterCounter: 0
+  moveCharacterMaxValue: 0
   V3Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1181940027119994825
 MonoBehaviour:
@@ -5198,20 +5201,27 @@ MonoBehaviour:
   hitboxScript: {fileID: 313810321763567124}
   hitboxManager: {fileID: 566403014684521302}
   armourCheck: {fileID: 2313752520885891229}
-  ParticleSmearLines: {fileID: 0}
+  ParticleSmearLines: {fileID: 58691976183682597, guid: 63f5238cfe7aa2a42bc942442726cc8a,
+    type: 3}
   IsDoubleJump: 0
   comboStep: 0
   comboTimer: 0
-  JabMoveValue: 200
-  JabCANCELTIME: 0
-  jabMOVECharTIME: 0
+  jabMoveStrength: 3
+  JabCANCELTIME: 0.6
+  jabMOVECharTIME: 0.2
   jabPARTICLESmearTIME: 0
   useHitSmearOnJab: 0
-  heavyAttackMoveValue: 600
-  heavyCANELTIME: 0
-  heavyMOVECharTIME: 0
+  jabMovveCharValue: 0.5
+  heavyMoveStrength: 10
+  heavyCANELTIME: 0.75
+  heavyMOVECharTIME: 0.1
   heavyPARTICLETIME: 0
   useHitSmearOnHeavy: 0
+  heavyMoveCharValue: 1
+  aerialCANELTIME: 0.8
+  aerialMOVECharTIME: 0
+  aerialPARTICLETIME: 0
+  useHitSmearOnAerial: 0
 --- !u!1 &4674036146457986405
 GameObject:
   m_ObjectHideFlags: 0

@@ -157,14 +157,19 @@ public class Player : MonoBehaviour
     //Turn back button UI back on later
     void Awake()
     {
+        moveCharacterCounter = 5;
         MyState = new IdleState();
         _gravityOn = true;
         _canTurn = true;
         canAirMove = true;
         _canMove = true;
     }
+    private bool canDoAttack = false;
+    public bool CanDoAttack { get { return canDoAttack; } set { canDoAttack = value;  } }
+    public float MoveCharacterCounter {set { moveCharacterCounter = value; } }
     private void Start()
     {
+
         _interuptSliderSetToZero = true;
         DecreaseSlide = true;
         if (playerNumber == PlayerIndex.Player1)
@@ -183,6 +188,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
+        moveCharacterCounter += 3 * Time.deltaTime;
         CallRunState();
         if (_SlideValue < 0)
         {
@@ -236,15 +242,26 @@ public class Player : MonoBehaviour
         }
 
     }
+    [SerializeField] private float moveCharacterStrength;
+    public float moveCharacterCounter;
+    public void SetMoveCharacterStrength(float strengthValue)
+    {
+        moveCharacterCounter = 0;
+        moveCharacterStrength = strengthValue;
+    }
+    private void MoveCharacterOnX()
+    {
+        rb.velocity = new Vector3(facingDirection * moveCharacterStrength, rb.velocity.y, 0);
+    }
     public void changeHeavyMoveValue(AttackType attackType ,float value)
     {
         switch (attackType)
         {
             case AttackType.HeavyJab:
-                playerActions.heavyAttackMoveValue = value;
+                playerActions.heavyMoveStrength = value;
                 break;
             case AttackType.Jab:
-                playerActions.JabMoveValue = value;
+                playerActions.jabMoveStrength = value;
                 break;
         }
 
@@ -254,9 +271,15 @@ public class Player : MonoBehaviour
         overrideForce = Vector3.zero;
     }
 
+    [SerializeField] private float moveCharacterMaxValue;
 
+    public float MoveCharacterMaxValue {set { moveCharacterMaxValue = value; } }
     private void FixedUpdate()
     {
+        if(moveCharacterCounter < moveCharacterMaxValue)
+        {
+            MoveCharacterOnX();
+        }
         CheckDirection();
         FindFacingDirection();
         CharacterStates();
@@ -836,5 +859,6 @@ public class Player : MonoBehaviour
     {
         V3Velocity = rb.velocity;
     }
+
 }
 

@@ -220,8 +220,8 @@ public class Hitbox : MonoBehaviour
     }
     private void ResetMoveValues(Player DefendingPlayer, Player attackingPlayer)
     {
-        DefendingPlayer.changeHeavyMoveValue(AttackType.HeavyJab ,600);
-        DefendingPlayer.changeHeavyMoveValue(AttackType.Jab, 200);
+        //DefendingPlayer.changeHeavyMoveValue(AttackType.HeavyJab ,600);
+        //DefendingPlayer.changeHeavyMoveValue(AttackType.Jab, 200);
     }
     private void OnTriggerEnter(Collider other)
     {
