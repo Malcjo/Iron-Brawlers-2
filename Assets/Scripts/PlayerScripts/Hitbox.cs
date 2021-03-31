@@ -5,7 +5,7 @@ using UnityEngine;
 public enum AttackType { Null, Jab, LegSweep, Aerial, ArmourBreak, HeavyJab };
 public enum Attackdirection { Forward, Low, Aerial, Down };
 public enum HitBoxScale { Jab, ArmourBreak, Aerial };
-public enum FollowDes { Centre, RightHand, RightElbow, LeftHand, LeftElbow , RightFoot, LeftFoot}
+public enum FollowDes { Centre, RightHand, RightElbow, LeftHand, LeftElbow , RightFoot, LeftFoot, Head}
 public class Hitbox : MonoBehaviour
 {
     private float gaugeDamageValue = 1.5f;
@@ -84,8 +84,8 @@ public class Hitbox : MonoBehaviour
     public List<GameObject> HurtboxList = new List<GameObject>();
 
     public int armIndex;
-    public GameObject tipHitBox, midHitBox;
-    public GameObject rightHand, leftHand,rightElbow, leftElbow, rightFoot, leftFoot, rightKnee, leftKnee, waist;
+    public GameObject hitBox, midHitBox;
+    public GameObject rightHand, leftHand,rightElbow, leftElbow, rightFoot, leftFoot, rightKnee, leftKnee, waist, head;
 
     public ParticleSystem hitParticle;
     public ParticleSystem dustHitParticle;
@@ -148,22 +148,26 @@ public class Hitbox : MonoBehaviour
     }
     /*
      * Sol
-     * jab- gague damage: 2.5f |Scale: 0.4 |Position: left hand |Strength: 25, 10 |Cancel time: 0.5 |MaxMoveTimeValue: 0.25 |Move strength: 6 |WhenToMoveCharacter: 0.2
-     * heavy- gague damage: 4 |Scale: 0.4 |Position: right hand |Strength: 40, 2 |Cancel time: 0.8 |MaxMoveTimeValue: 3 |Move strength: 0.5 |WhenToMoveCharacter: 0.2
-     * sweep- gague damage: 3 |Scale: 0.4 |Position: right hand |Strength: 20, 30 |Cancel time: 0.6 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
-     * aerial- gague damage: 3 |Scale: 0.4 |Position: right elbow |Strength: 35, -0.5 |Cancel time: 0.7 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
-     * armourbreak- gague damage: 5 |Scale: 1 |Position: Center |Strength: 50, 2 |Cancel time: |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+     * jab- Position: left hand |Scale: 0.4  |gague damage: 2.5f |Strength: 25, 10 |Cancel time: 0.5 |MaxMoveTimeValue: 0.25 |Move strength: 0.5 |WhenToMoveCharacter: 0.2
+     * heavy- Position: right hand |Scale: 0.6  |gague damage: 4 |Strength: 40, 2 |Cancel time: 0.8 |MaxMoveTimeValue: 3 |Move strength: 6  |WhenToMoveCharacter: 0.2
+     * sweep- Position: right hand |Scale: 0.5 | gague damage: 3 |Strength: 20, 30 |Cancel time: 0.6 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+     * aerial- Position: right elbow |Scale: 0.5 |gague damage: 3 |Strength: 35, -0.5 |Cancel time: 0.7 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+     * armourbreak- Position: Center |Scale: 2 |gague damage: 5 |Strength: 50, 2 |Cancel time: |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
      * 
      * Goblin
-     * jab- gague damage :Scale :Position :Strength :
-     * heavy- gague damage :Scale :Position :Strength :
-     * sweep- gague damage :Scale :Position :Strength :
-     * aerial- gague damage :Scale :Position :Strength :
-     * armourbreak- gague damage :Scale :Position :Strength :
+     * jab- gague damage :Scale :Position: left hand |Strength:
+     * heavy- gague damage :Scale :Position: head |Strength:
+     * sweep- gague damage :Scale :Position: left hand |Strength:
+     * aerial- gague damage :Scale :Position:head |Strength:
+     * armourbreak- gague damage :Scale :Position: |Strength:
      * 
      * 
      * 
      * gague damage:  |Scale:  |Position: |Strength:  |Cancel time: |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+     * 
+     * 
+
+     * 
      */
 
     void HitboxPosition()
@@ -171,63 +175,71 @@ public class Hitbox : MonoBehaviour
         switch(_followDes)
         {
             case FollowDes.Centre:
+                hitBox.gameObject.transform.position = new Vector3(waist.transform.position.x, waist.transform.position.y, 0);
+                hitBox.gameObject.transform.rotation = waist.transform.rotation;
                 break;
             case FollowDes.RightHand:
-                tipHitBox.gameObject.transform.position = new Vector3(rightHand.transform.position.x, rightHand.transform.position.y, 0);
-                tipHitBox.gameObject.transform.rotation = rightHand.transform.rotation;
+                hitBox.gameObject.transform.position = new Vector3(rightHand.transform.position.x, rightHand.transform.position.y, 0);
+                hitBox.gameObject.transform.rotation = rightHand.transform.rotation;
                 break;
             case FollowDes.RightElbow:
-                tipHitBox.gameObject.transform.position = new Vector3(rightElbow.transform.position.x, rightElbow.transform.position.y, 0);
-                tipHitBox.gameObject.transform.rotation = rightElbow.transform.rotation;
+                hitBox.gameObject.transform.position = new Vector3(rightElbow.transform.position.x, rightElbow.transform.position.y, 0);
+                hitBox.gameObject.transform.rotation = rightElbow.transform.rotation;
                 break;
             case FollowDes.RightFoot:
-                tipHitBox.gameObject.transform.position = new Vector3(rightFoot.transform.position.x, rightFoot.transform.position.y, 0);
-                tipHitBox.gameObject.transform.rotation = rightFoot.transform.rotation;
+                hitBox.gameObject.transform.position = new Vector3(rightFoot.transform.position.x, rightFoot.transform.position.y, 0);
+                hitBox.gameObject.transform.rotation = rightFoot.transform.rotation;
                 break;
             case FollowDes.LeftHand:
-                tipHitBox.gameObject.transform.position = new Vector3(leftHand.transform.position.x, leftHand.transform.position.y, 0);
-                tipHitBox.gameObject.transform.rotation = leftHand.transform.rotation;
+                hitBox.gameObject.transform.position = new Vector3(leftHand.transform.position.x, leftHand.transform.position.y, 0);
+                hitBox.gameObject.transform.rotation = leftHand.transform.rotation;
                 break;
             case FollowDes.LeftElbow:
+                hitBox.gameObject.transform.position = new Vector3(leftElbow.transform.position.x, hitBox.transform.position.y, 0);
+                hitBox.gameObject.transform.rotation = leftElbow.transform.rotation;
                 break;
             case FollowDes.LeftFoot:
-                tipHitBox.gameObject.transform.position = new Vector3(leftFoot.transform.position.x, leftFoot.transform.position.y, 0);
-                tipHitBox.gameObject.transform.rotation = leftFoot.transform.rotation;
+                hitBox.gameObject.transform.position = new Vector3(leftFoot.transform.position.x, leftFoot.transform.position.y, 0);
+                hitBox.gameObject.transform.rotation = leftFoot.transform.rotation;
+                break;
+            case FollowDes.Head:
+                hitBox.gameObject.transform.position = new Vector3(head.transform.position.x, head.transform.position.y, 0);
+                hitBox.gameObject.transform.rotation = head.transform.rotation;
                 break;
         }
     }
     public void FollowCenter()
     {
-        tipHitBox.gameObject.transform.position = waist.transform.position;
-        tipHitBox.gameObject.transform.rotation = waist.transform.rotation;
+        hitBox.gameObject.transform.position = waist.transform.position;
+        hitBox.gameObject.transform.rotation = waist.transform.rotation;
     }
     public void FollowHand()
     {
         if (armIndex == 0)
         {
-            tipHitBox.gameObject.transform.position = new Vector3(leftHand.transform.position.x, leftHand.transform.position.y, 0);
-            tipHitBox.gameObject.transform.rotation = leftHand.transform.rotation;
+            hitBox.gameObject.transform.position = new Vector3(leftHand.transform.position.x, leftHand.transform.position.y, 0);
+            hitBox.gameObject.transform.rotation = leftHand.transform.rotation;
         }
         else if (armIndex == 1)
         {
-            tipHitBox.gameObject.transform.position = new Vector3(rightHand.transform.position.x, rightHand.transform.position.y, 0);
-            tipHitBox.gameObject.transform.rotation = rightHand.transform.rotation;
+            hitBox.gameObject.transform.position = new Vector3(rightHand.transform.position.x, rightHand.transform.position.y, 0);
+            hitBox.gameObject.transform.rotation = rightHand.transform.rotation;
         }
     }
     public void FollowRightElbow()
     {
-        tipHitBox.gameObject.transform.position = new Vector3(rightElbow.transform.position.x, rightElbow.transform.position.y, 0);
-        tipHitBox.gameObject.transform.rotation = rightElbow.transform.rotation;
+        hitBox.gameObject.transform.position = new Vector3(rightElbow.transform.position.x, rightElbow.transform.position.y, 0);
+        hitBox.gameObject.transform.rotation = rightElbow.transform.rotation;
     }
     public void FollowRightFoot()
     {
-        tipHitBox.gameObject.transform.position = new Vector3(rightFoot.transform.position.x, rightFoot.transform.position.y, 0);
-        tipHitBox.gameObject.transform.rotation = rightFoot.transform.rotation;
+        hitBox.gameObject.transform.position = new Vector3(rightFoot.transform.position.x, rightFoot.transform.position.y, 0);
+        hitBox.gameObject.transform.rotation = rightFoot.transform.rotation;
     }
     public void FollowLeftFoot()
     {
-        tipHitBox.gameObject.transform.position = new Vector3(leftFoot.transform.position.x, leftFoot.transform.position.y, 0);
-        tipHitBox.gameObject.transform.rotation = leftFoot.transform.rotation;
+        hitBox.gameObject.transform.position = new Vector3(leftFoot.transform.position.x, leftFoot.transform.position.y, 0);
+        hitBox.gameObject.transform.rotation = leftFoot.transform.rotation;
     }
 
     public Vector3 KnockBackStrength()

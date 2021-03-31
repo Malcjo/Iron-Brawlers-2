@@ -3618,7 +3618,7 @@ MonoBehaviour:
     MoveCharacterMaxCounter: 2
   heavyVariables:
     FollowingDestination: 1
-    HitBoxSize: 0.4
+    HitBoxSize: 0.6
     DamageOnGauge: 4
     KnockbackXStrength: 40
     KnockbackYStrength: 2
@@ -3628,7 +3628,7 @@ MonoBehaviour:
     MoveCharacterMaxCounter: 0.25
   sweepVariables:
     FollowingDestination: 1
-    HitBoxSize: 0.4
+    HitBoxSize: 0.5
     DamageOnGauge: 3
     KnockbackXStrength: 20
     KnockbackYStrength: 30
@@ -3638,7 +3638,7 @@ MonoBehaviour:
     MoveCharacterMaxCounter: 0
   neutralAerialVariables:
     FollowingDestination: 2
-    HitBoxSize: 0.4
+    HitBoxSize: 0.5
     DamageOnGauge: 3
     KnockbackXStrength: 35
     KnockbackYStrength: -0.5
@@ -3648,7 +3648,7 @@ MonoBehaviour:
     MoveCharacterMaxCounter: 0
   armourBreakVariables:
     FollowingDestination: 0
-    HitBoxSize: 1
+    HitBoxSize: 2
     DamageOnGauge: 5
     KnockbackXStrength: 50
     KnockbackYStrength: 2
@@ -3672,7 +3672,7 @@ MonoBehaviour:
   HitHurtBoxes: []
   HurtboxList: []
   armIndex: 0
-  tipHitBox: {fileID: 3938678239750794650}
+  hitBox: {fileID: 3938678239750794650}
   midHitBox: {fileID: 0}
   rightHand: {fileID: 1319036833611398105}
   leftHand: {fileID: 5158407393207054607}

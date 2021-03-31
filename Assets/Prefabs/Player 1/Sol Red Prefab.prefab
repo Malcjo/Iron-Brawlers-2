@@ -3770,51 +3770,51 @@ MonoBehaviour:
   _attackDir: 0
   _attackType: 0
   jabVariables:
-    FollowingDestination: 0
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
-    WhenToMoveCharacterInAnimation: 0
-    MoveCharacterStrength: 0
-    MoveCharacterMaxCounter: 0
+    FollowingDestination: 3
+    HitBoxSize: 0.4
+    DamageOnGauge: 2.5
+    KnockbackXStrength: 25
+    KnockbackYStrength: 10
+    CancelTime: 0.5
+    WhenToMoveCharacterInAnimation: 0.2
+    MoveCharacterStrength: 0.5
+    MoveCharacterMaxCounter: 0.25
   heavyVariables:
-    FollowingDestination: 0
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
+    FollowingDestination: 1
+    HitBoxSize: 0.6
+    DamageOnGauge: 4
+    KnockbackXStrength: 40
+    KnockbackYStrength: 2
+    CancelTime: 0.8
     WhenToMoveCharacterInAnimation: 0
-    MoveCharacterStrength: 0
-    MoveCharacterMaxCounter: 0
+    MoveCharacterStrength: 6
+    MoveCharacterMaxCounter: 3
   sweepVariables:
-    FollowingDestination: 0
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
+    FollowingDestination: 1
+    HitBoxSize: 0.5
+    DamageOnGauge: 3
+    KnockbackXStrength: 20
+    KnockbackYStrength: 30
+    CancelTime: 0.6
     WhenToMoveCharacterInAnimation: 0
     MoveCharacterStrength: 0
     MoveCharacterMaxCounter: 0
   neutralAerialVariables:
-    FollowingDestination: 0
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
+    FollowingDestination: 1
+    HitBoxSize: 0.5
+    DamageOnGauge: 3
+    KnockbackXStrength: 35
+    KnockbackYStrength: -0.5
+    CancelTime: 0.7
     WhenToMoveCharacterInAnimation: 0
     MoveCharacterStrength: 0
     MoveCharacterMaxCounter: 0
   armourBreakVariables:
     FollowingDestination: 0
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
+    HitBoxSize: 2
+    DamageOnGauge: 5
+    KnockbackXStrength: 50
+    KnockbackYStrength: 2
     CancelTime: 0
     WhenToMoveCharacterInAnimation: 0
     MoveCharacterStrength: 0
@@ -3835,7 +3835,7 @@ MonoBehaviour:
   HitHurtBoxes: []
   HurtboxList: []
   armIndex: 0
-  tipHitBox: {fileID: 3938678239750794650}
+  hitBox: {fileID: 0}
   midHitBox: {fileID: 0}
   rightHand: {fileID: 1319036833611398105}
   leftHand: {fileID: 5158407393207054607}
