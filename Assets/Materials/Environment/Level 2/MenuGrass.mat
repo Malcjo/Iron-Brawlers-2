@@ -114,7 +114,7 @@ Material:
     - _UseWind: 1
     - _WindMask_Mip: 0
     - _WindSpeed: 3.03
-    - _WindStrength: 0.5
+    - _WindStrength: 18
     - _WorkflowMode: 1
     - _ZWrite: 1
     - __dummy__: 0
@@ -127,7 +127,7 @@ Material:
     - _SColor: {r: 0.4258633, g: 0.4258633, b: 0.5471698, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _TriplanarSamplingStrength: {r: 8, g: 8, b: 8, a: 0.5}
-    - _WindDirection: {r: 1, g: 1, b: 1, a: 0}
-    - _WindTexTilingSpeed: {r: 0.17, g: 0.17, b: 0.1, a: 0.1}
+    - _WindDirection: {r: 1, g: 2, b: 1, a: 0}
+    - _WindTexTilingSpeed: {r: 0.1, g: 0.1, b: 0.1, a: 0.1}
     - _WindTexture_SC: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
