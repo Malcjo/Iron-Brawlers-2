@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: MenuGrass
   m_Shader: {fileID: 4800000, guid: 315c268b230e0414ca1372517e26c6bf, type: 3}
-  m_ShaderKeywords: TCP2_WIND _RECEIVE_SHADOWS_OFF
+  m_ShaderKeywords: TCP2_WIND
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -104,7 +104,7 @@ Material:
     - _RampSmoothing: 0.5
     - _RampThreshold: 0.5
     - _ReceiveShadows: 1
-    - _ReceiveShadowsOff: 0
+    - _ReceiveShadowsOff: 1
     - _RenderingMode: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
