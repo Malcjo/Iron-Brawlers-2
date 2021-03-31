@@ -9,6 +9,9 @@ public class BindToPlayer : MonoBehaviour
     public List<GameObject> players = new List<GameObject>();
     [SerializeField] private PlayerJoinHandler join = null;
 
+    [SerializeField] private Animator loadingScreenAnim;
+    [SerializeField] private GameObject loadingScreenGroup;
+
     public GameObject events = null;
     
     Scene currentScene;
@@ -83,7 +86,9 @@ public class BindToPlayer : MonoBehaviour
     }
     IEnumerator DelayStartGame()
     {
-        yield return new WaitForSeconds(0.2f);
+        loadingScreenAnim.Play("Fade In and Out");
+        loadingScreenGroup.SetActive(true);
+        yield return new WaitForSeconds(5f);
         GameManager.instance.DisableJoining();
         GameManager.instance.ResetPlayersReady();
         GameManager.instance.DisableMenuCanvas();
@@ -91,6 +96,8 @@ public class BindToPlayer : MonoBehaviour
         GameManager.instance.ConnectToGameManager(1);
         GameManager.instance.inGame = true;
         GameManager.instance.RoundStart = true;
+        loadingScreenAnim.Play("Fade In and Out");
+        loadingScreenGroup.SetActive(false);
         GameManager.instance.RoundStartCountDown();
         //StartCoroutine(delayRoundStart());
     }
