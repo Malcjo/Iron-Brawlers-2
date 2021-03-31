@@ -82,11 +82,11 @@ public class BindToPlayer : MonoBehaviour
     [SerializeField] private int LevelSelectNumber = 1;
     private void StartGame()
     {
+        //loadingScreenAnim.Play("Fade In and Out");
         StartCoroutine(DelayStartGame());
     }
     IEnumerator DelayStartGame()
     {
-        loadingScreenAnim.Play("Fade In and Out");
         loadingScreenGroup.SetActive(true);
         yield return new WaitForSeconds(5f);
         GameManager.instance.DisableJoining();
@@ -96,8 +96,8 @@ public class BindToPlayer : MonoBehaviour
         GameManager.instance.ConnectToGameManager(1);
         GameManager.instance.inGame = true;
         GameManager.instance.RoundStart = true;
-        loadingScreenAnim.Play("Fade In and Out");
         loadingScreenGroup.SetActive(false);
+        loadingScreenAnim.Play("Fade In and Out");
         GameManager.instance.RoundStartCountDown();
         //StartCoroutine(delayRoundStart());
     }

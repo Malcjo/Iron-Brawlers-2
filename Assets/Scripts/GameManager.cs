@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private Timer timerScript;
     [SerializeField] private List<GameObject> players = new List<GameObject>();
     [SerializeField] private Canvas mainCanvas;
-    [SerializeField] GameObject Title, MenuGroup, MainMenu, CharacterSelect, GameUIGroup;
+    [SerializeField] GameObject Title, MenuGroup, MainMenu, CharacterSelect, GameUIGroup, MainMenuAssetsGRP;
+    [SerializeField] Animator blackFadeAnim;
     [SerializeField] Button PlayButton;
     [SerializeField] GameObject mainCamera;
     [SerializeField] private GameObject eventSystem;
@@ -382,6 +383,7 @@ public class GameManager : MonoBehaviour
     {
         MainMenu.SetActive(false);
         CharacterSelect.SetActive(true);
+        MainMenuAssetsGRP.SetActive(false);
     }
     public void SetPlayerSpawns(Transform _player1Spawn, Transform _player2Spawn)
     {
@@ -612,6 +614,7 @@ public class GameManager : MonoBehaviour
     }
     private void TransisitonBackToMainMenu()
     {
+        blackFadeAnim.Play("Fade In and Out");
         PausedGame(false);
         player1Round1.SetActive(false);
         player1Round2.SetActive(false);
