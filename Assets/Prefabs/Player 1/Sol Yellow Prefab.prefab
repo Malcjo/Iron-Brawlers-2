@@ -397,7 +397,7 @@ MonoBehaviour:
   heavyMOVECharTIME: 0.2
   heavyPARTICLETIME: 0.65
   useHitSmearOnHeavy: 0
-  heavyMoveCharValue: 0.5
+  heavyMoveCharMaxValue: 0
   aerialCANCELTIME: 0.7
   aerialMOVECharTIME: 0
   aerialPARTICLETIME: 0
@@ -3606,6 +3606,58 @@ MonoBehaviour:
   _hitBoxScale: 0
   _attackDir: 0
   _attackType: 0
+  jabVariables:
+    FollowingDestination: 3
+    HitBoxSize: 0.4
+    DamageOnGauge: 2.5
+    KnockbackXStrength: 25
+    KnockbackYStrength: 10
+    CancelTime: 0.5
+    WhenToMoveCharacterInAnimation: 0.25
+    MoveCharacterStrength: 0.5
+    MoveCharacterMaxCounter: 2
+  heavyVariables:
+    FollowingDestination: 1
+    HitBoxSize: 0.4
+    DamageOnGauge: 4
+    KnockbackXStrength: 40
+    KnockbackYStrength: 2
+    CancelTime: 0.8
+    WhenToMoveCharacterInAnimation: 0.2
+    MoveCharacterStrength: 6
+    MoveCharacterMaxCounter: 0.25
+  sweepVariables:
+    FollowingDestination: 1
+    HitBoxSize: 0.4
+    DamageOnGauge: 3
+    KnockbackXStrength: 20
+    KnockbackYStrength: 30
+    CancelTime: 0.6
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterStrength: 0
+    MoveCharacterMaxCounter: 0
+  neutralAerialVariables:
+    FollowingDestination: 2
+    HitBoxSize: 0.4
+    DamageOnGauge: 3
+    KnockbackXStrength: 35
+    KnockbackYStrength: -0.5
+    CancelTime: 0.6
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterStrength: 0
+    MoveCharacterMaxCounter: 0
+  armourBreakVariables:
+    FollowingDestination: 0
+    HitBoxSize: 1
+    DamageOnGauge: 5
+    KnockbackXStrength: 50
+    KnockbackYStrength: 2
+    CancelTime: 0.7
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterStrength: 0
+    MoveCharacterMaxCounter: 0
+  knockbackXStrength: 0
+  knockbackYStrength: 0
   HeadArmourPosition: {fileID: 289387622079980921}
   ChestArmourPosition: {fileID: 5912758317564311169}
   LegArmourPosition: {fileID: 936917393361248188}
@@ -3636,11 +3688,6 @@ MonoBehaviour:
   dustHitParticle: {fileID: 1525828961861715399, guid: 4898a9aab1a0cf34da8871afb0b6e002,
     type: 3}
   particleManager: {fileID: 8197868842654377680}
-  JabStrength: {x: 25, y: 10, z: 0}
-  LegSweepStrength: {x: 20, y: 30, z: 0}
-  AerialStrength: {x: 35, y: -0.5, z: 0}
-  ArmourBreakStrength: {x: 50, y: 2, z: 0}
-  HeavyStrength: {x: 40, y: 2, z: 0}
 --- !u!1 &3938678240040364670
 GameObject:
   m_ObjectHideFlags: 0

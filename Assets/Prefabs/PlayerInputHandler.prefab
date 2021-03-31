@@ -311,7 +311,7 @@ MonoBehaviour:
   sol: {fileID: 3180238274731884556, guid: 089322fbd0eb25b4e9329da7f2b24dcd, type: 3}
   solAlt: {fileID: 3180238274731884556, guid: 381368cdcfe923048890ffc73ab9a353, type: 3}
   goblin: {fileID: 3180238274731884556, guid: d9f89ba77b8878b42b74805595c19c6f, type: 3}
-  goblinAlt: {fileID: 3180238274731884556, guid: d9f89ba77b8878b42b74805595c19c6f,
+  goblinAlt: {fileID: 3180238274731884556, guid: 294887c857f8b7b4797592f05b96f5cd,
     type: 3}
   PlayerIndex: 0
   testfloat: 0.0643383
@@ -342,6 +342,9 @@ MonoBehaviour:
   Standalone: 0
   canReceiveCounter: 0
   canReceiveInput: 1
+  ispaused: 0
   ChooseLevel: 0
+  rightTriggerHeld: 0
+  leftTriggetHeld: 0
   joyStickDelay: 0
   contextValue: 0

@@ -14,9 +14,60 @@ public class Hitbox : MonoBehaviour
     public Attackdirection _attackDir;
     public AttackType _attackType;
     private FollowDes _followDes;
+
+    public JabVariables jabVariables;
+    public HeavyVariables heavyVariables;
+    public SweepVariables sweepVariables;
+    public NeutralAerialVariables neutralAerialVariables;
+    public ArmourBreakVariables armourBreakVariables;
+    [HideInInspector] public float knockbackXStrength;
+    [HideInInspector] public float knockbackYStrength;
+    private Vector3 _knockbackStrength;
+    [System.Serializable]
+    public struct JabVariables
+    { 
+        public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge; 
+        public float KnockbackXStrength; public float KnockbackYStrength;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterStrength; public float MoveCharacterMaxCounter; 
+    }
+    [System.Serializable]
+    public struct HeavyVariables
+    {
+        public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
+        public float KnockbackXStrength; public float KnockbackYStrength;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterStrength; public float MoveCharacterMaxCounter;
+    }
+    [System.Serializable]
+    public struct SweepVariables
+    {
+        public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
+        public float KnockbackXStrength; public float KnockbackYStrength;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterStrength; public float MoveCharacterMaxCounter;
+    }
+    [System.Serializable]
+    public struct NeutralAerialVariables
+    {
+        public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
+        public float KnockbackXStrength; public float KnockbackYStrength;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterStrength; public float MoveCharacterMaxCounter;
+    }
+    [System.Serializable]
+    public struct ArmourBreakVariables
+    {
+        public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
+        public float KnockbackXStrength; public float KnockbackYStrength;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterStrength; public float MoveCharacterMaxCounter;
+    }
+
+
+
     MeshRenderer meshRenderer;
+
     Collider hitboxCollider;
-    public Transform HeadArmourPosition, ChestArmourPosition, LegArmourPosition;
+    [Space(10)]
+    public Transform HeadArmourPosition;
+    public Transform ChestArmourPosition;
+    public Transform LegArmourPosition;
     [SerializeField] float LegLocationOffset;
 
     [SerializeField] private float freezeCounter;
@@ -59,67 +110,62 @@ public class Hitbox : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        AttackTypeCall();
-        HitBoxSize();
-        GaugeDamage();
-    }
-    void AttackTypeCall()
-    {
-        switch(_attackType)
-        {
-            case AttackType.Jab:
-                FollowHand();
-                break;
-            case AttackType.LegSweep:
-                FollowHand();
-                break;
-            case AttackType.Aerial:
-                FollowRightElbow();
-                break;
-            case AttackType.ArmourBreak:
-                FollowCenter();
-                break;
-            case AttackType.HeavyJab:
-                FollowHand();
-                break;
-        }
-    }
-    private void GaugeDamage()
-    {
+        HitboxPosition();
         switch (_attackType)
         {
             case AttackType.Jab:
-                gaugeDamageValue = 2.5f;
+                _followDes = jabVariables.FollowingDestination;
+                gaugeDamageValue = jabVariables.DamageOnGauge;
+                transform.localScale = Vector3.one * jabVariables.HitBoxSize;
+                _knockbackStrength = new Vector3(player.GetFacingDirection() * jabVariables.KnockbackXStrength, jabVariables.KnockbackYStrength, 0);
                 break;
             case AttackType.HeavyJab:
-                gaugeDamageValue = 4;
-                break;
-            case AttackType.Aerial:
-                gaugeDamageValue = 3;
+                _followDes = heavyVariables.FollowingDestination;
+                gaugeDamageValue = heavyVariables.DamageOnGauge;
+                transform.localScale = Vector3.one * heavyVariables.HitBoxSize;
+                _knockbackStrength = new Vector3(player.GetFacingDirection() * heavyVariables.KnockbackXStrength, jabVariables.KnockbackYStrength, 0);
                 break;
             case AttackType.LegSweep:
-                gaugeDamageValue = 3;
+                _followDes = sweepVariables.FollowingDestination;
+                gaugeDamageValue = sweepVariables.DamageOnGauge;
+                transform.localScale = Vector3.one * sweepVariables.HitBoxSize;
+                _knockbackStrength = new Vector3(player.GetFacingDirection() * sweepVariables.KnockbackXStrength, sweepVariables.KnockbackYStrength, 0);
+                break;
+            case AttackType.Aerial:
+                _followDes = neutralAerialVariables.FollowingDestination;
+                gaugeDamageValue = neutralAerialVariables.DamageOnGauge;
+                transform.localScale = Vector3.one * neutralAerialVariables.HitBoxSize;
+                _knockbackStrength = new Vector3(player.GetFacingDirection() * neutralAerialVariables.KnockbackXStrength, neutralAerialVariables.KnockbackYStrength, 0);
                 break;
             case AttackType.ArmourBreak:
-                gaugeDamageValue = 5;
+                _followDes = armourBreakVariables.FollowingDestination;
+                gaugeDamageValue = armourBreakVariables.DamageOnGauge;
+                transform.localScale = Vector3.one * armourBreakVariables.HitBoxSize;
+                _knockbackStrength = new Vector3(player.GetFacingDirection() * armourBreakVariables.KnockbackXStrength, armourBreakVariables.KnockbackYStrength, 0);
                 break;
+
         }
     }
-    void HitBoxSize()
-    {
-        switch (_hitBoxScale)
-        {
-            case HitBoxScale.Jab:
-                transform.localScale = new Vector3(0.4f,0.4f,0.4f);
-                break;
-            case HitBoxScale.ArmourBreak:
-                transform.localScale = new Vector3(1.5f,1.5f,1.5f);
-                break;
-            case HitBoxScale.Aerial:
-                transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-                break;
-        }
-    }
+    /*
+     * Sol
+     * jab- gague damage: 2.5f |Scale: 0.4 |Position: left hand |Strength: 25, 10 |Cancel time: 0.5 |MaxMoveTimeValue: 0.25 |Move strength: 6 |WhenToMoveCharacter: 0.2
+     * heavy- gague damage: 4 |Scale: 0.4 |Position: right hand |Strength: 40, 2 |Cancel time: 0.8 |MaxMoveTimeValue: 3 |Move strength: 0.5 |WhenToMoveCharacter: 0.2
+     * sweep- gague damage: 3 |Scale: 0.4 |Position: right hand |Strength: 20, 30 |Cancel time: 0.6 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+     * aerial- gague damage: 3 |Scale: 0.4 |Position: right elbow |Strength: 35, -0.5 |Cancel time: 0.7 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+     * armourbreak- gague damage: 5 |Scale: 1 |Position: Center |Strength: 50, 2 |Cancel time: |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+     * 
+     * Goblin
+     * jab- gague damage :Scale :Position :Strength :
+     * heavy- gague damage :Scale :Position :Strength :
+     * sweep- gague damage :Scale :Position :Strength :
+     * aerial- gague damage :Scale :Position :Strength :
+     * armourbreak- gague damage :Scale :Position :Strength :
+     * 
+     * 
+     * 
+     * gague damage:  |Scale:  |Position: |Strength:  |Cancel time: |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+     */
+
     void HitboxPosition()
     {
         switch(_followDes)
@@ -183,28 +229,10 @@ public class Hitbox : MonoBehaviour
         tipHitBox.gameObject.transform.position = new Vector3(leftFoot.transform.position.x, leftFoot.transform.position.y, 0);
         tipHitBox.gameObject.transform.rotation = leftFoot.transform.rotation;
     }
-    [SerializeField] private Vector3 JabStrength;//30,3
-    [SerializeField] private Vector3 LegSweepStrength;//20,7
-    [SerializeField] private Vector3 AerialStrength;//35,-0.5f
-    [SerializeField] private Vector3 ArmourBreakStrength;//50,2
-    [SerializeField] private Vector3 HeavyStrength;//40,2
 
     public Vector3 KnockBackStrength()
     {
-        switch (_attackType)
-        {
-            case AttackType.Jab:
-                return new Vector3(player.GetFacingDirection() * JabStrength.x, JabStrength.y, 0);
-            case AttackType.LegSweep:
-                return new Vector3(player.GetFacingDirection() * LegSweepStrength.x, LegSweepStrength.y, 0);
-            case AttackType.Aerial:
-                return new Vector3(player.GetFacingDirection() * AerialStrength.x, AerialStrength.y, 0);
-            case AttackType.ArmourBreak:
-                return new Vector3(player.GetFacingDirection() * ArmourBreakStrength.x, ArmourBreakStrength.y, 0);
-            case AttackType.HeavyJab:
-                return new Vector3(player.GetFacingDirection() * HeavyStrength.x, HeavyStrength.y, 0);
-        }
-        return new Vector3(player.GetFacingDirection() * 5, 2, 0);
+        return _knockbackStrength;
     }
 
     public void ShowHitBoxes()

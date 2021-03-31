@@ -54,7 +54,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float heavyMOVECharTIME;
     [SerializeField] private float heavyPARTICLETIME;
     [SerializeField] private bool useHitSmearOnHeavy;
-    [SerializeField] private float heavyMoveCharValue;
+    [SerializeField] private float heavyMoveCharMaxValue;
 
     [Header("AerialVariables")]
     [SerializeField] private float aerialCANCELTIME;
@@ -121,22 +121,23 @@ public class PlayerActions : MonoBehaviour
     private IEnumerator Jab()
     {
         self.CanActOutOf = false;
-        self.MoveCharacterMaxValue = jabMoveStrength;
+        //self.MoveCharacterMaxValue = jabMoveStrength;
+        self.MoveCharacterMaxValue = hitboxScript.jabVariables.MoveCharacterMaxCounter;
         bool canMove = true;
         //anim.Play(animlist[comboStep]);
         TransitionToAnimation(JABKEY, 0.03f);
         anim.speed = 1;
         FindObjectOfType<AudioManager>().Play(AudioManager.JABMISS);
-        comboStep++;
-        comboTimer = 1;
+        //comboStep++;
+        //comboTimer = 1;
         yield return null;
-        hitboxManager.SwapHands(0);
-        hitboxScript._attackDir = Attackdirection.Forward;
+        //hitboxManager.SwapHands(0);
+        //hitboxScript._attackDir = Attackdirection.Forward;
         hitboxScript._attackType = AttackType.Jab;
         hitboxManager.JabAttack(0.5f);
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < JabCANCELTIME)
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < hitboxScript.jabVariables.CancelTime)
             {
                 while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabMOVECharTIME)
                 {
@@ -144,7 +145,7 @@ public class PlayerActions : MonoBehaviour
                 }
                 if (canMove == true)
                 {
-
+                    //self.SetMoveCharacterStrength(hitboxScript.jabVariables.MoveCharacterStrength);
                    // self.SetMoveCharacterStrength(jabMoveStrength);
                 }
                 canMove = false;
@@ -172,19 +173,19 @@ public class PlayerActions : MonoBehaviour
         if (self.CanDoAttack)
         {
             self.CanActOutOf = false;
-            self.MoveCharacterMaxValue = heavyMoveCharValue;
+            self.MoveCharacterMaxValue = hitboxScript.heavyVariables.MoveCharacterMaxCounter;
             bool canMove = true;
             TransitionToAnimation(HEAVYKEY, 0.02f);
             FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
             anim.speed = 1;
             yield return null;
-            hitboxManager.SwapHands(1);
-            hitboxScript._attackDir = Attackdirection.Forward;
+            //hitboxManager.SwapHands(1);
+            //hitboxScript._attackDir = Attackdirection.Forward;
             hitboxScript._attackType = AttackType.HeavyJab;
             hitboxManager.JabAttack(0.5f);
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyCANCELTIME)
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < hitboxScript.heavyVariables.CancelTime)
                 {
                     while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.65f)
                     {
@@ -199,7 +200,7 @@ public class PlayerActions : MonoBehaviour
                         }
                         if (canMove == true)
                         {
-                            self.SetMoveCharacterStrength(heavyMoveStrength);
+                            self.SetMoveCharacterStrength(hitboxScript.heavyVariables.MoveCharacterStrength);
                             //self.MoveCharacterWithAttacks(heavyAttackMoveValue);
                             canMove = false;
                         }

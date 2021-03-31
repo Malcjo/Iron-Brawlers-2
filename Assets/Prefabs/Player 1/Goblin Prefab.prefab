@@ -4261,6 +4261,58 @@ MonoBehaviour:
   _hitBoxScale: 0
   _attackDir: 0
   _attackType: 0
+  jabVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterStrength: 0
+    MoveCharacterMaxCounter: 0
+  heavyVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterStrength: 0
+    MoveCharacterMaxCounter: 0
+  sweepVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterStrength: 0
+    MoveCharacterMaxCounter: 0
+  neutralAerialVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterStrength: 0
+    MoveCharacterMaxCounter: 0
+  armourBreakVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterStrength: 0
+    MoveCharacterMaxCounter: 0
+  knockbackXStrength: 0
+  knockbackYStrength: 0
   HeadArmourPosition: {fileID: 4092204009917520403}
   ChestArmourPosition: {fileID: 8587426863808159756}
   LegArmourPosition: {fileID: 4978630946425699683}
@@ -4291,11 +4343,6 @@ MonoBehaviour:
   dustHitParticle: {fileID: 1525828961861715399, guid: 4898a9aab1a0cf34da8871afb0b6e002,
     type: 3}
   particleManager: {fileID: 0}
-  JabStrength: {x: 30, y: 3, z: 0}
-  LegSweepStrength: {x: 20, y: 7, z: 0}
-  AerialStrength: {x: 35, y: -0.5, z: 0}
-  ArmourBreakStrength: {x: 50, y: 2, z: 0}
-  HeavyStrength: {x: 40, y: 2, z: 0}
 --- !u!1 &3938678240040364670
 GameObject:
   m_ObjectHideFlags: 0
@@ -5217,7 +5264,7 @@ MonoBehaviour:
   heavyMOVECharTIME: 0.1
   heavyPARTICLETIME: 0
   useHitSmearOnHeavy: 0
-  heavyMoveCharValue: 1
+  heavyMoveCharMaxValue: 0
   aerialCANCELTIME: 0
   aerialMOVECharTIME: 0
   aerialPARTICLETIME: 0
