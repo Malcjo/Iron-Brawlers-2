@@ -103,7 +103,7 @@
                 },
                 {
                     "name": "LeftTrigger",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "4a7f47e8-d9b0-4ade-ac0b-e3a05286badb",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -579,7 +579,7 @@
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "",
                     "action": "RightTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -79,6 +79,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     private void Update()
     {
+        ispaused = GameManager.instance.Paused;
         joyStickDelay += 1 * Time.deltaTime;
         canReceiveCounter += 2 * Time.deltaTime;
         //currentWall = player.GetCurrentWall();
@@ -101,9 +102,9 @@ public class PlayerInputHandler : MonoBehaviour
         {
             ShouldPause();
         }
-        if (GameManager.instance.Paused)
+        if (ispaused)
         {
-            if(ShouldRightTrigger() && ShouldLeftTrigger())
+            if(rightTriggerHeld == true && leftTriggetHeld == true)
             {
                 ShouldPause();
                 GameManager.instance.ExitBackToMenu();
@@ -114,6 +115,7 @@ public class PlayerInputHandler : MonoBehaviour
 
 
     }
+    [SerializeField] private bool ispaused;
     //private void FixedUpdate()
     //{
     //    HorizontalValue = 1;
@@ -251,8 +253,8 @@ public class PlayerInputHandler : MonoBehaviour
         }
         return false;
     }
-    private bool rightTriggerHeld;
-    private bool leftTriggetHeld;
+    [SerializeField] private bool rightTriggerHeld;
+    [SerializeField] private bool leftTriggetHeld;
     public bool ShouldRightTrigger()
     {
         return rightTriggerHeld;
