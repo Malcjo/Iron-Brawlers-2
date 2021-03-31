@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player1Round1, player1Round2, player1Round3;
     [SerializeField] private GameObject player2Round1, player2Round2, player2Round3;
 
+    [SerializeField] private Animator RoundsAnim;
+
     [SerializeField] private GameObject player1Head, player1Chest, player1Legs;
     [SerializeField] private GameObject player2Head, player2Chest, player2Legs;
 
@@ -695,12 +697,15 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 player1Round1.SetActive(true);
+                RoundsAnim.Play("P1Round1");
                 break;
             case 2:
                 player1Round2.SetActive(true);
+                RoundsAnim.Play("P1Round2");
                 break;
             case 3:
                 player1Round3.SetActive(true);
+                RoundsAnim.Play("P1Round3");
                 break;
         }
     }
@@ -710,12 +715,15 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 player2Round1.SetActive(true);
+                RoundsAnim.Play("P2Round1");
                 break;
             case 2:
                 player2Round2.SetActive(true);
+                RoundsAnim.Play("P2Round2");
                 break;
             case 3:
                 player2Round3.SetActive(true);
+                RoundsAnim.Play("P2Round3");
                 break;
         }
     
