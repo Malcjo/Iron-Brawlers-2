@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
     public GameObject player1Character1Background, player1Character2Background;
     public GameObject player2Character1Background, player2Character2Background;
 
+    [SerializeField] private GameObject PauseScreen;
     private void ResetCharacterAndLevelUI()
     {
         ChooseLevel = false;
@@ -148,11 +149,13 @@ public class GameManager : MonoBehaviour
     {
         if(val == true)
         {
+            PauseScreen.SetActive(true);
             paused = val;
             Time.timeScale = 0;
         }
         else if (val == false)
         {
+            PauseScreen.SetActive(false);
             paused = val;
             Time.timeScale = 1;
         }

@@ -104,11 +104,16 @@ public class PlayerInputHandler : MonoBehaviour
         }
         if (ispaused)
         {
+            player.CanTurn = false;
             if(rightTriggerHeld == true && leftTriggetHeld == true)
             {
                 ShouldPause();
-                GameManager.instance.ExitBackToMenu();
+                GameManager.instance.ExitBackToMenu(); 
             }
+        }
+        else if (ispaused == false)
+        {
+            player.CanTurn = true;
         }
 
 
@@ -369,7 +374,6 @@ public class PlayerInputHandler : MonoBehaviour
         {
             if (context.started)
             {
-
                 if(joyStickDelay > 0.1f)
                 {
                     contextValue = context.ReadValue<float>();
@@ -453,11 +457,11 @@ public class PlayerInputHandler : MonoBehaviour
         }
         else
         {
-            if (!_Paused)
+            if (player != null)
             {
-                if (player != null)
+                horizontalInput = context.ReadValue<float>();
+                if (!_Paused)
                 {
-                    horizontalInput = context.ReadValue<float>();
                     if (horizontalInput <= 0.35f && horizontalInput >= -0.35f)
                     {
                         horizontalInput = 0;
