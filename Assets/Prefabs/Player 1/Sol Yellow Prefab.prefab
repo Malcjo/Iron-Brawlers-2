@@ -2493,7 +2493,7 @@ MonoBehaviour:
   normalFriction: 0.3
   slideFriction: 0.1
   landing: 0
-  speed: 6.5
+  speed: 5.5
   weight: 25
   knockbackResistance: {x: 0, y: 0, z: 0}
   rb: {fileID: 4643627960604792311}
@@ -2513,7 +2513,7 @@ MonoBehaviour:
   CurrentVelocity: 0
   YVelocity: 0
   DebugModeOn: 0
-  jumpForce: 9
+  jumpForce: 6.5
   jabHitStun: 0.5
   sweepHitStun: 0.75
   heavyHitStun: 0.6

@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour
     {
         TrackPlayers();
         EnableJoiningManager();
-        TrackPlayerRounds();
+        //TrackPlayerRounds();
         TrackPlayersArmour();
     }
     public void CloseProgram()
@@ -696,16 +696,19 @@ public class GameManager : MonoBehaviour
         switch (player1Rounds)
         {
             case 1:
-                player1Round1.SetActive(true);
+
                 RoundsAnim.Play("P1Round1");
+                player1Round1.SetActive(true);
                 break;
             case 2:
-                player1Round2.SetActive(true);
+
                 RoundsAnim.Play("P1Round2");
+                player1Round2.SetActive(true);
                 break;
             case 3:
-                player1Round3.SetActive(true);
+
                 RoundsAnim.Play("P1Round3");
+                player1Round3.SetActive(true);
                 break;
         }
     }
@@ -714,16 +717,19 @@ public class GameManager : MonoBehaviour
         switch (player2Rounds)
         {
             case 1:
-                player2Round1.SetActive(true);
+
                 RoundsAnim.Play("P2Round1");
+                player2Round1.SetActive(true);
                 break;
             case 2:
-                player2Round2.SetActive(true);
+
                 RoundsAnim.Play("P2Round2");
+                player2Round2.SetActive(true);
                 break;
             case 3:
-                player2Round3.SetActive(true);
+
                 RoundsAnim.Play("P2Round3");
+                player2Round3.SetActive(true);
                 break;
         }
     
@@ -734,6 +740,7 @@ public class GameManager : MonoBehaviour
         {
             players[0].GetComponent<Player>().ResetGuage();
             player2Rounds++;
+            TrackPlayer2Rounds();
             ResetPlayers();
             _RoundStart = true;
             RoundStartCountDown();
@@ -746,6 +753,7 @@ public class GameManager : MonoBehaviour
         {
             players[1].GetComponent<Player>().ResetGuage();
             player1Rounds++;
+            TrackPlayer1Rounds();
             ResetPlayers();
             _RoundStart = true;
             RoundStartCountDown();

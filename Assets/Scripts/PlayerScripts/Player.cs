@@ -444,7 +444,7 @@ public class Player : MonoBehaviour
                 }
                 gravityValue = 10;
             }
-            totalGravityValue = gravityValue * ((weight + armourCheck.armourWeight) / 10);
+            totalGravityValue = gravityValue * ((weight) / 10);
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + -totalGravityValue * Time.deltaTime, 0);
         }
         else if (_currentVerticalState == VState.grounded && MyState.StickToGround())
@@ -627,7 +627,7 @@ public class Player : MonoBehaviour
     }
     public float SetPlayerSpeed()
     {
-        float characterSpeed = speed - armourCheck.armourReduceSpeed;
+        float characterSpeed = speed;
         if (_hitStun == true)
         {
             characterSpeed *= 0 + (5 * Time.deltaTime);
@@ -645,12 +645,12 @@ public class Player : MonoBehaviour
         {
             if (_currentVerticalState == VState.grounded)
             {
-                jumpForceValue = jumpForce - armourCheck.reduceJumpForce;
+                jumpForceValue = jumpForce;
                 return jumpForceValue;
             }
             else if (_currentVerticalState == VState.jumping || _currentVerticalState == VState.falling)
             {
-                jumpForceValue = (jumpForce + 2) - armourCheck.reduceJumpForce;
+                jumpForceValue = (jumpForce + 2);
                 return jumpForceValue;
             }
         }

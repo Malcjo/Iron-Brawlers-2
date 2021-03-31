@@ -607,7 +607,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void JumpInput(CallbackContext context)
     {
-        if (!_Paused)
+        if (!ispaused)
         {
             if (context.started)
             {
@@ -618,7 +618,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void AttackInput(CallbackContext context)
     {
-        if (!_Paused)
+        if (!ispaused)
         {
             if (context.started)
             {
@@ -633,7 +633,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void CrouchInput(CallbackContext context)
     {
-        if (!_Paused)
+        if (!ispaused)
         {
             if (context.started)
             {
@@ -649,7 +649,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void BlockInput(CallbackContext context)
     {
-        if (!_Paused)
+        if (!ispaused)
         {
             if (context.started)
             {
@@ -688,7 +688,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void ArmourBreakInput(CallbackContext context)
     {
-        if (!_Paused)
+        if (!ispaused)
         {
             if (context.started)
             {
@@ -699,7 +699,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void HeavyInput(CallbackContext context)
     {
-        if (!_Paused)
+        if (!ispaused)
         {
             if (context.started)
             {
@@ -723,9 +723,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void StartButton(CallbackContext context)
     {
-        if (context.started)
+        if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
         {
-            pausedQueued = true;
+            if (context.started)
+            {
+                pausedQueued = true;
+            }
         }
     }
 
