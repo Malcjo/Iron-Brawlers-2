@@ -644,6 +644,12 @@ public class GameManager : MonoBehaviour
         roundStartCounter = 0;
         StartCoroutine(RoundStartLooper());
     }
+    public void SetRoundStart(bool val)
+    {
+        startRound = val;
+    }
+    private bool startRound = false;
+    public bool StartRound {get { return startRound; } }
     private IEnumerator RoundStartLooper()
     {
         yield return new WaitForSeconds(0.01f);
@@ -654,12 +660,7 @@ public class GameManager : MonoBehaviour
             bool FightActive = false;
 
             roundStartCounter += 1 * Time.deltaTime;
-            if (players.Count > 0)
-            {
-                bindToPlayer.players[1].gameObject.SetActive(false);
 
-            }
-            bindToPlayer.players[0].gameObject.SetActive(false);
 
 
             if ((int)roundStartCounter >= 0.5f && ReadyActive == false)

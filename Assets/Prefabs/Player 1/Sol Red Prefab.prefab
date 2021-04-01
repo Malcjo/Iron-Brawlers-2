@@ -3786,9 +3786,9 @@ MonoBehaviour:
     KnockbackXStrength: 40
     KnockbackYStrength: 2
     CancelTime: 0.8
-    WhenToMoveCharacterInAnimation: 0
+    WhenToMoveCharacterInAnimation: 0.2
     MoveCharacterStrength: 6
-    MoveCharacterMaxCounter: 3
+    MoveCharacterMaxCounter: 0.25
   sweepVariables:
     FollowingDestination: 1
     HitBoxSize: 0.5
@@ -3846,6 +3846,7 @@ MonoBehaviour:
   rightKnee: {fileID: 322154672202183414}
   leftKnee: {fileID: 4955976208830267982}
   waist: {fileID: 1081166452312770748}
+  head: {fileID: 0}
   hitParticle: {fileID: 3583048005112685821, guid: 7f6b353b6dfaf224baecf0565c7b4338,
     type: 3}
   dustHitParticle: {fileID: 1525828961861715399, guid: 4898a9aab1a0cf34da8871afb0b6e002,
