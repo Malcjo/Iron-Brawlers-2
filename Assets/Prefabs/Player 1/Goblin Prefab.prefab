@@ -4279,8 +4279,8 @@ MonoBehaviour:
     KnockbackYStrength: 2
     CancelTime: 0.8
     WhenToMoveCharacterInAnimation: 0.1
-    MoveCharacterStrength: 6
-    MoveCharacterMaxCounter: 6
+    MoveCharacterStrength: 8
+    MoveCharacterMaxCounter: 1
   sweepVariables:
     FollowingDestination: 3
     HitBoxSize: 0

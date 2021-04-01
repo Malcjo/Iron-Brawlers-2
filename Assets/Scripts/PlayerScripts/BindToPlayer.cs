@@ -64,8 +64,6 @@ public class BindToPlayer : MonoBehaviour
                 GameManager.instance.TransitionToLevelSelect();
                 //GameManager.instance.ChooseLevel = true;
                 GameManager.instance.levelSelect = true;
-                players[0].GetComponent<PlayerInputHandler>().TransitionToLevelSelect();
-                players[1].GetComponent<PlayerInputHandler>().TransitionToLevelSelect();
                 if (GameManager.instance.StartGame == true)
                 {
                     StartGame();
@@ -96,9 +94,11 @@ public class BindToPlayer : MonoBehaviour
         GameManager.instance.ConnectToGameManager(1);
         GameManager.instance.inGame = true;
         GameManager.instance.RoundStart = true;
-        loadingScreenGroup.SetActive(false);
         loadingScreenAnim.Play("Fade In and Out");
+        loadingScreenGroup.SetActive(false);
+        GameManager.instance.SetRoundStart(true);
         GameManager.instance.RoundStartCountDown();
+        GameManager.instance.SetRoundStart(false);
         //StartCoroutine(delayRoundStart());
     }
     IEnumerator delayRoundStart()
