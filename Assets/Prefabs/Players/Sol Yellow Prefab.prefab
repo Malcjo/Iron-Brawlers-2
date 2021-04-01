@@ -380,6 +380,8 @@ MonoBehaviour:
   armourCheck: {fileID: 2313752520885891229}
   ParticleSmearLines: {fileID: 224859570285748285}
   IsDoubleJump: 0
+  dashCounter: 0
+  canDash: 0
   comboStep: 0
   comboTimer: 0
   jabVariables:
@@ -391,7 +393,7 @@ MonoBehaviour:
     CancelTime: 0
     WhenToMoveCharacterInAnimation: 0
     MoveCharacterOnXStrength: 0
-    MoveCharacterMaxCounter: 0
+    MoveCharacterOnXMaxCounter: 0
   heavyVariables:
     FollowingDestination: 0
     HitBoxSize: 0
@@ -402,8 +404,12 @@ MonoBehaviour:
     CancelTime: 0
     WhenToMoveCharacterInAnimation: 0
     MoveCharacterOnXStrength: 0
-    MoveCharacterMaxCounter: 0
+    MoveCharacterOnXMaxCounter: 0
     WhenToPlaySmearParticles: 0
+    MoveCharacterOnYStrength: 0
+    MoveCharacterOnYMaxCounter: 0
+    MoveOnY: 0
+    MoveOnX: 0
   sweepVariables:
     FollowingDestination: 0
     HitBoxSize: 0
@@ -413,7 +419,7 @@ MonoBehaviour:
     CancelTime: 0
     WhenToMoveCharacterInAnimation: 0
     MoveCharacterOnXStrength: 0
-    MoveCharacterMaxCounter: 0
+    MoveCharacterOnXMaxCounter: 0
   neutralAerialVariables:
     FollowingDestination: 0
     HitBoxSize: 0
@@ -423,7 +429,7 @@ MonoBehaviour:
     CancelTime: 0
     WhenToMoveCharacterInAnimation: 0
     MoveCharacterOnXStrength: 0
-    MoveCharacterMaxCounter: 0
+    MoveCharacterOnXMaxCounter: 0
   armourBreakVariables:
     FollowingDestination: 0
     HitBoxSize: 0
@@ -433,13 +439,15 @@ MonoBehaviour:
     CancelTime: 0
     WhenToMoveCharacterInAnimation: 0
     MoveCharacterOnXStrength: 0
-    MoveCharacterMaxCounter: 0
+    MoveCharacterOnXMaxCounter: 0
+    MoveCharacterOnYStrength: 30
+    MoveCharacterOnYMaxCounter: 0.1
+    MoveOnY: 0
+    MoveOnX: 0
   dashVariables:
-    MoveCharacterOnXStrength: 12
-    MoveCharacterMaxCounter: 0.1
-    MaxDashTime: 0.5
-  dashCounter: 0
-  canDash: 0
+    MoveCharacterOnXStrength: 9
+    MoveCharacterMaxCounter: 0.2
+    MaxDashTime: 1
   useHitSmearOnHeavy: 0
 --- !u!1 &658631414417313013
 GameObject:
@@ -2574,15 +2582,16 @@ MonoBehaviour:
   attackingFreezeCounter: 0
   _TempAttackingVelocity: {x: 0, y: 0, z: 0}
   freezeAttackingPlayer: 0
-  isDummy: 0
   SpawnPoint: {fileID: 0}
   StandaloneSpawnPoint: {fileID: 0}
+  moveCharacterOnXStrength: 0
+  moveCharacterOnYStrength: 0
+  moveCharacterOnXCounter: 0
+  moveCharacterOnYCounter: 0
   CanActOutOf: 0
   _interuptSliderSetToZero: 0
   Delaycounter: 0
-  moveCharacterStrength: 0
-  moveCharacterCounter: 0
-  moveCharacterMaxValue: 0.1
+  moveCharacterOnYMaxCounter: 0
   V3Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1181940027119994825
 MonoBehaviour:
