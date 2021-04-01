@@ -111,19 +111,11 @@
                 },
                 {
                     "name": "LeftTrigger",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "3f29797e-3e7a-4ac3-bd4c-76b0146ba425",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold"
-                },
-                {
-                    "name": "Dash",
-                    "type": "PassThrough",
-                    "id": "aa7b2fd5-1ae6-4ffa-8e61-7a45d2a385ee",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Hold"
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -570,7 +562,7 @@
                 {
                     "name": "",
                     "id": "db812ace-9802-419c-a9e4-358c6a550688",
-                    "path": "",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -581,22 +573,11 @@
                 {
                     "name": "",
                     "id": "837c45ba-4e20-4167-a8c3-6c98e1f9d400",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LeftTrigger",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "685ec568-6797-4368-972d-1adb1575e2d7",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
+                    "action": "LeftTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -13,7 +13,7 @@ public class MovingState : PlayerState
     {
 
         if (self.VerticalState == Player.VState.grounded)
-        {;
+        {
             self.SlideValue += self.SliderCountUpSetValue * Time.deltaTime;
             if (MovementCheck(input.horizontalInput))
             {
@@ -67,7 +67,7 @@ public class MovingState : PlayerState
                 {
                     self.SetState(new IdleState());
                 }
-                if (BlockCheck(input.blockInput))
+                if (BlockCheck(input.rightTriggerInput))
                 {
                     actions.Block();
                     self.Blocking = true;
@@ -118,7 +118,7 @@ public class MovingState : PlayerState
                 actions.Crouching();
                 self.SetState(new CrouchingState());
             }
-            if (BlockCheck(input.blockInput))
+            if (BlockCheck(input.rightTriggerInput))
             {
                 actions.Block();
                 self.Blocking = true;
@@ -135,6 +135,10 @@ public class MovingState : PlayerState
                 self.PlayParticle(ParticleType.ArmourBreak, Vector3.zero);
                 actions.ArmourBreak();
                 self.SetState(new BusyState());
+            }
+            if (DashCheck(input.leftTriggerInput))
+            {
+                actions.Dash();
             }
         }
         else

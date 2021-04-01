@@ -42,6 +42,7 @@ public class PlayerActions : MonoBehaviour
  * sweep- Position: right hand |Scale: 0.5 | gague damage: 3 |Strength: 20, 30 |Cancel time: 0.6 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
  * aerial- Position: right elbow |Scale: 0.5 |gague damage: 3 |Strength: 35, -0.5 |Cancel time: 0.7 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
  * armourbreak- Position: Center |Scale: 2 |gague damage: 5 |Strength: 50, 2 |Cancel time: |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+ * dash- Move Character On X Strength: 12 |MoveCharacterMaxCounter: 0.1 MaxDashTime: 0.5 
  * 
  * Goblin
  * jab- gague damage :Scale :Position: left hand |Strength:
@@ -49,6 +50,9 @@ public class PlayerActions : MonoBehaviour
  * sweep- gague damage :Scale :Position: left hand |Strength:
  * aerial- gague damage :Scale :Position:head |Strength:
  * armourbreak- gague damage :Scale :Position: |Strength:
+ * 
+ * 
+ * 
  */
 
 
@@ -58,6 +62,7 @@ public class PlayerActions : MonoBehaviour
     public SweepVariables sweepVariables;
     public NeutralAerialVariables neutralAerialVariables;
     public ArmourBreakVariables armourBreakVariables;
+    public DashVariables dashVariables;
 
 
 
@@ -98,11 +103,13 @@ public class PlayerActions : MonoBehaviour
         public float KnockbackXStrength; public float KnockbackYStrength;
         public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter;
     }
-    public struct DashVaribles
+    [System.Serializable]
+    public struct DashVariables
     {
-        public float MoveCharacterStrength; public float MoveCharcterMaxCounter;
+        public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter; public float MaxDashTime;
     }
-
+    [SerializeField]private float dashCounter;
+    [SerializeField] private bool canDash;
 
 
     private void Awake()
@@ -136,6 +143,11 @@ public class PlayerActions : MonoBehaviour
     }
     private void Update()
     {
+        dashCounter += 1 * Time.deltaTime;
+        if(dashCounter >= dashVariables.MaxDashTime)
+        {
+            canDash = true;
+        }
         if (comboTimer > 0)
         {
             comboTimer -= Time.deltaTime;
@@ -182,14 +194,33 @@ public class PlayerActions : MonoBehaviour
                 break;
         }
     }
-
+    public void Dash()
+    {
+        if (canDash)
+        {
+            self.SetState(new BusyState());
+            dashCounter = 0;
+            canDash = false;
+            StartCoroutine(DashAction());
+        }
+    }
+    IEnumerator DashAction()
+    {
+        while (dashCounter <= dashVariables.MoveCharacterMaxCounter)
+        {
+            self.MoveCharacterMaxValue = dashVariables.MoveCharacterMaxCounter;
+            self.SetMoveCharacterStrength(dashVariables.MoveCharacterOnXStrength);
+            yield return null;
+        }
+        self.SetState(new IdleState());
+    }
 
     public void Jab() 
     {
-        StartCoroutine(JabAttack()); 
+        StartCoroutine(JabAction()); 
     }
 
-    private IEnumerator JabAttack()
+    private IEnumerator JabAction()
     {
         self.CanActOutOf = false;
         //self.MoveCharacterMaxValue = jabMoveStrength;
@@ -236,10 +267,10 @@ public class PlayerActions : MonoBehaviour
         if (self.DebugModeOn == true)
         {
         }
-        StartCoroutine(_Heavy()); 
+        StartCoroutine(HeavyAction()); 
     }
 
-    private IEnumerator _Heavy()
+    private IEnumerator HeavyAction()
     {
         if (self.CanDoAttack)
         {

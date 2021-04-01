@@ -65,7 +65,12 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private bool Standalone = false;
 
     private CameraScript cameraScript;
-
+    [SerializeField] private bool rightBumperHeld;
+    [SerializeField] private bool leftBumperHeld;
+    [SerializeField]private bool leftTriggerHeld;
+    [SerializeField]private bool rightTriggerHeld;
+    [SerializeField] float joyStickDelay;
+    [SerializeField] float contextValue;
 
     private void Awake()
     {
@@ -223,10 +228,6 @@ public class PlayerInputHandler : MonoBehaviour
         }
         return false;
     }
-    public bool ShouldDash()
-    {
-        return dashHeld;
-    }
     public bool ShouldUpDirection()
     {
         return UpDirectionHeld;
@@ -254,8 +255,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
         return false;
     }
-    [SerializeField] private bool rightBumperHeld;
-    [SerializeField] private bool leftBumperHeld;
+
     public bool ShouldRightBumper()
     {
         return rightBumperHeld;
@@ -369,8 +369,7 @@ public class PlayerInputHandler : MonoBehaviour
                 break;
         }
     }
-    [SerializeField] float joyStickDelay;
-    [SerializeField] float contextValue;
+
     public void HorizontalInput(CallbackContext context)
     {
 
@@ -481,14 +480,11 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (canAct)
         {
-            Debug.Log("canAct");
             if (context.started)
             {
-                Debug.Log("Context " + primed);
                 primed = false;
                 if (!ChooseLevel)
                 {
-                    Debug.Log("!ChooseLevel");
                     //    switch (chara)
                     //    {
                     //        case 0:
@@ -505,7 +501,6 @@ public class PlayerInputHandler : MonoBehaviour
                     //    }
                     if (chara == 0) //Sol Picked
                     {
-                        Debug.Log("Sol");
                         if (PlayerIndex == 1) // player 1
                         {
                             GameManager.instance.player1CharacterPuck.SetActive(true);
@@ -703,8 +698,7 @@ public class PlayerInputHandler : MonoBehaviour
             }
         }
     }
-    private bool rightTriggerHeld;
-    private bool leftTriggerHeld;
+
     public void RightTriggerInput(CallbackContext context)
     {
         if (CanControlCharacter())
@@ -766,23 +760,6 @@ public class PlayerInputHandler : MonoBehaviour
             }
         }
 
-    }
-    private bool dashHeld;
-    public void DashInput(CallbackContext context)
-    {
-        if (!ispaused || CanControlCharacter())
-        {
-            if(context.started && primed)
-            {
-                primed = false;
-                dashHeld = true;
-            }
-            if (context.canceled)
-            {
-                primed = true;
-                dashHeld = false;
-            }
-        }
     }
 
     public void UpDirectionInput(CallbackContext context)

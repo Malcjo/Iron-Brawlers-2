@@ -14,7 +14,6 @@ public abstract class PlayerState
         public bool blockInput;
         public bool heavyInput;
         public bool upDirectionInput;
-        public bool dashInput;
         public bool rightTriggerInput;
         public bool leftTriggerInput;
         public bool rightBumperInput;
@@ -80,7 +79,10 @@ public abstract class PlayerState
     {
         return upDirectionInput;
     }
-
+    protected bool DashCheck(bool dashInput)
+    {
+        return dashInput;
+    }
     public virtual bool StickToGround() => true;
 }
 

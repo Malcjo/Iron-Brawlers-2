@@ -128,6 +128,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform SpawnPoint;
     [SerializeField] private Transform StandaloneSpawnPoint;
 
+
     public bool CanActOutOf;
     public void SetUpInputDetectionScript(PlayerInputHandler _playerInputDetection)
     {
@@ -307,7 +308,6 @@ public class Player : MonoBehaviour
         blockInput = playerInputHandler.ShouldBlock(),
         heavyInput = playerInputHandler.ShouldHeavy(),
         upDirectionInput = playerInputHandler.ShouldUpDirection(),
-        dashInput = playerInputHandler.ShouldDash(),
         rightTriggerInput = playerInputHandler.ShouldRightTrigger(),
         leftTriggerInput = playerInputHandler.ShouldLeftTrigger(),
         rightBumperInput = playerInputHandler.ShouldRightBumper(),

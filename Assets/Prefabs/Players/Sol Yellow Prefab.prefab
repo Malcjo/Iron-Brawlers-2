@@ -434,6 +434,12 @@ MonoBehaviour:
     WhenToMoveCharacterInAnimation: 0
     MoveCharacterOnXStrength: 0
     MoveCharacterMaxCounter: 0
+  dashVariables:
+    MoveCharacterOnXStrength: 12
+    MoveCharacterMaxCounter: 0.1
+    MaxDashTime: 0.5
+  dashCounter: 0
+  canDash: 0
   useHitSmearOnHeavy: 0
 --- !u!1 &658631414417313013
 GameObject:

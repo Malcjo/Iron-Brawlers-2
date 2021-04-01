@@ -71,7 +71,7 @@ public class IdleState : PlayerState
                 //self.StopMovingCharacterOnXAxis();
                 //actionTaken = true;
             }
-            if (BlockCheck(input.blockInput))
+            if (BlockCheck(input.rightTriggerInput))
             {
                 actions.Block();
                 self.Blocking = true;
@@ -79,7 +79,7 @@ public class IdleState : PlayerState
                 self.SetState(new BlockState());
                 //actionTaken = true;
             }
-            if (!BlockCheck(input.blockInput))
+            if (!BlockCheck(input.rightTriggerInput))
             {
                 actions.ExitBlock();
                 self.Blocking = false;
@@ -95,7 +95,10 @@ public class IdleState : PlayerState
                 actions.ArmourBreak();
                 self.SetState(new BusyState());
             }
-
+            if (DashCheck(input.leftTriggerInput))
+            {
+                actions.Dash();
+            }
             //if (!actionTaken)
             //{
             //    actions.Idle();
