@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
     public GameObject player1Character1Background, player1Character2Background;
     public GameObject player2Character1Background, player2Character2Background;
 
+    [SerializeField] private LoadLevel loadLevelScript;
+
     [SerializeField] private GameObject PauseScreen;
     private void ResetCharacterAndLevelUI()
     {
@@ -232,7 +234,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetLevelNumber(int var)
     {
-        bindToPlayer.SetLevelSelectedNumber(var);
+        loadLevelScript.SetLevelSelectedNumber(var);
     }
     public void TransitionToLevelSelect()
     {
