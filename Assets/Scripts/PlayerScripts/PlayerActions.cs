@@ -14,7 +14,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] ArmourCheck armourCheck;
     [SerializeField] ParticleSystem ParticleSmearLines;
     public bool IsDoubleJump = false;
-
+    [SerializeField] private float dashCounter;
+    [SerializeField] private bool canDash;
 
     public int comboStep;
     public float comboTimer;
@@ -34,6 +35,7 @@ public class PlayerActions : MonoBehaviour
     const string NORMALHITSTUNKEY = "HITSTUN_NORMAL_HIT";
     const string KNOCKDOWNKEY = "KNOCKDOWN_NORMAL";
     const string GETTINGUPKEY = "GETTING_UP_NORMAL";
+    const string DASHKEY = "DASH";
 
     /*
  * Sol
@@ -41,7 +43,7 @@ public class PlayerActions : MonoBehaviour
  * heavy- Position: right hand |Scale: 0.6  |gague damage: 4 |Strength: 40, 2 |Cancel time: 0.8 |MaxMoveTimeValue: 3 |Move strength: 6  |WhenToMoveCharacter: 0.2
  * sweep- Position: right hand |Scale: 0.5 | gague damage: 3 |Strength: 20, 30 |Cancel time: 0.6 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
  * aerial- Position: right elbow |Scale: 0.5 |gague damage: 3 |Strength: 35, -0.5 |Cancel time: 0.7 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
- * armourbreak- Position: Center |Scale: 2 |gague damage: 5 |Strength: 50, 2 |Cancel time: |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+ * armourbreak- Position: Center |Scale: 2 |gague damage: 5 |Strength: 50, 2 |Cancel time: |MoveCharacterOnXMaxCounter:  |Move MoveCharacterOnXStrength:  |WhenToMoveCharacter: |MoveCharacterOnYMaxCounter: |MoveCharacterOnYStrength:
  * dash- Move Character On X Strength: 12 |MoveCharacterMaxCounter: 0.1 MaxDashTime: 0.5 
  * 
  * Goblin
@@ -49,7 +51,7 @@ public class PlayerActions : MonoBehaviour
  * heavy- gague damage :Scale :Position: head |Strength:
  * sweep- gague damage :Scale :Position: left hand |Strength:
  * aerial- gague damage :Scale :Position:head |Strength:
- * armourbreak- gague damage :Scale :Position: |Strength:
+ * armourbreak- gague damage :Scale :Position: center |Strength:
  * 
  * 
  * 
@@ -71,7 +73,7 @@ public class PlayerActions : MonoBehaviour
     {
         public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
-        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
 
     }
     [System.Serializable]
@@ -79,37 +81,42 @@ public class PlayerActions : MonoBehaviour
     {
         public FollowDes FollowingDestination; public float HitBoxSize, DamageOnGague; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
-        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter;
-                public float WhenToPlaySmearParticles;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
+        public float WhenToPlaySmearParticles;
+        public float MoveCharacterOnYStrength; public float MoveCharacterOnYMaxCounter;
+        public bool MoveOnY; public bool MoveOnX;
     }
     [System.Serializable]
     public struct SweepVariables
     {
         public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
-        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
     }
     [System.Serializable]
     public struct NeutralAerialVariables
     {
         public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
-        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
+
     }
     [System.Serializable]
     public struct ArmourBreakVariables
     {
         public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
-        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter;
+        public float CancelTime; 
+        public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
+        public float MoveCharacterOnYStrength; public float MoveCharacterOnYMaxCounter;
+        public bool MoveOnY; public bool MoveOnX;
     }
     [System.Serializable]
     public struct DashVariables
     {
         public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter; public float MaxDashTime;
     }
-    [SerializeField]private float dashCounter;
-    [SerializeField] private bool canDash;
+
 
 
     private void Awake()
@@ -206,10 +213,11 @@ public class PlayerActions : MonoBehaviour
     }
     IEnumerator DashAction()
     {
+        TransitionToAnimation(DASHKEY, 0.05f);
         while (dashCounter <= dashVariables.MoveCharacterMaxCounter)
         {
-            self.MoveCharacterMaxValue = dashVariables.MoveCharacterMaxCounter;
-            self.SetMoveCharacterStrength(dashVariables.MoveCharacterOnXStrength);
+            self.MoveCharacterOnXMaxValue = dashVariables.MoveCharacterMaxCounter;
+            self.SetMoveCharacterOnXStrength(dashVariables.MoveCharacterOnXStrength);
             yield return null;
         }
         self.SetState(new IdleState());
@@ -224,7 +232,7 @@ public class PlayerActions : MonoBehaviour
     {
         self.CanActOutOf = false;
         //self.MoveCharacterMaxValue = jabMoveStrength;
-        self.MoveCharacterMaxValue = jabVariables.MoveCharacterMaxCounter;
+        self.MoveCharacterOnXMaxValue = jabVariables.MoveCharacterOnXMaxCounter;
         bool canMove = true;
         //anim.Play(animlist[comboStep]);
         TransitionToAnimation(JABKEY, 0.03f);
@@ -275,7 +283,7 @@ public class PlayerActions : MonoBehaviour
         if (self.CanDoAttack)
         {
             self.CanActOutOf = false;
-            self.MoveCharacterMaxValue = heavyVariables.MoveCharacterMaxCounter;
+            self.MoveCharacterOnXMaxValue = heavyVariables.MoveCharacterOnXMaxCounter;
             bool canMove = true;
             TransitionToAnimation(HEAVYKEY, 0.02f);
             FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
@@ -302,7 +310,11 @@ public class PlayerActions : MonoBehaviour
                         }
                         if (canMove == true)
                         {
-                            self.SetMoveCharacterStrength(heavyVariables.MoveCharacterOnXStrength);
+                            if (heavyVariables.MoveOnY)
+                            {
+                                self.SetMoveCharacterOnYStrength(heavyVariables.MoveCharacterOnYStrength);
+                            }
+                            self.SetMoveCharacterOnXStrength(heavyVariables.MoveCharacterOnXStrength);
                             //self.MoveCharacterWithAttacks(heavyAttackMoveValue);
                             canMove = false;
                         }
@@ -390,7 +402,41 @@ public class PlayerActions : MonoBehaviour
         }
         self.SetState(new JumpingState());
     }
+    public void ArmourBreak()
+    {
+        StartCoroutine(_ArmourBreak());
+    }
 
+    private IEnumerator _ArmourBreak()
+    {
+        if (armourCheck.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none && armourCheck.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none)
+        {
+            RevertBackToIdleState();
+            yield return null;
+        }
+        else
+        {
+            StopCrouchBlock();
+            self.SetMoveCharacterOnYStrength(armourBreakVariables.MoveCharacterOnYStrength);
+            TransitionToAnimation(ARMOURBREAKKEY, 0.01f);
+            anim.speed = 1;
+            FindObjectOfType<AudioManager>().Play(AudioManager.ARMOURBREAK);
+            self.CanTurn = false;
+            yield return null;
+            hitboxScript._attackDir = Attackdirection.Down;
+            hitboxScript._attackType = AttackType.ArmourBreak;
+            armourCheck.SetAllArmourOff();
+            hitboxManager.ArmourBreak();
+
+            self.MinusOneToJumpIndex();
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            {
+                yield return null;
+
+            }
+            RevertBackToIdleState();
+        }
+    }
     public void ForwardAerialAttack()
     {
         if (self.DebugModeOn == true)
@@ -562,38 +608,7 @@ public class PlayerActions : MonoBehaviour
     {
         anim.speed = 1;
     }
-    public void ArmourBreak()
-    {
-        StartCoroutine(_ArmourBreak());
-    }
 
-    private IEnumerator _ArmourBreak()
-    {
-        if (armourCheck.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none && armourCheck.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none)
-        {
-            RevertBackToIdleState();
-            yield return null;
-        }
-        else
-        {
-            StopCrouchBlock();
-            TransitionToAnimation(ARMOURBREAKKEY, 0.01f);
-            anim.speed = 1;
-            FindObjectOfType<AudioManager>().Play(AudioManager.ARMOURBREAK);
-            self.CanTurn = false;
-            yield return null;
-            hitboxScript._attackDir = Attackdirection.Down;
-            hitboxScript._attackType = AttackType.ArmourBreak;
-            armourCheck.SetAllArmourOff();
-            hitboxManager.ArmourBreak();
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-            {
-                yield return null;
-
-            }
-            RevertBackToIdleState();
-        }
-    }
     private void RevertBackToIdleState()
     {
         if (self.VerticalState == Player.VState.grounded)

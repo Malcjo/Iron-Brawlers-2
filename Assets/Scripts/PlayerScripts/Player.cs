@@ -123,11 +123,14 @@ public class Player : MonoBehaviour
     private Vector3 _TempDirection;
     private Vector3 _tempPower;
     private Vector3 _attackersFacingDirection;
-    [SerializeField] private bool isDummy;
 
     [SerializeField] private Transform SpawnPoint;
     [SerializeField] private Transform StandaloneSpawnPoint;
 
+    [SerializeField] private float moveCharacterOnXStrength;
+    [SerializeField] private float moveCharacterOnYStrength;
+    public float moveCharacterOnXCounter;
+    public float moveCharacterOnYCounter;
 
     public bool CanActOutOf;
     public void SetUpInputDetectionScript(PlayerInputHandler _playerInputDetection)
@@ -158,7 +161,8 @@ public class Player : MonoBehaviour
     //Turn back button UI back on later
     void Awake()
     {
-        moveCharacterCounter = 5;
+        moveCharacterOnXCounter = 5;
+        moveCharacterOnYCounter = 5;
         MyState = new IdleState();
         _gravityOn = true;
         _canTurn = true;
@@ -167,7 +171,7 @@ public class Player : MonoBehaviour
     }
     private bool canDoAttack = false;
     public bool CanDoAttack { get { return canDoAttack; } set { canDoAttack = value;  } }
-    public float MoveCharacterCounter {set { moveCharacterCounter = value; } }
+    public float MoveCharacterCounter {set { moveCharacterOnXCounter = value; } }
     private void Start()
     {
 
@@ -187,9 +191,11 @@ public class Player : MonoBehaviour
         }
         transform.position = SpawnPoint.transform.position;
     }
+
     private void Update()
     {
-        moveCharacterCounter += 3 * Time.deltaTime;
+        moveCharacterOnXCounter += 3 * Time.deltaTime;
+        moveCharacterOnYCounter += 1 * Time.deltaTime;
         CallRunState();
         if (_SlideValue < 0)
         {
@@ -243,16 +249,24 @@ public class Player : MonoBehaviour
         }
 
     }
-    [SerializeField] private float moveCharacterStrength;
-    public float moveCharacterCounter;
-    public void SetMoveCharacterStrength(float strengthValue)
+
+    public void SetMoveCharacterOnXStrength(float strengthValue)
     {
-        moveCharacterCounter = 0;
-        moveCharacterStrength = strengthValue;
+        moveCharacterOnXCounter = 0;
+        moveCharacterOnXStrength = strengthValue;
+    }
+    public void SetMoveCharacterOnYStrength(float strengthValue) 
+    {
+        moveCharacterOnYCounter = 0;
+        moveCharacterOnYStrength = strengthValue;
     }
     private void MoveCharacterOnX()
     {
-        rb.velocity = new Vector3(facingDirection * moveCharacterStrength, rb.velocity.y, 0);
+        rb.velocity = new Vector3(facingDirection * moveCharacterOnXStrength, rb.velocity.y, 0);
+    }
+    private void MoveCharacterOnY()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, moveCharacterOnYStrength, 0);
     }
     public void changeHeavyMoveValue(AttackType attackType ,float value)
     {
@@ -272,14 +286,19 @@ public class Player : MonoBehaviour
         overrideForce = Vector3.zero;
     }
 
-    [SerializeField] private float moveCharacterMaxValue;
+    [SerializeField] private float moveCharacterOnYMaxCounter;
 
-    public float MoveCharacterMaxValue {set { moveCharacterMaxValue = value; } }
+    public float MoveCharacterOnXMaxValue {set { moveCharacterOnYMaxCounter = value; } }
     private void FixedUpdate()
     {
-        if(moveCharacterCounter < moveCharacterMaxValue)
+        if(moveCharacterOnXCounter < moveCharacterOnYMaxCounter)
         {
             MoveCharacterOnX();
+
+        }
+        if(moveCharacterOnYCounter < moveCharacterOnYMaxCounter)
+        {
+            MoveCharacterOnY();
         }
         CheckDirection();
         FindFacingDirection();
@@ -388,7 +407,10 @@ public class Player : MonoBehaviour
     //    }
     //}
 
-
+    public void MinusOneToJumpIndex()
+    {
+        _currentJumpIndex--;
+    }
     public void AddOneToJumpIndex()
     {
         _currentJumpIndex++;
