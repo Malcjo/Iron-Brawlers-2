@@ -32,5 +32,19 @@ MonoBehaviour:
     IsDeferred: 0
     IsColored: 0
     DrawColor: {r: 1, g: 1, b: 1, a: 1}
+  - Title: Level name ideas
+    CreationDate: 1/04/2021 | 1:30 p.m.
+    CompletionDate: 
+    HasDetails: 1
+    Details: 'Docks of the Dead
+
+      Plateau / Home Sweet Home
+
+      Smouldering
+      Lake'
+    IsCompleted: 0
+    IsDeferred: 0
+    IsColored: 0
+    DrawColor: {r: 1, g: 1, b: 1, a: 1}
   CompletedTasks: []
   DeferredTasks: []
