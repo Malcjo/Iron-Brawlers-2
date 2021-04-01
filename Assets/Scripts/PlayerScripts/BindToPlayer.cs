@@ -86,7 +86,7 @@ public class BindToPlayer : MonoBehaviour
     IEnumerator DelayStartGame()
     {
         loadingScreenGroup.SetActive(true);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         GameManager.instance.DisableJoining();
         GameManager.instance.ResetPlayersReady();
         GameManager.instance.DisableMenuCanvas();
@@ -94,7 +94,7 @@ public class BindToPlayer : MonoBehaviour
         GameManager.instance.ConnectToGameManager(1);
         GameManager.instance.inGame = true;
         GameManager.instance.RoundStart = true;
-        loadingScreenAnim.Play("Fade In and Out");
+        //loadingScreenAnim.Play("Fade In and Out");
         loadingScreenGroup.SetActive(false);
         GameManager.instance.SetRoundStart(true);
         GameManager.instance.RoundStartCountDown();

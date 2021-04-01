@@ -57,7 +57,7 @@ public class IdleState : PlayerState
                 //body.velocity = new Vector3(0, body.velocity.y, 0);
                 body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                 self.CanTurn = false;
-                actions.JabCombo();
+                actions.Jab();
                 self.SetState(new BusyState());
                 //actionTaken = true;
             }
@@ -84,6 +84,18 @@ public class IdleState : PlayerState
                 actions.ExitBlock();
                 self.Blocking = false;
             }
+            if (ArmourBreakCheck(input.rightBumperInput, input.leftBumperInput))
+            {
+                //actionTaken = false;
+                if (armour.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none && armour.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none)
+                {
+                    return;
+                }
+                self.PlayParticle(ParticleType.ArmourBreak, Vector3.zero);
+                actions.ArmourBreak();
+                self.SetState(new BusyState());
+            }
+
             //if (!actionTaken)
             //{
             //    actions.Idle();

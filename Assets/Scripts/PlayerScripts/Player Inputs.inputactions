@@ -14,14 +14,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Move(Stick)",
-                    "type": "Value",
-                    "id": "d6ff7dca-39d2-4190-a2ef-002eb97c056f",
-                    "expectedControlType": "Stick",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Heavy",
                     "type": "Button",
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
@@ -94,7 +86,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "RightTrigger",
+                    "name": "RightBumper",
                     "type": "PassThrough",
                     "id": "14d97ec6-dc76-4539-851f-1372ec983090",
                     "expectedControlType": "Button",
@@ -102,9 +94,33 @@
                     "interactions": "Hold"
                 },
                 {
-                    "name": "LeftTrigger",
+                    "name": "LeftBumper",
                     "type": "PassThrough",
                     "id": "4a7f47e8-d9b0-4ade-ac0b-e3a05286badb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold"
+                },
+                {
+                    "name": "RightTrigger",
+                    "type": "PassThrough",
+                    "id": "3ea84871-3b0c-49ce-ac4f-3e902ef083f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold"
+                },
+                {
+                    "name": "LeftTrigger",
+                    "type": "PassThrough",
+                    "id": "3f29797e-3e7a-4ac3-bd4c-76b0146ba425",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold"
+                },
+                {
+                    "name": "Dash",
+                    "type": "PassThrough",
+                    "id": "aa7b2fd5-1ae6-4ffa-8e61-7a45d2a385ee",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold"
@@ -344,17 +360,6 @@
                 },
                 {
                     "name": "",
-                    "id": "bbab2a77-255a-4cdb-b1a2-a797749400a0",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Block",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "474a5d57-09f1-4cdf-9557-cb6148c3269d",
                     "path": "<Keyboard>/u",
                     "interactions": "",
@@ -497,39 +502,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "LeftStick",
-                    "id": "2851ddcb-8a0d-4a8f-a409-a6b7239de276",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move(Stick)",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "0c8ea53e-cade-42ee-8b48-163791797702",
-                    "path": "<Gamepad>/leftStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Move(Stick)",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "5c7a463a-f82f-4287-9125-ff621241b73d",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Move(Stick)",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "9e3ca4c2-8afd-4c37-bca7-ffff1850433c",
                     "path": "<Gamepad>/buttonSouth",
@@ -580,7 +552,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RightTrigger",
+                    "action": "RightBumper",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -591,7 +563,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
+                    "action": "LeftBumper",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db812ace-9802-419c-a9e4-358c6a550688",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "837c45ba-4e20-4167-a8c3-6c98e1f9d400",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "LeftTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "685ec568-6797-4368-972d-1adb1575e2d7",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

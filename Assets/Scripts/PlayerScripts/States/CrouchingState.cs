@@ -26,17 +26,7 @@ public class CrouchingState : PlayerState
                 actions.LegSweep();
                 self.SetState(new BusyState());
             }
-            if (ArmourBreakCheck(input.armourBreakInput))
-            {
-                //actionTaken = false;
-                if (armour.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none && armour.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none)
-                {
-                    return;
-                }
-                self.PlayParticle(ParticleType.ArmourBreak, Vector3.zero);
-                actions.ArmourBreak();
-                self.SetState(new BusyState());
-            }
+
         }
         if (!CrouchingCheck(input.crouchInput))
         {

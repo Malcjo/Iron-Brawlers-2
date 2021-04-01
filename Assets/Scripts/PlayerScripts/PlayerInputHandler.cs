@@ -78,13 +78,13 @@ public class PlayerInputHandler : MonoBehaviour
     {
         ispaused = GameManager.instance.Paused;
         joyStickDelay += 1 * Time.deltaTime;
-        if(joyStickDelay >= 10)
+        if (joyStickDelay >= 10)
         {
             joyStickDelay = 10;
         }
         //currentWall = player.GetCurrentWall();
 
-        if(playerCharacter == null)
+        if (playerCharacter == null)
         {
 
 
@@ -98,22 +98,22 @@ public class PlayerInputHandler : MonoBehaviour
         {
             GameManager.instance.ReadyPlayer(PlayerIndex);
         }
-        if(SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
+        if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
         {
             ShouldPause();
         }
         if (ispaused)
         {
             player.CanTurn = false;
-            if(rightTriggerHeld == true && leftTriggetHeld == true)
+            if (rightBumperHeld == true && leftBumperHeld == true)
             {
                 ShouldPause();
-                GameManager.instance.ExitBackToMenu(); 
+                GameManager.instance.ExitBackToMenu();
             }
         }
         else if (ispaused == false)
         {
-            if(player != null)
+            if (player != null)
             {
                 player.CanTurn = true;
             }
@@ -180,7 +180,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         return HorizontalValue;
     }
-    public bool ShouldJump(){
+    public bool ShouldJump() {
         if (JumpInputQueued)
         {
             JumpInputQueued = false;
@@ -188,7 +188,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
         return false;
     }
-    public bool ShouldAttack(){
+    public bool ShouldAttack() {
         if (AttackInputQueued)
         {
             AttackInputQueued = false;
@@ -197,13 +197,13 @@ public class PlayerInputHandler : MonoBehaviour
         return false;
     }
 
-    public bool ShouldCrouch(){
+    public bool ShouldCrouch() {
         return CrouchInputHeld;
     }
     public bool ShouldBlock()
     {
         return blockInputHeld;
-        
+
     }
     public bool ShouldArmourBreak()
     {
@@ -223,7 +223,10 @@ public class PlayerInputHandler : MonoBehaviour
         }
         return false;
     }
-
+    public bool ShouldDash()
+    {
+        return dashHeld;
+    }
     public bool ShouldUpDirection()
     {
         return UpDirectionHeld;
@@ -236,7 +239,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool ShouldPause()
     {
-        if(pausedQueued)
+        if (pausedQueued)
         {
             if (GameManager.instance.Paused)
             {
@@ -251,15 +254,23 @@ public class PlayerInputHandler : MonoBehaviour
         }
         return false;
     }
-    [SerializeField] private bool rightTriggerHeld;
-    [SerializeField] private bool leftTriggetHeld;
+    [SerializeField] private bool rightBumperHeld;
+    [SerializeField] private bool leftBumperHeld;
+    public bool ShouldRightBumper()
+    {
+        return rightBumperHeld;
+    }
+    public bool ShouldLeftBumper()
+    {
+        return leftBumperHeld;
+    }
     public bool ShouldRightTrigger()
     {
         return rightTriggerHeld;
     }
     public bool ShouldLeftTrigger()
     {
-        return leftTriggetHeld;
+        return leftTriggerHeld;
     }
 
     void CharacterSwitch()
@@ -268,7 +279,7 @@ public class PlayerInputHandler : MonoBehaviour
         switch (character)
         {
             case PlayerCharacterEnum.Characters.Sol:
-                if(PlayerIndex == 1)
+                if (PlayerIndex == 1)
                 {
                     GameManager.instance.player1Character1PortraitPuck.SetActive(true);
                     GameManager.instance.player1Character2PortraitPuck.SetActive(false);
@@ -288,7 +299,7 @@ public class PlayerInputHandler : MonoBehaviour
                 {
                     playerPrefab = sol;
                 }
-                else if(GameManager.instance.Character1BeenPicked == true)
+                else if (GameManager.instance.Character1BeenPicked == true)
                 {
                     playerPrefab = solAlt;
                 }
@@ -314,7 +325,7 @@ public class PlayerInputHandler : MonoBehaviour
                 {
                     playerPrefab = goblin;
                 }
-                else if(GameManager.instance.Character2BeenPicked == true)
+                else if (GameManager.instance.Character2BeenPicked == true)
                 {
                     playerPrefab = goblinAlt;
                 }
@@ -367,7 +378,7 @@ public class PlayerInputHandler : MonoBehaviour
         {
             if (context.started)
             {
-                if(joyStickDelay > 0.1f)
+                if (joyStickDelay > 0.1f)
                 {
                     contextValue = context.ReadValue<float>();
                     if (contextValue < 0)
@@ -384,7 +395,7 @@ public class PlayerInputHandler : MonoBehaviour
                 testfloat = contextValue;
 
                 primed = false;
-                if(contextValue >= 1f)
+                if (contextValue >= 1f)
                 {
                     if (!ChooseLevel)
                     {
@@ -458,7 +469,7 @@ public class PlayerInputHandler : MonoBehaviour
     //try determining with if the same character is chosen with the chara int variable
     public void SwitchModel(GameObject character, float currentCharacter)
     {
-        if(CharaReadied == false)
+        if (CharaReadied == false)
         {
             if (chara == currentCharacter)
             {
@@ -471,7 +482,7 @@ public class PlayerInputHandler : MonoBehaviour
         if (canAct)
         {
             Debug.Log("canAct");
-            if(context.started)
+            if (context.started)
             {
                 Debug.Log("Context " + primed);
                 primed = false;
@@ -664,7 +675,36 @@ public class PlayerInputHandler : MonoBehaviour
         }
 
     }
-
+    public void RightBumperInput(CallbackContext context)
+    {
+        if (CanControlCharacter())
+        {
+            if (context.started)
+            {
+                rightBumperHeld = true;
+            }
+            if (context.canceled)
+            {
+                rightBumperHeld = false;
+            }
+        }
+    }
+    public void LeftBumperInput(CallbackContext context)
+    {
+        if (CanControlCharacter())
+        {
+            if (context.started)
+            {
+                leftBumperHeld = true;
+            }
+            if (context.canceled)
+            {
+                leftBumperHeld = false;
+            }
+        }
+    }
+    private bool rightTriggerHeld;
+    private bool leftTriggerHeld;
     public void RightTriggerInput(CallbackContext context)
     {
         if (CanControlCharacter())
@@ -678,24 +718,23 @@ public class PlayerInputHandler : MonoBehaviour
                 rightTriggerHeld = false;
             }
         }
-
     }
     public void LeftTriggerInput(CallbackContext context)
     {
         if (CanControlCharacter())
         {
-            if (context.started)
+            if (context.started && primed)
             {
-                leftTriggetHeld = true;
+                primed = false;
+                leftTriggerHeld = true;
             }
             if (context.canceled)
             {
-                leftTriggetHeld = false;
+                primed = true;
+                leftTriggerHeld = false;
             }
         }
-
     }
-
     public void ArmourBreakInput(CallbackContext context)
     {
         if (!ispaused || CanControlCharacter())
@@ -727,6 +766,23 @@ public class PlayerInputHandler : MonoBehaviour
             }
         }
 
+    }
+    private bool dashHeld;
+    public void DashInput(CallbackContext context)
+    {
+        if (!ispaused || CanControlCharacter())
+        {
+            if(context.started && primed)
+            {
+                primed = false;
+                dashHeld = true;
+            }
+            if (context.canceled)
+            {
+                primed = true;
+                dashHeld = false;
+            }
+        }
     }
 
     public void UpDirectionInput(CallbackContext context)

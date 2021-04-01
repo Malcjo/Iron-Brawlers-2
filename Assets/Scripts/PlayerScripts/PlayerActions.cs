@@ -6,10 +6,10 @@ public class PlayerActions : MonoBehaviour
 {
     [SerializeField] private GameObject[] playerGeometry, playerHeadGeometry, playerArmourTorsoGeometry, playerArmourHeadGeometry, playerLegGeometry, playerArmourLegGeometry;
     [SerializeField] private Material normalSkinMaterial, normalHeadMaterial, normalSkinBlocking, normalHeadBlocking, armourMaterial, headArmourMaterial, armourBlocking, legMaterial, legBlocking, armourDamage;
-    public List<string> animlist = new List<string>();
     public Animator anim;
     [SerializeField] Player self;
-    [SerializeField] Hitbox hitboxScript;
+    private Hitbox hitboxScript;
+    [SerializeField] GameObject hitBox;
     [SerializeField] HitBoxManager hitboxManager;
     [SerializeField] ArmourCheck armourCheck;
     [SerializeField] ParticleSystem ParticleSmearLines;
@@ -35,39 +35,79 @@ public class PlayerActions : MonoBehaviour
     const string KNOCKDOWNKEY = "KNOCKDOWN_NORMAL";
     const string GETTINGUPKEY = "GETTING_UP_NORMAL";
 
+    /*
+ * Sol
+ * jab- Position: left hand |Scale: 0.4  |gague damage: 2.5f |Strength: 25, 10 |Cancel time: 0.5 |MaxMoveTimeValue: 0.25 |Move strength: 0.5 |WhenToMoveCharacter: 0.2
+ * heavy- Position: right hand |Scale: 0.6  |gague damage: 4 |Strength: 40, 2 |Cancel time: 0.8 |MaxMoveTimeValue: 3 |Move strength: 6  |WhenToMoveCharacter: 0.2
+ * sweep- Position: right hand |Scale: 0.5 | gague damage: 3 |Strength: 20, 30 |Cancel time: 0.6 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+ * aerial- Position: right elbow |Scale: 0.5 |gague damage: 3 |Strength: 35, -0.5 |Cancel time: 0.7 |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+ * armourbreak- Position: Center |Scale: 2 |gague damage: 5 |Strength: 50, 2 |Cancel time: |MaxMoveTimeValue:  |Move strength:  |WhenToMoveCharacter:
+ * 
+ * Goblin
+ * jab- gague damage :Scale :Position: left hand |Strength:
+ * heavy- gague damage :Scale :Position: head |Strength:
+ * sweep- gague damage :Scale :Position: left hand |Strength:
+ * aerial- gague damage :Scale :Position:head |Strength:
+ * armourbreak- gague damage :Scale :Position: |Strength:
+ */
 
 
 
+    public JabVariables jabVariables;
+    public HeavyVariables heavyVariables;
+    public SweepVariables sweepVariables;
+    public NeutralAerialVariables neutralAerialVariables;
+    public ArmourBreakVariables armourBreakVariables;
 
 
-    [Header("JabVariables")]
-    public float jabMoveStrength;
-    [SerializeField] private float JabCANCELTIME; // 0.75f
-    [SerializeField] private float jabMOVECharTIME; // 0.25f
-    [SerializeField] private float jabPARTICLESmearTIME;
-    [SerializeField] private bool useHitSmearOnJab;
-    [SerializeField] private float jabMovveCharValue;
 
-    [Header("HeavyVariables")]
-    public float heavyMoveStrength;
-    [SerializeField] private float heavyCANCELTIME;
-    [SerializeField] private float heavyMOVECharTIME;
-    [SerializeField] private float heavyPARTICLETIME;
-    [SerializeField] private bool useHitSmearOnHeavy;
-    [SerializeField] private float heavyMoveCharMaxValue;
+    [System.Serializable]
+    public struct JabVariables
+    {
+        public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
+        public float KnockbackXStrength; public float KnockbackYStrength;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter;
 
-    [Header("AerialVariables")]
-    [SerializeField] private float aerialCANCELTIME;
-    [SerializeField] private float aerialMOVECharTIME;
-    [SerializeField] private float aerialPARTICLETIME;
-    [SerializeField] private bool useHitSmearOnAerial;
+    }
+    [System.Serializable]
+    public struct HeavyVariables
+    {
+        public FollowDes FollowingDestination; public float HitBoxSize, DamageOnGague; public float DamageOnGauge;
+        public float KnockbackXStrength; public float KnockbackYStrength;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter;
+                public float WhenToPlaySmearParticles;
+    }
+    [System.Serializable]
+    public struct SweepVariables
+    {
+        public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
+        public float KnockbackXStrength; public float KnockbackYStrength;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter;
+    }
+    [System.Serializable]
+    public struct NeutralAerialVariables
+    {
+        public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
+        public float KnockbackXStrength; public float KnockbackYStrength;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter;
+    }
+    [System.Serializable]
+    public struct ArmourBreakVariables
+    {
+        public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
+        public float KnockbackXStrength; public float KnockbackYStrength;
+        public float CancelTime; public float WhenToMoveCharacterInAnimation; public float MoveCharacterOnXStrength; public float MoveCharacterMaxCounter;
+    }
+    public struct DashVaribles
+    {
+        public float MoveCharacterStrength; public float MoveCharcterMaxCounter;
+    }
 
-    [Header("SweepVariables")]
-    [SerializeField] private float sweepCANCELTIME;
-    [SerializeField] private float sweepPARTICLETIME;
+
 
     private void Awake()
     {
+        hitboxScript = hitBox.GetComponent<Hitbox>();
         ParticleSmearLines.Stop();
     }
     private void SetParticleTrail(bool control)
@@ -106,23 +146,54 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    public void JabCombo() 
+    private void FixedUpdate()
     {
-        if (self.DebugModeOn == true)
+        switch (hitboxScript._attackType)
         {
+            case AttackType.Jab:
+                hitboxScript._followDes = jabVariables.FollowingDestination;
+                hitboxScript.gaugeDamageValue = jabVariables.DamageOnGauge;
+                hitBox.transform.localScale = Vector3.one * jabVariables.HitBoxSize;
+                hitboxScript._knockbackStrength = new Vector3(self.GetFacingDirection() * jabVariables.KnockbackXStrength, jabVariables.KnockbackYStrength, 0);
+                break;
+            case AttackType.HeavyJab:
+                hitboxScript._followDes = heavyVariables.FollowingDestination;
+                hitboxScript.gaugeDamageValue = heavyVariables.DamageOnGauge;
+                hitBox.transform.localScale = Vector3.one * heavyVariables.HitBoxSize;
+                hitboxScript._knockbackStrength = new Vector3(self.GetFacingDirection() * heavyVariables.KnockbackXStrength, jabVariables.KnockbackYStrength, 0);
+                break;
+            case AttackType.LegSweep:
+                hitboxScript._followDes = sweepVariables.FollowingDestination;
+                hitboxScript.gaugeDamageValue = sweepVariables.DamageOnGauge;
+                hitBox.transform.localScale = Vector3.one * sweepVariables.HitBoxSize;
+                hitboxScript._knockbackStrength = new Vector3(self.GetFacingDirection() * sweepVariables.KnockbackXStrength, sweepVariables.KnockbackYStrength, 0);
+                break;
+            case AttackType.Aerial:
+                hitboxScript._followDes = neutralAerialVariables.FollowingDestination;
+                hitboxScript.gaugeDamageValue = neutralAerialVariables.DamageOnGauge;
+                hitBox.transform.localScale = Vector3.one * neutralAerialVariables.HitBoxSize;
+                hitboxScript._knockbackStrength = new Vector3(self.GetFacingDirection() * neutralAerialVariables.KnockbackXStrength, neutralAerialVariables.KnockbackYStrength, 0);
+                break;
+            case AttackType.ArmourBreak:
+                hitboxScript._followDes = armourBreakVariables.FollowingDestination;
+                hitboxScript.gaugeDamageValue = armourBreakVariables.DamageOnGauge;
+                hitBox.transform.localScale = Vector3.one * armourBreakVariables.HitBoxSize;
+                hitboxScript._knockbackStrength = new Vector3(self.GetFacingDirection() * armourBreakVariables.KnockbackXStrength, armourBreakVariables.KnockbackYStrength, 0);
+                break;
         }
-        StartCoroutine(Jab()); 
     }
 
-    
 
+    public void Jab() 
+    {
+        StartCoroutine(JabAttack()); 
+    }
 
-
-    private IEnumerator Jab()
+    private IEnumerator JabAttack()
     {
         self.CanActOutOf = false;
         //self.MoveCharacterMaxValue = jabMoveStrength;
-        self.MoveCharacterMaxValue = hitboxScript.jabVariables.MoveCharacterMaxCounter;
+        self.MoveCharacterMaxValue = jabVariables.MoveCharacterMaxCounter;
         bool canMove = true;
         //anim.Play(animlist[comboStep]);
         TransitionToAnimation(JABKEY, 0.03f);
@@ -137,9 +208,9 @@ public class PlayerActions : MonoBehaviour
         hitboxManager.JabAttack(0.5f);
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < hitboxScript.jabVariables.CancelTime)
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabVariables.CancelTime)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabMOVECharTIME)
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabVariables.WhenToMoveCharacterInAnimation)
                 {
                     yield return null;
                 }
@@ -173,7 +244,7 @@ public class PlayerActions : MonoBehaviour
         if (self.CanDoAttack)
         {
             self.CanActOutOf = false;
-            self.MoveCharacterMaxValue = hitboxScript.heavyVariables.MoveCharacterMaxCounter;
+            self.MoveCharacterMaxValue = heavyVariables.MoveCharacterMaxCounter;
             bool canMove = true;
             TransitionToAnimation(HEAVYKEY, 0.02f);
             FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
@@ -185,11 +256,11 @@ public class PlayerActions : MonoBehaviour
             hitboxManager.JabAttack(0.5f);
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < hitboxScript.heavyVariables.CancelTime)
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.CancelTime)
                 {
                     while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.65f)
                     {
-                        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyMOVECharTIME)
+                        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.WhenToMoveCharacterInAnimation)
                         {
                             yield return null;
                         }
@@ -200,7 +271,7 @@ public class PlayerActions : MonoBehaviour
                         }
                         if (canMove == true)
                         {
-                            self.SetMoveCharacterStrength(hitboxScript.heavyVariables.MoveCharacterStrength);
+                            self.SetMoveCharacterStrength(heavyVariables.MoveCharacterOnXStrength);
                             //self.MoveCharacterWithAttacks(heavyAttackMoveValue);
                             canMove = false;
                         }
@@ -242,7 +313,7 @@ public class PlayerActions : MonoBehaviour
         hitboxManager.LegSweep(0.5f);
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < sweepCANCELTIME)
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < sweepVariables.CancelTime)
             {
                 yield return null;
             }
@@ -276,7 +347,7 @@ public class PlayerActions : MonoBehaviour
 
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < aerialCANCELTIME)
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.CancelTime)
             {
                 yield return null;
 
@@ -339,6 +410,8 @@ public class PlayerActions : MonoBehaviour
     }
 
     private string LastState;
+    [SerializeField]private bool useHitSmearOnHeavy;
+
     private void TransitionToAnimation(string animation, float time)
     {
         if (LastState != animation)

@@ -14,6 +14,11 @@ public abstract class PlayerState
         public bool blockInput;
         public bool heavyInput;
         public bool upDirectionInput;
+        public bool dashInput;
+        public bool rightTriggerInput;
+        public bool leftTriggerInput;
+        public bool rightBumperInput;
+        public bool leftBumperInput;
     }
     public struct Calculating
     {
@@ -49,9 +54,17 @@ public abstract class PlayerState
     {
         return attackInput;
     }
-    protected bool ArmourBreakCheck(bool armourBreakInput)
+    protected bool ArmourBreakCheck(bool rightBumperInput, bool leftBumperInput)
     {
-        return armourBreakInput;
+        return rightBumperInput && leftBumperInput;
+        //if(rightBumperInput && leftBumperInput)
+        //{
+        //    return true;
+        //}
+        //else
+        //{
+        //    return false;
+        //}
     }
     protected bool BlockCheck(bool blockInput)
     {

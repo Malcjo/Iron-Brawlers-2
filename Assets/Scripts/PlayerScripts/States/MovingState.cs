@@ -90,7 +90,7 @@ public class MovingState : PlayerState
                 //body.velocity = new Vector3(0, body.velocity.y, 0);
                 body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                 self.CanTurn = false;
-                actions.JabCombo();
+                actions.Jab();
                 self.SetState(new BusyState());
             }
 
@@ -99,7 +99,7 @@ public class MovingState : PlayerState
                 self.CanMove = false;
                 body.velocity = new Vector3(0, body.velocity.y, 0);
                 self.CanTurn = false;
-                actions.JabCombo();
+                actions.Jab();
                 self.SetState(new BusyState());
             }
             if (HeavyCheck(input.heavyInput) && !MovementCheck(input.horizontalInput))
@@ -124,6 +124,17 @@ public class MovingState : PlayerState
                 self.Blocking = true;
                 body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                 self.SetState(new BlockState());
+            }
+            if (ArmourBreakCheck(input.rightBumperInput, input.leftBumperInput))
+            {
+                //actionTaken = false;
+                if (armour.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none && armour.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none)
+                {
+                    return;
+                }
+                self.PlayParticle(ParticleType.ArmourBreak, Vector3.zero);
+                actions.ArmourBreak();
+                self.SetState(new BusyState());
             }
         }
         else
@@ -208,7 +219,7 @@ public class MovingState : PlayerState
                 }
                 //if (JumpingCheck(input.jumpInput))
                 //{
-                //    if(self.canDoubleJump == true)
+                //    if (self.canDoubleJump == true)
                 //    {
                 //        self.canDoubleJump = false;
                 //        self.CanTurn = false;
@@ -238,7 +249,6 @@ public class MovingState : PlayerState
                             actions.DoubleJump();
                             self.SetState(new JumpingState());
                         }
-
                     }
                 }
             }
@@ -257,6 +267,17 @@ public class MovingState : PlayerState
                 {
                     self.SetState(new JumpingState());
                 }
+            }
+            if (ArmourBreakCheck(input.rightBumperInput, input.leftBumperInput))
+            {
+                //actionTaken = false;
+                if (armour.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none && armour.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none)
+                {
+                    return;
+                }
+                self.PlayParticle(ParticleType.ArmourBreak, Vector3.zero);
+                actions.ArmourBreak();
+                self.SetState(new BusyState());
             }
         }
 

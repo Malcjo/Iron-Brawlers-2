@@ -78,7 +78,7 @@ public class BusyState : PlayerState
                     //body.velocity = new Vector3(0, body.velocity.y, 0);
                     body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                     self.CanTurn = false;
-                    actions.JabCombo();
+                    actions.Jab();
                     self.SetState(new BusyState());
                 }
                 if (AttackCheck(input.attackInput) && MovementCheck(input.horizontalInput))
@@ -88,7 +88,7 @@ public class BusyState : PlayerState
                     //body.velocity = new Vector3(0, body.velocity.y, 0);
                     body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                     self.CanTurn = false;
-                    actions.JabCombo();
+                    actions.Jab();
                     self.SetState(new BusyState());
                 }
                 if (MovementCheck(input.horizontalInput))

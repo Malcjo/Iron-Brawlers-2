@@ -99,7 +99,17 @@ public class JumpingState : PlayerState
             self.WasAttacking = true;
             self.SetState(new BusyState());
         }
-
+        if (ArmourBreakCheck(input.rightBumperInput, input.leftBumperInput))
+        {
+            //actionTaken = false;
+            if (armour.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none && armour.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none)
+            {
+                return;
+            }
+            self.PlayParticle(ParticleType.ArmourBreak, Vector3.zero);
+            actions.ArmourBreak();
+            self.SetState(new BusyState());
+        }
     }
 
     public override bool StickToGround() => false;

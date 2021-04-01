@@ -454,37 +454,68 @@ MonoBehaviour:
   legMaterial: {fileID: 2100000, guid: 4b76cb71050cb14418fda037070980db, type: 2}
   legBlocking: {fileID: 2100000, guid: 7afbf6a0ead3f2947a51b79327f13aa2, type: 2}
   armourDamage: {fileID: 2100000, guid: 1636bba9c67fa954cb669c845caf083b, type: 2}
-  animlist:
-  - JAB
-  - JAB
-  - JAB
   anim: {fileID: 7493047910308989877}
   self: {fileID: 6920566488468720987}
-  hitboxScript: {fileID: 313810321763567124}
+  hitBox: {fileID: 3938678239750794650}
   hitboxManager: {fileID: 2452640979391300134}
   armourCheck: {fileID: 2313752520885891229}
   ParticleSmearLines: {fileID: 828000789619394744}
   IsDoubleJump: 0
   comboStep: 0
   comboTimer: 0
-  jabMoveStrength: 2
-  JabCANCELTIME: 0.5
-  jabMOVECharTIME: 0.25
-  jabPARTICLESmearTIME: 0
-  useHitSmearOnJab: 0
-  jabMovveCharValue: 0.5
-  heavyMoveStrength: 3
-  heavyCANCELTIME: 0.8
-  heavyMOVECharTIME: 0.2
-  heavyPARTICLETIME: 0.65
+  jabVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterMaxCounter: 0
+  heavyVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGague: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterMaxCounter: 0
+    WhenToPlaySmearParticles: 0
+  sweepVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterMaxCounter: 0
+  neutralAerialVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterMaxCounter: 0
+  armourBreakVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterMaxCounter: 0
   useHitSmearOnHeavy: 0
-  heavyMoveCharMaxValue: 0
-  aerialCANCELTIME: 0.7
-  aerialMOVECharTIME: 0
-  aerialPARTICLETIME: 0
-  useHitSmearOnAerial: 0
-  sweepCANCELTIME: 0.6
-  sweepPARTICLETIME: 0
 --- !u!1 &658631414417313013
 GameObject:
   m_ObjectHideFlags: 0
@@ -3769,58 +3800,9 @@ MonoBehaviour:
   _hitBoxScale: 0
   _attackDir: 0
   _attackType: 0
-  jabVariables:
-    FollowingDestination: 3
-    HitBoxSize: 0.4
-    DamageOnGauge: 2.5
-    KnockbackXStrength: 25
-    KnockbackYStrength: 10
-    CancelTime: 0.5
-    WhenToMoveCharacterInAnimation: 0.2
-    MoveCharacterStrength: 0.5
-    MoveCharacterMaxCounter: 0.25
-  heavyVariables:
-    FollowingDestination: 1
-    HitBoxSize: 0.6
-    DamageOnGauge: 4
-    KnockbackXStrength: 40
-    KnockbackYStrength: 2
-    CancelTime: 0.8
-    WhenToMoveCharacterInAnimation: 0.2
-    MoveCharacterStrength: 6
-    MoveCharacterMaxCounter: 0.25
-  sweepVariables:
-    FollowingDestination: 1
-    HitBoxSize: 0.5
-    DamageOnGauge: 3
-    KnockbackXStrength: 20
-    KnockbackYStrength: 30
-    CancelTime: 0.6
-    WhenToMoveCharacterInAnimation: 0
-    MoveCharacterStrength: 0
-    MoveCharacterMaxCounter: 0
-  neutralAerialVariables:
-    FollowingDestination: 1
-    HitBoxSize: 0.5
-    DamageOnGauge: 3
-    KnockbackXStrength: 35
-    KnockbackYStrength: -0.5
-    CancelTime: 0.7
-    WhenToMoveCharacterInAnimation: 0
-    MoveCharacterStrength: 0
-    MoveCharacterMaxCounter: 0
-  armourBreakVariables:
-    FollowingDestination: 0
-    HitBoxSize: 2
-    DamageOnGauge: 5
-    KnockbackXStrength: 50
-    KnockbackYStrength: 2
-    CancelTime: 0
-    WhenToMoveCharacterInAnimation: 0
-    MoveCharacterStrength: 0
-    MoveCharacterMaxCounter: 0
-  knockbackXStrength: 0
-  knockbackYStrength: 0
+  gaugeDamageValue: 1.5
+  _followDes: 0
+  _knockbackStrength: {x: 0, y: 0, z: 0}
   HeadArmourPosition: {fileID: 289387622079980921}
   ChestArmourPosition: {fileID: 5912758317564311169}
   LegArmourPosition: {fileID: 936917393361248188}
@@ -3835,7 +3817,7 @@ MonoBehaviour:
   HitHurtBoxes: []
   HurtboxList: []
   armIndex: 0
-  hitBox: {fileID: 0}
+  hitBox: {fileID: 3938678239750794650}
   midHitBox: {fileID: 0}
   rightHand: {fileID: 1319036833611398105}
   leftHand: {fileID: 5158407393207054607}
@@ -3846,7 +3828,7 @@ MonoBehaviour:
   rightKnee: {fileID: 322154672202183414}
   leftKnee: {fileID: 4955976208830267982}
   waist: {fileID: 1081166452312770748}
-  head: {fileID: 0}
+  head: {fileID: 1987514414496696148}
   hitParticle: {fileID: 3583048005112685821, guid: 7f6b353b6dfaf224baecf0565c7b4338,
     type: 3}
   dustHitParticle: {fileID: 1525828961861715399, guid: 4898a9aab1a0cf34da8871afb0b6e002,

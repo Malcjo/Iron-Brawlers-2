@@ -258,10 +258,10 @@ public class Player : MonoBehaviour
         switch (attackType)
         {
             case AttackType.HeavyJab:
-                playerActions.heavyMoveStrength = value;
+                playerActions.heavyVariables.MoveCharacterOnXStrength = value;
                 break;
             case AttackType.Jab:
-                playerActions.jabMoveStrength = value;
+                playerActions.jabVariables.MoveCharacterOnXStrength = value;
                 break;
         }
 
@@ -289,14 +289,16 @@ public class Player : MonoBehaviour
     }
     private void CallRunState()
     {
-        MyState.RunState
-    (
-    this,
-    rb,
-    playerActions,
-    armourCheck,
-    new PlayerState.InputState()
-    {
+        if(MyState != null)
+        {
+            MyState.RunState
+        (
+        this,
+        rb,
+        playerActions,
+        armourCheck,
+        new PlayerState.InputState()
+        {
         horizontalInput = playerInputHandler.GetHorizontal(),
         attackInput = playerInputHandler.ShouldAttack(),
         jumpInput = playerInputHandler.ShouldJump(),
@@ -304,17 +306,25 @@ public class Player : MonoBehaviour
         armourBreakInput = playerInputHandler.ShouldArmourBreak(),
         blockInput = playerInputHandler.ShouldBlock(),
         heavyInput = playerInputHandler.ShouldHeavy(),
-        upDirectionInput = playerInputHandler.ShouldUpDirection()
-    },
-    new PlayerState.Calculating()
-    {
+        upDirectionInput = playerInputHandler.ShouldUpDirection(),
+        dashInput = playerInputHandler.ShouldDash(),
+        rightTriggerInput = playerInputHandler.ShouldRightTrigger(),
+        leftTriggerInput = playerInputHandler.ShouldLeftTrigger(),
+        rightBumperInput = playerInputHandler.ShouldRightBumper(),
+        leftBumperInput = playerInputHandler.ShouldLeftBumper()
+        
+        },
+        new PlayerState.Calculating()
+        {
         jumpForce = JumpForceCalculator(),
         friction = friction,
         characterSpeed = SetPlayerSpeed(),
         overrideForce = overrideForce,
         gravityValue = _gravityOn ? totalGravityValue : 0
-    }
-    );
+        }
+        );
+        }
+
     }
     #region State Machine
     private void CharacterStates()
