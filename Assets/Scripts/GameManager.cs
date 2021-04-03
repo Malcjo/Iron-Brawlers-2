@@ -426,7 +426,14 @@ public class GameManager : MonoBehaviour
         player1SolAnimated.SetActive(false);
         player1SolAltAnimated.SetActive(false);
     }
-
+    public void AllowPlayersToJoin()
+    {
+        inputManager.EnableJoining();
+    }
+    public void StopPlayersFromJoining()
+    {
+        inputManager.DisableJoining();
+    }
     public void ChangeSceneIndex(int index)
     {
         sceneIndex = index;

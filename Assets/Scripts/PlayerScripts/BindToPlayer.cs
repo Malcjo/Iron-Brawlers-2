@@ -21,7 +21,7 @@ public class BindToPlayer : MonoBehaviour
     Scene menuScene;
 
     public int playerIndex;
-
+    public bool Solo = false;
     private void OnEnable()
     {
         menuScene = SceneManager.GetSceneByBuildIndex(0);
@@ -60,18 +60,44 @@ public class BindToPlayer : MonoBehaviour
         //{
         //    GameManager.instance.StartGame = true;
         //}
+        if(players.Count <= 1)
+        {
+            Solo = true;
+        }
+        else if (players.Count > 1)
+        {
+            Solo = false;
+        }
         if (SceneManager.GetActiveScene() == menuScene)
         {
-            if (GameManager.instance.GetPlayer1Ready() == true && GameManager.instance.GetPlayer2Ready() == true)
+            if (!Solo)
             {
-                GameManager.instance.TransitionToLevelSelect();
-                //GameManager.instance.ChooseLevel = true;
-                GameManager.instance.levelSelect = true;
-                if (GameManager.instance.StartGame == true)
+                if (GameManager.instance.GetPlayer1Ready() == true && GameManager.instance.GetPlayer2Ready() == true)
                 {
-                    loadLevelScript.StartGame();
+                    GameManager.instance.TransitionToLevelSelect();
+                    //GameManager.instance.ChooseLevel = true;
+                    GameManager.instance.levelSelect = true;
+                    if (GameManager.instance.StartGame == true)
+                    {
+                        loadLevelScript.StartGame();
+                    }
                 }
             }
+            else if (Solo)
+            {
+                if(GameManager.instance.GetPlayer1Ready() == true)
+                {
+                    GameManager.instance.StopPlayersFromJoining();
+                    GameManager.instance.TransitionToLevelSelect();
+                    //GameManager.instance.ChooseLevel = true;
+                    GameManager.instance.levelSelect = true;
+                    if (GameManager.instance.StartGame == true)
+                    {
+                        loadLevelScript.StartGame();
+                    }
+                }
+            }
+
         }
     }
     
