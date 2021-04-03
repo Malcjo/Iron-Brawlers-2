@@ -6,8 +6,9 @@ using UnityEngine;
 public class ParticleAnimationTester : MonoBehaviour
 {
     [SerializeField] Animator anim;
+    [SerializeField] ParticleSystem SolHeavy;
     // Start is called before the first frame update
-    
+
 
     // Update is called once per frame
     void Update()
@@ -19,6 +20,8 @@ public class ParticleAnimationTester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             anim.Play("HEAVY");
+            SolHeavy.Play();
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
