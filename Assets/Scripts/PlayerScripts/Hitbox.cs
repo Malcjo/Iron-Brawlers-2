@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AttackType { Null, Jab, LegSweep, Aerial, ArmourBreak, HeavyJab };
+public enum AttackType { Null, Jab, LegSweep, Aerial, ArmourBreak, Heavy, BackAir, UpAir};
 public enum Attackdirection { Forward, Low, Aerial, Down };
 public enum HitBoxScale { Jab, ArmourBreak, Aerial };
 public enum FollowDes { Centre, RightHand, RightElbow, LeftHand, LeftElbow , RightFoot, LeftFoot, Head}
@@ -321,7 +321,7 @@ public class Hitbox : MonoBehaviour
             defendingPlayer.HitStun = true;
             defendingPlayer.KnockDown();
         }
-        else if (attackType == AttackType.HeavyJab)
+        else if (attackType == AttackType.Heavy)
         {
             defendingPlayer.MaxHitStun = defendingPlayer.heavyHitStun;
             defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;

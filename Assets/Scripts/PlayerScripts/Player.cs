@@ -172,7 +172,7 @@ public class Player : MonoBehaviour
         canAirMove = true;
         _canMove = true;
     }
-    private bool canDoAttack = false;
+    [SerializeField] private bool canDoAttack = false;
     public bool CanDoAttack { get { return canDoAttack; } set { canDoAttack = value;  } }
     public float MoveCharacterCounter {set { moveCharacterOnXCounter = value; } }
     private void Start()
@@ -275,7 +275,7 @@ public class Player : MonoBehaviour
     {
         switch (attackType)
         {
-            case AttackType.HeavyJab:
+            case AttackType.Heavy:
                 playerActions.heavyVariables.MoveCharacterOnXStrength = value;
                 break;
             case AttackType.Jab:
@@ -626,7 +626,7 @@ public class Player : MonoBehaviour
                     break;
                 case AttackType.ArmourBreak:
                     break;
-                case AttackType.HeavyJab:
+                case AttackType.Heavy:
                     FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITARMOUR);
                     break;
             }
@@ -644,7 +644,7 @@ public class Player : MonoBehaviour
                     break;
                 case AttackType.ArmourBreak:
                     break;
-                case AttackType.HeavyJab:
+                case AttackType.Heavy:
                     FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
                     break;
             }
