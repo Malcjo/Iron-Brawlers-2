@@ -440,8 +440,8 @@ MonoBehaviour:
     WhenToMoveCharacterInAnimation: 0
     MoveCharacterOnXStrength: 0
     MoveCharacterOnXMaxCounter: 0
-    MoveCharacterOnYStrength: 30
-    MoveCharacterOnYMaxCounter: 0.1
+    MoveCharacterOnYStrength: 10
+    MoveCharacterOnYMaxCounter: 0.2
     MoveOnY: 0
     MoveOnX: 0
   dashVariables:
@@ -2591,7 +2591,6 @@ MonoBehaviour:
   CanActOutOf: 0
   _interuptSliderSetToZero: 0
   Delaycounter: 0
-  moveCharacterOnYMaxCounter: 0
   V3Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1181940027119994825
 MonoBehaviour:

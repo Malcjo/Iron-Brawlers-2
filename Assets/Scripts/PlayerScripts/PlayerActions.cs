@@ -417,6 +417,7 @@ public class PlayerActions : MonoBehaviour
         else
         {
             StopCrouchBlock();
+            self.MoveCharacterOnYMaxValue = armourBreakVariables.MoveCharacterOnYMaxCounter;
             self.SetMoveCharacterOnYStrength(armourBreakVariables.MoveCharacterOnYStrength);
             TransitionToAnimation(ARMOURBREAKKEY, 0.01f);
             anim.speed = 1;

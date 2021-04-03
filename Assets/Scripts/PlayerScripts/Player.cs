@@ -132,6 +132,9 @@ public class Player : MonoBehaviour
     public float moveCharacterOnXCounter;
     public float moveCharacterOnYCounter;
 
+    private float moveCharacterOnXMaxCounter;
+    private float moveCharacterOnYMaxCounter;
+
     public bool CanActOutOf;
     public void SetUpInputDetectionScript(PlayerInputHandler _playerInputDetection)
     {
@@ -286,12 +289,13 @@ public class Player : MonoBehaviour
         overrideForce = Vector3.zero;
     }
 
-    [SerializeField] private float moveCharacterOnYMaxCounter;
 
-    public float MoveCharacterOnXMaxValue {set { moveCharacterOnYMaxCounter = value; } }
+
+    public float MoveCharacterOnXMaxValue {set { moveCharacterOnXMaxCounter = value; } }
+    public float MoveCharacterOnYMaxValue { set{ moveCharacterOnYMaxCounter = value; } }
     private void FixedUpdate()
     {
-        if(moveCharacterOnXCounter < moveCharacterOnYMaxCounter)
+        if(moveCharacterOnXCounter < moveCharacterOnXMaxCounter)
         {
             MoveCharacterOnX();
 
