@@ -6751,7 +6751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4072031529357971463}
   m_Layer: 0
-  m_Name: Sol Yellow Prefab
+  m_Name: World postion for charecters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6788,7 +6788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1729858579558763925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8583,6 +8583,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1390030749468677934}
+  - {fileID: 6956393116398985025}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10819,13 +10820,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7764700547858253307}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.94, y: 1.88, z: 0}
-  m_LocalScale: {x: 0.011000002, y: 0.011, z: 0.011000002}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.011000001, y: 0.011, z: 0.011000001}
   m_Children:
   - {fileID: 8683164130681940539}
   - {fileID: 6487657054396834238}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 4072031529357971463}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &6998614434777260999
 Transform:
@@ -11367,7 +11368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &7764700547858253308
 MonoBehaviour:
   m_ObjectHideFlags: 0
