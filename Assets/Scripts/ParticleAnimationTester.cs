@@ -7,6 +7,7 @@ public class ParticleAnimationTester : MonoBehaviour
 {
     [SerializeField] Animator anim;
     [SerializeField] ParticleSystem Heavy;
+    [SerializeField] ParticleSystem Sweap;
     // Start is called before the first frame update
 
 
@@ -26,6 +27,7 @@ public class ParticleAnimationTester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             anim.Play("SWEEP");
+            Sweap.Play();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
