@@ -52,6 +52,7 @@ public class LoadLevel : MonoBehaviour
                         pressAnyButtonText.SetActive(false);
                         characterSelectLight.SetActive(false);
                         runningSol.SetActive(false);
+                        
                         Debug.Log("button pressed");
                         operation.allowSceneActivation = true;
                     }
@@ -59,9 +60,6 @@ public class LoadLevel : MonoBehaviour
                 Debug.Log(operation.progress);
                 yield return null;
             }
-            //loadingScreenAnim.Play("Fade In and Out");
-            yield return StartCoroutine(FadeLoadingScreen(0, 2));
-            //yield return new WaitForSeconds(1f);
             GameManager.instance.DisableJoining();
             GameManager.instance.ResetPlayersReady();
             GameManager.instance.ConnectToGameManager(1);

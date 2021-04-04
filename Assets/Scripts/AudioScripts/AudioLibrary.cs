@@ -29,6 +29,12 @@ public class AudioLibrary : MonoBehaviour
         s.source.Play();
     }
 
+    public void StopSound()
+    {
+        var s = ChooseSound();
+        s.source.Stop();
+    }
+
     private Sound ChooseSound()
     {
         if (previousArray == null)

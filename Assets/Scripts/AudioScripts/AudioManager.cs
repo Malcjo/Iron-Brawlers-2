@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class AudioManager : MonoBehaviour
     public const string HEAVYMISS = "Heavy Miss";
     public const string AERIALMISS = "Aerial Miss";
 
+    private string lastScene;
+
     public Sound[] sounds;
 
     public LibraryLink[] links;
@@ -25,6 +28,8 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
+        lastScene = SceneManager.GetActiveScene().name;
+
         if (instance == null)
             instance = this;
         else
@@ -52,9 +57,11 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        Play("AlphaMusic");
+        Play("Menu Music");
     }
 
+
+    
     public void Play (string name)
     {
         if (libraries.ContainsKey(name))
