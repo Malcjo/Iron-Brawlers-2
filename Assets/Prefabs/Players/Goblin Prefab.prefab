@@ -3277,15 +3277,16 @@ MonoBehaviour:
   attackingFreezeCounter: 0
   _TempAttackingVelocity: {x: 0, y: 0, z: 0}
   freezeAttackingPlayer: 0
-  isDummy: 0
   SpawnPoint: {fileID: 0}
   StandaloneSpawnPoint: {fileID: 0}
+  moveCharacterOnXStrength: 0
+  moveCharacterOnYStrength: 0
+  moveCharacterOnXCounter: 0
+  moveCharacterOnYCounter: 0
   CanActOutOf: 0
+  canDoAttack: 0
   _interuptSliderSetToZero: 0
   Delaycounter: 0
-  moveCharacterStrength: 0
-  moveCharacterCounter: 0
-  moveCharacterMaxValue: 0
   V3Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1181940027119994825
 MonoBehaviour:
@@ -4261,58 +4262,9 @@ MonoBehaviour:
   _hitBoxScale: 0
   _attackDir: 0
   _attackType: 0
-  jabVariables:
-    FollowingDestination: 3
-    HitBoxSize: 0.4
-    DamageOnGauge: 2.5
-    KnockbackXStrength: 25
-    KnockbackYStrength: 10
-    CancelTime: 0.5
-    WhenToMoveCharacterInAnimation: 0
-    MoveCharacterStrength: 0
-    MoveCharacterMaxCounter: 0
-  heavyVariables:
-    FollowingDestination: 7
-    HitBoxSize: 1
-    DamageOnGauge: 4
-    KnockbackXStrength: 40
-    KnockbackYStrength: 2
-    CancelTime: 0.8
-    WhenToMoveCharacterInAnimation: 0.1
-    MoveCharacterStrength: 8
-    MoveCharacterMaxCounter: 1
-  sweepVariables:
-    FollowingDestination: 3
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
-    WhenToMoveCharacterInAnimation: 0
-    MoveCharacterStrength: 0
-    MoveCharacterMaxCounter: 0
-  neutralAerialVariables:
-    FollowingDestination: 7
-    HitBoxSize: 1
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
-    WhenToMoveCharacterInAnimation: 0
-    MoveCharacterStrength: 0
-    MoveCharacterMaxCounter: 0
-  armourBreakVariables:
-    FollowingDestination: 0
-    HitBoxSize: 2
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
-    WhenToMoveCharacterInAnimation: 0
-    MoveCharacterStrength: 0
-    MoveCharacterMaxCounter: 0
-  knockbackXStrength: 0
-  knockbackYStrength: 0
+  gaugeDamageValue: 1.5
+  _followDes: 0
+  _knockbackStrength: {x: 0, y: 0, z: 0}
   HeadArmourPosition: {fileID: 4092204009917520403}
   ChestArmourPosition: {fileID: 8587426863808159756}
   LegArmourPosition: {fileID: 4978630946425699683}
@@ -4471,6 +4423,8 @@ Transform:
   - {fileID: 445350349615714288}
   - {fileID: 6188876006206690143}
   - {fileID: 3774266942056885972}
+  - {fileID: 4784273774763487621}
+  - {fileID: 8486385173751675199}
   m_Father: {fileID: 219913435617338249}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -5240,38 +5194,139 @@ MonoBehaviour:
   legMaterial: {fileID: 2100000, guid: 346ed97144665b340a47a01383ddd1a6, type: 2}
   legBlocking: {fileID: 2100000, guid: c50d8563146593c46b46abfbf1ffddde, type: 2}
   armourDamage: {fileID: 2100000, guid: d49f882deb55ff14485d56ff3912499c, type: 2}
-  animlist:
-  - JAB
-  - JAB
-  - JAB
   anim: {fileID: 897691220996342611}
   self: {fileID: 6920566488468720987}
-  hitboxScript: {fileID: 313810321763567124}
+  hitBox: {fileID: 0}
   hitboxManager: {fileID: 566403014684521302}
   armourCheck: {fileID: 2313752520885891229}
-  ParticleSmearLines: {fileID: 58691976183682597, guid: 63f5238cfe7aa2a42bc942442726cc8a,
-    type: 3}
   IsDoubleJump: 0
-  comboStep: 0
-  comboTimer: 0
-  jabMoveStrength: 3
-  JabCANCELTIME: 0.6
-  jabMOVECharTIME: 0.2
-  jabPARTICLESmearTIME: 0
-  useHitSmearOnJab: 0
-  jabMovveCharValue: 0.5
-  heavyMoveStrength: 10
-  heavyCANCELTIME: 0.8
-  heavyMOVECharTIME: 0.1
-  heavyPARTICLETIME: 0
+  dashCounter: 0
+  canDash: 0
+  JabParticle: {fileID: 0}
+  HeavyParticle: {fileID: 0}
+  SweepParticle: {fileID: 4784273774763487620}
+  AerialParticle: {fileID: 0}
+  BackAirParticle: {fileID: 0}
+  UpAirParticle: {fileID: 0}
+  DashParticle: {fileID: 0}
+  RollParticle: {fileID: 0}
+  jabVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveOnX: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterOnXMaxCounter: 0
+    MoveOnY: 0
+    MoveCharacterOnYStrength: 0
+    MoveCharacterOnYMaxCounter: 0
+  heavyVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveOnX: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterOnXMaxCounter: 0
+    MoveOnY: 0
+    MoveCharacterOnYStrength: 0
+    MoveCharacterOnYMaxCounter: 0
+  sweepVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveOnX: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterOnXMaxCounter: 0
+    MoveOnY: 0
+    MoveCharacterOnYStrength: 0
+    MoveCharacterOnYMaxCounter: 0
+  neutralAerialVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveOnX: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterOnXMaxCounter: 0
+    MoveOnY: 0
+    MoveCharacterOnYStrength: 0
+    MoveCharacterOnYMaxCounter: 0
+  backAirVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveOnX: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterOnXMaxCounter: 0
+    MoveOnY: 0
+    MoveCharacterOnYStrength: 0
+    MoveCharacterOnYMaxCounter: 0
+  upAirVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveOnX: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterOnXMaxCounter: 0
+    MoveOnY: 0
+    MoveCharacterOnYStrength: 0
+    MoveCharacterOnYMaxCounter: 0
+  armourBreakVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveOnX: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterOnXMaxCounter: 0
+    MoveOnY: 0
+    MoveCharacterOnYStrength: 0
+    MoveCharacterOnYMaxCounter: 0
+  dashVariables:
+    MoveCharacterOnXStrength: 0
+    MoveCharacterOnXMaxCounter: 0
+    MaxDashTime: 0
+  rollVariables:
+    FollowingDestination: 0
+    HitBoxSize: 0
+    DamageOnGauge: 0
+    KnockbackXStrength: 0
+    KnockbackYStrength: 0
+    CancelTime: 0
+    WhenToMoveCharacterInAnimation: 0
+    MoveOnX: 0
+    MoveCharacterOnXStrength: 0
+    MoveCharacterOnXMaxCounter: 0
+    MoveOnY: 0
+    MoveCharacterOnYStrength: 0
+    MoveCharacterOnYMaxCounter: 0
   useHitSmearOnHeavy: 0
-  heavyMoveCharMaxValue: 0
-  aerialCANCELTIME: 0
-  aerialMOVECharTIME: 0
-  aerialPARTICLETIME: 0
-  useHitSmearOnAerial: 0
-  sweepCANCELTIME: 0.6
-  sweepPARTICLETIME: 0
 --- !u!1 &4674036146457986405
 GameObject:
   m_ObjectHideFlags: 0
@@ -9207,6 +9262,87 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &1493788923483223600
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3938678240389829088}
+    m_Modifications:
+    - target: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.22700013
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.22299993
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.98700047
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.09974073
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6246775
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.09753749
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.76832044
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 20.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259483116379817914, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+        type: 3}
+      propertyPath: m_Name
+      value: Goblin_Sweap
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ba88873e2c85e745a67f01a9d2ae844, type: 3}
+--- !u!4 &4784273774763487621 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6259483116379817909, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+    type: 3}
+  m_PrefabInstance: {fileID: 1493788923483223600}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4784273774763487620 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6259483116379817908, guid: 4ba88873e2c85e745a67f01a9d2ae844,
+    type: 3}
+  m_PrefabInstance: {fileID: 1493788923483223600}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6794784047894466449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9317,4 +9453,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2472707029356623481, guid: e136dc0360520aa4996e817cb8312de0,
     type: 3}
   m_PrefabInstance: {fileID: 6794784047894466449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7318347682904309422
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3938678240389829088}
+    m_Modifications:
+    - target: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.016000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1159997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.31900007
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.66255105
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.18217234
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7115413
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.14679362
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -15.969
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 78.014
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 1.506
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173834401302988702, guid: 50d908555691fca4ab525271c9f68e86,
+        type: 3}
+      propertyPath: m_Name
+      value: Goblin_Jap
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 50d908555691fca4ab525271c9f68e86, type: 3}
+--- !u!4 &8486385173751675199 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1173834401302988689, guid: 50d908555691fca4ab525271c9f68e86,
+    type: 3}
+  m_PrefabInstance: {fileID: 7318347682904309422}
   m_PrefabAsset: {fileID: 0}

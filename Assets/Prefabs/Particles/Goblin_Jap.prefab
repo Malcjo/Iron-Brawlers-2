@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3134144472082269318
+--- !u!1 &1173834401302988702
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3134144472082269321}
-  - component: {fileID: 3134144472082269320}
-  - component: {fileID: 3134144472082269319}
+  - component: {fileID: 1173834401302988689}
+  - component: {fileID: 1173834401302988688}
+  - component: {fileID: 1173834401302988703}
   m_Layer: 0
-  m_Name: Sol_Sweap
+  m_Name: Goblin_Jap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3134144472082269321
+--- !u!4 &1173834401302988689
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3134144472082269318}
-  m_LocalRotation: {x: 0, y: 0, z: 0.17493713, w: 0.9845796}
-  m_LocalPosition: {x: 1.181, y: 1.2459999, z: 0.269}
+  m_GameObject: {fileID: 1173834401302988702}
+  m_LocalRotation: {x: -0.09973801, y: 0.6246783, z: 0.09753464, w: 0.76832044}
+  m_LocalPosition: {x: 22.700006, y: 22.299994, z: -98.70001}
   m_LocalScale: {x: 0.30878, y: 0.30878, z: 0.30878}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20.15}
---- !u!198 &3134144472082269320
+  m_LocalEulerAnglesHint: {x: -15.969, y: 78.014, z: 1.506}
+--- !u!198 &1173834401302988688
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3134144472082269318}
+  m_GameObject: {fileID: 1173834401302988702}
   serializedVersion: 6
   lengthInSec: 5
   simulationSpeed: 21
@@ -55,7 +55,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 3.5
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.4
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -337,7 +337,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.4
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -601,7 +601,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
-    size3D: 0
+    size3D: 1
     rotation3D: 0
     gravityModifier:
       serializedVersion: 2
@@ -1370,21 +1370,21 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.95073193, b: 0.75067383, a: 1}
-        key1: {r: 1, g: 0.8442849, b: 0.13530117, a: 1}
-        key2: {r: 1, g: 0.8263446, b: 0, a: 1}
-        key3: {r: 0.9514463, g: 0.6744836, b: 0.02380285, a: 0}
+        key0: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 1}
+        key2: {r: 0.32549024, g: 0.5583822, b: 1, a: 1}
+        key3: {r: 0.055510335, g: 0.0963263, b: 0.5566038, a: 0}
         key4: {r: 0.7830189, g: 0.14769427, b: 0.106372334, a: 0}
-        key5: {r: 0.46226418, g: 0.019261006, b: 0, a: 0}
-        key6: {r: 0, g: 0, b: 0, a: 0}
+        key5: {r: 0.7830189, g: 0.14769427, b: 0.106372334, a: 0}
+        key6: {r: 0.46226418, g: 0.019261006, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 22745
-        ctime2: 37779
-        ctime3: 50115
+        ctime1: 39514
+        ctime2: 53392
+        ctime3: 65535
         ctime4: 65535
         ctime5: 65535
-        ctime6: 0
+        ctime6: 65535
         ctime7: 0
         atime0: 0
         atime1: 50115
@@ -1395,7 +1395,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 5
+        m_NumColorKeys: 4
         m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2
@@ -1767,7 +1767,7 @@ ParticleSystem:
     orbitalY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -2.2
+      scalar: -2.5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4822,14 +4822,14 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &3134144472082269319
+--- !u!199 &1173834401302988703
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3134144472082269318}
+  m_GameObject: {fileID: 1173834401302988702}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
