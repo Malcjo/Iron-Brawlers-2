@@ -36,6 +36,7 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
     }
 
     public void SetResolution(int resolutionIndex)
@@ -46,17 +47,17 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetMasterVolume (float masterVolume)
     {
-        audioMixer.SetFloat("MasterVolume", masterVolume);
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(masterVolume) * 20);
        
     }
     public void SetMusicVolume(float musicVolume)
     {
-        audioMixer.SetFloat("MusicVolume", musicVolume);
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 20);
         
     }
     public void SetSFXVolume(float sfxVolume)
     {
-        audioMixer.SetFloat("SFXVolume", sfxVolume); 
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20); 
     }
 
     public void SetQuality (int qualityIndex)
