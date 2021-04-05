@@ -16,6 +16,8 @@ TagManager:
   - Spawn
   - Event
   - Joining
+  - MenuAsset
+  - MusicSource
   layers:
   - Default
   - TransparentFX

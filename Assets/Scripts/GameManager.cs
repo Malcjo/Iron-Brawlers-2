@@ -186,6 +186,7 @@ public class GameManager : MonoBehaviour
             eventSystem = GameObject.FindWithTag("Event");
             inputManager = eventSystem.GetComponent<PlayerInputManager>();
         }
+        Debug.Log("Reset On Awake");
         ResetCharacterAndLevelUI();
     }
     private void Start()
@@ -335,11 +336,12 @@ public class GameManager : MonoBehaviour
     {
         return player2UI;
     }
-
     public void ConnectToGameManager(int CameraType)
     {
         Invoke("MoveGameManagerOutOfDontDestroy", 1);
         ConnectToCanvas(CameraType);
+        loadLevelScript.SetMusicFade();
+        MainMenuAssetsGRP = GameObject.FindGameObjectWithTag("MenuAsset");
         Invoke("SetThisToDontDestroy", 1);
     }
     private void ConnectToCanvas(int CameraType)
@@ -365,6 +367,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
     }
+    public void ResetBindToPlayer()
+    {
+        bindToPlayer.ResetBindToPlayer();
+    }
     public void ResetMenu()
     {
         EnabledJoining();
@@ -385,6 +391,7 @@ public class GameManager : MonoBehaviour
     {
         MainMenu.SetActive(false);
         CharacterSelect.SetActive(true);
+        Debug.Log("set main asset group false");
         MainMenuAssetsGRP.SetActive(false);
     }
     public void SetPlayerSpawns(Transform _player1Spawn, Transform _player2Spawn)
@@ -421,10 +428,19 @@ public class GameManager : MonoBehaviour
     }
     public void ResetPlayersReady()
     {
+        Debug.Log("Reset");
         player1Ready = false;
         player2Ready = false;
         player1SolAnimated.SetActive(false);
         player1SolAltAnimated.SetActive(false);
+        player1GoblinAnimated.SetActive(false);
+        player1GoblinAltAnimated.SetActive(false);
+        player2SolAnimated.SetActive(false);
+        player2SolAltAnimated.SetActive(false);
+        player2GoblinAnimated.SetActive(false);
+        player2GoblinAltAnimated.SetActive(false);
+        LevelDisplay1Obj.SetActive(false);
+        LevelDisplay2Obj.SetActive(false);
     }
     public void AllowPlayersToJoin()
     {
@@ -579,46 +595,46 @@ public class GameManager : MonoBehaviour
     }
     private void TrackPlayers()
     {
-        if(players.Count > 0)
+        if (players != null)
         {
-            if(draws == 3)
+            if (players.Count > 0)
             {
-                Destroy(players[0].gameObject);
-                Destroy(players[1].gameObject);
-                bothLose.SetActive(true);
-                //timerScript.pause = true;
-                Invoke("ExitBackToMenu", 2);
-            }
-            TrackPlayer1();
-            if (players.Count > 1)
-            {
-                TrackPlayer2();
-            }
-            if (player1Rounds == 3 || player2Rounds == 3)
-            {
-                if(players.Count > 1)
+
+                TrackPlayer1();
+                if (players.Count > 1)
                 {
-                    if (player1Rounds > player2Rounds)
+
+                    TrackPlayer2();
+                }
+                if (player1Rounds == 3 || player2Rounds == 3)
+                {
+                    if (players.Count > 1)
                     {
-                        player1Wins.SetActive(true);
-                        Destroy(players[1].gameObject);
+                        if (player1Rounds > player2Rounds)
+                        {
+                            player1Wins.SetActive(true);
+                            Destroy(players[1].gameObject);
+                        }
+                        else if (player2Rounds > player1Rounds)
+                        {
+                            player2Wins.SetActive(true);
+                            Destroy(players[0].gameObject);
+                        }
                     }
-                    else if (player2Rounds > player1Rounds)
+                    else
                     {
                         player2Wins.SetActive(true);
                         Destroy(players[0].gameObject);
                     }
+                    Invoke("ExitBackToMenu", 2);
                 }
-                else
-                {
-                    //player1Loses.SetActive(true);
-                }
-                Invoke("ExitBackToMenu", 2);
             }
         }
     }
     public void ExitBackToMenu()
     {
+        player1Rounds = 0;
+        player2Rounds = 0;
         //Debug.Log("loading");
         loadLevelScript.TransitionBackToMainMenu();
     }

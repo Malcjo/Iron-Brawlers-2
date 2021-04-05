@@ -39,12 +39,22 @@ public class BindToPlayer : MonoBehaviour
             {
                 Destroy(obj);
             }
+            Debug.Log("clear");
             players.Clear();
         }
 
     }
-
-    private void Update()
+    public void ResetBindToPlayer()
+    {
+        loadLevelScript.TurnCharacterLightOn();
+        GameManager.instance.ResetPlayersReady();
+        playerIndex = 0;
+        join = FindObjectOfType<PlayerJoinHandler>();
+        players.Clear();
+        GameManager.instance.levelSelect = false;
+        
+    }
+    private void Update()   
     {
         //if (Input.GetKeyDown(KeyCode.Alpha9))
         //{
