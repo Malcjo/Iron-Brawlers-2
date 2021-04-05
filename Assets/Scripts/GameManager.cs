@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     MenuLayer PreviousLayer;
     public PlayerInputManager inputManager;
     //[SerializeField] private Timer timerScript;
-    [SerializeField] private List<GameObject> players = new List<GameObject>();
+    [SerializeField] public List<GameObject> players = new List<GameObject>();
     [SerializeField] private Canvas mainCanvas;
     [SerializeField] GameObject Title, MenuGroup, MainMenu, CharacterSelect, GameUIGroup, MainMenuAssetsGRP;
     [SerializeField] Animator blackFadeAnim;
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool player2Ready;
     public Transform player1Spawn, player2Spawn;
     public int player1Rounds, player2Rounds;
-    [SerializeField] private int sceneIndex;
+    [SerializeField] public int sceneIndex;
     private CameraScript cameraScript;
     public GameObject uimodule;
     [SerializeField] private float leftBounds, rightBounds, belowBounds, highBounds;
@@ -313,7 +313,7 @@ public class GameManager : MonoBehaviour
     {
         return cameraScript;
     }
-    private void EnableMenuCanvas()
+    public void EnableMenuCanvas()
     {
         MenuGroup.SetActive(true);
         GameUIGroup.SetActive(false);
@@ -365,7 +365,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
     }
-    private void ResetMenu()
+    public void ResetMenu()
     {
         EnabledJoining();
         SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
@@ -587,7 +587,7 @@ public class GameManager : MonoBehaviour
                 Destroy(players[1].gameObject);
                 bothLose.SetActive(true);
                 //timerScript.pause = true;
-                Invoke("TransisitonBackToMainMenu", 2);
+                Invoke("ExitBackToMenu", 2);
             }
             TrackPlayer1();
             if (players.Count > 1)
@@ -613,35 +613,14 @@ public class GameManager : MonoBehaviour
                 {
                     //player1Loses.SetActive(true);
                 }
-                Invoke("TransisitonBackToMainMenu", 2);
+                Invoke("ExitBackToMenu", 2);
             }
         }
     }
     public void ExitBackToMenu()
     {
-        TransisitonBackToMainMenu();
-    }
-    private void TransisitonBackToMainMenu()
-    {
-        blackFadeAnim.Play("Fade In and Out");
-        PausedGame(false);
-        player1Round1.SetActive(false);
-        player1Round2.SetActive(false);
-        player1Round3.SetActive(false);
-        player2Round1.SetActive(false);
-        player2Round2.SetActive(false);
-        player2Round3.SetActive(false);
-        player1Wins.SetActive(false);
-        player2Wins.SetActive(false);
-        //player1Loses.SetActive(false);
-        bothLose.SetActive(false);
-        SetRoundsToZero();
-        SceneManager.LoadScene(0);
-        players.Clear();
-        ChangeSceneIndex(1);
-        EnableMenuCanvas();
-        ResetMenu();
-        sceneIndex = 1;
+        //Debug.Log("loading");
+        loadLevelScript.TransitionBackToMainMenu();
     }
     public void AddPlayerToList(GameObject player)
     {
@@ -790,7 +769,7 @@ public class GameManager : MonoBehaviour
             players[1].transform.position = player2Spawn.transform.position;
         }
     }
-    private void SetRoundsToZero()
+    public void SetRoundsToZero()
     {
         player1Rounds = 0;
         player2Rounds = 0;

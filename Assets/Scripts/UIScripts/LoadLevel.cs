@@ -6,16 +6,17 @@ using UnityEngine;
 public class LoadLevel : MonoBehaviour
 {
     [SerializeField] private Animator loadingScreenAnim;
+
     [SerializeField] private GameObject loadingScreenGroup, loadingText, pressAnyButtonText, loadScreenLight, characterSelectLight, dot1, dot2, dot3, keyboardImgGroup, controllerImgGrp, runningSol;
+    [SerializeField] private GameObject player1Round1, player1Round2, player1Round3, player2Round1, player2Round2, player2Round3, player1Wins, player2Wins; 
     [SerializeField] private CanvasGroup loadingScreenCanvasGroup;
+    [SerializeField] private Animator musicFadeAnim;
 
     [Range(1, 2)]
     [SerializeField] private int LevelSelectNumber = 1;
 
     public void StartGame()
     {
-
-
         //loadingScreenAnim.Play("Fade In and Out");
         GameManager.instance.StartGame = false;
         StartCoroutine(DelayStartGame());
@@ -28,49 +29,40 @@ public class LoadLevel : MonoBehaviour
     }
     IEnumerator DelayStartGame()
     {
+        loadingScreenGroup.SetActive(true);
+        yield return StartCoroutine(FadeLoadingScreen(1, 1));
+        AsyncOperation operation = SceneManager.LoadSceneAsync(LevelSelectNumber);
+        operation.allowSceneActivation = false;
+        while (!operation.isDone)
         {
-            loadingScreenGroup.SetActive(true);
-            yield return StartCoroutine(FadeLoadingScreen(1, 1));
-
-            AsyncOperation operation = SceneManager.LoadSceneAsync(LevelSelectNumber);
-            operation.allowSceneActivation = false;
-            while (!operation.isDone)
+            if (operation.progress >= 0.9f)
             {
-                if (operation.progress >= 0.9f)
+                loadingText.SetActive(false);
+                dot1.SetActive(false);
+                dot2.SetActive(false);
+                dot3.SetActive(false);
+                musicFadeAnim.SetTrigger("FadeOut");
+                pressAnyButtonText.SetActive(true);
+                if (Input.anyKey)
                 {
-                    loadingText.SetActive(false);
-                    dot1.SetActive(false);
-                    dot2.SetActive(false);
-                    dot3.SetActive(false);
-                    pressAnyButtonText.SetActive(true);
-                    if (Input.anyKey)
-                    {
-                        GameManager.instance.DisableMenuCanvas();
-                        keyboardImgGroup.SetActive(false);
-                        controllerImgGrp.SetActive(false);
-                        loadScreenLight.SetActive(false);
-                        pressAnyButtonText.SetActive(false);
-                        characterSelectLight.SetActive(false);
-                        runningSol.SetActive(false);
-                        
-                        Debug.Log("button pressed");
-                        operation.allowSceneActivation = true;
-                    }
+                    musicFadeAnim.SetTrigger("FadeOut");
+                    GameManager.instance.DisableMenuCanvas();
+                    keyboardImgGroup.SetActive(false);
+                    controllerImgGrp.SetActive(false);
+                    loadScreenLight.SetActive(false);
+                    pressAnyButtonText.SetActive(false);
+                    characterSelectLight.SetActive(false);
+                    runningSol.SetActive(false);
+                    Debug.Log("button pressed");
+                    operation.allowSceneActivation = true;
                 }
-                Debug.Log(operation.progress);
-                yield return null;
             }
-            GameManager.instance.DisableJoining();
-            GameManager.instance.ResetPlayersReady();
-            GameManager.instance.ConnectToGameManager(1);
-            GameManager.instance.inGame = true;
-            GameManager.instance.RoundStart = true;
-            GameManager.instance.SetRoundStart(true);
-            GameManager.instance.RoundStartCountDown();
-            GameManager.instance.SetRoundStart(false);
-            //StartCoroutine(delayRoundStart());
-            loadingScreenGroup.SetActive(false);
+            Debug.Log(operation.progress);
+
+            yield return null;
         }
+        yield return StartCoroutine(FadeLoadingScreen(0, 1));
+        GameHasLoaded();
 
         IEnumerator FadeLoadingScreen(float targetValue, float duration)
         {
@@ -87,4 +79,82 @@ public class LoadLevel : MonoBehaviour
             loadingScreenCanvasGroup.alpha = targetValue;
         }
     }
+
+    private void GameHasLoaded()
+    {
+        GameManager.instance.DisableJoining();
+        GameManager.instance.ResetPlayersReady();
+        GameManager.instance.ConnectToGameManager(1);
+        GameManager.instance.inGame = true;
+        GameManager.instance.RoundStart = true;
+        GameManager.instance.SetRoundStart(true);
+        GameManager.instance.RoundStartCountDown();
+        GameManager.instance.SetRoundStart(false);
+        //StartCoroutine(delayRoundStart());
+        loadingScreenGroup.SetActive(false);
+    }
+
+    public void TransitionBackToMainMenu()
+    {
+        StartCoroutine(LoadScreenToMainMenu());
+    }
+
+    IEnumerator LoadScreenToMainMenu()
+    {
+        Debug.Log("loading");
+        loadingScreenGroup.SetActive(true);
+        yield return StartCoroutine(FadeLoadingScreen(1, 1));
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync("Main Menu");
+        while (!operation.isDone)
+        {
+            yield return null;
+            /*
+            loadingText.SetActive(false);
+            dot1.SetActive(false);
+            dot2.SetActive(false);
+            dot3.SetActive(false);
+            pressAnyButtonText.SetActive(true);
+            keyboardImgGroup.SetActive(false);
+            controllerImgGrp.SetActive(false);
+            loadScreenLight.SetActive(false);
+            pressAnyButtonText.SetActive(false);
+            characterSelectLight.SetActive(false);
+            runningSol.SetActive(false);
+            */
+        }
+        IEnumerator FadeLoadingScreen(float targetValue, float duration)
+        {
+            //runningSol.SetActive(true);
+            float startValue = loadingScreenCanvasGroup.alpha;
+            float time = 0;
+
+            while (time < duration)
+            {
+                loadingScreenCanvasGroup.alpha = Mathf.Lerp(startValue, targetValue, time / duration);
+                time += Time.deltaTime;
+                yield return null;
+            }
+            loadingScreenCanvasGroup.alpha = targetValue;
+        }
+        yield return StartCoroutine(FadeLoadingScreen(0, 1));
+
+        GameManager.instance.PausedGame(false);
+        player1Round1.SetActive(false);
+        player1Round2.SetActive(false);
+        player1Round3.SetActive(false);
+        player2Round1.SetActive(false);
+        player2Round2.SetActive(false);
+        player2Round3.SetActive(false);
+        player1Wins.SetActive(false);
+        player2Wins.SetActive(false);
+        //player1Loses.SetActive(false);
+        //GameManager.instance.bothLose.SetActive(false);
+        GameManager.instance.SetRoundsToZero();
+        GameManager.instance.players.Clear();
+        GameManager.instance.ChangeSceneIndex(1);
+        GameManager.instance.EnableMenuCanvas();
+        GameManager.instance.ResetMenu();
+        GameManager.instance.sceneIndex = 1;
+    }      
 }
