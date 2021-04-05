@@ -489,7 +489,7 @@ MonoBehaviour:
     MoveCharacterOnYMaxCounter: 0.2
   dashVariables:
     MoveCharacterOnXStrength: 9
-    MoveCharacterOnXMaxCounter: 0
+    MoveCharacterOnXMaxCounter: 0.2
     MaxDashTime: 1
   rollVariables:
     FollowingDestination: 0
@@ -9222,40 +9222,55 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3938678240389829088}
     m_Modifications:
+    - target: {fileID: 598862942116935726, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187945789315844163, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2615933582671186001, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3042272339719784766, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.009999991
+      value: 0.010000003
       objectReference: {fileID: 0}
     - target: {fileID: 3042272339719784766, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.946772
+      value: 0.3189999
       objectReference: {fileID: 0}
     - target: {fileID: 3042272339719784766, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.33249524
+      value: 0.059999954
       objectReference: {fileID: 0}
     - target: {fileID: 3042272339719784766, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0103229275
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3042272339719784766, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0064923153
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3042272339719784766, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.72528285
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3042272339719784766, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.68834305
+      value: 0.0000021159647
       objectReference: {fileID: 0}
     - target: {fileID: 3042272339719784766, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
         type: 3}
@@ -9277,10 +9292,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -92.997
       objectReference: {fileID: 0}
+    - target: {fileID: 3402009493136312364, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490886178685594563, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665927768280541470, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4693782996023297393, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5300787209798331407, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5626790520571701273, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6128551567057177600, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
         type: 3}
       propertyPath: m_Name
       value: Sol_Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816267110137991565, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7189861305312269913, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375352990200330856, guid: 7bf3e4b99d16b254ebf9bde96faccd43,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bf3e4b99d16b254ebf9bde96faccd43, type: 3}

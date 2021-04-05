@@ -9801,14 +9801,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5822921828391374996}
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071057, w: 0.707108}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -2.2000008, y: 191.79999, z: 19.000011}
   m_LocalScale: {x: 28.070906, y: 28.070908, z: 28.070911}
   m_Children:
   - {fileID: 5969346098423085143}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &5969346098423085144
 GameObject:
   m_ObjectHideFlags: 0
@@ -9821,7 +9821,7 @@ GameObject:
   - component: {fileID: 5969346098423085142}
   - component: {fileID: 5969346098423085145}
   m_Layer: 0
-  m_Name: Goblin_Jap
+  m_Name: Goblin_Foward_air
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
