@@ -5275,13 +5275,13 @@ MonoBehaviour:
     MoveCharacterOnYMaxCounter: 0
   neutralAerialVariables:
     FollowingDestination: 0
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
+    HitBoxSize: 1.3
+    DamageOnGauge: 2
+    KnockbackXStrength: 35
+    KnockbackYStrength: -10
+    CancelTime: 0.6
     WhenToMoveCharacterInAnimation: 0
-    MoveOnX: 0
+    MoveOnX: 1
     MoveCharacterOnXStrength: 0
     MoveCharacterOnXMaxCounter: 0
     MoveOnY: 0
