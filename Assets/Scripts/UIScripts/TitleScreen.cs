@@ -7,16 +7,8 @@ using static UnityEngine.InputSystem.InputAction;
 public class TitleScreen : MonoBehaviour
 {
     [SerializeField] private Animator titleAnim;
-    [SerializeField] private GameObject eventSystem;
     [SerializeField] private InputSystemUIInputModule inputSystemUIModule;
     
-
-    void Start()
-    {
-        //eventSystem.SetActive(false);
-
-    }
-
   
     void Update()
     {
