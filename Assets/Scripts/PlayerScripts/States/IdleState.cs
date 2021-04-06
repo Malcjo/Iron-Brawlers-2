@@ -106,6 +106,7 @@ public class IdleState : PlayerState
         }
         else
         {
+            Debug.Log("Go To Jump");
             self.SetState(new JumpingState());
         }
 

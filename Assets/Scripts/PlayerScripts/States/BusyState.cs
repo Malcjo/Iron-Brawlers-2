@@ -17,7 +17,8 @@ public class BusyState : PlayerState
         if (self.VerticalState == Player.VState.grounded)
         {
             body.velocity = calculate.overrideForce;
-        } else
+        } 
+        else
         {
             if (!self.CanMove)
             {
@@ -96,7 +97,8 @@ public class BusyState : PlayerState
                     self.CanMove = true;
                     self.CanTurn = true;
                     body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0);
-
+                    self.SetMoveStrengthXTo0();
+                    self.SetMoveStrengthYTo0();
                     self.SetState(new MovingState());
                 }
             }
@@ -110,7 +112,8 @@ public class BusyState : PlayerState
                 self.CanMove = true;
                 self.CanTurn = true;
                 body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0) + calculate.overrideForce;
-
+                self.SetMoveStrengthXTo0();
+                self.SetMoveStrengthYTo0();
                 self.SetState(new MovingState());
             }
             if (CrouchingCheck(input.crouchInput))

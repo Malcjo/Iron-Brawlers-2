@@ -633,6 +633,7 @@ public class GameManager : MonoBehaviour
     }
     public void ExitBackToMenu()
     {
+
         player1Rounds = 0;
         player2Rounds = 0;
         //Debug.Log("loading");

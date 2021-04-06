@@ -381,6 +381,7 @@ MonoBehaviour:
   IsDoubleJump: 0
   dashCounter: 0
   canDash: 0
+  dashParticle: 0
   JabParticle: {fileID: 6525478674268852211}
   HeavyParticle: {fileID: 6653377313978029403}
   SweepParticle: {fileID: 6885356112516483710}
@@ -389,6 +390,7 @@ MonoBehaviour:
   UpAirParticle: {fileID: 0}
   DashParticle: {fileID: 7082514023348002501}
   RollParticle: {fileID: 0}
+  canDashParitcle: {fileID: 0}
   idleCrossfade: 0.15
   runCrossfade: 0.02
   jabCrossfade: 0.02
@@ -457,7 +459,7 @@ MonoBehaviour:
     WhenToMoveCharacterInAnimation: 0
     MoveOnX: 1
     MoveCharacterOnXStrength: 6
-    MoveCharacterOnXMaxCounter: 0.5
+    MoveCharacterOnXMaxCounter: 0.1
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
