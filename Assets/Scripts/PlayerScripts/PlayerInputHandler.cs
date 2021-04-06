@@ -112,7 +112,7 @@ public class PlayerInputHandler : MonoBehaviour
             player.CanTurn = false;
             if (rightBumperHeld == true && leftBumperHeld == true)
             {
-                ShouldPause();
+                GameManager.instance.PausedGame(false);
                 GameManager.instance.ExitBackToMenu();
             }
         }

@@ -68,8 +68,6 @@ public class LoadLevel : MonoBehaviour
                     runningSol.SetActive(false);
                     Debug.Log("button pressed");
                     operation.allowSceneActivation = true;
-
-
                 }
             }
             Debug.Log(operation.progress);
@@ -124,13 +122,14 @@ public class LoadLevel : MonoBehaviour
     }
     IEnumerator LoadScreenToMainMenu()
     {
-        Debug.Log("loading");
+        Debug.Log("Menu loading");
         loadingScreenGroup.SetActive(true);
         yield return StartCoroutine(FadeLoadingScreen(1, 1));
 
         AsyncOperation operation = SceneManager.LoadSceneAsync("Main Menu");
         while (!operation.isDone)
         {
+            Debug.Log("progress: " + operation.progress);
             yield return null;
         }
 
