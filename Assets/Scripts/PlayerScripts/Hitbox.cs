@@ -319,6 +319,7 @@ public class Hitbox : MonoBehaviour
             defendingPlayer.MaxHitStun = defendingPlayer.aerialHitStun;
             defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
             defendingPlayer.HitStun = true;
+            FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
             defendingPlayer.KnockDown();
         }
         else if (attackType == AttackType.Heavy)
@@ -326,6 +327,7 @@ public class Hitbox : MonoBehaviour
             defendingPlayer.MaxHitStun = defendingPlayer.heavyHitStun;
             defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
             defendingPlayer.HitStun = true;
+            FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
             defendingPlayer.KnockDown();
         }
         else if(attackType == AttackType.ArmourBreak)
@@ -333,6 +335,7 @@ public class Hitbox : MonoBehaviour
             defendingPlayer.MaxHitStun = defendingPlayer.armourBreakHitStun;
             defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
             defendingPlayer.HitStun = true;
+            FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
             defendingPlayer.KnockDown();
         }
         else if(attackType == AttackType.LegSweep)
@@ -340,6 +343,7 @@ public class Hitbox : MonoBehaviour
             defendingPlayer.MaxHitStun = defendingPlayer.sweepHitStun;
             defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
             defendingPlayer.HitStun = true;
+            FindObjectOfType<AudioManager>().Play(AudioManager.JABHITUNARMOURED);
             defendingPlayer.KnockDown();
 
         }
@@ -348,6 +352,7 @@ public class Hitbox : MonoBehaviour
             defendingPlayer.MaxHitStun = defendingPlayer.jabHitStun;
             defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
             defendingPlayer.HitStun = true;
+            FindObjectOfType<AudioManager>().Play(AudioManager.JABHITUNARMOURED);
             defendingPlayer.JabKnockBack();
         }
 

@@ -470,6 +470,7 @@ public class PlayerActions : MonoBehaviour
         }
 
         TransitionToAnimation(SWEEPKEY, sweepCrossfade);
+        FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
         //anim.Play("SWEEP");
         anim.speed = 1;
         self.CanTurn = false;

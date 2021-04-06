@@ -622,10 +622,13 @@ public class Player : MonoBehaviour
                     FindObjectOfType<AudioManager>().Play(AudioManager.JABHITARMOUR);
                     break;
                 case AttackType.LegSweep:
+                    FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITARMOUR);
                     break;
                 case AttackType.Aerial:
+                    FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITARMOUR);
                     break;
                 case AttackType.ArmourBreak:
+                    FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITARMOUR);
                     break;
                 case AttackType.Heavy:
                     FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITARMOUR);
@@ -640,10 +643,13 @@ public class Player : MonoBehaviour
                     FindObjectOfType<AudioManager>().Play(AudioManager.JABHITUNARMOURED);
                     break;
                 case AttackType.LegSweep:
+                    FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
                     break;
                 case AttackType.Aerial:
+                    FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
                     break;
                 case AttackType.ArmourBreak:
+                    FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
                     break;
                 case AttackType.Heavy:
                     FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
