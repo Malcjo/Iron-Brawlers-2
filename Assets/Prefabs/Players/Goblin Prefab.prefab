@@ -5218,7 +5218,7 @@ MonoBehaviour:
   crouchCrossfade: 0.02
   sweepCrossfade: 0.02
   neutralAerialCrossfade: 0.02
-  dashCrossfade: 0.05
+  dashCrossfade: 0.02
   blockCrossfade: 0.02
   jumpCrossfade: 0.02
   doubleJumpCrossfade: 0.02
