@@ -5245,19 +5245,19 @@ MonoBehaviour:
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
   heavyVariables:
-    FollowingDestination: 0
+    FollowingDestination: 7
     HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
+    DamageOnGauge: 4
+    KnockbackXStrength: 30
+    KnockbackYStrength: 2.5
+    CancelTime: 0.85
     WhenToMoveCharacterInAnimation: 0
-    MoveOnX: 0
-    MoveCharacterOnXStrength: 0
-    MoveCharacterOnXMaxCounter: 0
+    MoveOnX: 1
+    MoveCharacterOnXStrength: 10
+    MoveCharacterOnXMaxCounter: 1
     MoveOnY: 0
-    MoveCharacterOnYStrength: 0
-    MoveCharacterOnYMaxCounter: 0
+    MoveCharacterOnYStrength: 3
+    MoveCharacterOnYMaxCounter: 0.2
   sweepVariables:
     FollowingDestination: 0
     HitBoxSize: 0
