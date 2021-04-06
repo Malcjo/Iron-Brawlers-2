@@ -391,15 +391,15 @@ MonoBehaviour:
   RollParticle: {fileID: 0}
   jabVariables:
     FollowingDestination: 3
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
-    WhenToMoveCharacterInAnimation: 0
-    MoveOnX: 0
-    MoveCharacterOnXStrength: 0
-    MoveCharacterOnXMaxCounter: 0
+    HitBoxSize: 0.4
+    DamageOnGauge: 2.5
+    KnockbackXStrength: 25
+    KnockbackYStrength: 10
+    CancelTime: 0.5
+    WhenToMoveCharacterInAnimation: 0.2
+    MoveOnX: 1
+    MoveCharacterOnXStrength: 0.5
+    MoveCharacterOnXMaxCounter: 0.25
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
@@ -433,15 +433,15 @@ MonoBehaviour:
     MoveCharacterOnYMaxCounter: 0
   neutralAerialVariables:
     FollowingDestination: 2
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
+    HitBoxSize: 0.5
+    DamageOnGauge: 3
+    KnockbackXStrength: 35
+    KnockbackYStrength: -0.5
+    CancelTime: 0.7
     WhenToMoveCharacterInAnimation: 0
-    MoveOnX: 0
-    MoveCharacterOnXStrength: 0
-    MoveCharacterOnXMaxCounter: 0
+    MoveOnX: 1
+    MoveCharacterOnXStrength: 12
+    MoveCharacterOnXMaxCounter: 1
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
@@ -8954,6 +8954,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3938678240389829088}
     m_Modifications:
+    - target: {fileID: 6259483116379817908, guid: 4908ab4a0645499478da9db5b860f613,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6259483116379817909, guid: 4908ab4a0645499478da9db5b860f613,
         type: 3}
       propertyPath: m_LocalPosition.x
