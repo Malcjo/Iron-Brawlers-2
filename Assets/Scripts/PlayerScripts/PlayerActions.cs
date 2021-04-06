@@ -324,6 +324,10 @@ public class PlayerActions : MonoBehaviour
                 self.MoveCharacterOnXMaxValue = dashVariables.MoveCharacterOnXMaxCounter;
                 self.SetMoveCharacterOnXStrength(dashVariables.MoveCharacterOnXStrength);
             }
+            if(dashCounter > dashVariables.MoveCharacterOnXMaxCounter)
+            {
+                break;
+            }
             yield return null;
         }
         self.SetState(new IdleState());
