@@ -517,23 +517,31 @@ public class PlayerActions : MonoBehaviour
         hitboxScript._attackType = AttackType.Aerial;
         hitboxScript._attackDir = Attackdirection.Aerial;
         hitboxManager.AeiralAttack();
-
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.CancelTime)
             {
-                yield return null;
                 while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.WhenToMoveCharacterInAnimation)
                 {
                     yield return null;
                 }
                 if (heavyVariables.MoveOnY)
                 {
-                    self.SetMoveCharacterOnYStrength(neutralAerialVariables.MoveCharacterOnYStrength);
+                    if (anim.GetCurrentAnimatorStateInfo(0).IsName(AERIALKEY))
+                    {
+                        self.SetMoveCharacterOnYStrength(neutralAerialVariables.MoveCharacterOnYStrength);
+                    }
+
                 }
                 if (heavyVariables.MoveOnX)
                 {
-                    self.SetMoveCharacterOnXStrength(neutralAerialVariables.MoveCharacterOnXStrength);
+                    if (anim.GetCurrentAnimatorStateInfo(0).IsName(AERIALKEY))
+                    {
+                        Debug.Log("Aerial move on X");
+                        self.SetMoveCharacterOnXStrength(neutralAerialVariables.MoveCharacterOnXStrength);
+
+                    }
+
                 }
                 yield return null;
             }
@@ -542,7 +550,20 @@ public class PlayerActions : MonoBehaviour
             //self.UseGravity = true;
             yield return null;
         }
-        self.SetState(new JumpingState());
+        self.moveCharacterOnXCounter = 5;
+        self.moveCharacterOnYCounter = 5;
+        self.SetMoveStrengthXTo0();
+        self.SetMoveStrengthYTo0();
+        if (self.VerticalState == Player.VState.grounded)
+        {
+
+            self.SetState(new IdleState());
+        }
+        else
+        {
+            self.SetState(new JumpingState());
+        }
+
     }
     public void ArmourBreak()
     {

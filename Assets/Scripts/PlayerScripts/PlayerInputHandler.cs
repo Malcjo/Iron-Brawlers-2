@@ -71,13 +71,14 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField]private bool rightTriggerHeld;
     [SerializeField] float joyStickDelay;
     [SerializeField] float contextValue;
-
+    public bool exitingGame;
     private void Awake()
     {
         currentScene = SceneManager.GetActiveScene();
         menuScene = SceneManager.GetSceneByBuildIndex(0);
         StartCoroutine(DelayedStart());
         DontDestroyOnLoad(this.gameObject);
+        exitingGame = false;
     }
     private void Update()
     {
@@ -114,6 +115,7 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 GameManager.instance.PausedGame(false);
                 GameManager.instance.ExitBackToMenu();
+
             }
         }
         else if (ispaused == false)
@@ -122,10 +124,7 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 player.CanTurn = true;
             }
-
         }
-
-
     }
     private bool CanControlCharacter()
     {

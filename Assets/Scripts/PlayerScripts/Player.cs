@@ -200,6 +200,14 @@ public class Player : MonoBehaviour
     {
         moveCharacterOnXCounter += 3 * Time.deltaTime;
         moveCharacterOnYCounter += 1 * Time.deltaTime;
+        if(moveCharacterOnXCounter > moveCharacterOnXMaxCounter)
+        {
+            moveCharacterOnXStrength = Mathf.Lerp(moveCharacterOnXStrength, 0, 2);
+        }
+        if (moveCharacterOnYCounter > moveCharacterOnYMaxCounter)
+        {
+            moveCharacterOnYStrength = Mathf.Lerp(moveCharacterOnYStrength, 0, 2);
+        }
         CallRunState();
         if (_SlideValue < 0)
         {
@@ -253,9 +261,17 @@ public class Player : MonoBehaviour
         }
 
     }
-
+    public void SetMoveStrengthXTo0()
+    {
+        moveCharacterOnXStrength = 0;
+    }
+    public void SetMoveStrengthYTo0()
+    {
+        moveCharacterOnYStrength = 0;
+    }
     public void SetMoveCharacterOnXStrength(float strengthValue)
     {
+        Debug.Log("Set X counter to 0 throught strength setter");
         moveCharacterOnXCounter = 0;
         moveCharacterOnXStrength = strengthValue;
     }
@@ -266,10 +282,12 @@ public class Player : MonoBehaviour
     }
     private void MoveCharacterOnX()
     {
+        Debug.Log("Move Character On X");
         rb.velocity = new Vector3(facingDirection * moveCharacterOnXStrength, rb.velocity.y, 0);
     }
     private void MoveCharacterOnY()
     {
+        Debug.Log("Move Character On Y");
         rb.velocity = new Vector3(rb.velocity.x, moveCharacterOnYStrength, 0);
     }
     public void changeHeavyMoveValue(AttackType attackType ,float value)
