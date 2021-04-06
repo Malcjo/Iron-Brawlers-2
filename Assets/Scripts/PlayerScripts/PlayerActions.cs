@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Security.Policy;
 using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
@@ -373,6 +372,7 @@ public class PlayerActions : MonoBehaviour
 
         self.CanActOutOf = false;
         self.MoveCharacterOnXMaxValue = heavyVariables.MoveCharacterOnXMaxCounter;
+        self.MoveCharacterOnYMaxValue = heavyVariables.MoveCharacterOnYMaxCounter;
         bool canMove = true;
         TransitionToAnimation(HEAVYKEY, 0.02f);
         FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
@@ -386,23 +386,24 @@ public class PlayerActions : MonoBehaviour
         {
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.CancelTime)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.65f)
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.WhenToMoveCharacterInAnimation)
                 {
-                    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.WhenToMoveCharacterInAnimation)
-                    {
-                        yield return null;
-                    }
                     yield return null;
-                    if (canMove == true)
+                }
+                yield return null;
+                if (canMove == true)
+                {
+                    if (heavyVariables.MoveOnY)
                     {
-                        if (heavyVariables.MoveOnY)
-                        {
-                            self.SetMoveCharacterOnYStrength(heavyVariables.MoveCharacterOnYStrength);
-                        }
-                        self.SetMoveCharacterOnXStrength(heavyVariables.MoveCharacterOnXStrength);
-                        //self.MoveCharacterWithAttacks(heavyAttackMoveValue);
-                        canMove = false;
+                        self.SetMoveCharacterOnYStrength(heavyVariables.MoveCharacterOnYStrength);
                     }
+                    if (heavyVariables.MoveOnX)
+                    {
+                        self.SetMoveCharacterOnXStrength(heavyVariables.MoveCharacterOnXStrength);
+                    }
+
+                    //self.MoveCharacterWithAttacks(heavyAttackMoveValue);
+                    canMove = false;
                 }
                 yield return null;
             }
@@ -460,7 +461,8 @@ public class PlayerActions : MonoBehaviour
         {
             AerialParticle.Play();
         }
-
+        self.MoveCharacterOnXMaxValue = neutralAerialVariables.MoveCharacterOnXMaxCounter;
+        self.MoveCharacterOnYMaxValue = neutralAerialVariables.MoveCharacterOnYMaxCounter;
         TransitionToAnimation(AERIALKEY, 0.01f);
         FindObjectOfType<AudioManager>().Play(AudioManager.AERIALMISS);
         anim.speed = 1;
@@ -477,7 +479,19 @@ public class PlayerActions : MonoBehaviour
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.CancelTime)
             {
                 yield return null;
-
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.WhenToMoveCharacterInAnimation)
+                {
+                    yield return null;
+                }
+                if (heavyVariables.MoveOnY)
+                {
+                    self.SetMoveCharacterOnYStrength(neutralAerialVariables.MoveCharacterOnYStrength);
+                }
+                if (heavyVariables.MoveOnX)
+                {
+                    self.SetMoveCharacterOnXStrength(neutralAerialVariables.MoveCharacterOnXStrength);
+                }
+                yield return null;
             }
             self.CanActOutOf = true;
 
