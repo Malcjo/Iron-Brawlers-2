@@ -470,6 +470,22 @@ MonoBehaviour:
   UpAirParticle: {fileID: 0}
   DashParticle: {fileID: 123373435060836538}
   RollParticle: {fileID: 0}
+  idleCrossfade: 0
+  runCrossfade: 0
+  jabCrossfade: 0
+  heavyCrossfade: 0
+  crouchCrossfade: 0
+  sweepCrossfade: 0
+  neutralAerialCrossfade: 0
+  dashCrossfade: 0
+  blockCrossfade: 0
+  jumpCrossfade: 0
+  doubleJumpCrossfade: 0
+  fallingCrossfade: 0
+  landingCrossfade: 0
+  getUpCrossfade: 0
+  normalHitCrossfade: 0
+  knockDownCrossfade: 0
   jabVariables:
     FollowingDestination: 0
     HitBoxSize: 0
@@ -569,9 +585,10 @@ MonoBehaviour:
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
   dashVariables:
-    MoveCharacterOnXStrength: 9
+    MoveCharacterOnXStrength: 12
     MoveCharacterOnXMaxCounter: 0.2
-    MaxDashTime: 1
+    MaxDashTime: 0.3
+    DashAnimationLength: 1
   rollVariables:
     FollowingDestination: 0
     HitBoxSize: 0
