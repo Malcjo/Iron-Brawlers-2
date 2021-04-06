@@ -155,6 +155,7 @@ public class LoadLevel : MonoBehaviour
 
         ResetLoadingAssets();
         GameManager.instance.PausedGame(false);
+
         runningSol.SetActive(false);
         player1Round1.SetActive(false);
         player1Round2.SetActive(false);

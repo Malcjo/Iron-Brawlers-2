@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject mainCamera;
     [SerializeField] private GameObject eventSystem;
     [SerializeField] BindToPlayer bindToPlayer;
+    [SerializeField] TitleScreen titleScreen;
     public bool inGame = false;
     [SerializeField] bool player1Ready;
     [SerializeField] bool player2Ready;
@@ -336,10 +337,27 @@ public class GameManager : MonoBehaviour
     {
         return player2UI;
     }
+    public void TurnOnMenuObj()
+    {
+        MainMenu.SetActive(true);
+    }
+    public void TurnOffCharacterSelectObj()
+    {
+        CharacterSelect.SetActive(false);
+    }
     public void ConnectToGameManager(int CameraType)
     {
         Invoke("MoveGameManagerOutOfDontDestroy", 1);
         ConnectToCanvas(CameraType);
+        if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(0).buildIndex)
+        {
+            if (titleScreen.haveBeenThroughTitle)
+            {
+                titleScreen.SetInputSystemModule();
+                titleScreen.TurnOnInputSystem();
+            }
+
+        }
         loadLevelScript.SetMusicFade();
         MainMenuAssetsGRP = GameObject.FindGameObjectWithTag("MenuAsset");
         Invoke("SetThisToDontDestroy", 1);
@@ -643,7 +661,23 @@ public class GameManager : MonoBehaviour
     {
         players.Add(player);
     }
+    public void TurnOnMenuINteraction()
+    {
+        titleScreen.TurnOnInputSystem();
+    }
+    public void ClearBindToPlayer()
+    {
+        if(bindToPlayer.players.Count> 1)
+        {
+            //SceneManager.MoveGameObjectToScene(bindToPlayer.players[1].gameObject, SceneManager.GetActiveScene());
+            Destroy(bindToPlayer.players[1].gameObject);
+        }
+        //SceneManager.MoveGameObjectToScene(bindToPlayer.players[0].gameObject, SceneManager.GetActiveScene());
+        Destroy(bindToPlayer.players[0].gameObject);
+        bindToPlayer.ResetBindToPlayer();
 
+        ExitBackToMenu();
+    }
     public void RoundStartCountDown()
     {
         roundStartCounter = 0;
