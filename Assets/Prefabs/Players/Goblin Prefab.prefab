@@ -5204,7 +5204,7 @@ MonoBehaviour:
   dashCounter: 0
   canDash: 0
   JabParticle: {fileID: 9057860207880084651}
-  HeavyParticle: {fileID: 0}
+  HeavyParticle: {fileID: 4734690060089899884}
   SweepParticle: {fileID: 4734690060089899884}
   AerialParticle: {fileID: 0}
   BackAirParticle: {fileID: 0}
