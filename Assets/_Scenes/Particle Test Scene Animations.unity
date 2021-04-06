@@ -385,25 +385,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6353813601371900709}
     m_Modifications:
-    - target: {fileID: 571531171796138580, guid: 4f2af4a340ee90046a7faacdc26b86fb,
-        type: 3}
-      propertyPath: startDelay.scalar
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 2619029194787980893, guid: 4f2af4a340ee90046a7faacdc26b86fb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.027000006
+      value: -0.027000016
       objectReference: {fileID: 0}
     - target: {fileID: 2619029194787980893, guid: 4f2af4a340ee90046a7faacdc26b86fb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.746
+      value: 1.8080002
       objectReference: {fileID: 0}
     - target: {fileID: 2619029194787980893, guid: 4f2af4a340ee90046a7faacdc26b86fb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.08700004
+      value: 0.19800016
       objectReference: {fileID: 0}
     - target: {fileID: 2619029194787980893, guid: 4f2af4a340ee90046a7faacdc26b86fb,
         type: 3}
@@ -449,31 +444,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Goblin_Foward_Air
-      objectReference: {fileID: 0}
-    - target: {fileID: 3429817164036403360, guid: 4f2af4a340ee90046a7faacdc26b86fb,
-        type: 3}
-      propertyPath: startDelay.scalar
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6138667170218767007, guid: 4f2af4a340ee90046a7faacdc26b86fb,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.30878
-      objectReference: {fileID: 0}
-    - target: {fileID: 6138667170218767007, guid: 4f2af4a340ee90046a7faacdc26b86fb,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.30878
-      objectReference: {fileID: 0}
-    - target: {fileID: 6138667170218767007, guid: 4f2af4a340ee90046a7faacdc26b86fb,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.30878
-      objectReference: {fileID: 0}
-    - target: {fileID: 6261018564497906661, guid: 4f2af4a340ee90046a7faacdc26b86fb,
-        type: 3}
-      propertyPath: startDelay.scalar
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f2af4a340ee90046a7faacdc26b86fb, type: 3}

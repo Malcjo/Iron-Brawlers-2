@@ -88,7 +88,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 7
+    scalar: 3.7
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -1800,7 +1800,7 @@ ParticleSystem:
     orbitalY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -3
+      scalar: -3.3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -6692,7 +6692,7 @@ ParticleSystem:
     orbitalY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -3
+      scalar: -3.3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -9840,7 +9840,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4189310468744301734}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.08, y: -1.38, z: 0.15}
+  m_LocalPosition: {x: 0.1, y: -5, z: 0.1}
   m_LocalScale: {x: 0.30878, y: 0.30878, z: 0.30878}
   m_Children: []
   m_Father: {fileID: 6138667170218767007}
@@ -9869,7 +9869,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 7
+    scalar: 3.7
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -11581,7 +11581,7 @@ ParticleSystem:
     orbitalY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -3
+      scalar: -3.3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -16470,7 +16470,7 @@ ParticleSystem:
     orbitalY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -3
+      scalar: -3.3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -19618,7 +19618,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6300745702181551339}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 1.22, z: 0.39}
+  m_LocalPosition: {x: 0, y: 4.8, z: 0.4}
   m_LocalScale: {x: 0.30878, y: 0.30878, z: 0.30878}
   m_Children: []
   m_Father: {fileID: 6138667170218767007}
@@ -19647,7 +19647,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 7
+    scalar: 3.7
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -21359,7 +21359,7 @@ ParticleSystem:
     orbitalY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -3
+      scalar: -3.3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -26248,7 +26248,7 @@ ParticleSystem:
     orbitalY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -3
+      scalar: -3.3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
