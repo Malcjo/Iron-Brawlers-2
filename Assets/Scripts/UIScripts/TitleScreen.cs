@@ -8,12 +8,25 @@ public class TitleScreen : MonoBehaviour
 {
     [SerializeField] private Animator titleAnim;
     [SerializeField] private InputSystemUIInputModule inputSystemUIModule;
-    
-  
+    public bool haveBeenThroughTitle;
+
+    private void Start()
+    {
+        haveBeenThroughTitle = false;
+    }
+    public void TurnOnInputSystem()
+    {
+        inputSystemUIModule.enabled = true;
+    }
+    public void SetInputSystemModule()
+    {
+        inputSystemUIModule = GameObject.FindGameObjectWithTag("Event").GetComponent<InputSystemUIInputModule>();
+    }
     void Update()
     {
         if (Input.anyKey)
         {
+            haveBeenThroughTitle = true;
             titleAnim.SetTrigger("FadeToMainMenu");
             StartCoroutine (EventSystemActivate());
         }
