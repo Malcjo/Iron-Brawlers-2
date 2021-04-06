@@ -508,7 +508,7 @@ public class PlayerActions : MonoBehaviour
         self.MoveCharacterOnXMaxValue = neutralAerialVariables.MoveCharacterOnXMaxCounter;
         self.MoveCharacterOnYMaxValue = neutralAerialVariables.MoveCharacterOnYMaxCounter;
         TransitionToAnimation(AERIALKEY, neutralAerialCrossfade);
-        FindObjectOfType<AudioManager>().Play(AudioManager.AERIALMISS);
+        FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
         anim.speed = 1;
         self.CanTurn = false;
         //self.UseGravity = false;
