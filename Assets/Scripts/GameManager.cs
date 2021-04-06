@@ -776,6 +776,7 @@ public class GameManager : MonoBehaviour
         players[0].gameObject.GetComponent<Player>().StopMovingCharacterOnYAxis();
         players[0].gameObject.GetComponent<Player>().StopMovingCharacterOnXAxis();
         players[0].transform.position = player1Spawn.transform.position;
+        players[0].transform.rotation = player1Spawn.transform.rotation;
         if (players.Count > 1)
         {
             players[1].gameObject.GetComponent<Player>().SetJumpIndexTo1();
@@ -783,6 +784,7 @@ public class GameManager : MonoBehaviour
             players[1].gameObject.GetComponent<Player>().StopMovingCharacterOnYAxis();
             players[1].gameObject.GetComponent<Player>().StopMovingCharacterOnXAxis();
             players[1].transform.position = player2Spawn.transform.position;
+            players[1].transform.rotation = player2Spawn.transform.rotation;
         }
     }
     public void SetRoundsToZero()

@@ -193,6 +193,7 @@ public class Player : MonoBehaviour
             SpawnPoint = GameManager.instance.player2Spawn;
         }
         transform.position = SpawnPoint.transform.position;
+        transform.rotation = SpawnPoint.transform.rotation;
     }
 
     private void Update()
