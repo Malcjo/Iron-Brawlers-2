@@ -5233,15 +5233,15 @@ MonoBehaviour:
   knockDownCrossfade: 0.02
   jabVariables:
     FollowingDestination: 0
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
-    WhenToMoveCharacterInAnimation: 0
-    MoveOnX: 0
-    MoveCharacterOnXStrength: 0
-    MoveCharacterOnXMaxCounter: 0
+    HitBoxSize: 0.4
+    DamageOnGauge: 2.5
+    KnockbackXStrength: 25
+    KnockbackYStrength: 10
+    CancelTime: 0.5
+    WhenToMoveCharacterInAnimation: 0.2
+    MoveOnX: 1
+    MoveCharacterOnXStrength: 0.5
+    MoveCharacterOnXMaxCounter: 0.2
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
