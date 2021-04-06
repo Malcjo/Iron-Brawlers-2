@@ -16,6 +16,7 @@ public class PlayerActions : MonoBehaviour
     public bool IsDoubleJump = false;
     [SerializeField] private float dashCounter;
     [SerializeField] private bool canDash;
+    [SerializeField] private bool dashParticle;
 
     [Header("Particles")]
     [SerializeField] ParticleSystem JabParticle;
@@ -26,6 +27,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] ParticleSystem UpAirParticle;
     [SerializeField] ParticleSystem DashParticle;
     [SerializeField] ParticleSystem RollParticle;
+    [SerializeField] ParticleSystem canDashParitcle;
+
 
 
 
@@ -251,6 +254,14 @@ public class PlayerActions : MonoBehaviour
         if(dashCounter >= dashVariables.MaxDashTime)
         {
             canDash = true;
+            if (dashParticle)
+            {
+                if(canDashParitcle != null)
+                {
+                    canDashParitcle.Play();
+                }
+                dashParticle = false;
+            }
         }
         //if (comboTimer > 0)
         //{
@@ -302,6 +313,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (canDash)
         {
+            dashParticle = true;
             if (DashParticle != null)
             {
                 DashParticle.Play();
