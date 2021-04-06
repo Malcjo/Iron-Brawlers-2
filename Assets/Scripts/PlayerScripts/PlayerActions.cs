@@ -176,7 +176,7 @@ public class PlayerActions : MonoBehaviour
     public struct DashVariables
     {
         public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
-        public float MaxDashTime;
+        public float MaxDashTime; public float DashAnimationLength;
     }
     [System.Serializable]
     public struct RollVariables
@@ -293,10 +293,14 @@ public class PlayerActions : MonoBehaviour
     IEnumerator DashAction()
     {
         TransitionToAnimation(DASHKEY, 0.05f);
-        while (dashCounter <= dashVariables.MoveCharacterOnXMaxCounter)
+
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < dashVariables.DashAnimationLength)
         {
-            self.MoveCharacterOnXMaxValue = dashVariables.MoveCharacterOnXMaxCounter;
-            self.SetMoveCharacterOnXStrength(dashVariables.MoveCharacterOnXStrength);
+            if (dashCounter <= dashVariables.MoveCharacterOnXMaxCounter)
+            {
+                self.MoveCharacterOnXMaxValue = dashVariables.MoveCharacterOnXMaxCounter;
+                self.SetMoveCharacterOnXStrength(dashVariables.MoveCharacterOnXStrength);
+            }
             yield return null;
         }
         self.SetState(new IdleState());
