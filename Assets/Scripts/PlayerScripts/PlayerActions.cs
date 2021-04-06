@@ -51,6 +51,29 @@ public class PlayerActions : MonoBehaviour
     const string GETTINGUPKEY = "GETTING_UP_NORMAL";
     const string DASHKEY = "DASH";
 
+    [Header("Crossfade Timing")]
+    [SerializeField] private float idleCrossfade;
+    [SerializeField] private float runCrossfade;
+    [SerializeField] private float jabCrossfade;
+    [SerializeField] private float heavyCrossfade;
+    [SerializeField] private float crouchCrossfade;
+    [SerializeField] private float sweepCrossfade;
+    [SerializeField] private float neutralAerialCrossfade;
+
+    [SerializeField] private float dashCrossfade;
+    [SerializeField] private float blockCrossfade;
+
+    [SerializeField] private float jumpCrossfade;
+    [SerializeField] private float doubleJumpCrossfade;
+    [SerializeField] private float fallingCrossfade;
+    [SerializeField] private float landingCrossfade;
+
+    [SerializeField] private float getUpCrossfade;
+    [SerializeField] private float normalHitCrossfade;
+    [SerializeField] private float knockDownCrossfade;
+
+
+
     /*
  * Sol
  * jab- Position: left hand |Scale: 0.4  |gague damage: 2.5f |Strength: 25, 10 |Cancel time: 0.5 |MaxMoveTimeValue: 0.25 |Move strength: 0.5 |WhenToMoveCharacter: 0.2
@@ -72,7 +95,7 @@ public class PlayerActions : MonoBehaviour
  */
 
 
-
+    [Header("Attack Variables")]
     public JabVariables jabVariables;
     public HeavyVariables heavyVariables;
     public SweepVariables sweepVariables;
@@ -292,7 +315,7 @@ public class PlayerActions : MonoBehaviour
     }
     IEnumerator DashAction()
     {
-        TransitionToAnimation(DASHKEY, 0.05f);
+        TransitionToAnimation(DASHKEY, dashCrossfade);
 
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < dashVariables.DashAnimationLength)
         {
@@ -323,7 +346,7 @@ public class PlayerActions : MonoBehaviour
         self.MoveCharacterOnXMaxValue = jabVariables.MoveCharacterOnXMaxCounter;
         bool canMove = true;
         //anim.Play(animlist[comboStep]);
-        TransitionToAnimation(JABKEY, 0.03f);
+        TransitionToAnimation(JABKEY, jabCrossfade);
         anim.speed = 1;
         FindObjectOfType<AudioManager>().Play(AudioManager.JABMISS);
         //comboStep++;
@@ -378,7 +401,7 @@ public class PlayerActions : MonoBehaviour
         self.MoveCharacterOnXMaxValue = heavyVariables.MoveCharacterOnXMaxCounter;
         self.MoveCharacterOnYMaxValue = heavyVariables.MoveCharacterOnYMaxCounter;
         bool canMove = true;
-        TransitionToAnimation(HEAVYKEY, 0.02f);
+        TransitionToAnimation(HEAVYKEY, heavyCrossfade);
         FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
         anim.speed = 1;
         yield return null;
@@ -430,7 +453,7 @@ public class PlayerActions : MonoBehaviour
             SweepParticle.Play();
         }
 
-        TransitionToAnimation(SWEEPKEY, 0.01f);
+        TransitionToAnimation(SWEEPKEY, sweepCrossfade);
         //anim.Play("SWEEP");
         anim.speed = 1;
         self.CanTurn = false;
@@ -467,7 +490,7 @@ public class PlayerActions : MonoBehaviour
         }
         self.MoveCharacterOnXMaxValue = neutralAerialVariables.MoveCharacterOnXMaxCounter;
         self.MoveCharacterOnYMaxValue = neutralAerialVariables.MoveCharacterOnYMaxCounter;
-        TransitionToAnimation(AERIALKEY, 0.01f);
+        TransitionToAnimation(AERIALKEY, neutralAerialCrossfade);
         FindObjectOfType<AudioManager>().Play(AudioManager.AERIALMISS);
         anim.speed = 1;
         self.CanTurn = false;
@@ -577,7 +600,7 @@ public class PlayerActions : MonoBehaviour
     IEnumerator _Landing()
     {
         self.landing = true;
-        TransitionToAnimation(LANDKEY, 0.01f);
+        TransitionToAnimation(LANDKEY, landingCrossfade);
         anim.speed = 1;
         self.SetState(new BusyState());
         yield return null;
@@ -602,7 +625,7 @@ public class PlayerActions : MonoBehaviour
     }
     public void Running()
     {
-        TransitionToAnimation(RUNKEY, 0.02f);
+        TransitionToAnimation(RUNKEY,runCrossfade);
         anim.speed = self.GetAbsolutInputValueForMovingAnimationSpeed();
     }
 
@@ -615,7 +638,7 @@ public class PlayerActions : MonoBehaviour
         else
         {
             anim.speed = 1;
-            TransitionToAnimation(IDLEKEY, 0.02f);
+            TransitionToAnimation(IDLEKEY, idleCrossfade);
         }
 
     }
@@ -630,7 +653,7 @@ public class PlayerActions : MonoBehaviour
         }
         SetArmourToCrouchBlock();
 
-        TransitionToAnimation(CROUCHKEY, 0.01f);
+        TransitionToAnimation(CROUCHKEY, crouchCrossfade);
         //anim.Play("CROUCH_IDLE");
         anim.speed = 1;
     }
@@ -678,13 +701,13 @@ public class PlayerActions : MonoBehaviour
 
     public void Falling()
     {
-        TransitionToAnimation(FALLINGKEY, 0.01f);
+        TransitionToAnimation(FALLINGKEY, fallingCrossfade);
         anim.speed = 1;
     }
 
     public void Jumping()
     {
-        TransitionToAnimation(JUMPINGKEY, 0.01f);
+        TransitionToAnimation(JUMPINGKEY, jumpCrossfade);
         anim.speed = 1;
     }
     public void DoubleJump()
@@ -694,7 +717,7 @@ public class PlayerActions : MonoBehaviour
 
     IEnumerator _DoulbeJump()
     {
-        TransitionToAnimation(DOUBLEJUMPKEY, 0.01f);
+        TransitionToAnimation(DOUBLEJUMPKEY, doubleJumpCrossfade);
         anim.speed = 1;
         yield return null;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
@@ -746,7 +769,7 @@ public class PlayerActions : MonoBehaviour
             tempMaterial.material = armourBlocking;
         }
         //SetArmourToNormalBlock();
-        TransitionToAnimation(BLOCKKEY, 0.01f);
+        TransitionToAnimation(BLOCKKEY, blockCrossfade);
         //StartCoroutine(_EnterBlock());
     }
 
@@ -964,7 +987,7 @@ public class PlayerActions : MonoBehaviour
         self.CanTurn = false;
         self.SetState(new BusyState());
         anim.speed = 2;
-        TransitionToAnimation(NORMALHITSTUNKEY, 0.01f);
+        TransitionToAnimation(NORMALHITSTUNKEY, normalHitCrossfade);
         //anim.Play("HITSTUN_NORMAL_HIT");
 
         yield return null;
@@ -990,7 +1013,7 @@ public class PlayerActions : MonoBehaviour
         self.CanTurn = false;
         self.SetState(new BusyState());
         anim.speed = 2.5f;
-        TransitionToAnimation(KNOCKDOWNKEY, 0.01f);
+        TransitionToAnimation(KNOCKDOWNKEY, knockDownCrossfade);
         //anim.Play("HITSTUN_NORMAL_HIT");
         //anim.Play("KNOCKDOWN_NORMAL");
         //grab stuff off server and do boots
@@ -1019,7 +1042,7 @@ public class PlayerActions : MonoBehaviour
         self.HitStun = true;
         self.CanTurn = false;
         anim.speed = 3;
-        TransitionToAnimation(GETTINGUPKEY, 0.01f);
+        TransitionToAnimation(GETTINGUPKEY, getUpCrossfade);
         //anim.Play("GETTING_UP_NORMAL");
 
         yield return null;
