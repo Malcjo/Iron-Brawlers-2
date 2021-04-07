@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private Timer timerScript;
     [SerializeField] public List<GameObject> players = new List<GameObject>();
     [SerializeField] private Canvas mainCanvas;
-    [SerializeField] GameObject Title, MenuGroup, MainMenu, CharacterSelect, GameUIGroup, MainMenuAssetsGRP;
+    [SerializeField] GameObject Title, MenuGroup, MainMenu, CharacterSelect, GameUIGroup, MainMenuAssetsGRP, ChooseYourStageText, ChooseYourCharacterText;
     [SerializeField] Animator blackFadeAnim;
     [SerializeField] Button PlayButton;
     [SerializeField] GameObject mainCamera;
@@ -81,6 +81,8 @@ public class GameManager : MonoBehaviour
     private void ResetCharacterAndLevelUI()
     {
         ChooseLevel = false;
+        ChooseYourStageText.SetActive(false);
+        //ChooseYourCharacterText.SetActive(false);
         LevelDisplay1Obj.SetActive(false);
         LevelDisplay2Obj.SetActive(false);
         Display2.GetComponent<Animator>().Play("CharacterIdle");
@@ -253,6 +255,8 @@ public class GameManager : MonoBehaviour
             StartCoroutine(PlayerDisplay2Animation(_display2));
             StartCoroutine(PlayerDisplay3Animation(_display3));
 
+            ChooseYourCharacterText.SetActive(false);
+            ChooseYourStageText.SetActive(true);
             LevelDisplay1Obj.SetActive(true);
             LevelDisplay2Obj.SetActive(false);
 
