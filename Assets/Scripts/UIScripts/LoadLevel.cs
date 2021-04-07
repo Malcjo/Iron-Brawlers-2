@@ -150,11 +150,20 @@ public class LoadLevel : MonoBehaviour
             }
             loadingScreenCanvasGroup.alpha = targetValue;
         }
-        yield return StartCoroutine(FadeLoadingScreen(0, 1));
-        //MenuHasLoaded();
-
         ResetLoadingAssets();
         GameManager.instance.PausedGame(false);
+
+        GameManager.instance.player1pressAToJoinUI.SetActive(true);
+        GameManager.instance.player1Character1PortraitPuck.SetActive(false);
+        GameManager.instance.player1Character1Background.SetActive(false);
+        GameManager.instance.player2pressAToJoinUI.SetActive(true);
+        GameManager.instance.player2Character1PortraitPuck.SetActive(false);
+        GameManager.instance.player2Character1Background.SetActive(false);
+        GameManager.instance.Character1BeenPicked = false;
+        GameManager.instance.Character2BeenPicked = false;
+        GameManager.instance.TurnOffCharacterSelectObj();
+        GameManager.instance.TurnOnMenuObj();
+        GameManager.instance.ResetLevelSelectDisplay();
 
         runningSol.SetActive(false);
         player1Round1.SetActive(false);
@@ -176,6 +185,10 @@ public class LoadLevel : MonoBehaviour
         GameManager.instance.RoundStart = false;
         GameManager.instance.ResetMenu();
         GameManager.instance.ConnectToGameManager(0);
+        yield return StartCoroutine(FadeLoadingScreen(0, 1));
+        //MenuHasLoaded();
+
+
 
     }      
 }

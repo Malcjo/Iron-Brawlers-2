@@ -242,10 +242,10 @@ public class GameManager : MonoBehaviour
     }
     public void TransitionToLevelSelect()
     {
-        PlayerDisplayTransition();
+        _TransitionToLevelSelect();
     }
     private bool LevelTransitioned = false;
-    private void PlayerDisplayTransition()
+    private void _TransitionToLevelSelect()
     {
         Animator _display2 = Display2.GetComponent<Animator>();
         Animator _display3 = Display3.GetComponent<Animator>();
@@ -264,6 +264,32 @@ public class GameManager : MonoBehaviour
             level1HighlightImage.SetActive(true);
             level2DisplayImage.SetActive(true);
             level2HighlightImage.SetActive(false);
+        }
+    }
+    public void ResetLevelSelectDisplay()
+    {
+        _ResetLevelSelectDispaly();
+    }
+    private void _ResetLevelSelectDispaly()
+    {
+        Animator _display2 = Display2.GetComponent<Animator>();
+        Animator _display3 = Display3.GetComponent<Animator>();
+
+
+        if (LevelTransitioned)
+        {
+            _display2.Play("CharacterIdle");
+            _display3.Play("CharacterIdle");
+            LevelTransitioned = false;
+            ChooseYourCharacterText.SetActive(true);
+            ChooseYourStageText.SetActive(false);
+            LevelDisplay1Obj.SetActive(false);
+            LevelDisplay2Obj.SetActive(true);
+
+            level1DisplayImage.SetActive(true);
+            level1HighlightImage.SetActive(false);
+            level2DisplayImage.SetActive(false);
+            level2HighlightImage.SetActive(true);
         }
     }
     IEnumerator PlayerDisplay2Animation(Animator anim)

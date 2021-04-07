@@ -607,32 +607,39 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(0).buildIndex)
         {
-            if (!ChooseLevel)
+            if (canAct)
             {
-                GameManager.instance.player1pressAToJoinUI.SetActive(true);
-                GameManager.instance.player1Character1PortraitPuck.SetActive(false);
-                GameManager.instance.player1Character1Background.SetActive(false);
-                GameManager.instance.player2pressAToJoinUI.SetActive(true);
-                GameManager.instance.player2Character1PortraitPuck.SetActive(false);
-                GameManager.instance.player2Character1Background.SetActive(false);
-                GameManager.instance.TurnOffCharacterSelectObj();
-                GameManager.instance.TurnOnMenuObj();
-                SceneManager.LoadScene(3);
-            }
-            else
-            {
-                if (PlayerIndex == 1)
+                if (!ChooseLevel)
                 {
-                    chara = 0;
+
+                    //GameManager.instance.player1pressAToJoinUI.SetActive(true);
+                    //GameManager.instance.player1Character1PortraitPuck.SetActive(false);
+                    //GameManager.instance.player1Character1Background.SetActive(false);
+                    //GameManager.instance.player2pressAToJoinUI.SetActive(true);
+                    //GameManager.instance.player2Character1PortraitPuck.SetActive(false);
+                    //GameManager.instance.player2Character1Background.SetActive(false);
+                    //GameManager.instance.Character1BeenPicked = false;
+                    //GameManager.instance.Character2BeenPicked = false;
+                    //GameManager.instance.TurnOffCharacterSelectObj();
+                    //GameManager.instance.TurnOnMenuObj();
+                    SceneManager.LoadScene(3);
                 }
-                else if (PlayerIndex == 2)
+                else
                 {
-                    chara = 0;
+                    if (PlayerIndex == 1)
+                    {
+                        chara = 0;
+                    }
+                    else if (PlayerIndex == 2)
+                    {
+                        chara = 0;
+                    }
+                    primed = true;
+                    ChooseLevel = false;
+                    CharaReadied = false;
                 }
-                primed = true;
-                ChooseLevel = false;
-                CharaReadied = false;
             }
+
         }
     }
     public void JumpInput(CallbackContext context)
