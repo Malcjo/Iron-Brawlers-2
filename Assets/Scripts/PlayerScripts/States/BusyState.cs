@@ -157,6 +157,19 @@ public class BusyState : PlayerState
                 body.velocity = new Vector3(0, 0, 0) + calculate.overrideForce;
                 self.SetState(new CrouchingState());
             }
+            if (JumpingCheck(input.jumpInput))
+            {
+                if (self.CanJumpIndex < self.GetMaxJumps())
+                {
+                    self.CanTurn = false;
+                    self.InAir = true;
+                    body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce, body.velocity.z));
+                    self.JumpingOrFallingAnimations();
+                    self.AddOneToJumpIndex();
+                    self.SetState(new JumpingState());
+                    //actionTaken = true;
+                }
+            }
         }
     }
 }
