@@ -42,12 +42,11 @@ public class LoadLevel : MonoBehaviour
     IEnumerator DelayStartGame()
     {
         loadingScreenGroup.SetActive(true);
-        loadScreenLight.SetActive(true);
-        characterSelectLight.SetActive(false);
-
         yield return StartCoroutine(FadeLoadingScreen(1, 1));
         AsyncOperation operation = SceneManager.LoadSceneAsync(LevelSelectNumber);
         operation.allowSceneActivation = false;
+        characterSelectLight.SetActive(false);
+        loadScreenLight.SetActive(true);
         while (!operation.isDone)
         {
             if (operation.progress >= 0.9f)
