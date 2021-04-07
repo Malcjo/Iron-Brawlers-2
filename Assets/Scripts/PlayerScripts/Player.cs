@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GaugeManager gaugeManager;
     [SerializeField] private ParticleManager particleManager;
 
+
     private bool _DecreaseSlide;
     public bool DecreaseSlide { get { return _DecreaseSlide; } set { _DecreaseSlide = value; } }
     [Range(0, 5)]
@@ -71,6 +72,8 @@ public class Player : MonoBehaviour
     private bool _canTurn;
     private bool _canBlock;
     [SerializeField] private bool _canMove;
+    [SerializeField] private bool crouchBlocking;
+    public bool CrouchBlocking {get { return crouchBlocking; } set { crouchBlocking = value; } }
 
     private bool canAirMove;
 

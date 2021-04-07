@@ -10,6 +10,7 @@ public class IdleState : PlayerState
     }
     public override void RunState(Player self, Rigidbody body, PlayerActions actions, ArmourCheck armour, InputState input, Calculating calculate)
     {
+        actions.legShield.SetActive(false);
         self.CanMove = true;
         actions.Idle();
         if(self.VerticalState == Player.VState.grounded)

@@ -18,6 +18,11 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private bool canDash;
     [SerializeField] private bool dashParticle;
 
+    [SerializeField] public GameObject torsoShield;
+    [SerializeField] public GameObject legShield;
+
+
+
     [Header("AnimationTiming")]
     [SerializeField]private float JabCounter;
     private float MaxJabTime;
@@ -90,29 +95,6 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float getUpCrossfade;
     [SerializeField] private float normalHitCrossfade;
     [SerializeField] private float knockDownCrossfade;
-
-
-
-    /*
- * Sol
- * jab- Position: left hand |Scale: 0.4  |gague damage: 2.5f |Strength: 25, 10 |Cancel time: 0.5 |MaxMoveTimeValue: 0.25 |Move strength: 0.5 |WhenToMoveCharacter: 0.2
- * heavy- Position: right hand |Scale: 0.6  |gague damage: 4 |Strength: 40, 2 |Cancel time: 0.8 |MaxMoveTimeValue: 3 |Move strength: 6  |WhenToMoveCharacter: 0.2
- * sweep- Position: right hand |Scale: 0.5 | gague damage: 3 |Strength: 20, 30 |Cancel time: 0.6
- * aerial- Position: right elbow |Scale: 0.5 |gague damage: 3 |Strength: 35, -0.5 |Cancel time: 0.7
- * armourbreak- Position: Center |Scale: 2 |gague damage: 5 |Strength: 50, 2|WhenToMoveCharacter: |MoveCharacterOnYMaxCounter: |MoveCharacterOnYStrength:
- * dash- Move Character On X Strength: 9 |MoveCharacterMaxCounter: 0.2 MaxDashTime: 1 
- * 
- * Goblin
- * jab- Position: left hand |Scale: |gague Damage: |Strength: |cancel time: |MaxMoveTimeValue: |MoveStrength: | WhenToMoveCharacter:
- * heavy- Position: left hand |Scale: |gague Damage: |Strength: |cancel time: |MaxMoveTimeValue: |MoveStrength: | WhenToMoveCharacter:
- * sweep- Position: left hand |Scale: |gague Damage: |Strength: |cancel time: |MaxMoveTimeValue: |MoveStrength: | WhenToMoveCharacter:
- * aerial- Position: left hand |Scale: |gague Damage: |Strength: |cancel time: |MaxMoveTimeValue: |MoveStrength: | WhenToMoveCharacter:
- * armourbreak- Position: left hand |Scale: |gague Damage: |Strength: |cancel time: |MaxMoveTimeValue: |MoveStrength: | WhenToMoveCharacter:
- * 
- * 
- * 
- */
-
 
     [Header("Attack Variables")]
     public JabVariables jabVariables;
@@ -235,6 +217,8 @@ public class PlayerActions : MonoBehaviour
 
     private void Start()
     {
+        torsoShield.SetActive(false);
+        legShield.SetActive(false);
         MaxJabTime = jabVariables.CancelTime;
         JabCounter = MaxJabTime;
         MaxHeavyTime = heavyVariables.CancelTime;
@@ -294,14 +278,6 @@ public class PlayerActions : MonoBehaviour
                 dashParticle = false;
             }
         }
-        //if (comboTimer > 0)
-        //{
-        //    comboTimer -= Time.deltaTime;
-        //    if (comboTimer < 0)
-        //    {
-        //        comboStep = 0;
-        //    }
-        //}
     }
 
     private void FixedUpdate()
@@ -467,8 +443,6 @@ public class PlayerActions : MonoBehaviour
                         {
                             self.SetMoveCharacterOnXStrength(heavyVariables.MoveCharacterOnXStrength);
                         }
-
-                        //self.MoveCharacterWithAttacks(heavyAttackMoveValue);
                         canMove = false;
                     }
                     yield return null;
@@ -498,7 +472,6 @@ public class PlayerActions : MonoBehaviour
             self.CanActOutOf = false;
             TransitionToAnimation(true, SWEEPKEY, sweepCrossfade);
             FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
-            //anim.Play("SWEEP");
             anim.speed = 1;
             self.CanTurn = false;
             yield return null;
@@ -517,7 +490,7 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        self.SetState(new CrouchingState());
+        self.SetState(new IdleState());
     }
     public void AerialAttack()
     {
@@ -543,7 +516,6 @@ public class PlayerActions : MonoBehaviour
             FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
             anim.speed = 1;
             self.CanTurn = false;
-            //self.UseGravity = false;
             self.StopMovingCharacterOnYAxis();
             yield return null;
             hitboxScript._attackType = AttackType.Aerial;
@@ -563,7 +535,6 @@ public class PlayerActions : MonoBehaviour
                         {
                             self.SetMoveCharacterOnYStrength(neutralAerialVariables.MoveCharacterOnYStrength);
                         }
-
                     }
                     if (heavyVariables.MoveOnX)
                     {
@@ -571,15 +542,12 @@ public class PlayerActions : MonoBehaviour
                         {
                             Debug.Log("Aerial move on X");
                             self.SetMoveCharacterOnXStrength(neutralAerialVariables.MoveCharacterOnXStrength);
-
                         }
-
                     }
                     yield return null;
                 }
                 self.CanActOutOf = true;
 
-                //self.UseGravity = true;
                 yield return null;
             }
         }
@@ -650,20 +618,6 @@ public class PlayerActions : MonoBehaviour
         }
         self.SetState(new JumpingState());
     }
-    //public void JumpLanding()
-    //{
-    //    StartCoroutine(_Jumplanding());
-    //}
-    //private IEnumerator _Jumplanding()
-    //{
-    //    anim.Play("LANDING");
-    //    yield return null;
-    //    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.80f)
-    //    {
-    //        yield return null;
-    //    }
-    //    self.SetState(new IdleState());
-    //}
 
     public void Landing()
     {
@@ -733,17 +687,33 @@ public class PlayerActions : MonoBehaviour
 
     public void Crouching()
     {
-
-        for(int i = 0; i < playerLegGeometry.Length; i++)
-        {
-            var tempMaterial = playerLegGeometry[i].GetComponent<SkinnedMeshRenderer>();
-            tempMaterial.material = legBlocking;
-        }
-        SetArmourToCrouchBlock();
-
+        StartCoroutine(CrouchBlocking());
+    }
+    IEnumerator CrouchBlocking()
+    {
         TransitionToAnimation(false, CROUCHKEY, crouchCrossfade);
-        //anim.Play("CROUCH_IDLE");
         anim.speed = 1;
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName(CROUCHKEY))
+        {
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.2f)
+            {
+                yield return null;
+            }
+            for (int i = 0; i < playerLegGeometry.Length; i++)
+            {
+                var tempMaterial = playerLegGeometry[i].GetComponent<SkinnedMeshRenderer>();
+                tempMaterial.material = legBlocking;
+            }
+            for (int i = 0; i < playerArmourLegGeometry.Length; i++)
+            {
+                var tempMaterial = playerArmourLegGeometry[i].GetComponent<MeshRenderer>();
+                tempMaterial.material = armourBlocking;
+            }
+            //SetArmourToCrouchBlock();
+            legShield.SetActive(true);
+            self.CrouchBlocking = true;
+        }
     }
     public void ExitCrouch()
     {
@@ -757,8 +727,9 @@ public class PlayerActions : MonoBehaviour
             var tempMaterial = playerArmourLegGeometry[i].GetComponent<MeshRenderer>();
             tempMaterial.material = armourMaterial;
         }
+        legShield.SetActive(false);
+        self.CrouchBlocking = false;
         self.SetState(new IdleState());
-        //StartCoroutine(_ExitCrouch());
     }
     private IEnumerator _ExitCrouch()
     {
@@ -836,53 +807,46 @@ public class PlayerActions : MonoBehaviour
     }
     public void Block()
     {
-        for (int i = 0; i < playerHeadGeometry.Length; i++)
-        {
-            var tempMaterial = playerHeadGeometry[i].GetComponent<SkinnedMeshRenderer>();
-            tempMaterial.material = normalHeadBlocking;
-        }
-        for (int i = 0; i < playerGeometry.Length; i++)
-        {
-            var tempMaterial = playerGeometry[i].GetComponent<SkinnedMeshRenderer>();
-            tempMaterial.material = normalSkinBlocking;
-        }
-        for (int i = 0; i < playerArmourHeadGeometry.Length; i++)
-        {
-            var tempMaterial = playerArmourHeadGeometry[i].GetComponent<MeshRenderer>();
-            tempMaterial.material = armourBlocking;
-        }
-        for (int i = 0; i < playerArmourTorsoGeometry.Length; i++)
-        {
-            var tempMaterial = playerArmourTorsoGeometry[i].GetComponent<MeshRenderer>();
-            tempMaterial.material = armourBlocking;
-        }
-        //SetArmourToNormalBlock();
+        StartCoroutine(_Block());
+    }
+    IEnumerator _Block()
+    {
         TransitionToAnimation(false, BLOCKKEY, blockCrossfade);
-        //StartCoroutine(_EnterBlock());
-    }
 
-    IEnumerator _EnterBlock()
-    {
-
-        hitboxManager.Block();
-        yield return null;
-        while(anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
         {
             yield return null;
         }
-        StartCoroutine(BlockIdle());
-    }
-    IEnumerator BlockIdle()
-    {
-
-        yield return null;
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName(BLOCKKEY))
         {
-            yield return null;
+            for (int i = 0; i < playerHeadGeometry.Length; i++)
+            {
+                var tempMaterial = playerHeadGeometry[i].GetComponent<SkinnedMeshRenderer>();
+                tempMaterial.material = normalHeadBlocking;
+            }
+            for (int i = 0; i < playerGeometry.Length; i++)
+            {
+                var tempMaterial = playerGeometry[i].GetComponent<SkinnedMeshRenderer>();
+                tempMaterial.material = normalSkinBlocking;
+            }
+            for (int i = 0; i < playerArmourHeadGeometry.Length; i++)
+            {
+                var tempMaterial = playerArmourHeadGeometry[i].GetComponent<MeshRenderer>();
+                tempMaterial.material = armourBlocking;
+            }
+            for (int i = 0; i < playerArmourTorsoGeometry.Length; i++)
+            {
+                var tempMaterial = playerArmourTorsoGeometry[i].GetComponent<MeshRenderer>();
+                tempMaterial.material = armourBlocking;
+            }
+            torsoShield.SetActive(true);
         }
+
     }
+
     public void ExitBlock()
     {
+        torsoShield.SetActive(false);
         for (int i = 0; i < playerHeadGeometry.Length; i++)
         {
             var tempMaterial = playerHeadGeometry[i].GetComponent<SkinnedMeshRenderer>();
@@ -904,19 +868,7 @@ public class PlayerActions : MonoBehaviour
             tempMaterial.material = armourMaterial;
         }
         hitboxManager.StopBlock();
-        //StartCoroutine(_ExitBlock());
     }
-    //IEnumerator _ExitBlock()
-    //{
-
-    //    //yield return null;
-    //    //while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-    //    //{
-    //    //    yield return null;
-    //    //}
-
-    //}
-
     public void ArmourDamage()
     {
         for (int i = 0; i < playerArmourHeadGeometry.Length; i++)
@@ -974,76 +926,6 @@ public class PlayerActions : MonoBehaviour
             tempMaterial.material = armourMaterial;
         }
     }
-    //public void ResetMaterial()
-    //{
-    //    if (self.Blocking)
-    //    {
-    //        for (int i = 0; i < playerHeadGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerHeadGeometry[i].GetComponent<SkinnedMeshRenderer>();
-    //            tempMaterial.material = normalHeadBlocking;
-    //        }
-    //        for (int i = 0; i < playerGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerGeometry[i].GetComponent<SkinnedMeshRenderer>();
-    //            tempMaterial.material = normalSkinBlocking;
-    //        }
-    //        for (int i = 0; i < playerArmourHeadGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerArmourHeadGeometry[i].GetComponent<MeshRenderer>();
-    //            tempMaterial.material = armourBlocking;
-    //        }
-    //        for (int i = 0; i < playerArmourTorsoGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerArmourTorsoGeometry[i].GetComponent<MeshRenderer>();
-    //            tempMaterial.material = armourBlocking;
-    //        }
-    //        for (int i = 0; i < playerLegGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerLegGeometry[i].GetComponent<SkinnedMeshRenderer>();
-    //            tempMaterial.material = legBlocking;
-    //        }
-    //        for (int i = 0; i < playerArmourLegGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerArmourLegGeometry[i].GetComponent<MeshRenderer>();
-    //            tempMaterial.material = armourBlocking;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        for (int i = 0; i < playerHeadGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerHeadGeometry[i].GetComponent<SkinnedMeshRenderer>();
-    //            tempMaterial.material = normalHeadMaterial;
-    //        }
-    //        for (int i = 0; i < playerArmourHeadGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerHeadGeometry[i].GetComponent<SkinnedMeshRenderer>();
-    //            tempMaterial.material = armourMaterial;
-    //        }
-    //        for (int i = 0; i < playerGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerGeometry[i].GetComponent<SkinnedMeshRenderer>();
-    //            tempMaterial.material = normalSkinMaterial;
-    //        }
-    //        for (int i = 0; i < playerLegGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerLegGeometry[i].GetComponent<SkinnedMeshRenderer>();
-    //            tempMaterial.material = normalSkinMaterial;
-    //        }
-    //        for (int i = 0; i < playerArmourTorsoGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerArmourTorsoGeometry[i].GetComponent<MeshRenderer>();
-    //            tempMaterial.material = armourMaterial;
-    //        }
-    //        for (int i = 0; i < playerArmourLegGeometry.Length; i++)
-    //        {
-    //            var tempMaterial = playerArmourLegGeometry[i].GetComponent<MeshRenderer>();
-    //            tempMaterial.material = armourMaterial;
-    //        }
-    //    }
-
-    //}
 
     public void HitKnockBack()
     {

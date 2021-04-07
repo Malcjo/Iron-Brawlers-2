@@ -42,6 +42,7 @@ public class GaugeManager : MonoBehaviour
 
     private void Start()
     {
+        
         if(self.playerNumber == Player.PlayerIndex.Player1)
         {
             playerUI = GameManager.instance.GetPlayer1UI();
@@ -94,7 +95,8 @@ public class GaugeManager : MonoBehaviour
             }
             else if (self.Crouching)
             {
-                actions.SetArmourToCrouchBlock();
+                actions.Crouching();
+                //actions.SetArmourToCrouchBlock();
             }
             else if (self.Blocking)
             {

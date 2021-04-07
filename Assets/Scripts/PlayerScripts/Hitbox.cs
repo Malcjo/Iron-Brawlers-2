@@ -276,6 +276,20 @@ public class Hitbox : MonoBehaviour
                     //tempDefendingPlayer.ResetCharacterMaterialToStandard();
                 }
             }
+            if(tempDefendingPlayer.CrouchBlocking == true)
+            {
+                if(_attackType != AttackType.Jab || _attackType != AttackType.Heavy || _attackType != AttackType.Aerial || _attackType != AttackType.UpAir || _attackType != AttackType.BackAir)
+                {
+                    ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
+                    HideHitBoxes();
+                    return;
+                }
+                else
+                {
+                    DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
+                    tempDefendingPlayer.HideHitBoxes();
+                }
+            }
             else
             {
                 DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
