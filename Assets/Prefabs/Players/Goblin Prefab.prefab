@@ -5327,7 +5327,7 @@ MonoBehaviour:
     MoveCharacterOnXStrength: 0
     MoveCharacterOnXMaxCounter: 0
     MoveOnY: 1
-    MoveCharacterOnYStrength: 20
+    MoveCharacterOnYStrength: 5
     MoveCharacterOnYMaxCounter: 0.2
   dashVariables:
     MoveCharacterOnXStrength: 12
