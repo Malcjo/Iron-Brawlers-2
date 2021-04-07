@@ -88,7 +88,8 @@ public class Hitbox : MonoBehaviour
     public GameObject hitBox, midHitBox;
     public GameObject rightHand, leftHand,rightElbow, leftElbow, rightFoot, leftFoot, rightKnee, leftKnee, waist, head;
 
-    public ParticleSystem hitParticle;
+    public ParticleSystem armourHitParticle;
+    public ParticleSystem noArmourHitParticle;
     public ParticleSystem dustHitParticle;
     [SerializeField] ParticleManager particleManager;
 
@@ -290,7 +291,15 @@ public class Hitbox : MonoBehaviour
             Hitbox DefendingHitbox = DefendingPlayer.GetComponentInChildren<Hitbox>();
             Transform hitLocation = DefendingHitbox.ChestArmourPosition;
             DefendingPlayer.TakeDamageOnGauge(gaugeDamageValue, ArmourCheck.ArmourPlacement.Chest, _attackType, hitLocation.position);
-            Instantiate(hitParticle, transform.position, transform.rotation);
+            if(armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.armour)
+            {
+                Instantiate(armourHitParticle, transform.position, transform.rotation);
+            }
+            else if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.none)
+            {
+                Instantiate(noArmourHitParticle, transform.position, transform.rotation);
+            }
+
             //Instantiate(dustHitParticle, transform.position, transform.rotation);
 
         }
@@ -299,7 +308,14 @@ public class Hitbox : MonoBehaviour
             Hitbox DefendingHitbox = DefendingPlayer.GetComponentInChildren<Hitbox>();
             Transform hitLocation = DefendingHitbox.LegArmourPosition;
             DefendingPlayer.TakeDamageOnGauge(gaugeDamageValue, ArmourCheck.ArmourPlacement.Legs, _attackType, (hitLocation.position + new Vector3(LegArmourPosition.position.x, (LegArmourPosition.position.y - 1), LegArmourPosition.position.z)));
-            Instantiate(hitParticle, transform.position, transform.rotation);
+            if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.armour)
+            {
+                Instantiate(armourHitParticle, transform.position, transform.rotation);
+            }
+            else if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.none)
+            {
+                Instantiate(noArmourHitParticle, transform.position, transform.rotation);
+            }
             //Instantiate(dustHitParticle, transform.position, transform.rotation);
         }
         else if(hurtBox.BodyLocation == LocationTag.Head)
@@ -307,7 +323,14 @@ public class Hitbox : MonoBehaviour
             Hitbox DefendingHitbox = DefendingPlayer.GetComponentInChildren<Hitbox>();
             Transform hitLocation = DefendingHitbox.HeadArmourPosition;
             DefendingPlayer.TakeDamageOnGauge(gaugeDamageValue, ArmourCheck.ArmourPlacement.Head, _attackType, hitLocation.position);
-            Instantiate(hitParticle, transform.position, transform.rotation);
+            if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.armour)
+            {
+                Instantiate(armourHitParticle, transform.position, transform.rotation);
+            }
+            else if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.none)
+            {
+                Instantiate(noArmourHitParticle, transform.position, transform.rotation);
+            }
         }
     }
     void ApplyDamageToPlayer(Player defendingPlayer, Player attackingPlayer, AttackType attackType)

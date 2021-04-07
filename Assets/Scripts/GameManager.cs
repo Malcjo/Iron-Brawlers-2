@@ -726,7 +726,7 @@ public class GameManager : MonoBehaviour
             {
                 FightUI.SetActive(false);
 
-                if (players.Count > 0)
+                if (players.Count > 1)
                 {
                     bindToPlayer.players[1].gameObject.SetActive(true);
                 }

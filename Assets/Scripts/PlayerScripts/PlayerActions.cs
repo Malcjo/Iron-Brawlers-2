@@ -18,6 +18,22 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private bool canDash;
     [SerializeField] private bool dashParticle;
 
+    [Header("AnimationTiming")]
+    [SerializeField]private float JabCounter;
+    private float MaxJabTime;
+
+    [SerializeField] private float HeavyCounter;
+    private float MaxHeavyTime;
+
+    [SerializeField] private float SweepCounter;
+    private float MaxSweepTime;
+
+    [SerializeField] private float NeutralAerialCounter;
+    private float MaxNeutralAerialTime;
+
+
+
+
     [Header("Particles")]
     [SerializeField] ParticleSystem JabParticle;
     [SerializeField] ParticleSystem HeavyParticle;
@@ -217,7 +233,17 @@ public class PlayerActions : MonoBehaviour
         public float MoveCharacterOnYStrength; public float MoveCharacterOnYMaxCounter;
     }
 
-
+    private void Start()
+    {
+        MaxJabTime = jabVariables.CancelTime;
+        JabCounter = MaxJabTime;
+        MaxHeavyTime = heavyVariables.CancelTime;
+        HeavyCounter = MaxHeavyTime;
+        MaxNeutralAerialTime = neutralAerialVariables.CancelTime;
+        NeutralAerialCounter = MaxNeutralAerialTime;
+        MaxSweepTime = sweepVariables.CancelTime;
+        SweepCounter = MaxSweepTime;
+    }
 
     private void Awake()
     {
@@ -250,6 +276,11 @@ public class PlayerActions : MonoBehaviour
     }
     private void Update()
     {
+        JabCounter += 1 * Time.deltaTime;
+        HeavyCounter += 1 * Time.deltaTime;
+        SweepCounter += 1 * Time.deltaTime;
+        NeutralAerialCounter += 1 * Time.deltaTime;
+
         dashCounter += 1 * Time.deltaTime;
         if(dashCounter >= dashVariables.MaxDashTime)
         {
@@ -327,7 +358,7 @@ public class PlayerActions : MonoBehaviour
     }
     IEnumerator DashAction()
     {
-        TransitionToAnimation(DASHKEY, dashCrossfade);
+        TransitionToAnimation(true, DASHKEY, dashCrossfade);
 
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < dashVariables.DashAnimationLength)
         {
@@ -352,48 +383,40 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator JabAction()
     {
-        self.CanActOutOf = false;
-        if(JabParticle != null)
+        if(JabCounter >= MaxJabTime)
         {
-            JabParticle.Play();
-        }
+            JabCounter = 0;
+            self.CanActOutOf = false;
+            TransitionToAnimation(true, JABKEY, jabCrossfade);
+            self.inAction = true;
+            anim.speed = 1;
 
-        //self.MoveCharacterMaxValue = jabMoveStrength;
-        self.MoveCharacterOnXMaxValue = jabVariables.MoveCharacterOnXMaxCounter;
-        bool canMove = true;
-        //anim.Play(animlist[comboStep]);
-        TransitionToAnimation(JABKEY, jabCrossfade);
-        anim.speed = 1;
-        FindObjectOfType<AudioManager>().Play(AudioManager.JABMISS);
-        //comboStep++;
-        //comboTimer = 1;
-        yield return null;
-        //hitboxManager.SwapHands(0);
-        //hitboxScript._attackDir = Attackdirection.Forward;
-        hitboxScript._attackType = AttackType.Jab;
-        hitboxManager.JabAttack(0.5f);
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-        {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabVariables.CancelTime)
+            self.MoveCharacterOnXMaxValue = jabVariables.MoveCharacterOnXMaxCounter;
+
+
+            yield return null;
+            if (JabParticle != null)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabVariables.WhenToMoveCharacterInAnimation)
+                JabParticle.Play();
+            }
+            FindObjectOfType<AudioManager>().Play(AudioManager.JABMISS);
+            hitboxScript._attackType = AttackType.Jab;
+            hitboxManager.JabAttack(0.5f);
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            {
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabVariables.CancelTime)
                 {
+                    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabVariables.WhenToMoveCharacterInAnimation)
+                    {
+                        yield return null;
+                    }
+
                     yield return null;
                 }
-                if (canMove == true)
-                {
-                    //self.SetMoveCharacterStrength(hitboxScript.jabVariables.MoveCharacterStrength);
-                   // self.SetMoveCharacterStrength(jabMoveStrength);
-                }
-                canMove = false;
-
                 yield return null;
+                self.CanActOutOf = true;
             }
-            yield return null;
-            self.CanActOutOf = true;
         }
-
-
         self.SetState(new IdleState());
     }
 
@@ -407,52 +430,54 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator HeavyAction()
     {
-        self.CanDoAttack = false;
-        if (HeavyParticle != null)
+        if(HeavyCounter >= MaxHeavyTime)
         {
-            HeavyParticle.Play();
-        }
-
-        self.CanActOutOf = false;
-        self.MoveCharacterOnXMaxValue = heavyVariables.MoveCharacterOnXMaxCounter;
-        self.MoveCharacterOnYMaxValue = heavyVariables.MoveCharacterOnYMaxCounter;
-        bool canMove = true;
-        TransitionToAnimation(HEAVYKEY, heavyCrossfade);
-        FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
-        anim.speed = 1;
-        yield return null;
-        //hitboxManager.SwapHands(1);
-        //hitboxScript._attackDir = Attackdirection.Forward;
-        hitboxScript._attackType = AttackType.Heavy;
-        hitboxManager.JabAttack(0.5f);
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-        {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.CancelTime)
+            self.CanDoAttack = false;
+            if (HeavyParticle != null)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.WhenToMoveCharacterInAnimation)
+                HeavyParticle.Play();
+            }
+            HeavyCounter = 0;
+            self.CanActOutOf = false;
+            self.MoveCharacterOnXMaxValue = heavyVariables.MoveCharacterOnXMaxCounter;
+            self.MoveCharacterOnYMaxValue = heavyVariables.MoveCharacterOnYMaxCounter;
+            bool canMove = true;
+            TransitionToAnimation(true, HEAVYKEY, heavyCrossfade);
+            FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
+            anim.speed = 1;
+            yield return null;
+            hitboxScript._attackType = AttackType.Heavy;
+            hitboxManager.JabAttack(0.5f);
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            {
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.CancelTime)
                 {
+                    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.WhenToMoveCharacterInAnimation)
+                    {
+                        yield return null;
+                    }
+                    yield return null;
+                    if (canMove == true)
+                    {
+                        if (heavyVariables.MoveOnY)
+                        {
+                            self.SetMoveCharacterOnYStrength(heavyVariables.MoveCharacterOnYStrength);
+                        }
+                        if (heavyVariables.MoveOnX)
+                        {
+                            self.SetMoveCharacterOnXStrength(heavyVariables.MoveCharacterOnXStrength);
+                        }
+
+                        //self.MoveCharacterWithAttacks(heavyAttackMoveValue);
+                        canMove = false;
+                    }
                     yield return null;
                 }
-                yield return null;
-                if (canMove == true)
-                {
-                    if (heavyVariables.MoveOnY)
-                    {
-                        self.SetMoveCharacterOnYStrength(heavyVariables.MoveCharacterOnYStrength);
-                    }
-                    if (heavyVariables.MoveOnX)
-                    {
-                        self.SetMoveCharacterOnXStrength(heavyVariables.MoveCharacterOnXStrength);
-                    }
-
-                    //self.MoveCharacterWithAttacks(heavyAttackMoveValue);
-                    canMove = false;
-                }
+                self.CanActOutOf = true;
                 yield return null;
             }
-            self.CanActOutOf = true;
-            yield return null;
         }
+
         self.SetState(new IdleState());
 
     }
@@ -463,31 +488,35 @@ public class PlayerActions : MonoBehaviour
     }
     private IEnumerator _LegSweep()
     {
-        //ResetMaterial(); // might cause issues with the damage material resetting as well
-        if (SweepParticle != null)
+        if(SweepCounter >= MaxSweepTime)
         {
-            SweepParticle.Play();
-        }
-
-        TransitionToAnimation(SWEEPKEY, sweepCrossfade);
-        FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
-        //anim.Play("SWEEP");
-        anim.speed = 1;
-        self.CanTurn = false;
-        yield return null;
-        hitboxManager.SwapHands(1);
-        hitboxScript._attackDir = Attackdirection.Low;
-        hitboxScript._attackType = AttackType.LegSweep;
-        hitboxManager.LegSweep(0.5f);
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-        {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < sweepVariables.CancelTime)
+            if (SweepParticle != null)
             {
+                SweepParticle.Play();
+            }
+            SweepCounter = 0;
+            self.CanActOutOf = false;
+            TransitionToAnimation(true, SWEEPKEY, sweepCrossfade);
+            FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
+            //anim.Play("SWEEP");
+            anim.speed = 1;
+            self.CanTurn = false;
+            yield return null;
+            hitboxManager.SwapHands(1);
+            hitboxScript._attackDir = Attackdirection.Low;
+            hitboxScript._attackType = AttackType.LegSweep;
+            hitboxManager.LegSweep(0.5f);
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            {
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < sweepVariables.CancelTime)
+                {
+                    yield return null;
+                }
+                self.CanActOutOf = true;
                 yield return null;
             }
-            self.CanActOutOf = true;
-            yield return null;
         }
+
         self.SetState(new CrouchingState());
     }
     public void AerialAttack()
@@ -500,56 +529,61 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator _AerialAttack()
     {
-        //self.MoveCharacterWithAttacks(200);
-        if (AerialParticle != null)
+        if (NeutralAerialCounter >= MaxNeutralAerialTime)
         {
-            AerialParticle.Play();
-        }
-        self.MoveCharacterOnXMaxValue = neutralAerialVariables.MoveCharacterOnXMaxCounter;
-        self.MoveCharacterOnYMaxValue = neutralAerialVariables.MoveCharacterOnYMaxCounter;
-        TransitionToAnimation(AERIALKEY, neutralAerialCrossfade);
-        FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
-        anim.speed = 1;
-        self.CanTurn = false;
-        //self.UseGravity = false;
-        self.StopMovingCharacterOnYAxis();
-        yield return null;
-        hitboxScript._attackType = AttackType.Aerial;
-        hitboxScript._attackDir = Attackdirection.Aerial;
-        hitboxManager.AeiralAttack();
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-        {
-            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.CancelTime)
+            if (AerialParticle != null)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.WhenToMoveCharacterInAnimation)
+                AerialParticle.Play();
+            }
+            NeutralAerialCounter = 0;
+            self.CanActOutOf = false;
+            self.MoveCharacterOnXMaxValue = neutralAerialVariables.MoveCharacterOnXMaxCounter;
+            self.MoveCharacterOnYMaxValue = neutralAerialVariables.MoveCharacterOnYMaxCounter;
+            TransitionToAnimation(true, AERIALKEY, neutralAerialCrossfade);
+            FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
+            anim.speed = 1;
+            self.CanTurn = false;
+            //self.UseGravity = false;
+            self.StopMovingCharacterOnYAxis();
+            yield return null;
+            hitboxScript._attackType = AttackType.Aerial;
+            hitboxScript._attackDir = Attackdirection.Aerial;
+            hitboxManager.AeiralAttack();
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            {
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.CancelTime)
                 {
+                    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.WhenToMoveCharacterInAnimation)
+                    {
+                        yield return null;
+                    }
+                    if (heavyVariables.MoveOnY)
+                    {
+                        if (anim.GetCurrentAnimatorStateInfo(0).IsName(AERIALKEY))
+                        {
+                            self.SetMoveCharacterOnYStrength(neutralAerialVariables.MoveCharacterOnYStrength);
+                        }
+
+                    }
+                    if (heavyVariables.MoveOnX)
+                    {
+                        if (anim.GetCurrentAnimatorStateInfo(0).IsName(AERIALKEY))
+                        {
+                            Debug.Log("Aerial move on X");
+                            self.SetMoveCharacterOnXStrength(neutralAerialVariables.MoveCharacterOnXStrength);
+
+                        }
+
+                    }
                     yield return null;
                 }
-                if (heavyVariables.MoveOnY)
-                {
-                    if (anim.GetCurrentAnimatorStateInfo(0).IsName(AERIALKEY))
-                    {
-                        self.SetMoveCharacterOnYStrength(neutralAerialVariables.MoveCharacterOnYStrength);
-                    }
+                self.CanActOutOf = true;
 
-                }
-                if (heavyVariables.MoveOnX)
-                {
-                    if (anim.GetCurrentAnimatorStateInfo(0).IsName(AERIALKEY))
-                    {
-                        Debug.Log("Aerial move on X");
-                        self.SetMoveCharacterOnXStrength(neutralAerialVariables.MoveCharacterOnXStrength);
-
-                    }
-
-                }
+                //self.UseGravity = true;
                 yield return null;
             }
-            self.CanActOutOf = true;
-
-            //self.UseGravity = true;
-            yield return null;
         }
+
         self.moveCharacterOnXCounter = 5;
         self.moveCharacterOnYCounter = 5;
         self.SetMoveStrengthXTo0();
@@ -583,7 +617,7 @@ public class PlayerActions : MonoBehaviour
             StopCrouchBlock();
             self.MoveCharacterOnYMaxValue = armourBreakVariables.MoveCharacterOnYMaxCounter;
             self.SetMoveCharacterOnYStrength(armourBreakVariables.MoveCharacterOnYStrength);
-            TransitionToAnimation(ARMOURBREAKKEY, 0.01f);
+            TransitionToAnimation(true, ARMOURBREAKKEY, 0.01f);
             anim.speed = 1;
             FindObjectOfType<AudioManager>().Play(AudioManager.ARMOURBREAK);
             self.CanTurn = false;
@@ -639,7 +673,7 @@ public class PlayerActions : MonoBehaviour
     IEnumerator _Landing()
     {
         self.landing = true;
-        TransitionToAnimation(LANDKEY, landingCrossfade);
+        TransitionToAnimation(false, LANDKEY, landingCrossfade);
         anim.speed = 1;
         self.SetState(new BusyState());
         yield return null;
@@ -653,18 +687,33 @@ public class PlayerActions : MonoBehaviour
 
     private string LastState;
     [SerializeField]private bool useHitSmearOnHeavy;
-
-    private void TransitionToAnimation(string animation, float time)
+    private void TransitionToAnimation(string animation, float time,int layer, float nornalizedTime)
     {
         if (LastState != animation)
         {
-            anim.CrossFade(animation, time);
+            anim.CrossFade(animation, time,layer, nornalizedTime);
             LastState = animation;
         }
     }
+    private void TransitionToAnimation(bool canOverride, string animation, float time)
+    {
+        if (!canOverride)
+        {
+            if (LastState != animation)
+            {
+                anim.CrossFade(animation, time);
+                LastState = animation;
+            }
+        }
+        else
+        {
+            anim.CrossFade(animation, time, -1, 0);
+        }
+
+    }
     public void Running()
     {
-        TransitionToAnimation(RUNKEY,runCrossfade);
+        TransitionToAnimation(false, RUNKEY,runCrossfade);
         anim.speed = self.GetAbsolutInputValueForMovingAnimationSpeed();
     }
 
@@ -677,7 +726,7 @@ public class PlayerActions : MonoBehaviour
         else
         {
             anim.speed = 1;
-            TransitionToAnimation(IDLEKEY, idleCrossfade);
+            TransitionToAnimation(false, IDLEKEY, idleCrossfade);
         }
 
     }
@@ -692,7 +741,7 @@ public class PlayerActions : MonoBehaviour
         }
         SetArmourToCrouchBlock();
 
-        TransitionToAnimation(CROUCHKEY, crouchCrossfade);
+        TransitionToAnimation(false, CROUCHKEY, crouchCrossfade);
         //anim.Play("CROUCH_IDLE");
         anim.speed = 1;
     }
@@ -740,13 +789,13 @@ public class PlayerActions : MonoBehaviour
 
     public void Falling()
     {
-        TransitionToAnimation(FALLINGKEY, fallingCrossfade);
+        TransitionToAnimation(false, FALLINGKEY, fallingCrossfade);
         anim.speed = 1;
     }
 
     public void Jumping()
     {
-        TransitionToAnimation(JUMPINGKEY, jumpCrossfade);
+        TransitionToAnimation(false, JUMPINGKEY, jumpCrossfade);
         anim.speed = 1;
     }
     public void DoubleJump()
@@ -756,7 +805,7 @@ public class PlayerActions : MonoBehaviour
 
     IEnumerator _DoulbeJump()
     {
-        TransitionToAnimation(DOUBLEJUMPKEY, doubleJumpCrossfade);
+        TransitionToAnimation(false, DOUBLEJUMPKEY, doubleJumpCrossfade);
         anim.speed = 1;
         yield return null;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
@@ -808,7 +857,7 @@ public class PlayerActions : MonoBehaviour
             tempMaterial.material = armourBlocking;
         }
         //SetArmourToNormalBlock();
-        TransitionToAnimation(BLOCKKEY, blockCrossfade);
+        TransitionToAnimation(false, BLOCKKEY, blockCrossfade);
         //StartCoroutine(_EnterBlock());
     }
 
@@ -1006,7 +1055,7 @@ public class PlayerActions : MonoBehaviour
         self.HitStun = true;
         self.SetState(new BusyState());
         yield return null;
-        TransitionToAnimation(NORMALHITSTUNKEY, 0.01f);
+        TransitionToAnimation(false, NORMALHITSTUNKEY, 0.01f);
         //anim.Play("HITSTUN_NORMAL_HIT");
         anim.speed = 2;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
@@ -1026,7 +1075,7 @@ public class PlayerActions : MonoBehaviour
         self.CanTurn = false;
         self.SetState(new BusyState());
         anim.speed = 2;
-        TransitionToAnimation(NORMALHITSTUNKEY, normalHitCrossfade);
+        TransitionToAnimation(false, NORMALHITSTUNKEY, normalHitCrossfade);
         //anim.Play("HITSTUN_NORMAL_HIT");
 
         yield return null;
@@ -1052,7 +1101,7 @@ public class PlayerActions : MonoBehaviour
         self.CanTurn = false;
         self.SetState(new BusyState());
         anim.speed = 2.5f;
-        TransitionToAnimation(KNOCKDOWNKEY, knockDownCrossfade);
+        TransitionToAnimation(false, KNOCKDOWNKEY, knockDownCrossfade);
         //anim.Play("HITSTUN_NORMAL_HIT");
         //anim.Play("KNOCKDOWN_NORMAL");
         //grab stuff off server and do boots
@@ -1081,7 +1130,7 @@ public class PlayerActions : MonoBehaviour
         self.HitStun = true;
         self.CanTurn = false;
         anim.speed = 3;
-        TransitionToAnimation(GETTINGUPKEY, getUpCrossfade);
+        TransitionToAnimation(false, GETTINGUPKEY, getUpCrossfade);
         //anim.Play("GETTING_UP_NORMAL");
 
         yield return null;

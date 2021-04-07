@@ -56,22 +56,22 @@ public class BusyState : PlayerState
         {
             if(self.VerticalState != Player.VState.grounded)
             {
-                if (HeavyCheck(input.heavyInput))
-                {
-                    self.CanActOutOf = false;
-                    actions.AerialAttack();
-                    self.CanTurn = false;
-                    self.WasAttacking = true;
-                    self.SetState(new BusyState());
-                }
-                if (HeavyCheck(input.heavyInput) && (self.GetFacingDirection() > 0 || self.GetFacingDirection() < 0))
-                {
-                    self.CanActOutOf = false;
-                    actions.AerialAttack();
-                    self.CanTurn = false;
-                    self.WasAttacking = true;
-                    self.SetState(new BusyState());
-                }
+                //if (HeavyCheck(input.heavyInput))
+                //{
+                //    self.CanActOutOf = false;
+                //    actions.AerialAttack();
+                //    self.CanTurn = false;
+                //    self.WasAttacking = true;
+                //    self.SetState(new BusyState());
+                //}
+                //if (HeavyCheck(input.heavyInput) && (self.GetFacingDirection() > 0 || self.GetFacingDirection() < 0))
+                //{
+                //    self.CanActOutOf = false;
+                //    actions.AerialAttack();
+                //    self.CanTurn = false;
+                //    self.WasAttacking = true;
+                //    self.SetState(new BusyState());
+                //}
                 if (JumpingCheck(input.jumpInput))
                 {
                     if (self.CanJumpIndex < self.GetMaxJumps())
@@ -92,39 +92,40 @@ public class BusyState : PlayerState
                 {
                     self.CanActOutOf = false;
                     self.CanMove = false;
-                    actions.Heavy();
                     self.CanTurn = false;
-                    self.SetState(new BusyState());
                     body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+                    
+                    actions.Heavy();
+                    self.SetState(new BusyState());
                 }
                 if (HeavyCheck(input.heavyInput) && MovementCheck(input.horizontalInput))
                 {
                     self.CanActOutOf = false;
                     self.CanMove = false;
-                    actions.Heavy();
                     self.CanTurn = false;
-                    self.SetState(new BusyState());
                     self.StopMovingCharacterOnXAxis();
+
+                    actions.Heavy();
+                    self.SetState(new BusyState());
                 }
                 if (AttackCheck(input.attackInput))
                 {
-                    self.CanActOutOf = false;
                     self.CanMove = false;
-                    //body.velocity = new Vector3(0, body.velocity.y, 0);
-                    body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                     self.CanTurn = false;
+                    body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+
                     actions.Jab();
                     self.SetState(new BusyState());
                 }
                 if (AttackCheck(input.attackInput) && MovementCheck(input.horizontalInput))
                 {
-                    self.CanActOutOf = false;
                     self.CanMove = false;
-                    //body.velocity = new Vector3(0, body.velocity.y, 0);
-                    body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                     self.CanTurn = false;
+                    body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+
                     actions.Jab();
                     self.SetState(new BusyState());
+
                 }
                 if (MovementCheck(input.horizontalInput))
                 {
@@ -133,7 +134,13 @@ public class BusyState : PlayerState
                     body.velocity = new Vector3(input.horizontalInput * calculate.characterSpeed, body.velocity.y, 0);
                     self.SetMoveStrengthXTo0();
                     self.SetMoveStrengthYTo0();
+
                     self.SetState(new MovingState());
+                }
+                if (CrouchingCheck(input.crouchInput))
+                {
+                    body.velocity = new Vector3(0, 0, 0);
+                    self.SetState(new CrouchingState());
                 }
             }
 

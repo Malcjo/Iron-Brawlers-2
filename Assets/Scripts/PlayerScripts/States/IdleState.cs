@@ -32,9 +32,10 @@ public class IdleState : PlayerState
             }
             if (CrouchingCheck(input.crouchInput))
             {
-                //body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
                 body.velocity = new Vector3(0, 0, 0);
                 self.SetState(new CrouchingState());
+                //body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+
                 //actionTaken = true;
             }
 
@@ -59,6 +60,8 @@ public class IdleState : PlayerState
                 self.CanTurn = false;
                 actions.Jab();
                 self.SetState(new BusyState());
+
+
                 //actionTaken = true;
             }
             if (HeavyCheck(input.heavyInput))

@@ -134,7 +134,8 @@ public class Player : MonoBehaviour
 
     private float moveCharacterOnXMaxCounter;
     private float moveCharacterOnYMaxCounter;
-
+    public bool primed;
+    public bool inAction;
     public bool CanActOutOf;
     public void SetUpInputDetectionScript(PlayerInputHandler _playerInputDetection)
     {
@@ -177,7 +178,7 @@ public class Player : MonoBehaviour
     public float MoveCharacterCounter {set { moveCharacterOnXCounter = value; } }
     private void Start()
     {
-
+        primed = true;
         _interuptSliderSetToZero = true;
         DecreaseSlide = true;
         if (playerNumber == PlayerIndex.Player1)

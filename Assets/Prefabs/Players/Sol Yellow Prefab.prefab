@@ -382,6 +382,10 @@ MonoBehaviour:
   dashCounter: 0
   canDash: 0
   dashParticle: 0
+  JabCounter: 0
+  HeavyCounter: 0
+  SweepCounter: 0
+  NeutralAerialCounter: 0
   JabParticle: {fileID: 6525478674268852211}
   HeavyParticle: {fileID: 6653377313978029403}
   SweepParticle: {fileID: 6885356112516483710}
@@ -413,7 +417,7 @@ MonoBehaviour:
     DamageOnGauge: 2.5
     KnockbackXStrength: 25
     KnockbackYStrength: 10
-    CancelTime: 0.5
+    CancelTime: 0.4
     WhenToMoveCharacterInAnimation: 0.2
     MoveOnX: 1
     MoveCharacterOnXStrength: 0.5
@@ -2664,6 +2668,8 @@ MonoBehaviour:
   moveCharacterOnYStrength: 0
   moveCharacterOnXCounter: 0
   moveCharacterOnYCounter: 0
+  primed: 0
+  inAction: 0
   CanActOutOf: 0
   canDoAttack: 0
   _interuptSliderSetToZero: 0
@@ -3758,7 +3764,9 @@ MonoBehaviour:
   leftKnee: {fileID: 4955976208830267982}
   waist: {fileID: 1081166452312770748}
   head: {fileID: 1987514414496696148}
-  hitParticle: {fileID: 3583048005112685821, guid: 7f6b353b6dfaf224baecf0565c7b4338,
+  armourHitParticle: {fileID: 3583048005112685821, guid: de4fbf8abc163d046aab75c98015c5f7,
+    type: 3}
+  noArmourHitParticle: {fileID: 3583048005112685821, guid: 7f6b353b6dfaf224baecf0565c7b4338,
     type: 3}
   dustHitParticle: {fileID: 1525828961861715399, guid: 4898a9aab1a0cf34da8871afb0b6e002,
     type: 3}

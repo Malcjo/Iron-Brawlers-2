@@ -38,6 +38,10 @@ public class TitleScreen : MonoBehaviour
         {
             yield return null;
         }
-        inputSystemUIModule.enabled = true;
+        if(inputSystemUIModule != null)
+        {
+            inputSystemUIModule.enabled = true;
+        }
+
     }
 }

@@ -77,7 +77,20 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
         //Note: to play a sound from another script, use: FindObjectOfType<AudioManager>().Play(NAMEOFCONSTGOESHERE);
     }
+    public void StopSound(string name)
+    {
+        if (libraries.ContainsKey(name))
+        {
+            libraries[name].StopSound();
+        }
 
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            return;
+        }
+        s.source.Stop();
+    }
 
     [System.Serializable]
     public struct LibraryLink
