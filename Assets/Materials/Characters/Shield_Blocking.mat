@@ -7,24 +7,32 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FlowerBoyArmorFinal_Blocking
-  m_Shader: {fileID: 4800000, guid: 5084cf216752b0c44857ff89b058ceb4, type: 3}
-  m_ShaderKeywords: TCP2_UV_NORMALS_FULL _RECEIVE_SHADOWS_OFF
+  m_Name: Shield_Blocking
+  m_Shader: {fileID: 4800000, guid: 387a49315b953e64a9f7b3877f01d6b1, type: 3}
+  m_ShaderKeywords: TCP2_DISSOLVE TCP2_UV_NORMALS_FULL _ALPHAPREMULTIPLY_ON _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 6af2456877446b245a6eee5b50728329, type: 3}
-        m_Scale: {x: 0.3, y: 0.3}
+        m_Texture: {fileID: 2800000, guid: 2745182f5d259004f978dc95e1682167, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveGradientTexture:
+        m_Texture: {fileID: 2800000, guid: c294ce2b4801b074f951b6b9d043c8dc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveMap:
+        m_Texture: {fileID: 2800000, guid: c294ce2b4801b074f951b6b9d043c8dc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -53,7 +61,9 @@ Material:
     - _BumpScale: 1
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DstBlend: 0
+    - _DissolveGradientWidth: 0.056
+    - _DissolveValue: 0
+    - _DstBlend: 10
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -62,12 +72,13 @@ Material:
     - _NormalsSource: 0
     - _NormalsUVType: 0
     - _OcclusionStrength: 1
-    - _OutlineWidth: 2
+    - _OutlineWidth: 4
     - _QueueOffset: 0
-    - _RampSmoothing: 0.15
-    - _RampThreshold: 0.3
+    - _RampSmoothing: 1
+    - _RampThreshold: 0.01
     - _ReceiveShadows: 1
     - _ReceiveShadowsOff: 0
+    - _RenderingMode: 2
     - _RimMax: 0.88
     - _RimMin: 0.67
     - _Smoothness: 0.5
@@ -75,18 +86,19 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _UseDissolve: 1
     - _WorkflowMode: 1
-    - _ZWrite: 1
+    - _ZWrite: 0
     - __dummy__: 0
     m_Colors:
-    - _BaseColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
-    - _BaseMap_SinAnimParams: {r: 8, g: 0.02, b: 0.5, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseMap_SinAnimParams: {r: 8.84, g: 0.02, b: 85.41, a: 3.43}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HColor: {r: 0.8632076, g: 1, b: 0.99812615, a: 1}
-    - _OutlineColorVertex: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
+    - _HColor: {r: 0.4481132, g: 1, b: 1, a: 1}
+    - _OutlineColorVertex: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 0}
     - _RimColor: {r: 0.9716981, g: 0.60178304, b: 0.35201132, a: 0.5}
-    - _SColor: {r: 0.13207549, g: 0.08057435, b: 0.08057435, a: 1}
+    - _SColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7819103830422446331
