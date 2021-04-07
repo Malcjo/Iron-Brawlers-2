@@ -5232,8 +5232,8 @@ MonoBehaviour:
   normalHitCrossfade: 0.02
   knockDownCrossfade: 0.02
   jabVariables:
-    FollowingDestination: 0
-    HitBoxSize: 0.4
+    FollowingDestination: 3
+    HitBoxSize: 1.1
     DamageOnGauge: 2.5
     KnockbackXStrength: 25
     KnockbackYStrength: 10
@@ -5277,7 +5277,7 @@ MonoBehaviour:
     FollowingDestination: 0
     HitBoxSize: 1.3
     DamageOnGauge: 2
-    KnockbackXStrength: 35
+    KnockbackXStrength: 30
     KnockbackYStrength: -10
     CancelTime: 0.6
     WhenToMoveCharacterInAnimation: 0
