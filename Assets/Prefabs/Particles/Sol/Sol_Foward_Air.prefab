@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.06
+      scalar: 0.12
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4902,7 +4902,7 @@ Transform:
   - {fileID: 6667447218069232503}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
 --- !u!198 &9162323130071523818
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4986,7 +4986,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.06
+      scalar: 0.12
       minScalar: 5
       maxCurve:
         serializedVersion: 2
