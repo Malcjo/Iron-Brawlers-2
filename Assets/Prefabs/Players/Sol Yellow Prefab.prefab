@@ -423,7 +423,7 @@ MonoBehaviour:
     MoveCharacterOnYMaxCounter: 0
   heavyVariables:
     FollowingDestination: 1
-    HitBoxSize: 0.6
+    HitBoxSize: 1.2
     DamageOnGauge: 4
     KnockbackXStrength: 40
     KnockbackYStrength: 2
@@ -437,7 +437,7 @@ MonoBehaviour:
     MoveCharacterOnYMaxCounter: 0
   sweepVariables:
     FollowingDestination: 1
-    HitBoxSize: 0.5
+    HitBoxSize: 1
     DamageOnGauge: 3
     KnockbackXStrength: 20
     KnockbackYStrength: 30
@@ -451,7 +451,7 @@ MonoBehaviour:
     MoveCharacterOnYMaxCounter: 0
   neutralAerialVariables:
     FollowingDestination: 2
-    HitBoxSize: 0.5
+    HitBoxSize: 1
     DamageOnGauge: 3
     KnockbackXStrength: 35
     KnockbackYStrength: -0.5
@@ -508,7 +508,7 @@ MonoBehaviour:
   dashVariables:
     MoveCharacterOnXStrength: 12
     MoveCharacterOnXMaxCounter: 0.2
-    MaxDashTime: 0.3
+    MaxDashTime: 0.4
     DashAnimationLength: 1
   rollVariables:
     FollowingDestination: 0
