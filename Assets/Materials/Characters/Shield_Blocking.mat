@@ -61,8 +61,9 @@ Material:
     - _BumpScale: 1
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DissolveGradientWidth: 0.056
+    - _DissolveGradientWidth: 0.032
     - _DissolveValue: 0
+    - _DissolveValue1: 0
     - _DstBlend: 10
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -91,15 +92,18 @@ Material:
     - _ZWrite: 0
     - __dummy__: 0
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 1.6313726, g: 2.8705883, b: 2.9960785, a: 1}
     - _BaseMap_SinAnimParams: {r: 8.84, g: 0.02, b: 85.41, a: 3.43}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DissolveGradientTexture: {r: 0.5707547, g: 1, b: 1, a: 1}
+    - _DissolveMap_SC: {r: 0.1, g: 0.1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HColor: {r: 0.4481132, g: 1, b: 1, a: 1}
+    - _HColor: {r: 0.25013348, g: 0.7264151, b: 0.7264151, a: 1}
     - _OutlineColorVertex: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 0}
     - _RimColor: {r: 0.9716981, g: 0.60178304, b: 0.35201132, a: 0.5}
     - _SColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _TriplanarSamplingStrength: {r: 8, g: 8, b: 8, a: 10}
   m_BuildTextureStacks: []
 --- !u!114 &7819103830422446331
 MonoBehaviour:
