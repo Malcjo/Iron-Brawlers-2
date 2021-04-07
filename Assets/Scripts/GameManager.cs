@@ -681,6 +681,10 @@ public class GameManager : MonoBehaviour
     public void RoundStartCountDown()
     {
         roundStartCounter = 0;
+        Invoke("DelayRoundStartLooper", 0.6f);
+    }
+    private void DelayRoundStartLooper()
+    {
         StartCoroutine(RoundStartLooper());
     }
     public void SetRoundStart(bool val)
@@ -700,7 +704,8 @@ public class GameManager : MonoBehaviour
 
             roundStartCounter += 1 * Time.deltaTime;
 
-
+            TrackPlayer1Rounds();
+            TrackPlayer2Rounds();
 
             if ((int)roundStartCounter >= 0.5f && ReadyActive == false)
             {
@@ -783,7 +788,7 @@ public class GameManager : MonoBehaviour
         {
             players[0].GetComponent<Player>().ResetGuage();
             player2Rounds++;
-            TrackPlayer2Rounds();
+            //TrackPlayer2Rounds();
             ResetPlayers();
             _RoundStart = true;
             RoundStartCountDown();
@@ -796,7 +801,7 @@ public class GameManager : MonoBehaviour
         {
             players[1].GetComponent<Player>().ResetGuage();
             player1Rounds++;
-            TrackPlayer1Rounds();
+            //TrackPlayer1Rounds();
             ResetPlayers();
             _RoundStart = true;
             RoundStartCountDown();

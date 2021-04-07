@@ -261,6 +261,10 @@ public class Player : MonoBehaviour
         }
 
     }
+    public void SetOverrideToZero()
+    {
+        overrideForce = Vector3.zero;
+    }
     public void SetMoveStrengthXTo0()
     {
         moveCharacterOnXStrength = 0;
@@ -458,9 +462,9 @@ public class Player : MonoBehaviour
     #region Gravity methods
     void TerminalVelocity()
     {
-        if (rb.velocity.y < -20)
+        if (rb.velocity.y < -10)
         {
-            rb.velocity = new Vector3(playerInputHandler.GetHorizontal() * SetPlayerSpeed(), -20, 0) + overrideForce;
+            rb.velocity = new Vector3(playerInputHandler.GetHorizontal() * SetPlayerSpeed(), -10, 0) + overrideForce;
         }
     }
     void GravityCheck()

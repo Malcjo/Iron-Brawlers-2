@@ -23,11 +23,32 @@ public class BusyState : PlayerState
             if (!self.CanMove)
             {
                 body.velocity = calculate.overrideForce + Vector3.down * gravityAdder;
-
+                if (ArmourBreakCheck(input.rightBumperInput, input.leftBumperInput))
+                {
+                    //actionTaken = false;
+                    if (armour.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none && armour.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none)
+                    {
+                        return;
+                    }
+                    self.PlayParticle(ParticleType.ArmourBreak, Vector3.zero);
+                    actions.ArmourBreak();
+                    self.SetState(new BusyState());
+                }
             }
             else
             {
                 body.velocity = new Vector3((calculate.overrideForce.x + (input.horizontalInput * calculate.characterSpeed)), calculate.overrideForce.y, 0) + Vector3.down * gravityAdder;
+                if (ArmourBreakCheck(input.rightBumperInput, input.leftBumperInput))
+                {
+                    //actionTaken = false;
+                    if (armour.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none && armour.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none)
+                    {
+                        return;
+                    }
+                    self.PlayParticle(ParticleType.ArmourBreak, Vector3.zero);
+                    actions.ArmourBreak();
+                    self.SetState(new BusyState());
+                }
             }
         }
         //need to add a can act out of bool to exit out of busy state, need to be set in player actions script near the end of certain animations
@@ -50,6 +71,19 @@ public class BusyState : PlayerState
                     self.CanTurn = false;
                     self.WasAttacking = true;
                     self.SetState(new BusyState());
+                }
+                if (JumpingCheck(input.jumpInput))
+                {
+                    if (self.CanJumpIndex < self.GetMaxJumps())
+                    {
+                        self.CanTurn = false;
+                        self.InAir = true;
+                        body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce, body.velocity.z));
+                        self.JumpingOrFallingAnimations();
+                        self.AddOneToJumpIndex();
+                        self.SetState(new JumpingState());
+                        //actionTaken = true;
+                    }
                 }
             }
             else
