@@ -73,6 +73,9 @@ public class GameManager : MonoBehaviour
     public GameObject player1Character1Background, player1Character2Background;
     public GameObject player2Character1Background, player2Character2Background;
 
+    public GameObject player1SolPortrait, player1SolAltPortrait, player1GoblinPortrait, player1GoblinAltPortrait;
+    public GameObject player2SolPortrait, player2SolAltPortrait, player2GoblinPortrait, player2GoblinAltPortrait;
+
     [SerializeField] private LoadLevel loadLevelScript;
 
     [SerializeField] private GameObject PauseScreen;

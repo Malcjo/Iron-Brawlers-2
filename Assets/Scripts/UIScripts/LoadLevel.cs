@@ -173,6 +173,16 @@ public class LoadLevel : MonoBehaviour
         GameManager.instance.TurnOnMenuObj();
         GameManager.instance.ResetLevelSelectDisplay();
 
+        GameManager.instance.player1SolPortrait.SetActive(false);
+        GameManager.instance.player1SolAltPortrait.SetActive(false);
+        GameManager.instance.player1GoblinPortrait.SetActive(false);
+        GameManager.instance.player1GoblinAltPortrait.SetActive(false);
+
+        GameManager.instance.player2SolPortrait.SetActive(false);
+        GameManager.instance.player2SolAltPortrait.SetActive(false);
+        GameManager.instance.player2GoblinPortrait.SetActive(false);
+        GameManager.instance.player2GoblinAltPortrait.SetActive(false);
+
         runningSol.SetActive(false);
         player1Round1.SetActive(false);
         player1Round2.SetActive(false);
