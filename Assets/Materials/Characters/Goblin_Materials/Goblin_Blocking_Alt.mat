@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Goblin_Blocking_Alt
   m_Shader: {fileID: 4800000, guid: 9e3c2c5999d8af74fa1e4f9940ccff5d, type: 3}
-  m_ShaderKeywords: TCP2_UV1_AS_NORMALS TCP2_UV_NORMALS_FULL
+  m_ShaderKeywords: TCP2_UV1_AS_NORMALS TCP2_UV_NORMALS_FULL _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -108,7 +108,7 @@ Material:
     - _RampSmoothing: 0.08
     - _RampThreshold: 0.15
     - _ReceiveShadows: 1
-    - _ReceiveShadowsOff: 1
+    - _ReceiveShadowsOff: 0
     - _RimMax: 1.17
     - _RimMaxVert: 1
     - _RimMin: 2
