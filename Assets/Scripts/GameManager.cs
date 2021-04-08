@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public List<GameObject> players = new List<GameObject>();
     [SerializeField] private Canvas mainCanvas;
     [SerializeField] GameObject Title, MenuGroup, MainMenu, CharacterSelect, GameUIGroup, MainMenuAssetsGRP, ChooseYourStageText, ChooseYourCharacterText;
-    [SerializeField] Animator blackFadeAnim;
+    [SerializeField] Animator blackFadeAnim, RoundsAnim;
     [SerializeField] Button PlayButton;
     [SerializeField] GameObject mainCamera;
     [SerializeField] private GameObject eventSystem;
@@ -42,8 +42,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject player1Round1, player1Round2, player1Round3;
     [SerializeField] private GameObject player2Round1, player2Round2, player2Round3;
-
-    [SerializeField] private Animator RoundsAnim;
 
     [SerializeField] private GameObject player1Head, player1Chest, player1Legs;
     [SerializeField] private GameObject player2Head, player2Chest, player2Legs;
@@ -247,11 +245,13 @@ public class GameManager : MonoBehaviour
     private bool LevelTransitioned = false;
     private void _TransitionToLevelSelect()
     {
+        Animator _display1 = Display1.GetComponent<Animator>();
         Animator _display2 = Display2.GetComponent<Animator>();
         Animator _display3 = Display3.GetComponent<Animator>();
         if (LevelTransitioned == false)
         {
             LevelTransitioned = true;
+            StartCoroutine(PlayerDisplay1Animation(_display1));
             StartCoroutine(PlayerDisplay2Animation(_display2));
             StartCoroutine(PlayerDisplay3Animation(_display3));
 
@@ -272,12 +272,14 @@ public class GameManager : MonoBehaviour
     }
     private void _ResetLevelSelectDispaly()
     {
+        Animator _display1 = Display1.GetComponent<Animator>();
         Animator _display2 = Display2.GetComponent<Animator>();
         Animator _display3 = Display3.GetComponent<Animator>();
 
 
         if (LevelTransitioned)
         {
+            _display1.Play("CharacterIdle");
             _display2.Play("CharacterIdle");
             _display3.Play("CharacterIdle");
             LevelTransitioned = false;
@@ -291,6 +293,17 @@ public class GameManager : MonoBehaviour
             level2DisplayImage.SetActive(false);
             level2HighlightImage.SetActive(true);
         }
+    }
+    IEnumerator PlayerDisplay1Animation(Animator anim)
+    {
+        anim.Play("Transition");
+        yield return null;
+
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        {
+            yield return null;
+        }
+        anim.Play("LevelIdle");
     }
     IEnumerator PlayerDisplay2Animation(Animator anim)
     {
