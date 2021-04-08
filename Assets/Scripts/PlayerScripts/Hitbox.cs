@@ -269,7 +269,7 @@ public class Hitbox : MonoBehaviour
                     HideHitBoxes();
                     return;
                 }
-                else
+                else if (_attackType == AttackType.LegSweep)
                 {
                     DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
                     tempDefendingPlayer.HideHitBoxes();
@@ -278,13 +278,13 @@ public class Hitbox : MonoBehaviour
             }
             if(tempDefendingPlayer.CrouchBlocking == true)
             {
-                if(_attackType != AttackType.Jab || _attackType != AttackType.Heavy || _attackType != AttackType.Aerial || _attackType != AttackType.UpAir || _attackType != AttackType.BackAir)
+                if(_attackType == AttackType.LegSweep)
                 {
                     ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
                     HideHitBoxes();
                     return;
                 }
-                else
+                else if(_attackType != AttackType.LegSweep)
                 {
                     DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
                     tempDefendingPlayer.HideHitBoxes();

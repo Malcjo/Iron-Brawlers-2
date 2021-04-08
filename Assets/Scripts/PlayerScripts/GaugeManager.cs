@@ -65,8 +65,17 @@ public class GaugeManager : MonoBehaviour
         //    repair = StartCoroutine(RepairGauge());
         //}
     }
+    private float repairCount;
     private void Update()
     {
+        if(self.Blocking || self.CrouchBlocking)
+        {
+            repairCount = 0;
+        }
+        else if (!self.Blocking || !self.CrouchBlocking)
+        {
+            repairCount = 1;
+        }
         StopGaugeFromGettingMoreThanMinGauge();
         playerUI.value = currentGauge;
         GaugeVariableChecker();
@@ -104,26 +113,6 @@ public class GaugeManager : MonoBehaviour
             }
 
         }
-        //if (currentGauge <= lowDamamgeValue)
-        //{
-        //    WaitTime = lowDamamgeWait;
-        //    DamageTick = lowDamamgeTick;
-        //}
-        //else if (currentGauge <= midDamamgeValue)
-        //{
-        //    WaitTime = midDamamgeWait;
-        //    DamageTick = midDamamgeTick;
-        //}
-        //else if (currentGauge <= highDamamgeValue)
-        //{
-        //    WaitTime = highDamamgeWait;
-        //    DamageTick = highDamamgeTick;
-        //}
-        //else if (currentGauge <= breakingPoint)
-        //{
-        //    WaitTime = breakingPointWait;
-        //    DamageTick = breakingPointTick;
-        //}
     }
 
     public void TakeDamage(float amount, ArmourCheck.ArmourPlacement Placement, Player defendingPlayer, AttackType attackType, Vector3 hitPosition)
@@ -153,12 +142,22 @@ public class GaugeManager : MonoBehaviour
     float repairDeleyCounter;
     private void delayRepiarStart()
     {
-        repairDeleyCounter += (1 * Time.deltaTime);
-        if(repairDeleyCounter > 2)
+        if(!self.Blocking || !self.CrouchBlocking)
         {
-            repairDeleyCounter = 0;
-            StopRepair = false;
+            repairDeleyCounter += (repairCount * Time.deltaTime);
+            if (repairDeleyCounter > 2)
+            {
+                repairDeleyCounter = 0;
+                StopRepair = false;
+            }
         }
+        else if (self.Blocking || self.CrouchBlocking)
+        {
+            StopRepair = true;
+            repairDeleyCounter = 0;
+        }
+
+
     }
     //private void restartRepair()
     //{
@@ -189,18 +188,21 @@ public class GaugeManager : MonoBehaviour
     [SerializeField] float counterDelay;
     private void ManualRepairGauge()
     {
-        if(StopRepair == false)
+        if(!self.Blocking || !self.CrouchBlocking)
         {
-            counterDelay += (1 * Time.deltaTime);
-            if (counterDelay >= 0.25)
+            if (StopRepair == false)
             {
-                counterDelay = 0;
-                currentGauge += (maxHealth / 7);
-            }
-            gauge.value = currentGauge;
-            if (currentGauge == noHealth)
-            {
-                SetGaugeToMax();
+                counterDelay += (repairCount * Time.deltaTime);
+                if (counterDelay >= 0.25)
+                {
+                    counterDelay = 0;
+                    currentGauge += (maxHealth / 7);
+                }
+                gauge.value = currentGauge;
+                if (currentGauge == noHealth)
+                {
+                    SetGaugeToMax();
+                }
             }
         }
     }
