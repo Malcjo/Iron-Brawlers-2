@@ -44,6 +44,7 @@ public class IdleState : PlayerState
             {
                 if (self.CanJumpIndex < self.GetMaxJumps())
                 {
+                    self.VerticalState = Player.VState.jumping;
                     self.CanTurn = false;
                     self.InAir = true;
                     body.velocity = (new Vector3(body.velocity.x, calculate.jumpForce, body.velocity.z));
@@ -55,9 +56,11 @@ public class IdleState : PlayerState
             }
             if (AttackCheck(input.attackInput))
             {
+                self.VerticalState = Player.VState.grounded;
                 self.CanMove = false;
                 //body.velocity = new Vector3(0, body.velocity.y, 0);
-                body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+                //body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+                body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), 0, 0);
                 self.CanTurn = false;
                 actions.Jab();
                 self.SetState(new BusyState());

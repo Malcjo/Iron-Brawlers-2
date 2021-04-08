@@ -55,11 +55,19 @@ public class LoadLevel : MonoBehaviour
                 dot1.SetActive(false);
                 dot2.SetActive(false);
                 dot3.SetActive(false);
-                musicFadeAnim.SetTrigger("FadeOut");
+                if (musicFadeAnim != null)
+                {
+                    musicFadeAnim.SetTrigger("FadeOut");
+                }
+
                 pressAnyButtonText.SetActive(true);
                 if (Input.anyKey)
                 {
-                    musicFadeAnim.SetTrigger("FadeOut");
+                    if(musicFadeAnim != null)
+                    {
+                        musicFadeAnim.SetTrigger("FadeOut");
+                    }
+
                     GameManager.instance.DisableMenuCanvas();
                     keyboardImgGroup.SetActive(false);
                     controllerImgGrp.SetActive(false);

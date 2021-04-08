@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
 
     public bool Moving { get { return _moving; } set { _moving = value; } }
     public bool WasAttacking { get { return _wasAttacking; } set { _wasAttacking = value; } }
-    public bool UseGravity { get { return _gravityOn; } set { _gravityOn = value; } }
+    public bool GravityOn { get { return _gravityOn; } set { _gravityOn = value; } }
     public bool InAir { get { return _inAir; } set { _inAir = value; } }
     public bool CanTurn { get { return _canTurn; } set { _canTurn = value; } }
     public bool CanBlock { get { return _canBlock; } set { _canBlock = value; } }
@@ -534,7 +534,7 @@ public class Player : MonoBehaviour
             if (freezeAttackedPlayer)
             {
                 //rb.velocity = _TempAttackedVelocity;
-                UseGravity = true;
+                GravityOn = true;
                 freezeAttackedPlayer = false;
                 playerActions.ResumeCurrentAnimation();
                 Damage(_tempPower);
@@ -550,7 +550,7 @@ public class Player : MonoBehaviour
             if(freezeAttackingPlayer == true)
             {
                 //rb.velocity = _TempAttackedVelocity;
-                UseGravity = true;
+                //GravityOn = true;
                 freezeAttackingPlayer = false;
                 playerActions.ResumeCurrentAnimation();
             }
@@ -574,6 +574,7 @@ public class Player : MonoBehaviour
             hitStunTimer -= 1 * Time.deltaTime;
             if (hitStunTimer < 0.001f)
             {
+                CanActOutOf = true;
                 hitStunTimer = 0;
                 _hitStun = false;
             }
@@ -616,7 +617,7 @@ public class Player : MonoBehaviour
         freezeAttackingPlayer = true;
         _TempAttackingVelocity = rb.velocity;
         rb.velocity = Vector3.zero;
-        UseGravity = false;
+        GravityOn = false;
         attackingFreezeCounter = MaxFreezeCounter;
         _tempPower = Vector3.zero;
     }
@@ -624,7 +625,7 @@ public class Player : MonoBehaviour
     {
         playerActions.PauseCurrentAnimation();
         freezeAttackedPlayer = true;
-        UseGravity = false;
+        GravityOn = false;
         attackedFreezeCounter = MaxFreezeCounter;
         _tempPower = Power;
         _attackersFacingDirection = new Vector3(facingDirection, 0, 0);
@@ -787,20 +788,49 @@ public class Player : MonoBehaviour
         }
 
     }
+    [SerializeField] private float previousYVelocity;
     void JumpingOrFallingTracker()
     {
-        if (rb.velocity.y != 0)
+        previousYVelocity = rb.velocity.y;
+        if (_currentVerticalState != VState.grounded)
         {
-            if (rb.velocity.y > 0f)
+
+            if (previousYVelocity >= 0)
             {
                 _currentVerticalState = VState.jumping;
+                _gravityOn = true;
             }
-            else if (rb.velocity.y < -0f)
+            else if (previousYVelocity < 0)
             {
                 _currentVerticalState = VState.falling;
+                _gravityOn = true;
             }
+
         }
 
+        //if (rb.velocity.y != 0)
+        //{
+        //    if (rb.velocity.y > 0f)
+        //    {
+        //        _currentVerticalState = VState.jumping;
+        //    }
+        //    else if (rb.velocity.y < -0f)
+        //    {
+        //        _currentVerticalState = VState.falling;
+        //    }
+        //}
+
+    }
+    public void StartVerticalTracker()
+    {
+        StartCoroutine(VerticalTracker());
+    }
+    public IEnumerator VerticalTracker()
+    {
+        while (_currentVerticalState == VState.grounded)
+        {
+            yield return null;
+        }
     }
     #endregion
     #region Raycasts
@@ -819,18 +849,24 @@ public class Player : MonoBehaviour
 
     public void RaycastGroundCheck(RaycastHit hit)
     {
-        if (_currentVerticalState == VState.falling)
+        if (hit.collider.CompareTag("Ground") || (hit.collider.CompareTag("Platform")))
         {
-            if (hit.collider.CompareTag("Ground") || (hit.collider.CompareTag("Platform")))
+            if (_currentVerticalState == VState.falling)
             {
-                PlayParticle(ParticleType.Landing,Vector3.zero);
-                if(_hitStun != true)
+                _gravityOn = false;
+                PlayParticle(ParticleType.Landing, Vector3.zero);
+                if (_hitStun != true)
                 {
                     playerActions.Landing();
                 }
                 LandOnGround(hit);
             }
         }
+        else if(!hit.collider.CompareTag("Ground") || (!hit.collider.CompareTag("Platform")))
+        {
+            //_gravityOn = true;
+        }
+
     }
     public void SetJumpIndexTo1()
     {
@@ -838,9 +874,14 @@ public class Player : MonoBehaviour
     }
     private void LandOnGround(RaycastHit hit)
     {
+        _gravityOn = false;
         distanceToGround = hit.distance;
         rb.velocity = new Vector3(rb.velocity.x, 0, 0);
-        if (distanceToGround >= 0 && distanceToGround <= 0.37f)
+        //if (distanceToGround >= 0 && distanceToGround <= 0.37f)
+        //{
+        //    rb.MovePosition(new Vector3(hit.point.x, hit.point.y, 0));
+        //}
+        if (distanceToGround >= 0 && distanceToGround <= 0.45f)
         {
             rb.MovePosition(new Vector3(hit.point.x, hit.point.y, 0));
         }

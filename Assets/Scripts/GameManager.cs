@@ -702,6 +702,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log("loading");
         loadLevelScript.TransitionBackToMainMenu();
     }
+    public bool InRoundStarter;
     public void AddPlayerToList(GameObject player)
     {
         players.Add(player);
@@ -725,8 +726,21 @@ public class GameManager : MonoBehaviour
     }
     public void RoundStartCountDown()
     {
+        InRoundStarter = true;
         roundStartCounter = 0;
-        Invoke("DelayRoundStartLooper", 0.6f);
+        if (players.Count > 1)
+        {
+            bindToPlayer.players[1].GetComponent<PlayerInputHandler>().CanControlCharacters = false;
+            bindToPlayer.players[1].GetComponent<PlayerInputHandler>().primed = false;
+            bindToPlayer.players[1].GetComponent<PlayerInputHandler>().SetAllInputsToZero();
+            players[1].GetComponent<Player>().SetVelocityToZero();
+        }
+
+        bindToPlayer.players[0].GetComponent<PlayerInputHandler>().CanControlCharacters = false;
+        bindToPlayer.players[0].GetComponent<PlayerInputHandler>().primed = false;
+        bindToPlayer.players[0].GetComponent<PlayerInputHandler>().SetAllInputsToZero();
+        players[0].GetComponent<Player>().SetVelocityToZero();
+        Invoke("DelayRoundStartLooper", 0.3f);
     }
     private void DelayRoundStartLooper()
     {
@@ -749,6 +763,7 @@ public class GameManager : MonoBehaviour
 
             roundStartCounter += 1 * Time.deltaTime;
 
+
             TrackPlayer1Rounds();
             TrackPlayer2Rounds();
 
@@ -766,7 +781,14 @@ public class GameManager : MonoBehaviour
             if ((int)roundStartCounter >= 2.5f && FightActive == true && ReadyActive == true)
             {
                 FightUI.SetActive(false);
-
+                InRoundStarter = false;
+                if (players.Count > 1)
+                {
+                    bindToPlayer.players[1].GetComponent<PlayerInputHandler>().CanControlCharacters = true;
+                    bindToPlayer.players[1].GetComponent<PlayerInputHandler>().primed = true;
+                }
+                bindToPlayer.players[0].GetComponent<PlayerInputHandler>().CanControlCharacters = true;
+                bindToPlayer.players[0].GetComponent<PlayerInputHandler>().primed = true;
                 if (players.Count > 1)
                 {
                     bindToPlayer.players[1].gameObject.SetActive(true);
@@ -829,29 +851,33 @@ public class GameManager : MonoBehaviour
     }
     private void TrackPlayer1()
     {
-        if (players[0].gameObject.transform.position.y <= belowBounds)
+        if(players != null)
         {
-            players[0].GetComponent<Player>().ResetGuage();
-            player2Rounds++;
-            //TrackPlayer2Rounds();
-            ResetPlayers();
-            _RoundStart = true;
-            RoundStartCountDown();
+            if (players[0].gameObject.transform.position.y <= belowBounds)
+            {
+                players[0].GetComponent<Player>().ResetGuage();
+                player2Rounds++;
+                //TrackPlayer2Rounds();
+                ResetPlayers();
+                _RoundStart = true;
+                RoundStartCountDown();
+            }
         }
-
     }
     private void TrackPlayer2()
     {
-        if (players[1].gameObject.transform.position.y <= belowBounds)
+        if(players != null)
         {
-            players[1].GetComponent<Player>().ResetGuage();
-            player1Rounds++;
-            //TrackPlayer1Rounds();
-            ResetPlayers();
-            _RoundStart = true;
-            RoundStartCountDown();
+            if (players[1].gameObject.transform.position.y <= belowBounds)
+            {
+                players[1].GetComponent<Player>().ResetGuage();
+                player1Rounds++;
+                //TrackPlayer1Rounds();
+                ResetPlayers();
+                _RoundStart = true;
+                RoundStartCountDown();
+            }
         }
-
     }
     private void ResetPlayers()
     {

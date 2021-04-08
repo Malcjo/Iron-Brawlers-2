@@ -127,6 +127,14 @@ public class PlayerInputHandler : MonoBehaviour
             }
         }
     }
+    public void SetAllInputsToZero()
+    {
+        HorizontalValue = 0;
+        JumpInputQueued = false;
+        AttackInputQueued = false;
+
+    }
+    public bool CanControlCharacters;
     private bool CanControlCharacter()
     {
         return !GameManager.instance.StartRound;
@@ -448,19 +456,24 @@ public class PlayerInputHandler : MonoBehaviour
         {
             if (player != null)
             {
-                if (CanControlCharacter())
+                if (CanControlCharacters)
                 {
-                    horizontalInput = context.ReadValue<float>();
-                    if (!_Paused)
+                    if (!GameManager.instance.InRoundStarter)
                     {
-                        if (horizontalInput <= 0.35f && horizontalInput >= -0.35f)
+                        horizontalInput = context.ReadValue<float>();
+                        if (!_Paused)
                         {
-                            horizontalInput = 0;
+                            if (horizontalInput <= 0.35f && horizontalInput >= -0.35f)
+                            {
+                                horizontalInput = 0;
+                            }
+                            HorizontalValue = horizontalInput;
+                            player.GetPlayerInputFromInputScript(HorizontalValue);
+                            WallCheck();
                         }
-                        HorizontalValue = horizontalInput;
-                        player.GetPlayerInputFromInputScript(HorizontalValue);
-                        WallCheck();
+
                     }
+
                 }
             }
         }
@@ -653,157 +666,188 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void JumpInput(CallbackContext context)
     {
-        if (!ispaused || CanControlCharacter())
+        if (!ispaused || CanControlCharacters)
         {
-            if (context.started && primed)
+            if (!GameManager.instance.InRoundStarter)
             {
-                primed = false;
-                JumpInputQueued = true;
+                if (context.started && primed)
+                {
+                    primed = false;
+                    JumpInputQueued = true;
+                }
+                if (context.canceled)
+                {
+                    primed = true;
+                }
             }
-            if (context.canceled)
-            {
-                primed = true;
-            }
+
         }
     }
 
     public void AttackInput(CallbackContext context)
     {
-        if (!ispaused || CanControlCharacter())
+        if (!ispaused || CanControlCharacters)
         {
-            if (context.started && primed)
+            if (!GameManager.instance.InRoundStarter)
             {
-                AttackInputQueued = true;
-                primed = false;
+                if (context.started && primed)
+                {
+                    AttackInputQueued = true;
+                    primed = false;
+                }
+                if (context.canceled)
+                {
+                    primed = true;
+                }
             }
-            if (context.canceled)
-            {
-                primed = true;
-            }
+
         }
 
     }
     public void CrouchInput(CallbackContext context)
     {
-        if (!ispaused || CanControlCharacter())
+        if (!ispaused || CanControlCharacters)
         {
-            if (context.started)
+            if (!GameManager.instance.InRoundStarter)
             {
-                CrouchInputHeld = true;
+                if (context.started)
+                {
+                    CrouchInputHeld = true;
+                }
+                if (context.canceled)
+                {
+                    CrouchInputHeld = false;
+                }
             }
-            if (context.canceled)
-            {
-                CrouchInputHeld = false;
-            }
+
         }
 
     }
 
     public void BlockInput(CallbackContext context)
     {
-        if (!ispaused || CanControlCharacter())
+        if (!ispaused || CanControlCharacters)
         {
-            if (context.started)
+            if (!GameManager.instance.InRoundStarter)
             {
-                blockInputHeld = true;
-            }
-            if (context.canceled)
-            {
-                blockInputHeld = false;
+                if (context.started)
+                {
+                    blockInputHeld = true;
+                }
+                if (context.canceled)
+                {
+                    blockInputHeld = false;
+                }
             }
         }
-
     }
     public void RightBumperInput(CallbackContext context)
     {
-        if (CanControlCharacter())
+        if (CanControlCharacters)
         {
-            if (context.started)
+            if (!GameManager.instance.InRoundStarter)
             {
-                rightBumperHeld = true;
-            }
-            if (context.canceled)
-            {
-                rightBumperHeld = false;
+                if (context.started)
+                {
+                    rightBumperHeld = true;
+                }
+                if (context.canceled)
+                {
+                    rightBumperHeld = false;
+                }
             }
         }
     }
     public void LeftBumperInput(CallbackContext context)
     {
-        if (CanControlCharacter())
+        if (CanControlCharacters)
         {
-            if (context.started)
+            if (!GameManager.instance.InRoundStarter)
             {
-                leftBumperHeld = true;
-            }
-            if (context.canceled)
-            {
-                leftBumperHeld = false;
+                if (context.started)
+                {
+                    leftBumperHeld = true;
+                }
+                if (context.canceled)
+                {
+                    leftBumperHeld = false;
+                }
             }
         }
     }
 
     public void RightTriggerInput(CallbackContext context)
     {
-        if (CanControlCharacter())
+        if (CanControlCharacters)
         {
-            if (context.started)
+            if (!GameManager.instance.InRoundStarter)
             {
-                rightTriggerHeld = true;
-            }
-            if (context.canceled)
-            {
-                rightTriggerHeld = false;
+                if (context.started)
+                {
+                    rightTriggerHeld = true;
+                }
+                if (context.canceled)
+                {
+                    rightTriggerHeld = false;
+                }
             }
         }
     }
     public void LeftTriggerInput(CallbackContext context)
     {
-        if (CanControlCharacter())
+        if (CanControlCharacters)
         {
-            if (context.started && primed)
+            if (!GameManager.instance.InRoundStarter)
             {
-                primed = false;
-                leftTriggerHeld = true;
-            }
-            if (context.canceled)
-            {
-                primed = true;
-                leftTriggerHeld = false;
+                if (context.started && primed)
+                {
+                    primed = false;
+                    leftTriggerHeld = true;
+                }
+                if (context.canceled)
+                {
+                    primed = true;
+                    leftTriggerHeld = false;
+                }
             }
         }
     }
     public void ArmourBreakInput(CallbackContext context)
     {
-        if (!ispaused || CanControlCharacter())
+        if (!ispaused || CanControlCharacters)
         {
-            if (context.started & primed)
+            if (!GameManager.instance.InRoundStarter)
             {
-                primed = false;
-                ArmourBreakInputQueued = true;
-            }
-            if (context.canceled)
-            {
-                primed = true;
+                if (context.started & primed)
+                {
+                    primed = false;
+                    ArmourBreakInputQueued = true;
+                }
+                if (context.canceled)
+                {
+                    primed = true;
+                }
             }
         }
 
     }
     public void HeavyInput(CallbackContext context)
     {
-        if (!ispaused || CanControlCharacter())
+        if (!ispaused || CanControlCharacters)
         {
-            if (context.started && primed)
+            if (!GameManager.instance.InRoundStarter)
             {
-                primed = false;
-                heavyQueued = true;
-            }
-            if (context.canceled)
-            {
-                primed = true;
+                if (context.started && primed)
+                {
+                    primed = false;
+                    heavyQueued = true;
+                }
+                if (context.canceled)
+                {
+                    primed = true;
+                }
             }
         }
-
     }
 
     public void UpDirectionInput(CallbackContext context)

@@ -273,6 +273,9 @@ public class Hitbox : MonoBehaviour
                     }
                     else if (_attackType == AttackType.LegSweep)
                     {
+                        tempDefendingPlayer.CanActOutOf = false;
+                        tempDefendingPlayer.CanMove = false;
+                        tempAttackingPlayer.GravityOn = false;
                         DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
                         tempDefendingPlayer.HideHitBoxes();
                         //tempDefendingPlayer.ResetCharacterMaterialToStandard();
@@ -288,6 +291,9 @@ public class Hitbox : MonoBehaviour
                     }
                     else if (_attackType != AttackType.LegSweep)
                     {
+                        tempDefendingPlayer.CanActOutOf = false;
+                        tempDefendingPlayer.CanMove = false;
+                        tempAttackingPlayer.GravityOn = false;
                         DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
                         tempDefendingPlayer.HideHitBoxes();
                     }
@@ -295,6 +301,9 @@ public class Hitbox : MonoBehaviour
             }
             else
             {
+                tempDefendingPlayer.CanActOutOf = false;
+                tempDefendingPlayer.CanMove = false;
+                tempAttackingPlayer.GravityOn = false;
                 DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
                 tempDefendingPlayer.HideHitBoxes();
             }

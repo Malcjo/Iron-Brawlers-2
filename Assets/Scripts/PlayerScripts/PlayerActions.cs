@@ -637,6 +637,7 @@ public class PlayerActions : MonoBehaviour
             yield return null;
         }
         self.landing = false;
+        self.CanActOutOf = true;
         self.SetState(new IdleState());
     }
 
@@ -980,6 +981,7 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator _KnockDown()
     {
+        self.CanActOutOf = false;
         self.HitStun = true;
         self.CanTurn = false;
         self.SetState(new BusyState());
@@ -1000,11 +1002,11 @@ public class PlayerActions : MonoBehaviour
                 yield return null;
         }
         _GetBackUp();
-        StopCoroutine(_KnockDown());
+        //StopCoroutine(_KnockDown());
     }
     private void _GetBackUp()
     {
-        self.SetState(new BusyState());
+        //self.SetState(new BusyState());
         StartCoroutine(GetBackUp());
     }
 
@@ -1022,6 +1024,7 @@ public class PlayerActions : MonoBehaviour
             yield return null;
         }
         self.HitStun = false;
+        self.CanActOutOf = true;
         RevertBackToIdleState();
     }
 }
