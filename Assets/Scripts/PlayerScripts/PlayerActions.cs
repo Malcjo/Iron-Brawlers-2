@@ -318,37 +318,39 @@ public class PlayerActions : MonoBehaviour
     }
     public void Dash()
     {
+        StartCoroutine(DashAction());
+    }
+    IEnumerator DashAction()
+    {
         if (canDash)
         {
+            TransitionToAnimation(true, DASHKEY, dashCrossfade);
             dashParticle = true;
             if (DashParticle != null)
             {
                 DashParticle.Play();
             }
 
-
             dashCounter = 0;
             canDash = false;
-            StartCoroutine(DashAction());
-        }
-    }
-    IEnumerator DashAction()
-    {
-        TransitionToAnimation(true, DASHKEY, dashCrossfade);
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+            {
+                if (dashCounter <= dashVariables.MoveCharacterOnXMaxCounter)
+                {
+                    self.MoveCharacterOnXMaxValue = dashVariables.MoveCharacterOnXMaxCounter;
+                    self.SetMoveCharacterOnXStrength(dashVariables.MoveCharacterOnXStrength);
+                }
+                if (dashCounter > dashVariables.MoveCharacterOnXMaxCounter)
+                {
+                    self.SetState(new IdleState());
+                    break;
+                }
+                yield return null;
+            }
 
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
-        {
-            if (dashCounter <= dashVariables.MoveCharacterOnXMaxCounter)
-            {
-                self.MoveCharacterOnXMaxValue = dashVariables.MoveCharacterOnXMaxCounter;
-                self.SetMoveCharacterOnXStrength(dashVariables.MoveCharacterOnXStrength);
-            }
-            if(dashCounter > dashVariables.MoveCharacterOnXMaxCounter)
-            {
-                break;
-            }
-            yield return null;
+            self.SetState(new IdleState());
         }
+
         self.SetState(new IdleState());
     }
 
