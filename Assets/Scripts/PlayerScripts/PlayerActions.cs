@@ -318,37 +318,39 @@ public class PlayerActions : MonoBehaviour
     }
     public void Dash()
     {
+        StartCoroutine(DashAction());
+    }
+    IEnumerator DashAction()
+    {
         if (canDash)
         {
+            TransitionToAnimation(true, DASHKEY, dashCrossfade);
             dashParticle = true;
             if (DashParticle != null)
             {
                 DashParticle.Play();
             }
 
-            self.SetState(new BusyState());
             dashCounter = 0;
             canDash = false;
-            StartCoroutine(DashAction());
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+            {
+                if (dashCounter <= dashVariables.MoveCharacterOnXMaxCounter)
+                {
+                    self.MoveCharacterOnXMaxValue = dashVariables.MoveCharacterOnXMaxCounter;
+                    self.SetMoveCharacterOnXStrength(dashVariables.MoveCharacterOnXStrength);
+                }
+                if (dashCounter > dashVariables.MoveCharacterOnXMaxCounter)
+                {
+                    self.SetState(new IdleState());
+                    break;
+                }
+                yield return null;
+            }
+            TransitionToAnimation(true, IDLEKEY, idleCrossfade);
+            self.SetState(new IdleState());
         }
-    }
-    IEnumerator DashAction()
-    {
-        TransitionToAnimation(true, DASHKEY, dashCrossfade);
 
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < dashVariables.DashAnimationLength)
-        {
-            if (dashCounter <= dashVariables.MoveCharacterOnXMaxCounter)
-            {
-                self.MoveCharacterOnXMaxValue = dashVariables.MoveCharacterOnXMaxCounter;
-                self.SetMoveCharacterOnXStrength(dashVariables.MoveCharacterOnXStrength);
-            }
-            if(dashCounter > dashVariables.MoveCharacterOnXMaxCounter)
-            {
-                break;
-            }
-            yield return null;
-        }
         self.SetState(new IdleState());
     }
 
@@ -457,7 +459,7 @@ public class PlayerActions : MonoBehaviour
     }
     public void LegSweep()
     {
-        StopCrouchBlock();
+
         StartCoroutine(_LegSweep());
     }
     private IEnumerator _LegSweep()
@@ -468,6 +470,7 @@ public class PlayerActions : MonoBehaviour
             {
                 SweepParticle.Play();
             }
+            StopCrouchBlock();
             SweepCounter = 0;
             self.CanActOutOf = false;
             TransitionToAnimation(true, SWEEPKEY, sweepCrossfade);
@@ -475,8 +478,6 @@ public class PlayerActions : MonoBehaviour
             anim.speed = 1;
             self.CanTurn = false;
             yield return null;
-            hitboxManager.SwapHands(1);
-            hitboxScript._attackDir = Attackdirection.Low;
             hitboxScript._attackType = AttackType.LegSweep;
             hitboxManager.LegSweep(0.5f);
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)

@@ -101,6 +101,7 @@ public class IdleState : PlayerState
             }
             if (DashCheck(input.leftTriggerInput))
             {
+                self.SetState(new BusyState());
                 actions.Dash();
             }
             //if (!actionTaken)

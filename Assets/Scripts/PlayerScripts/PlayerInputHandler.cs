@@ -510,12 +510,16 @@ public class PlayerInputHandler : MonoBehaviour
                                 GameManager.instance.player1Character1PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character1BeenPicked == true)
                                 {
+                                    Animator anim = GameManager.instance.player1SolAltAnimated.GetComponentInChildren<Animator>();
+                                    anim.SetTrigger("Emote");
                                     GameManager.instance.player1SolAltAnimated.SetActive(true);
 
                                     GameManager.instance.ChangeCharacterModelIfSameIsChosen(1, solAlt, 0);
                                 }
                                 else if (GameManager.instance.Character1BeenPicked == false)
                                 {
+                                    Animator anim = GameManager.instance.player1SolAnimated.GetComponentInChildren<Animator>();
+                                    anim.SetTrigger("Emote");
                                     GameManager.instance.player1SolAnimated.SetActive(true);
                                     GameManager.instance.Character1BeenPicked = true;
                                 }
@@ -529,12 +533,16 @@ public class PlayerInputHandler : MonoBehaviour
                                 GameManager.instance.player2Character1PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character1BeenPicked == true)
                                 {
+                                    Animator anim = GameManager.instance.player2SolAltAnimated.GetComponentInChildren<Animator>();
+                                    anim.SetTrigger("Emote");
                                     GameManager.instance.player2SolAltAnimated.SetActive(true);
 
                                     GameManager.instance.ChangeCharacterModelIfSameIsChosen(2, solAlt, 0);
                                 }
                                 else if (GameManager.instance.Character1BeenPicked == false)
                                 {
+                                    Animator anim = GameManager.instance.player2SolAnimated.GetComponentInChildren<Animator>();
+                                    anim.SetTrigger("Emote");
                                     GameManager.instance.player2SolAnimated.SetActive(true);
                                     GameManager.instance.Character1BeenPicked = true;
                                 }
@@ -573,6 +581,7 @@ public class PlayerInputHandler : MonoBehaviour
                                 if (GameManager.instance.Character2BeenPicked == true)
                                 {
                                     GameManager.instance.player2GoblinAltAnimated.SetActive(true);
+
 
                                     GameManager.instance.ChangeCharacterModelIfSameIsChosen(2, goblinAlt, 1);
                                 }
