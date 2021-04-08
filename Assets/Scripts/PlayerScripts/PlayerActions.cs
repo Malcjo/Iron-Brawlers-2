@@ -347,7 +347,7 @@ public class PlayerActions : MonoBehaviour
                 }
                 yield return null;
             }
-
+            TransitionToAnimation(true, IDLEKEY, idleCrossfade);
             self.SetState(new IdleState());
         }
 

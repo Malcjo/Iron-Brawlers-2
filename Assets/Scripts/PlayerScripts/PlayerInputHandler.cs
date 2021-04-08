@@ -510,7 +510,7 @@ public class PlayerInputHandler : MonoBehaviour
                                 GameManager.instance.player1Character1PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character1BeenPicked == true)
                                 {
-                                    Animator anim = GameManager.instance.player1SolAltAnimated.GetComponent<Animator>();
+                                    Animator anim = GameManager.instance.player1SolAltAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
                                     GameManager.instance.player1SolAltAnimated.SetActive(true);
 
@@ -518,7 +518,7 @@ public class PlayerInputHandler : MonoBehaviour
                                 }
                                 else if (GameManager.instance.Character1BeenPicked == false)
                                 {
-                                    Animator anim = GameManager.instance.player1SolAnimated.GetComponent<Animator>();
+                                    Animator anim = GameManager.instance.player1SolAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
                                     GameManager.instance.player1SolAnimated.SetActive(true);
                                     GameManager.instance.Character1BeenPicked = true;
@@ -533,7 +533,7 @@ public class PlayerInputHandler : MonoBehaviour
                                 GameManager.instance.player2Character1PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character1BeenPicked == true)
                                 {
-                                    Animator anim = GameManager.instance.player2SolAltAnimated.GetComponent<Animator>();
+                                    Animator anim = GameManager.instance.player2SolAltAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
                                     GameManager.instance.player2SolAltAnimated.SetActive(true);
 
@@ -541,7 +541,7 @@ public class PlayerInputHandler : MonoBehaviour
                                 }
                                 else if (GameManager.instance.Character1BeenPicked == false)
                                 {
-                                    Animator anim = GameManager.instance.player2SolAnimated.GetComponent<Animator>();
+                                    Animator anim = GameManager.instance.player2SolAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
                                     GameManager.instance.player2SolAnimated.SetActive(true);
                                     GameManager.instance.Character1BeenPicked = true;
