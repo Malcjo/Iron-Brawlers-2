@@ -129,6 +129,12 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 1383864730253983222}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &459498553 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 721171184282683059, guid: 3cf766bb1fbc8254f9e5e938f588d92f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2226329934803613623}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &524970163
 GameObject:
   m_ObjectHideFlags: 0
@@ -7619,12 +7625,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!198 &7838876086159872431 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8227173833532286488, guid: 3cf766bb1fbc8254f9e5e938f588d92f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2226329934803613623}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7876800830572252988
 Transform:
   m_ObjectHideFlags: 0
@@ -8945,7 +8945,7 @@ MonoBehaviour:
   Sweap: {fileID: 987193333}
   Jab: {fileID: 711904114305096656}
   Dash: {fileID: 699964368}
-  FowardAir: {fileID: 7838876086159872431}
+  FowardAir: {fileID: 459498553}
 --- !u!1 &9094022692251551678
 GameObject:
   m_ObjectHideFlags: 0

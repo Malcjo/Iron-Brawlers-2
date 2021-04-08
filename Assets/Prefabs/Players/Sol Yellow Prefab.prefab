@@ -391,7 +391,7 @@ MonoBehaviour:
   JabParticle: {fileID: 2802247788416706418}
   HeavyParticle: {fileID: 6653377313978029403}
   SweepParticle: {fileID: 6885356112516483710}
-  AerialParticle: {fileID: 5615261074176692896}
+  AerialParticle: {fileID: 3874147286025974283}
   BackAirParticle: {fileID: 0}
   UpAirParticle: {fileID: 0}
   DashParticle: {fileID: 7082514023348002501}
@@ -9593,9 +9593,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4594130327566677176}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &5615261074176692896 stripped
+--- !u!198 &3874147286025974283 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8227173833532286488, guid: 3cf766bb1fbc8254f9e5e938f588d92f,
+  m_CorrespondingSourceObject: {fileID: 721171184282683059, guid: 3cf766bb1fbc8254f9e5e938f588d92f,
     type: 3}
   m_PrefabInstance: {fileID: 4594130327566677176}
   m_PrefabAsset: {fileID: 0}
