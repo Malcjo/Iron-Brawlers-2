@@ -674,11 +674,13 @@ public class GameManager : MonoBehaviour
                         if (player1Rounds > player2Rounds)
                         {
                             player1Wins.SetActive(true);
+
                             Destroy(players[1].gameObject);
                         }
                         else if (player2Rounds > player1Rounds)
                         {
                             player2Wins.SetActive(true);
+
                             Destroy(players[0].gameObject);
                         }
                     }

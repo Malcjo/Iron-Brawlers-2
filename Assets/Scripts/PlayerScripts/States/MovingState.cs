@@ -136,10 +136,10 @@ public class MovingState : PlayerState
                 actions.ArmourBreak();
                 self.SetState(new BusyState());
             }
-            if (DashCheck(input.leftTriggerInput))
-            {
-                actions.Dash();
-            }
+            //if (DashCheck(input.leftTriggerInput))
+            //{
+            //    actions.Dash();
+            //}
         }
         else
         {

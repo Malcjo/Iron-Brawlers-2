@@ -261,33 +261,36 @@ public class Hitbox : MonoBehaviour
             HurtBox tempHurtBox = other.gameObject.GetComponent<HurtBox>();
             var tempHitPosiiton = other.transform.position;
             tempHurtBox.TurnOnHitBoxHit();
-            if (tempDefendingPlayer.Blocking == true)
+            if (tempDefendingPlayer.Blocking == true || tempDefendingPlayer.CrouchBlocking == true)
             {
-                if(_attackType != AttackType.LegSweep)
+                if(tempDefendingPlayer.Blocking == true)
                 {
-                    ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
-                    HideHitBoxes();
-                    return;
+                    if (_attackType != AttackType.LegSweep)
+                    {
+                        ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
+                        HideHitBoxes();
+                        return;
+                    }
+                    else if (_attackType == AttackType.LegSweep)
+                    {
+                        DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
+                        tempDefendingPlayer.HideHitBoxes();
+                        //tempDefendingPlayer.ResetCharacterMaterialToStandard();
+                    }
                 }
-                else if (_attackType == AttackType.LegSweep)
+                if(tempDefendingPlayer.CrouchBlocking == true)
                 {
-                    DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
-                    tempDefendingPlayer.HideHitBoxes();
-                    //tempDefendingPlayer.ResetCharacterMaterialToStandard();
-                }
-            }
-            if(tempDefendingPlayer.CrouchBlocking == true)
-            {
-                if(_attackType == AttackType.LegSweep)
-                {
-                    ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
-                    HideHitBoxes();
-                    return;
-                }
-                else if(_attackType != AttackType.LegSweep)
-                {
-                    DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
-                    tempDefendingPlayer.HideHitBoxes();
+                    if (_attackType == AttackType.LegSweep)
+                    {
+                        ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
+                        HideHitBoxes();
+                        return;
+                    }
+                    else if (_attackType != AttackType.LegSweep)
+                    {
+                        DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
+                        tempDefendingPlayer.HideHitBoxes();
+                    }
                 }
             }
             else

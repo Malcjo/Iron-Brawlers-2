@@ -137,51 +137,51 @@ public class BusyState : PlayerState
 
                     self.SetState(new MovingState());
                 }
-                if (!MovementCheck(input.horizontalInput))
-                {
-                    actions.Idle();
-                    self.Moving = false;
-                    if (self.SlideValue >= self.maxSliderValue)
-                    {
-                        self.InteruptSliderSetToZero = false;
-                    }
-                    else
-                    {
-                        self.SlideValue = 0;
-                    }
+                //if (!MovementCheck(input.horizontalInput))
+                //{
+                //    actions.Idle();
+                //    self.Moving = false;
+                //    if (self.SlideValue >= self.maxSliderValue)
+                //    {
+                //        self.InteruptSliderSetToZero = false;
+                //    }
+                //    else
+                //    {
+                //        self.SlideValue = 0;
+                //    }
 
-                    self.SetSlideValueToZero();
-                    //self.StopRunningParticle();
-                    self.CanMove = true;
-                    self.CanTurn = true;
-                    body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
-                    if (body.velocity.x < 0.25f && body.velocity.x > -0.25f)
-                    {
-                        body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.overrideForce;
-                    }
-                    if (body.velocity.x == 0)
-                    {
-                        self.SetState(new IdleState());
-                    }
-                    if (BlockCheck(input.rightTriggerInput))
-                    {
-                        actions.Block();
-                        self.Blocking = true;
-                        body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
-                        self.SetState(new BlockState());
-                    }
-                }
+                //    self.SetSlideValueToZero();
+                //    //self.StopRunningParticle();
+                //    self.CanMove = true;
+                //    self.CanTurn = true;
+                //    body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+                //    if (body.velocity.x < 0.25f && body.velocity.x > -0.25f)
+                //    {
+                //        body.velocity = new Vector3(0, body.velocity.y, 0) + calculate.overrideForce;
+                //    }
+                //    if (body.velocity.x == 0)
+                //    {
+                //        self.SetState(new IdleState());
+                //    }
+                //    if (BlockCheck(input.rightTriggerInput))
+                //    {
+                //        actions.Block();
+                //        self.Blocking = true;
+                //        body.velocity = new Vector3(Mathf.Lerp(body.velocity.x, 0, calculate.friction), body.velocity.y, 0);
+                //        self.SetState(new BlockState());
+                //    }
+                //}
                 if (CrouchingCheck(input.crouchInput))
                 {
                     body.velocity = new Vector3(0, 0, 0);
                     self.SetState(new CrouchingState());
                 }
-                if (!CrouchingCheck(input.crouchInput))
-                {
-                    self.Crouching = false;
-                    actions.ExitCrouch();
-                    //actions.Idle();
-                }
+                //if (!CrouchingCheck(input.crouchInput))
+                //{
+                //    self.Crouching = false;
+                //    actions.ExitCrouch();
+                //    //actions.Idle();
+                //}
 
             }
 
