@@ -145,7 +145,7 @@ public class LoadLevel : MonoBehaviour
         IEnumerator FadeLoadingScreen(float targetValue, float duration)
         {
             musicFadeAnim = GameObject.FindGameObjectWithTag("MusicSource").GetComponent<Animator>();
-            musicFadeAnim.SetTrigger("FadeOut");
+            //musicFadeAnim.SetTrigger("FadeOut");
             //runningSol.SetActive(true);
             float startValue = loadingScreenCanvasGroup.alpha;
             float time = 0;
