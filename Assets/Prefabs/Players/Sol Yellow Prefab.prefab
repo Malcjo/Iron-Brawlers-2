@@ -499,7 +499,7 @@ MonoBehaviour:
     MoveCharacterOnYMaxCounter: 0
   armourBreakVariables:
     FollowingDestination: 0
-    HitBoxSize: 0
+    HitBoxSize: 2.5
     DamageOnGauge: 0
     KnockbackXStrength: 0
     KnockbackYStrength: 0
@@ -509,8 +509,8 @@ MonoBehaviour:
     MoveCharacterOnXStrength: 0
     MoveCharacterOnXMaxCounter: 0
     MoveOnY: 0
-    MoveCharacterOnYStrength: 10
-    MoveCharacterOnYMaxCounter: 0.2
+    MoveCharacterOnYStrength: 4
+    MoveCharacterOnYMaxCounter: 0.1
   dashVariables:
     MoveCharacterOnXStrength: 12
     MoveCharacterOnXMaxCounter: 0.2
@@ -2677,6 +2677,7 @@ MonoBehaviour:
   canDoAttack: 0
   _interuptSliderSetToZero: 0
   Delaycounter: 0
+  previousYVelocity: 0
   V3Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1181940027119994825
 MonoBehaviour:

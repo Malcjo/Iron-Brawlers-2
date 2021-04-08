@@ -5329,7 +5329,7 @@ MonoBehaviour:
     MoveCharacterOnYMaxCounter: 0
   armourBreakVariables:
     FollowingDestination: 0
-    HitBoxSize: 3
+    HitBoxSize: 2.5
     DamageOnGauge: 2.5
     KnockbackXStrength: 50
     KnockbackYStrength: 0
@@ -5339,8 +5339,8 @@ MonoBehaviour:
     MoveCharacterOnXStrength: 0
     MoveCharacterOnXMaxCounter: 0
     MoveOnY: 1
-    MoveCharacterOnYStrength: 5
-    MoveCharacterOnYMaxCounter: 0.2
+    MoveCharacterOnYStrength: 4
+    MoveCharacterOnYMaxCounter: 0.1
   dashVariables:
     MoveCharacterOnXStrength: 12
     MoveCharacterOnXMaxCounter: 0.2

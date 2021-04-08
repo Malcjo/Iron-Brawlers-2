@@ -5245,7 +5245,7 @@ MonoBehaviour:
   knockDownCrossfade: 0.02
   jabVariables:
     FollowingDestination: 3
-    HitBoxSize: 1.1
+    HitBoxSize: 2.5
     DamageOnGauge: 2.5
     KnockbackXStrength: 25
     KnockbackYStrength: 10
@@ -5339,8 +5339,8 @@ MonoBehaviour:
     MoveCharacterOnXStrength: 0
     MoveCharacterOnXMaxCounter: 0
     MoveOnY: 1
-    MoveCharacterOnYStrength: 5
-    MoveCharacterOnYMaxCounter: 0.2
+    MoveCharacterOnYStrength: 4
+    MoveCharacterOnYMaxCounter: 0.1
   dashVariables:
     MoveCharacterOnXStrength: 12
     MoveCharacterOnXMaxCounter: 0.2
