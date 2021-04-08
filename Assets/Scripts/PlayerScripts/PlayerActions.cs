@@ -326,7 +326,7 @@ public class PlayerActions : MonoBehaviour
                 DashParticle.Play();
             }
 
-            self.SetState(new BusyState());
+
             dashCounter = 0;
             canDash = false;
             StartCoroutine(DashAction());
@@ -336,7 +336,7 @@ public class PlayerActions : MonoBehaviour
     {
         TransitionToAnimation(true, DASHKEY, dashCrossfade);
 
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < dashVariables.DashAnimationLength)
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
         {
             if (dashCounter <= dashVariables.MoveCharacterOnXMaxCounter)
             {
@@ -457,7 +457,7 @@ public class PlayerActions : MonoBehaviour
     }
     public void LegSweep()
     {
-        StopCrouchBlock();
+
         StartCoroutine(_LegSweep());
     }
     private IEnumerator _LegSweep()
@@ -468,6 +468,7 @@ public class PlayerActions : MonoBehaviour
             {
                 SweepParticle.Play();
             }
+            StopCrouchBlock();
             SweepCounter = 0;
             self.CanActOutOf = false;
             TransitionToAnimation(true, SWEEPKEY, sweepCrossfade);
@@ -475,8 +476,6 @@ public class PlayerActions : MonoBehaviour
             anim.speed = 1;
             self.CanTurn = false;
             yield return null;
-            hitboxManager.SwapHands(1);
-            hitboxScript._attackDir = Attackdirection.Low;
             hitboxScript._attackType = AttackType.LegSweep;
             hitboxManager.LegSweep(0.5f);
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
