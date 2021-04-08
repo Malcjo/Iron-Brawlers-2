@@ -478,57 +478,57 @@ MonoBehaviour:
   DashParticle: {fileID: 123373435060836538}
   RollParticle: {fileID: 0}
   canDashParitcle: {fileID: 0}
-  idleCrossfade: 0
-  runCrossfade: 0
-  jabCrossfade: 0
-  heavyCrossfade: 0
-  crouchCrossfade: 0
-  sweepCrossfade: 0
-  neutralAerialCrossfade: 0
-  dashCrossfade: 0
-  blockCrossfade: 0
-  jumpCrossfade: 0
-  doubleJumpCrossfade: 0
-  fallingCrossfade: 0
-  landingCrossfade: 0
-  getUpCrossfade: 0
-  normalHitCrossfade: 0
-  knockDownCrossfade: 0
+  idleCrossfade: 0.15
+  runCrossfade: 0.02
+  jabCrossfade: 0.02
+  heavyCrossfade: 0.02
+  crouchCrossfade: 0.02
+  sweepCrossfade: 0.02
+  neutralAerialCrossfade: 0.02
+  dashCrossfade: 0.02
+  blockCrossfade: 0.02
+  jumpCrossfade: 0.02
+  doubleJumpCrossfade: 0.02
+  fallingCrossfade: 0.02
+  landingCrossfade: 0.02
+  getUpCrossfade: 0.02
+  normalHitCrossfade: 0.02
+  knockDownCrossfade: 0.02
   jabVariables:
-    FollowingDestination: 0
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
-    WhenToMoveCharacterInAnimation: 0
-    MoveOnX: 0
-    MoveCharacterOnXStrength: 0
-    MoveCharacterOnXMaxCounter: 0
+    FollowingDestination: 3
+    HitBoxSize: 0.4
+    DamageOnGauge: 2.5
+    KnockbackXStrength: 25
+    KnockbackYStrength: 10
+    CancelTime: 0.4
+    WhenToMoveCharacterInAnimation: 0.2
+    MoveOnX: 1
+    MoveCharacterOnXStrength: 0.5
+    MoveCharacterOnXMaxCounter: 0.2
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
   heavyVariables:
-    FollowingDestination: 0
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
-    WhenToMoveCharacterInAnimation: 0
-    MoveOnX: 0
-    MoveCharacterOnXStrength: 0
-    MoveCharacterOnXMaxCounter: 0
+    FollowingDestination: 1
+    HitBoxSize: 1.2
+    DamageOnGauge: 4
+    KnockbackXStrength: 40
+    KnockbackYStrength: 2
+    CancelTime: 0.8
+    WhenToMoveCharacterInAnimation: 0.2
+    MoveOnX: 1
+    MoveCharacterOnXStrength: 12
+    MoveCharacterOnXMaxCounter: 0.2
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
   sweepVariables:
-    FollowingDestination: 0
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
+    FollowingDestination: 1
+    HitBoxSize: 1
+    DamageOnGauge: 3
+    KnockbackXStrength: 20
+    KnockbackYStrength: 30
+    CancelTime: 0.6
     WhenToMoveCharacterInAnimation: 0
     MoveOnX: 0
     MoveCharacterOnXStrength: 0
@@ -537,16 +537,16 @@ MonoBehaviour:
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
   neutralAerialVariables:
-    FollowingDestination: 0
-    HitBoxSize: 0
-    DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
-    CancelTime: 0
+    FollowingDestination: 2
+    HitBoxSize: 1
+    DamageOnGauge: 3
+    KnockbackXStrength: 35
+    KnockbackYStrength: -0.5
+    CancelTime: 0.7
     WhenToMoveCharacterInAnimation: 0
-    MoveOnX: 0
-    MoveCharacterOnXStrength: 0
-    MoveCharacterOnXMaxCounter: 0
+    MoveOnX: 1
+    MoveCharacterOnXStrength: 6
+    MoveCharacterOnXMaxCounter: 0.1
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
@@ -590,12 +590,12 @@ MonoBehaviour:
     MoveCharacterOnXStrength: 0
     MoveCharacterOnXMaxCounter: 0
     MoveOnY: 0
-    MoveCharacterOnYStrength: 0
-    MoveCharacterOnYMaxCounter: 0
+    MoveCharacterOnYStrength: 10
+    MoveCharacterOnYMaxCounter: 0.2
   dashVariables:
     MoveCharacterOnXStrength: 12
     MoveCharacterOnXMaxCounter: 0.2
-    MaxDashTime: 0.3
+    MaxDashTime: 0.4
     DashAnimationLength: 1
   rollVariables:
     FollowingDestination: 0
