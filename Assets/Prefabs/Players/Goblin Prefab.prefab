@@ -4295,8 +4295,10 @@ MonoBehaviour:
   leftKnee: {fileID: 4955976208830267982}
   waist: {fileID: 1081166452312770748}
   head: {fileID: 1987514414496696148}
-  armourHitParticle: {fileID: 0}
-  noArmourHitParticle: {fileID: 0}
+  armourHitParticle: {fileID: 3583048005112685821, guid: de4fbf8abc163d046aab75c98015c5f7,
+    type: 3}
+  noArmourHitParticle: {fileID: 3583048005112685821, guid: 7f6b353b6dfaf224baecf0565c7b4338,
+    type: 3}
   dustHitParticle: {fileID: 1525828961861715399, guid: 4898a9aab1a0cf34da8871afb0b6e002,
     type: 3}
   particleManager: {fileID: 0}
