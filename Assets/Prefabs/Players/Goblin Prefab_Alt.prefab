@@ -3355,6 +3355,7 @@ MonoBehaviour:
   - {fileID: 2094333472089484801}
   - {fileID: 4143578666665982674}
   - {fileID: 4962252696602101042}
+  amountOfArmourLeft: 0
 --- !u!114 &2535414095278585841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4295,13 +4296,15 @@ MonoBehaviour:
   leftKnee: {fileID: 4955976208830267982}
   waist: {fileID: 1081166452312770748}
   head: {fileID: 1987514414496696148}
+  blockingParticle: {fileID: 3583048005112685821, guid: 0945253f9746d6a409f1a1fbedcad7d9,
+    type: 3}
   armourHitParticle: {fileID: 3583048005112685821, guid: de4fbf8abc163d046aab75c98015c5f7,
     type: 3}
   noArmourHitParticle: {fileID: 3583048005112685821, guid: 7f6b353b6dfaf224baecf0565c7b4338,
     type: 3}
   dustHitParticle: {fileID: 1525828961861715399, guid: 4898a9aab1a0cf34da8871afb0b6e002,
     type: 3}
-  particleManager: {fileID: 0}
+  particleManager: {fileID: 8197868842654377680}
 --- !u!1 &3938678240040364670
 GameObject:
   m_ObjectHideFlags: 0
@@ -5220,6 +5223,7 @@ MonoBehaviour:
   HeavyCounter: 0
   SweepCounter: 0
   NeutralAerialCounter: 0
+  BlockCounter: 0
   JabParticle: {fileID: 5549317794616396821}
   HeavyParticle: {fileID: 5490039931290091278}
   SweepParticle: {fileID: 1134303963807941793}
@@ -5362,6 +5366,8 @@ MonoBehaviour:
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
+  LastState: 
+  LastAnimation: 
   useHitSmearOnHeavy: 0
 --- !u!1 &4674036146457986405
 GameObject:
