@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject PauseScreen;
     private void ResetCharacterAndLevelUI()
     {
+
         ChooseLevel = false;
         ChooseYourStageText.SetActive(false);
         //ChooseYourCharacterText.SetActive(false);
