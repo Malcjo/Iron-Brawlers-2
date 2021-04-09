@@ -161,39 +161,49 @@ public class LoadLevel : MonoBehaviour
         ResetLoadingAssets();
         GameManager.instance.PausedGame(false);
 
+
+        //player1
+        player1Wins.SetActive(false);
+        player1Round1.SetActive(false);
+        player1Round2.SetActive(false);
+        player1Round3.SetActive(false);
+
         GameManager.instance.player1pressAToJoinUI.SetActive(true);
         GameManager.instance.player1Character1PortraitPuck.SetActive(false);
         GameManager.instance.player1Character1Background.SetActive(false);
-        GameManager.instance.player2pressAToJoinUI.SetActive(true);
-        GameManager.instance.player2Character1PortraitPuck.SetActive(false);
-        GameManager.instance.player2Character1Background.SetActive(false);
-        GameManager.instance.Character1BeenPicked = false;
-        GameManager.instance.Character2BeenPicked = false;
-        GameManager.instance.TurnOffCharacterSelectObj();
-        GameManager.instance.TurnOnMenuObj();
-        GameManager.instance.ResetLevelSelectDisplay();
+        GameManager.instance.player1Character2Background.SetActive(false);
 
         GameManager.instance.player1SolPortrait.SetActive(false);
         GameManager.instance.player1SolAltPortrait.SetActive(false);
         GameManager.instance.player1GoblinPortrait.SetActive(false);
         GameManager.instance.player1GoblinAltPortrait.SetActive(false);
 
+        //player 2
+        player2Wins.SetActive(false);
+        player2Round1.SetActive(false);
+        player2Round2.SetActive(false);
+        player2Round3.SetActive(false);
+
         GameManager.instance.player2SolPortrait.SetActive(false);
         GameManager.instance.player2SolAltPortrait.SetActive(false);
         GameManager.instance.player2GoblinPortrait.SetActive(false);
         GameManager.instance.player2GoblinAltPortrait.SetActive(false);
 
+        GameManager.instance.player2pressAToJoinUI.SetActive(true);
+        GameManager.instance.player2Character1PortraitPuck.SetActive(false);
+        GameManager.instance.player2Character1Background.SetActive(false);
+        GameManager.instance.player2Character2Background.SetActive(false);
+
+
+
         runningSol.SetActive(false);
-        player1Round1.SetActive(false);
-        player1Round2.SetActive(false);
-        player1Round3.SetActive(false);
-        player2Round1.SetActive(false);
-        player2Round2.SetActive(false);
-        player2Round3.SetActive(false);
-        player1Wins.SetActive(false);
-        player2Wins.SetActive(false);
+        GameManager.instance.Character1BeenPicked = false;
+        GameManager.instance.Character2BeenPicked = false;
         //player1Loses.SetActive(false);
         //GameManager.instance.bothLose.SetActive(false);
+        GameManager.instance.TurnOffCharacterSelectObj();
+        GameManager.instance.TurnOnMenuObj();
+        GameManager.instance.ResetLevelSelectDisplay();
         GameManager.instance.SetRoundsToZero();
         GameManager.instance.players.Clear();
         GameManager.instance.ChangeSceneIndex(1);
