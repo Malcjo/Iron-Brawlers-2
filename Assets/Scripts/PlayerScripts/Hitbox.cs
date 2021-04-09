@@ -88,6 +88,7 @@ public class Hitbox : MonoBehaviour
     public GameObject hitBox, midHitBox;
     public GameObject rightHand, leftHand,rightElbow, leftElbow, rightFoot, leftFoot, rightKnee, leftKnee, waist, head;
 
+    public ParticleSystem blockingParticle;
     public ParticleSystem armourHitParticle;
     public ParticleSystem noArmourHitParticle;
     public ParticleSystem dustHitParticle;
@@ -267,9 +268,13 @@ public class Hitbox : MonoBehaviour
                 {
                     if (_attackType != AttackType.LegSweep)
                     {
-                        ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
-                        HideHitBoxes();
-                        return;
+                        //ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
+                        //HideHitBoxes();
+                        //return;
+                        tempDefendingPlayer.CanActOutOf = false;
+                        tempAttackingPlayer.GravityOn = false;
+                        DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
+                        tempDefendingPlayer.HideHitBoxes();
                     }
                     else if (_attackType == AttackType.LegSweep)
                     {
@@ -285,9 +290,13 @@ public class Hitbox : MonoBehaviour
                 {
                     if (_attackType == AttackType.LegSweep)
                     {
-                        ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
-                        HideHitBoxes();
-                        return;
+                        //ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
+                        //HideHitBoxes();
+                        //return;
+                        tempDefendingPlayer.CanActOutOf = false;
+                        tempAttackingPlayer.GravityOn = false;
+                        DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
+                        tempDefendingPlayer.HideHitBoxes();
                     }
                     else if (_attackType != AttackType.LegSweep)
                     {
@@ -311,19 +320,29 @@ public class Hitbox : MonoBehaviour
     }
     private void DamagingPlayer(Player DefendingPlayer, Player attackingPlayer, ArmourCheck armourCheck, HurtBox hurtBox)
     {
-        ApplyDamageToPlayer(DefendingPlayer, attackingPlayer, _attackType);
+        ApplyDamageToPlayer(DefendingPlayer, attackingPlayer, _attackType, armourCheck);
         if (hurtBox.BodyLocation == LocationTag.Chest)
         {
             Hitbox DefendingHitbox = DefendingPlayer.GetComponentInChildren<Hitbox>();
             Transform hitLocation = DefendingHitbox.ChestArmourPosition;
-            DefendingPlayer.TakeDamageOnGauge(gaugeDamageValue, ArmourCheck.ArmourPlacement.Chest, _attackType, hitLocation.position);
-            if(armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.armour)
+            if(DefendingPlayer.Blocking || DefendingPlayer.CrouchBlocking)
             {
-                Instantiate(armourHitParticle, transform.position, transform.rotation);
+                DefendingPlayer.TakeDamageOnGauge(0, ArmourCheck.ArmourPlacement.Chest, _attackType, hitLocation.position);
+
+                Instantiate(blockingParticle, transform.position, transform.rotation);
             }
-            else if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.none)
+            else
             {
-                Instantiate(noArmourHitParticle, transform.position, transform.rotation);
+                DefendingPlayer.TakeDamageOnGauge(gaugeDamageValue, ArmourCheck.ArmourPlacement.Chest, _attackType, hitLocation.position);
+
+                if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.armour)
+                {
+                    Instantiate(armourHitParticle, transform.position, transform.rotation);
+                }
+                else if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.none)
+                {
+                    Instantiate(noArmourHitParticle, transform.position, transform.rotation);
+                }
             }
 
             //Instantiate(dustHitParticle, transform.position, transform.rotation);
@@ -333,79 +352,130 @@ public class Hitbox : MonoBehaviour
         {
             Hitbox DefendingHitbox = DefendingPlayer.GetComponentInChildren<Hitbox>();
             Transform hitLocation = DefendingHitbox.LegArmourPosition;
-            DefendingPlayer.TakeDamageOnGauge(gaugeDamageValue, ArmourCheck.ArmourPlacement.Legs, _attackType, (hitLocation.position + new Vector3(LegArmourPosition.position.x, (LegArmourPosition.position.y - 1), LegArmourPosition.position.z)));
-            if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.armour)
+            
+            if (DefendingPlayer.Blocking || DefendingPlayer.CrouchBlocking)
             {
-                Instantiate(armourHitParticle, transform.position, transform.rotation);
+                DefendingPlayer.TakeDamageOnGauge(0, ArmourCheck.ArmourPlacement.Legs, _attackType, (hitLocation.position + new Vector3(LegArmourPosition.position.x, (LegArmourPosition.position.y - 1), LegArmourPosition.position.z)));
+                Instantiate(blockingParticle, transform.position, transform.rotation);
             }
-            else if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.none)
+            else
             {
-                Instantiate(noArmourHitParticle, transform.position, transform.rotation);
+                DefendingPlayer.TakeDamageOnGauge(gaugeDamageValue, ArmourCheck.ArmourPlacement.Legs, _attackType, (hitLocation.position + new Vector3(LegArmourPosition.position.x, (LegArmourPosition.position.y - 1), LegArmourPosition.position.z)));
+                if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.armour)
+                {
+                    Instantiate(armourHitParticle, transform.position, transform.rotation);
+                }
+                else if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.none)
+                {
+                    Instantiate(noArmourHitParticle, transform.position, transform.rotation);
+                }
             }
+
             //Instantiate(dustHitParticle, transform.position, transform.rotation);
         }
         else if(hurtBox.BodyLocation == LocationTag.Head)
         {
             Hitbox DefendingHitbox = DefendingPlayer.GetComponentInChildren<Hitbox>();
             Transform hitLocation = DefendingHitbox.HeadArmourPosition;
-            DefendingPlayer.TakeDamageOnGauge(gaugeDamageValue, ArmourCheck.ArmourPlacement.Head, _attackType, hitLocation.position);
-            if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.armour)
+
+            if (DefendingPlayer.Blocking || DefendingPlayer.CrouchBlocking)
             {
-                Instantiate(armourHitParticle, transform.position, transform.rotation);
+
+                DefendingPlayer.TakeDamageOnGauge(0, ArmourCheck.ArmourPlacement.Head, _attackType, hitLocation.position);
+                Instantiate(blockingParticle, transform.position, transform.rotation);
             }
-            else if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.none)
+            else
             {
-                Instantiate(noArmourHitParticle, transform.position, transform.rotation);
+
+                DefendingPlayer.TakeDamageOnGauge(gaugeDamageValue, ArmourCheck.ArmourPlacement.Head, _attackType, hitLocation.position);
+                if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.armour)
+                {
+                    Instantiate(armourHitParticle, transform.position, transform.rotation);
+                }
+                else if (armourCheck.ChestArmourCondition == ArmourCheck.ArmourCondition.none)
+                {
+                    Instantiate(noArmourHitParticle, transform.position, transform.rotation);
+                }
             }
         }
     }
-    void ApplyDamageToPlayer(Player defendingPlayer, Player attackingPlayer, AttackType attackType)
+    void ApplyDamageToPlayer(Player defendingPlayer, Player attackingPlayer, AttackType attackType, ArmourCheck armourCheck)
     {
-        defendingPlayer.FreezeCharacterBeingAttacked(KnockBackStrength(), attackingPlayer.GetFacingDirection());
-        attackingPlayer.FreezeCharacterAttacking();
-        if(attackType == AttackType.Aerial)
+        if(defendingPlayer.Blocking || defendingPlayer.CrouchBlocking)
         {
-            defendingPlayer.MaxHitStun = defendingPlayer.aerialHitStun;
-            defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
-            defendingPlayer.HitStun = true;
-            FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
-            defendingPlayer.KnockDown();
-        }
-        else if (attackType == AttackType.Heavy)
-        {
-            defendingPlayer.MaxHitStun = defendingPlayer.heavyHitStun;
-            defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
-            defendingPlayer.HitStun = true;
-            FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
-            defendingPlayer.KnockDown();
-        }
-        else if(attackType == AttackType.ArmourBreak)
-        {
-            defendingPlayer.MaxHitStun = defendingPlayer.armourBreakHitStun;
-            defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
-            defendingPlayer.HitStun = true;
-            FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
-            defendingPlayer.KnockDown();
-        }
-        else if(attackType == AttackType.LegSweep)
-        {
-            defendingPlayer.MaxHitStun = defendingPlayer.sweepHitStun;
-            defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
-            defendingPlayer.HitStun = true;
-            FindObjectOfType<AudioManager>().Play(AudioManager.JABHITUNARMOURED);
-            defendingPlayer.KnockDown();
+            switch (armourCheck.AmountOfArmourLeft())
+            {
+                case 3:
+                    defendingPlayer.FreezeCharacterBeingAttacked(attackingPlayer.GetFacingDirection() * (new Vector3(20f, -10, 0)), attackingPlayer.GetFacingDirection());
+                    break;
+                case 2:
+                    defendingPlayer.FreezeCharacterBeingAttacked(attackingPlayer.GetFacingDirection() * (new Vector3(20f, -10, 0)), attackingPlayer.GetFacingDirection());
+                    break;
+                case 1:
+                    defendingPlayer.FreezeCharacterBeingAttacked(attackingPlayer.GetFacingDirection() * (new Vector3(10f, -10, 0)), attackingPlayer.GetFacingDirection());
+                    break;
+                case 0:
+                    defendingPlayer.FreezeCharacterBeingAttacked(attackingPlayer.GetFacingDirection() * (new Vector3(5f, -10, 0)), attackingPlayer.GetFacingDirection());
+                    break;
+            }
 
+            defendingPlayer.BlockKnockBack();
+
+            ResetMoveValues(defendingPlayer, attackingPlayer);
+            HideHitBoxes();
         }
-        else if(attackType == AttackType.Jab)
+        else if (!defendingPlayer.Blocking || !defendingPlayer.CrouchBlocking)
         {
-            defendingPlayer.MaxHitStun = defendingPlayer.jabHitStun;
-            defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
-            defendingPlayer.HitStun = true;
-            FindObjectOfType<AudioManager>().Play(AudioManager.JABHITUNARMOURED);
-            defendingPlayer.JabKnockBack();
+            defendingPlayer.FreezeCharacterBeingAttacked(KnockBackStrength(), attackingPlayer.GetFacingDirection());
+
+            attackingPlayer.FreezeCharacterAttacking();
+            if (attackType == AttackType.Aerial)
+            {
+                defendingPlayer.MaxHitStun = defendingPlayer.aerialHitStun;
+                defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
+                defendingPlayer.HitStun = true;
+                FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
+                defendingPlayer.KnockDown();
+            }
+            else if (attackType == AttackType.Heavy)
+            {
+                defendingPlayer.MaxHitStun = defendingPlayer.heavyHitStun;
+                defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
+                defendingPlayer.HitStun = true;
+                FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
+                defendingPlayer.KnockDown();
+            }
+            else if (attackType == AttackType.ArmourBreak)
+            {
+                defendingPlayer.MaxHitStun = defendingPlayer.armourBreakHitStun;
+                defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
+                defendingPlayer.HitStun = true;
+                FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYHITUNARMOURED);
+                defendingPlayer.KnockDown();
+            }
+            else if (attackType == AttackType.LegSweep)
+            {
+                defendingPlayer.MaxHitStun = defendingPlayer.sweepHitStun;
+                defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
+                defendingPlayer.HitStun = true;
+                FindObjectOfType<AudioManager>().Play(AudioManager.JABHITUNARMOURED);
+                defendingPlayer.KnockDown();
+
+            }
+            else if (attackType == AttackType.Jab)
+            {
+                defendingPlayer.MaxHitStun = defendingPlayer.jabHitStun;
+                defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
+                defendingPlayer.HitStun = true;
+                FindObjectOfType<AudioManager>().Play(AudioManager.JABHITUNARMOURED);
+                defendingPlayer.JabKnockBack();
+            }
+            ResetMoveValues(defendingPlayer, attackingPlayer);
+            HideHitBoxes();
         }
 
-        ResetMoveValues(defendingPlayer, attackingPlayer);
-        HideHitBoxes();
+
+
+
     }
 }

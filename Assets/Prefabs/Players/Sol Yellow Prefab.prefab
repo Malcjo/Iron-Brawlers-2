@@ -530,6 +530,8 @@ MonoBehaviour:
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
+  LastState: 
+  LastAnimation: 
   useHitSmearOnHeavy: 0
 --- !u!1 &658631414417313013
 GameObject:
@@ -3768,6 +3770,8 @@ MonoBehaviour:
   leftKnee: {fileID: 4955976208830267982}
   waist: {fileID: 1081166452312770748}
   head: {fileID: 1987514414496696148}
+  blockingParticle: {fileID: 3583048005112685821, guid: 0945253f9746d6a409f1a1fbedcad7d9,
+    type: 3}
   armourHitParticle: {fileID: 3583048005112685821, guid: de4fbf8abc163d046aab75c98015c5f7,
     type: 3}
   noArmourHitParticle: {fileID: 3583048005112685821, guid: 7f6b353b6dfaf224baecf0565c7b4338,

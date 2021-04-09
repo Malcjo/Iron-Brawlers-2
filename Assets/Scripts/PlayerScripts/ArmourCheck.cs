@@ -32,6 +32,7 @@ public class ArmourCheck : MonoBehaviour
     {
         ArmourStatsCheck();
         ChangeArmourInputs();
+        amountOfArmourLeft = AmountOfArmourLeft();
     }
     public bool HasArmour()
     {
@@ -44,6 +45,35 @@ public class ArmourCheck : MonoBehaviour
             return false;
         }
         return false;
+    }
+    [SerializeField] private int amountOfArmourLeft;
+    public int AmountOfArmourLeft()
+    {
+        if(HeadArmourCondiditon == ArmourCondition.armour 
+            && ChestArmourCondition == ArmourCondition.armour 
+            && LegArmourCondition == ArmourCondition.armour)
+        {
+            return 3;
+        }
+        else if (HeadArmourCondiditon == ArmourCondition.armour
+            && ChestArmourCondition == ArmourCondition.armour
+            && LegArmourCondition == ArmourCondition.none)
+        {
+            return 2;
+        }
+        else if (HeadArmourCondiditon == ArmourCondition.armour
+            && ChestArmourCondition == ArmourCondition.none
+            && LegArmourCondition == ArmourCondition.none)
+        {
+            return 1;
+        }
+        else if (HeadArmourCondiditon == ArmourCondition.none
+            && ChestArmourCondition == ArmourCondition.none
+            && LegArmourCondition == ArmourCondition.none)
+        {
+            return 0;
+        }
+        return 0;
     }
     void ArmourStatsCheck()
     {

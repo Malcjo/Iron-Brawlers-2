@@ -601,6 +601,10 @@ public class Player : MonoBehaviour
     {
         playerActions.HitKnockBack();
     }
+    public void BlockKnockBack()
+    {
+        playerActions.BlockKnockback();
+    }
 
     public void Damage(Vector3 Power)
     {
@@ -637,6 +641,7 @@ public class Player : MonoBehaviour
     }
     public void TakeDamageOnGauge(float amount, ArmourCheck.ArmourPlacement Placement, AttackType attackType, Vector3 _hitPosiiton)
     {
+
         gaugeManager.TakeDamage(amount, Placement, this, attackType, _hitPosiiton);
     }
     public void PlayArmourHitSound(bool Armour, AttackType attackType)

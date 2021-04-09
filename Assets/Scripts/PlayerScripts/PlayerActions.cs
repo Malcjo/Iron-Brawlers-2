@@ -36,6 +36,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float NeutralAerialCounter;
     private float MaxNeutralAerialTime;
 
+    [SerializeField] private float BlockCounter;
+    private float MaxBlocktime = 0.5f;
 
 
 
@@ -227,6 +229,7 @@ public class PlayerActions : MonoBehaviour
         NeutralAerialCounter = MaxNeutralAerialTime;
         MaxSweepTime = sweepVariables.CancelTime;
         SweepCounter = MaxSweepTime;
+        BlockCounter = MaxBlocktime;
     }
 
     private void Awake()
@@ -264,6 +267,7 @@ public class PlayerActions : MonoBehaviour
         HeavyCounter += 1 * Time.deltaTime;
         SweepCounter += 1 * Time.deltaTime;
         NeutralAerialCounter += 1 * Time.deltaTime;
+        BlockCounter += 1 * Time.deltaTime;
 
         dashCounter += 1 * Time.deltaTime;
         if(dashCounter >= dashVariables.MaxDashTime)
@@ -975,6 +979,21 @@ public class PlayerActions : MonoBehaviour
             }
         }
         self.HitStun = false;
+        self.SetState(new IdleState());
+    }
+    public void BlockKnockback()
+    {
+        StartCoroutine(_BlockKnockBack());
+    }
+    private IEnumerator _BlockKnockBack()
+    {
+        BlockCounter = 0;
+        self.SetState(new BusyState());
+        while (BlockCounter < MaxBlocktime)
+        {
+            yield return null;
+        }
+        self.CanActOutOf = true;
         self.SetState(new IdleState());
     }
     public void knockDown()
