@@ -397,7 +397,7 @@ MonoBehaviour:
   DashParticle: {fileID: 7082514023348002501}
   RollParticle: {fileID: 0}
   canDashParitcle: {fileID: 0}
-  idleCrossfade: 0.15
+  idleCrossfade: 0.02
   runCrossfade: 0.02
   jabCrossfade: 0.02
   heavyCrossfade: 0.02

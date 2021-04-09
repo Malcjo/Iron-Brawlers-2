@@ -90,9 +90,13 @@ public class Raycasts : MonoBehaviour
         if(debugModeOn == true)
         {
             Debug.DrawRay(rayCastOrigin, Vector3.down * groundCheckRayLength, Color.red);
+            Debug.DrawRay(rayCastOrigin + new Vector3(0.5f, rayCastOrigin.y, rayCastOrigin.z), Vector3.down * groundCheckRayLength, Color.red);
+            Debug.DrawRay(rayCastOrigin + new Vector3(-0.5f, rayCastOrigin.y, rayCastOrigin.z), Vector3.down * groundCheckRayLength, Color.red);
         }
 
-        if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, groundCheckRayLength, groundMask))
+        if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, groundCheckRayLength, groundMask) 
+            || Physics.Raycast(rayCastOrigin + new Vector3(0.5f, rayCastOrigin.y, rayCastOrigin.z), Vector3.down, out hit, groundCheckRayLength, groundMask)
+            || Physics.Raycast(rayCastOrigin + new Vector3(-0.5f, rayCastOrigin.y, rayCastOrigin.z), Vector3.down, out hit, groundCheckRayLength, groundMask))
         {
             player.RaycastGroundCheck(hit);
         }

@@ -861,12 +861,23 @@ public class Player : MonoBehaviour
                 }
                 LandOnGround(hit);
             }
+            AdjustPlayerOnGround(hit);
         }
         else if(!hit.collider.CompareTag("Ground") || (!hit.collider.CompareTag("Platform")))
         {
+
             //_gravityOn = true;
         }
 
+    }
+    private void AdjustPlayerOnGround(RaycastHit hit)
+    {
+        distanceToGround = hit.distance;
+        if (distanceToGround >= 0 && distanceToGround <= 0.5f)
+        {
+            rb.MovePosition(new Vector3(hit.point.x, hit.point.y, 0));
+        }
+        distanceToGround = hit.distance;
     }
     public void SetJumpIndexTo1()
     {
@@ -875,17 +886,13 @@ public class Player : MonoBehaviour
     private void LandOnGround(RaycastHit hit)
     {
         _gravityOn = false;
-        distanceToGround = hit.distance;
+        AdjustPlayerOnGround(hit);
         rb.velocity = new Vector3(rb.velocity.x, 0, 0);
         //if (distanceToGround >= 0 && distanceToGround <= 0.37f)
         //{
         //    rb.MovePosition(new Vector3(hit.point.x, hit.point.y, 0));
         //}
-        if (distanceToGround >= 0 && distanceToGround <= 0.45f)
-        {
-            rb.MovePosition(new Vector3(hit.point.x, hit.point.y, 0));
-        }
-        distanceToGround = hit.distance;
+
         _currentVerticalState = VState.grounded;
 
         canDoubleJump = true;

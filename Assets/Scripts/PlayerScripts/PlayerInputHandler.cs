@@ -129,9 +129,13 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void SetAllInputsToZero()
     {
+        Debug.Log("inputs to zero");
         HorizontalValue = 0;
         JumpInputQueued = false;
         AttackInputQueued = false;
+        heavyQueued = false;
+        blockInputHeld = false;
+        CrouchInputHeld = false;
 
     }
     public bool CanControlCharacters;
@@ -156,6 +160,8 @@ public class PlayerInputHandler : MonoBehaviour
     {
         playerCharacter = Instantiate(playerPrefab);
         playerCharacter.SetActive(true);
+        SetAllInputsToZero();
+        playerCharacter.GetComponent<Player>().SetState(new IdleState());
         GameManager.instance.AddPlayerToList(playerCharacter);
         cameraScript = GameManager.instance.GetCameraScript();
         cameraScript.AddPlayers(playerCharacter);
@@ -627,7 +633,10 @@ public class PlayerInputHandler : MonoBehaviour
                     {
                         canAct = false;
                         GameManager.instance.SetLevelNumber((int)level + 1);
+                        SetAllInputsToZero();
+                        ChooseLevel = false;
                         GameManager.instance.StartGame = true;
+
                     }
                 }
             }

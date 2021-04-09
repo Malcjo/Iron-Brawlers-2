@@ -786,13 +786,7 @@ public class GameManager : MonoBehaviour
             {
                 FightUI.SetActive(false);
                 InRoundStarter = false;
-                if (players.Count > 1)
-                {
-                    bindToPlayer.players[1].GetComponent<PlayerInputHandler>().CanControlCharacters = true;
-                    bindToPlayer.players[1].GetComponent<PlayerInputHandler>().primed = true;
-                }
-                bindToPlayer.players[0].GetComponent<PlayerInputHandler>().CanControlCharacters = true;
-                bindToPlayer.players[0].GetComponent<PlayerInputHandler>().primed = true;
+                ResetPlayersInputs();
                 if (players.Count > 1)
                 {
                     bindToPlayer.players[1].gameObject.SetActive(true);
@@ -803,6 +797,19 @@ public class GameManager : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public void ResetPlayersInputs()
+    {
+        if (players.Count > 1)
+        {
+            bindToPlayer.players[1].GetComponent<PlayerInputHandler>().CanControlCharacters = true;
+            bindToPlayer.players[1].GetComponent<PlayerInputHandler>().primed = true;
+            bindToPlayer.players[1].GetComponent<PlayerInputHandler>().SetAllInputsToZero();
+        }
+        bindToPlayer.players[0].GetComponent<PlayerInputHandler>().CanControlCharacters = true;
+        bindToPlayer.players[0].GetComponent<PlayerInputHandler>().primed = true;
+        bindToPlayer.players[0].GetComponent<PlayerInputHandler>().SetAllInputsToZero();
     }
     private void TrackPlayerRounds()
     {

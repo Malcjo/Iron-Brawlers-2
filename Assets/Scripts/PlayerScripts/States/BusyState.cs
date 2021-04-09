@@ -115,6 +115,16 @@ public class BusyState : PlayerState
 
                     actions.Jab();
                     self.SetState(new BusyState());
+                    //actions.Idle();
+                    //self.Moving = false;
+                    //if (self.SlideValue >= self.maxSliderValue)
+                    //{
+                    //    self.InteruptSliderSetToZero = false;
+                    //}
+                    //else
+                    //{
+                    //    self.SlideValue = 0;
+                    //}
 
                 }
                 if (MovementCheck(input.horizontalInput))

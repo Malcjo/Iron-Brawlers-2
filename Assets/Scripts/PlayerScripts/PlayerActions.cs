@@ -347,7 +347,7 @@ public class PlayerActions : MonoBehaviour
                 }
                 yield return null;
             }
-            TransitionToAnimation(true, IDLEKEY, idleCrossfade);
+            //TransitionToAnimation(true, IDLEKEY, idleCrossfade);
             self.SetState(new IdleState());
         }
 
@@ -395,6 +395,7 @@ public class PlayerActions : MonoBehaviour
                 self.CanActOutOf = true;
             }
         }
+        //TransitionToAnimation(false, IDLEKEY, idleCrossfade);
         self.SetState(new IdleState());
     }
 
@@ -575,7 +576,7 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator _ArmourBreak()
     {
-        if (armourCheck.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none && armourCheck.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none)
+        if (armourCheck.GetLegArmourCondition() == ArmourCheck.ArmourCondition.none && armourCheck.GetChestArmourCondiditon() == ArmourCheck.ArmourCondition.none && armourCheck.GetHeadArmourCondition() == ArmourCheck.ArmourCondition.none)
         {
             RevertBackToIdleState();
             yield return null;
@@ -641,18 +642,12 @@ public class PlayerActions : MonoBehaviour
         self.SetState(new IdleState());
     }
 
-    private string LastState;
+    [SerializeField] private string LastState;
+    [SerializeField] private string LastAnimation;
     [SerializeField]private bool useHitSmearOnHeavy;
-    private void TransitionToAnimation(string animation, float time,int layer, float nornalizedTime)
-    {
-        if (LastState != animation)
-        {
-            anim.CrossFade(animation, time,layer, nornalizedTime);
-            LastState = animation;
-        }
-    }
     private void TransitionToAnimation(bool canOverride, string animation, float time)
     {
+
         if (!canOverride)
         {
             if (LastState != animation)
@@ -665,7 +660,7 @@ public class PlayerActions : MonoBehaviour
         {
             anim.CrossFade(animation, time, -1, 0);
         }
-
+        LastAnimation = animation;
     }
     public void Running()
     {
@@ -681,8 +676,16 @@ public class PlayerActions : MonoBehaviour
         }
         else
         {
-            anim.speed = 1;
-            TransitionToAnimation(false, IDLEKEY, idleCrossfade);
+            if(!anim.GetCurrentAnimatorStateInfo(0).IsName(IDLEKEY))
+            {
+                anim.speed = 1;
+                TransitionToAnimation(false, IDLEKEY, idleCrossfade);
+                self.SetState(new IdleState());
+            }
+            else
+            {
+                self.SetState(new IdleState());
+            }
         }
 
     }
@@ -994,7 +997,6 @@ public class PlayerActions : MonoBehaviour
         yield return null;
         while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
-            anim.speed = 3f;
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.5f)
             {
                 yield return null;
@@ -1014,7 +1016,6 @@ public class PlayerActions : MonoBehaviour
     {
         self.HitStun = true;
         self.CanTurn = false;
-        anim.speed = 3;
         TransitionToAnimation(false, GETTINGUPKEY, getUpCrossfade);
         //anim.Play("GETTING_UP_NORMAL");
 

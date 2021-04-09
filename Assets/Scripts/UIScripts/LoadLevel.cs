@@ -63,6 +63,7 @@ public class LoadLevel : MonoBehaviour
                 pressAnyButtonText.SetActive(true);
                 if (Input.anyKey)
                 {
+                    GameManager.instance.ResetPlayersInputs();
                     if(musicFadeAnim != null)
                     {
                         musicFadeAnim.SetTrigger("FadeOut");

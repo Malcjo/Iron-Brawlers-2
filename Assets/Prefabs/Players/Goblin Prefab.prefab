@@ -744,7 +744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 0
   Location: {fileID: 4978630946425699683}
   Radius: 1
 --- !u!1 &1117774089169091593
@@ -1979,7 +1979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 2
   Location: {fileID: 4092204009917520403}
   Radius: 1
 --- !u!1 &2038307836040438874
@@ -3798,7 +3798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 2
   Location: {fileID: 4092204009917520403}
   Radius: 1
 --- !u!1 &3552564823834045286
@@ -3895,7 +3895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 2
   Location: {fileID: 4092204009917520403}
   Radius: 1
 --- !u!1 &3570100288923338221
@@ -4854,7 +4854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 2
   Location: {fileID: 4092204009917520403}
   Radius: 1
 --- !u!1 &4269254085737475320
@@ -5487,7 +5487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 2
   Location: {fileID: 4092204009917520403}
   Radius: 1
 --- !u!1 &4689140881443009172
@@ -6491,7 +6491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 2
   Location: {fileID: 4092204009917520403}
   Radius: 1
 --- !u!1 &6426956569413657307
@@ -6705,7 +6705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 2
   Location: {fileID: 4092204009917520403}
   Radius: 1
 --- !u!1 &6550056922036465571
@@ -7190,7 +7190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 2
   Location: {fileID: 4092204009917520403}
   Radius: 1
 --- !u!1 &7216452133410473006
@@ -7861,7 +7861,7 @@ MonoBehaviour:
   currentGauge: 0
   maxHealth: 10
   noHealth: 0
-  armourBreakingPoint: 0
+  armourBreakingPoint: 3
   playerUI: {fileID: 9011973057594521544}
   self: {fileID: 6920566488468720987}
   WaitTime: 0
@@ -8283,7 +8283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 2
   Location: {fileID: 4092204009917520403}
   Radius: 1
 --- !u!1 &8184117132460154516
@@ -8930,7 +8930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 2
   Location: {fileID: 4092204009917520403}
   Radius: 1
 --- !u!1 &8723185790200083656
@@ -9184,7 +9184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda146b4166e10c46a88cc09241668aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyLocation: 1
+  BodyLocation: 2
   Location: {fileID: 6625709841544977726}
   Radius: 1
 --- !u!1 &9131636842414562424
