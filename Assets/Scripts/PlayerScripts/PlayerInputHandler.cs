@@ -523,12 +523,13 @@ public class PlayerInputHandler : MonoBehaviour
                                 GameManager.instance.player1Character1PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character1BeenPicked == true)
                                 {
-                                    Animator anim = GameManager.instance.player1SolAltAnimated.GetComponentInChildren<Animator>();
-                                    anim.SetTrigger("Emote");
                                     GameManager.instance.player1SolAltAnimated.SetActive(true);
                                     GameManager.instance.player1SolAltPortrait.SetActive(true);
 
                                     GameManager.instance.ChangeCharacterModelIfSameIsChosen(1, solAlt, 0);
+                                    Animator anim = GameManager.instance.player1SolAltAnimated.GetComponentInChildren<Animator>();
+                                    anim.SetTrigger("Emote");
+
                                 }
                                 else if (GameManager.instance.Character1BeenPicked == false)
                                 {
