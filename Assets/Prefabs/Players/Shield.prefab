@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5790508790271936042}
   - component: {fileID: 8626911551686669024}
   - component: {fileID: 5383430208526859550}
+  - component: {fileID: 4663685508961738593}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -101,3 +102,14 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!210 &4663685508961738593
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834027122750444341}
+  m_Enabled: 1
+  m_SortingLayerID: 1260678721
+  m_SortingLayer: 2
+  m_SortingOrder: 0
