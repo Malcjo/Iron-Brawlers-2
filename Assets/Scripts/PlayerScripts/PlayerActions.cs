@@ -396,33 +396,6 @@ public class PlayerActions : MonoBehaviour
     public void Jab() 
     {
         StartCoroutine(JabAction());
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName(JABKEY))
-        {
-            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= heavyVariables.HitBoxTurnOff)
-            {
-                hitboxManager.TurnOffHitBox();
-            }
-            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= heavyVariables.HitBoxTurnOn && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= heavyVariables.HitBoxTurnOff && !self.HaveHitPlayer)
-            {
-                hitboxManager.TurnOnHitBox();
-            }
-            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= heavyVariables.CancelTime)
-            {
-                self.CanActOutOf = true;
-                self.HaveHitPlayer = false;
-            }
-            if (self.ActionTriggered)
-            {
-                hitboxManager.TurnOffHitBox();
-            }
-            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
-            {
-                if (anim.GetCurrentAnimatorStateInfo(0).IsName(HEAVYKEY))
-                {
-                    self.SetState(new IdleState());
-                }
-            }
-        }
     }
 
     private IEnumerator JabAction()
@@ -471,6 +444,7 @@ public class PlayerActions : MonoBehaviour
                     {
                         if (anim.GetCurrentAnimatorStateInfo(0).IsName(JABKEY))
                         {
+                            hitboxManager.TurnOffHitBox();
                             self.SetState(new IdleState());
                         }
                     }
@@ -480,7 +454,6 @@ public class PlayerActions : MonoBehaviour
             self.CanActOutOf = true;
             if (anim.GetCurrentAnimatorStateInfo(0).IsName(JABKEY))
             {
-                Debug.Log("turn off hitbox from animation finishing");
                 hitboxManager.TurnOffHitBox();
             }
         }
