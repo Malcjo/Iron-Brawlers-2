@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9061040472435741549}
   - component: {fileID: 6226945284479443265}
   - component: {fileID: 1353945808457000069}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4843,7 +4843,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1260678721
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 20
   m_RenderMode: 0
   m_SortMode: 0
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 520484138419107845}
   - component: {fileID: 4114774353265101825}
   - component: {fileID: 7474459260188681210}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9713,7 +9713,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1260678721
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 20
   m_RenderMode: 0
   m_SortMode: 0
@@ -9752,7 +9752,7 @@ GameObject:
   - component: {fileID: 3583048005112685821}
   - component: {fileID: 3583048005112685820}
   - component: {fileID: 7558782774527425638}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: BreakingArmorPiece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14588,7 +14588,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1260678721
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 2
@@ -14687,7 +14687,7 @@ GameObject:
   - component: {fileID: 1029094497273088997}
   - component: {fileID: 5753690648378837329}
   - component: {fileID: 4756571756923854281}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19519,7 +19519,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1260678721
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -19557,7 +19557,7 @@ GameObject:
   - component: {fileID: 5857435794038866856}
   - component: {fileID: 4050753705522023131}
   - component: {fileID: 1530271783237569048}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24389,7 +24389,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1260678721
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 20
   m_RenderMode: 0
   m_SortMode: 0
