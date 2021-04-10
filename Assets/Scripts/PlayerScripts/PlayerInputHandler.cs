@@ -176,7 +176,7 @@ public class PlayerInputHandler : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         canAct = true;
     }
-    [SerializeField] private bool ChooseLevel = false;
+    [SerializeField] public bool ChooseLevel = false;
 
     public void SetInput(PlayerInput input)
     {

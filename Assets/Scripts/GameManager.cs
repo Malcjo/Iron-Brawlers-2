@@ -280,22 +280,27 @@ public class GameManager : MonoBehaviour
         Animator _display2 = Display2.GetComponent<Animator>();
         Animator _display3 = Display3.GetComponent<Animator>();
 
+        StopCoroutine(PlayerDisplay1Animation(_display1));
+        StopCoroutine(PlayerDisplay2Animation(_display2));
+        StopCoroutine(PlayerDisplay3Animation(_display3));
 
+        _display1.Play("CharacterIdle");
+        _display2.Play("CharacterIdle");
+        _display3.Play("CharacterIdle");
+
+        LevelTransitioned = false;
+        ChooseYourCharacterText.SetActive(true);
+        ChooseYourStageText.SetActive(false);
+        LevelDisplay1Obj.SetActive(false);
+        LevelDisplay2Obj.SetActive(true);
+
+        level1DisplayImage.SetActive(true);
+        level1HighlightImage.SetActive(false);
+        level2DisplayImage.SetActive(false);
+        level2HighlightImage.SetActive(true);
         if (LevelTransitioned)
         {
-            _display1.Play("CharacterIdle");
-            _display2.Play("CharacterIdle");
-            _display3.Play("CharacterIdle");
-            LevelTransitioned = false;
-            ChooseYourCharacterText.SetActive(true);
-            ChooseYourStageText.SetActive(false);
-            LevelDisplay1Obj.SetActive(false);
-            LevelDisplay2Obj.SetActive(true);
 
-            level1DisplayImage.SetActive(true);
-            level1HighlightImage.SetActive(false);
-            level2DisplayImage.SetActive(false);
-            level2HighlightImage.SetActive(true);
         }
     }
     IEnumerator PlayerDisplay1Animation(Animator anim)
