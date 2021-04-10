@@ -452,10 +452,7 @@ public class PlayerActions : MonoBehaviour
                 yield return null;
             }
             self.CanActOutOf = true;
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName(JABKEY))
-            {
-                hitboxManager.TurnOffHitBox();
-            }
+            hitboxManager.TurnOffHitBox();
         }
         //TransitionToAnimation(false, IDLEKEY, idleCrossfade);
         self.SetState(new IdleState());
