@@ -396,7 +396,7 @@ public class PlayerActions : MonoBehaviour
     public void Jab() 
     {
         StartCoroutine(JabAction());
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName())
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName(JABKEY))
         {
             if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= heavyVariables.HitBoxTurnOff)
             {
