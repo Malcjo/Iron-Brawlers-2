@@ -279,7 +279,7 @@ public class Hitbox : MonoBehaviour
                             tempAttackingPlayer.GravityOn = false;
                             DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
                             tempDefendingPlayer.HideHitBoxes();
-                            player.HaveHitPlayer = true;
+                            tempAttackingPlayer.HaveHitPlayer = true;
                         }
                         else if (_attackType == AttackType.LegSweep)
                         {
@@ -288,7 +288,7 @@ public class Hitbox : MonoBehaviour
                             tempAttackingPlayer.GravityOn = false;
                             DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
                             tempDefendingPlayer.HideHitBoxes();
-                            player.HaveHitPlayer = true;
+                            tempAttackingPlayer.HaveHitPlayer = true;
                             //tempDefendingPlayer.ResetCharacterMaterialToStandard();
                         }
                     }
@@ -303,7 +303,7 @@ public class Hitbox : MonoBehaviour
                             tempAttackingPlayer.GravityOn = false;
                             DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
                             tempDefendingPlayer.HideHitBoxes();
-                            player.HaveHitPlayer = true;
+                            tempAttackingPlayer.HaveHitPlayer = true;
                         }
                         else if (_attackType != AttackType.LegSweep)
                         {
@@ -312,7 +312,7 @@ public class Hitbox : MonoBehaviour
                             tempAttackingPlayer.GravityOn = false;
                             DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
                             tempDefendingPlayer.HideHitBoxes();
-                            player.HaveHitPlayer = true;
+                            tempAttackingPlayer.HaveHitPlayer = true;
                         }
                     }
                 }
@@ -323,11 +323,11 @@ public class Hitbox : MonoBehaviour
                     tempAttackingPlayer.GravityOn = false;
                     DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
                     tempDefendingPlayer.HideHitBoxes();
-                    player.HaveHitPlayer = true;
+                    tempAttackingPlayer.HaveHitPlayer = true;
                 }
             }
-            
-            player.HaveHitPlayer = true;
+
+            tempAttackingPlayer.HaveHitPlayer = true;
         }
     }
     private void DamagingPlayer(Player DefendingPlayer, Player attackingPlayer, ArmourCheck armourCheck, HurtBox hurtBox)
