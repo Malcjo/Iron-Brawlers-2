@@ -63,9 +63,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpForce = 9;
     private float hitStunTimer;
     public float jabHitStun, sweepHitStun, heavyHitStun, aerialHitStun, armourBreakHitStun;
-    public float HitStunTimer { get{ return hitStunTimer; } set { hitStunTimer = value; } }
+    public float HitStunTimer { get { return hitStunTimer; } set { hitStunTimer = value; } }
     [SerializeField] private float maxHitStunTime;
-    public float MaxHitStun { get{ return maxHitStunTime; }set  { maxHitStunTime = value; } }
+    public float MaxHitStun { get { return maxHitStunTime; } set { maxHitStunTime = value; } }
     [SerializeField] private bool _hitStun;
 
     [SerializeField] private bool _blocking;
@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
     private bool _canBlock;
     [SerializeField] private bool _canMove;
     [SerializeField] private bool crouchBlocking;
-    public bool CrouchBlocking {get { return crouchBlocking; } set { crouchBlocking = value; } }
+    public bool CrouchBlocking { get { return crouchBlocking; } set { crouchBlocking = value; } }
 
     private bool canAirMove;
 
@@ -111,9 +111,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float _SlideFriction;
     public float SlideFricton { get { return _SlideFriction; } }
     public VState VerticalState { get { return _currentVerticalState; } set { _currentVerticalState = value; } }
-    //public VState PreviousVerticalState { get { return _previousVerticalState; } set { _previousVerticalState = value; } }
+    //public VState PreviousVerticalState { get { return _previousVerticalState; } set { _previousVerticalState = value; } } 
     private bool _crouching;
-    public bool Crouching {get { return _crouching; } set { _crouching = value; } }
+    public bool Crouching { get { return _crouching; } set { _crouching = value; } }
 
     [SerializeField] private float attackedFreezeCounter;
     [SerializeField] private float MaxFreezeCounter;
@@ -140,8 +140,6 @@ public class Player : MonoBehaviour
     public bool primed;
     public bool inAction;
     public bool CanActOutOf;
-    public bool ActionTriggered;
-    public bool HaveHitPlayer;
     public void SetUpInputDetectionScript(PlayerInputHandler _playerInputDetection)
     {
         playerInputHandler = _playerInputDetection;
@@ -151,10 +149,10 @@ public class Player : MonoBehaviour
     {
         SpawnPoint = _spawnPoint;
     }
-    //public int GetPlayerIndex()
-    //{
-    //    return (int)playerNumber;
-    //}
+    //public int GetPlayerIndex() 
+    //{ 
+    //    return (int)playerNumber; 
+    //} 
     public enum Wall
     {
         leftWall,
@@ -167,7 +165,7 @@ public class Player : MonoBehaviour
         jumping,
         falling
     }
-    //Turn back button UI back on later
+    //Turn back button UI back on later 
     void Awake()
     {
         moveCharacterOnXCounter = 5;
@@ -179,8 +177,8 @@ public class Player : MonoBehaviour
         _canMove = true;
     }
     [SerializeField] private bool canDoAttack = false;
-    public bool CanDoAttack { get { return canDoAttack; } set { canDoAttack = value;  } }
-    public float MoveCharacterCounter {set { moveCharacterOnXCounter = value; } }
+    public bool CanDoAttack { get { return canDoAttack; } set { canDoAttack = value; } }
+    public float MoveCharacterCounter { set { moveCharacterOnXCounter = value; } }
     private void Start()
     {
         primed = true;
@@ -206,7 +204,7 @@ public class Player : MonoBehaviour
     {
         moveCharacterOnXCounter += 3 * Time.deltaTime;
         moveCharacterOnYCounter += 1 * Time.deltaTime;
-        if(moveCharacterOnXCounter > moveCharacterOnXMaxCounter)
+        if (moveCharacterOnXCounter > moveCharacterOnXMaxCounter)
         {
             moveCharacterOnXStrength = Mathf.Lerp(moveCharacterOnXStrength, 0, 2);
         }
@@ -232,7 +230,7 @@ public class Player : MonoBehaviour
         Delaycounter -= 1 * Time.deltaTime;
         if (Delaycounter <= 0)
         {
-            if(_moving == false)
+            if (_moving == false)
             {
                 _SlideValue = 0;
             }
@@ -245,11 +243,11 @@ public class Player : MonoBehaviour
     public bool InteruptSliderSetToZero { get { return _interuptSliderSetToZero; } set { _interuptSliderSetToZero = value; } }
     public void SetSlideValueToZero()
     {
-        if(_moving == true)
+        if (_moving == true)
         {
             return;
         }
-        else if(_moving == false)
+        else if (_moving == false)
         {
             DelaySliderDecrease();
         }
@@ -257,7 +255,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float Delaycounter;
     private void DelaySliderDecrease()
     {
-        if(_SlideValue == maxSliderValue)
+        if (_SlideValue == maxSliderValue)
         {
             Delaycounter = 0.5f;
         }
@@ -285,7 +283,7 @@ public class Player : MonoBehaviour
         moveCharacterOnXCounter = 0;
         moveCharacterOnXStrength = strengthValue;
     }
-    public void SetMoveCharacterOnYStrength(float strengthValue) 
+    public void SetMoveCharacterOnYStrength(float strengthValue)
     {
         moveCharacterOnYCounter = 0;
         moveCharacterOnYStrength = strengthValue;
@@ -300,7 +298,7 @@ public class Player : MonoBehaviour
         Debug.Log("Move Character On Y");
         rb.velocity = new Vector3(rb.velocity.x, moveCharacterOnYStrength, 0);
     }
-    public void changeHeavyMoveValue(AttackType attackType ,float value)
+    public void changeHeavyMoveValue(AttackType attackType, float value)
     {
         switch (attackType)
         {
@@ -320,16 +318,16 @@ public class Player : MonoBehaviour
 
 
 
-    public float MoveCharacterOnXMaxValue {set { moveCharacterOnXMaxCounter = value; } }
-    public float MoveCharacterOnYMaxValue { set{ moveCharacterOnYMaxCounter = value; } }
+    public float MoveCharacterOnXMaxValue { set { moveCharacterOnXMaxCounter = value; } }
+    public float MoveCharacterOnYMaxValue { set { moveCharacterOnYMaxCounter = value; } }
     private void FixedUpdate()
     {
-        if(moveCharacterOnXCounter < moveCharacterOnXMaxCounter)
+        if (moveCharacterOnXCounter < moveCharacterOnXMaxCounter)
         {
             MoveCharacterOnX();
 
         }
-        if(moveCharacterOnYCounter < moveCharacterOnYMaxCounter)
+        if (moveCharacterOnYCounter < moveCharacterOnYMaxCounter)
         {
             MoveCharacterOnY();
         }
@@ -342,7 +340,7 @@ public class Player : MonoBehaviour
     }
     private void CallRunState()
     {
-        if(MyState != null)
+        if (MyState != null)
         {
             MyState.RunState
         (
@@ -352,33 +350,33 @@ public class Player : MonoBehaviour
         armourCheck,
         new PlayerState.InputState()
         {
-        horizontalInput = playerInputHandler.GetHorizontal(),
-        attackInput = playerInputHandler.ShouldAttack(),
-        jumpInput = playerInputHandler.ShouldJump(),
-        crouchInput = playerInputHandler.ShouldCrouch(),
-        armourBreakInput = playerInputHandler.ShouldArmourBreak(),
-        blockInput = playerInputHandler.ShouldBlock(),
-        heavyInput = playerInputHandler.ShouldHeavy(),
-        upDirectionInput = playerInputHandler.ShouldUpDirection(),
-        rightTriggerInput = playerInputHandler.ShouldRightTrigger(),
-        leftTriggerInput = playerInputHandler.ShouldLeftTrigger(),
-        rightBumperInput = playerInputHandler.ShouldRightBumper(),
-        leftBumperInput = playerInputHandler.ShouldLeftBumper()
-        
+            horizontalInput = playerInputHandler.GetHorizontal(),
+            attackInput = playerInputHandler.ShouldAttack(),
+            jumpInput = playerInputHandler.ShouldJump(),
+            crouchInput = playerInputHandler.ShouldCrouch(),
+            armourBreakInput = playerInputHandler.ShouldArmourBreak(),
+            blockInput = playerInputHandler.ShouldBlock(),
+            heavyInput = playerInputHandler.ShouldHeavy(),
+            upDirectionInput = playerInputHandler.ShouldUpDirection(),
+            rightTriggerInput = playerInputHandler.ShouldRightTrigger(),
+            leftTriggerInput = playerInputHandler.ShouldLeftTrigger(),
+            rightBumperInput = playerInputHandler.ShouldRightBumper(),
+            leftBumperInput = playerInputHandler.ShouldLeftBumper()
+
         },
         new PlayerState.Calculating()
         {
-        jumpForce = JumpForceCalculator(),
-        friction = friction,
-        characterSpeed = SetPlayerSpeed(),
-        overrideForce = overrideForce,
-        gravityValue = _gravityOn ? totalGravityValue : 0
+            jumpForce = JumpForceCalculator(),
+            friction = friction,
+            characterSpeed = SetPlayerSpeed(),
+            overrideForce = overrideForce,
+            gravityValue = _gravityOn ? totalGravityValue : 0
         }
         );
         }
 
     }
-    #region State Machine
+    #region State Machine 
     private void CharacterStates()
     {
         JumpingOrFallingTracker();
@@ -413,7 +411,6 @@ public class Player : MonoBehaviour
     }
     public void HideHitBoxes()
     {
-        Debug.Log("Hide hitbox from player");
         hitbox.gameObject.GetComponent<Hitbox>().HideHitBoxes();
     }
     private IEnumerator StopCharacter()
@@ -430,16 +427,16 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0, 0);
     }
 
-    #region Jumping
-    //void DoubleJumpCheck()
-    //{
-    //    if (canDoubleJump == true)
-    //    {
-    //        _canTurn = true;
-    //        playerActions.DoubleJump(true);
-    //        canDoubleJump = false;
-    //    }
-    //}
+    #region Jumping 
+    //void DoubleJumpCheck() 
+    //{ 
+    //    if (canDoubleJump == true) 
+    //    { 
+    //        _canTurn = true; 
+    //        playerActions.DoubleJump(true); 
+    //        canDoubleJump = false; 
+    //    } 
+    //} 
 
     public void MinusOneToJumpIndex()
     {
@@ -449,24 +446,24 @@ public class Player : MonoBehaviour
     {
         _currentJumpIndex++;
     }
-    //void MinusJumpIndexWhenNotOnGround()
-    //{
-    //    if(_currentJumpIndex == 0)
-    //    {
-    //        _currentJumpIndex = 1;
-    //    }
-    //}
+    //void MinusJumpIndexWhenNotOnGround() 
+    //{ 
+    //    if(_currentJumpIndex == 0) 
+    //    { 
+    //        _currentJumpIndex = 1; 
+    //    } 
+    //} 
     #endregion
     public void ResetBlocking()
     {
         playerActions.ExitBlock();
     }
 
-    //public void ResetCharacterMaterialToStandard()
-    //{
-    //    playerActions.ResetMaterial();
-    //}
-    #region Gravity methods
+    //public void ResetCharacterMaterialToStandard() 
+    //{ 
+    //    playerActions.ResetMaterial(); 
+    //} 
+    #region Gravity methods 
     void TerminalVelocity()
     {
         if (rb.velocity.y < -10)
@@ -498,13 +495,13 @@ public class Player : MonoBehaviour
 
         if (_currentVerticalState != VState.grounded)
         {
-            if (_currentVerticalState == VState.falling) 
+            if (_currentVerticalState == VState.falling)
             {
                 gravityValue = 10;
             }
             else if (_currentVerticalState == VState.jumping)
             {
-                if(gravityValue > 10)
+                if (gravityValue > 10)
                 {
                     gravityValue = 10;
                 }
@@ -515,12 +512,12 @@ public class Player : MonoBehaviour
         }
         else if (_currentVerticalState == VState.grounded && MyState.StickToGround())
         {
-            //rb.velocity = new Vector3(rb.velocity.x, 0, 0);
-            //gravityValue = 0;
+            //rb.velocity = new Vector3(rb.velocity.x, 0, 0); 
+            //gravityValue = 0; 
         }
     }
     #endregion
-    #region ReduceValues
+    #region ReduceValues 
     void ReduceCounter()
     {
         ReduceHitForce();
@@ -536,7 +533,7 @@ public class Player : MonoBehaviour
             attackedFreezeCounter = 0;
             if (freezeAttackedPlayer)
             {
-                //rb.velocity = _TempAttackedVelocity;
+                //rb.velocity = _TempAttackedVelocity; 
                 GravityOn = true;
                 freezeAttackedPlayer = false;
                 playerActions.ResumeCurrentAnimation();
@@ -547,14 +544,13 @@ public class Player : MonoBehaviour
     void ReduceAttackingFreezeFrameCounter()
     {
         attackingFreezeCounter -= 8f * Time.deltaTime;
-        if(attackingFreezeCounter <= 0.001f)
+        if (attackingFreezeCounter <= 0.001f)
         {
             attackingFreezeCounter = 0;
-            if(freezeAttackingPlayer == true)
+            if (freezeAttackingPlayer == true)
             {
-                //rb.velocity = _TempAttackedVelocity;
-                //GravityOn = true;
-                
+                //rb.velocity = _TempAttackedVelocity; 
+                //GravityOn = true; 
                 freezeAttackingPlayer = false;
                 playerActions.ResumeCurrentAnimation();
             }
@@ -564,7 +560,7 @@ public class Player : MonoBehaviour
     {
         overrideForce.x = Mathf.Lerp(overrideForce.x, 0, 7f * Time.deltaTime);
         overrideForce.y = Mathf.Lerp(overrideForce.y, 0, 7f * Time.deltaTime);
-        //reducing to zero if small value
+        //reducing to zero if small value 
         if (overrideForce.sqrMagnitude < 0.05f)
         {
             overrideForce = Vector3.zero;
@@ -585,7 +581,7 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
-    #region Attacking and Damaging
+    #region Attacking and Damaging 
 
     public void SetHitStun(bool var, AttackType _attackType)
     {
@@ -612,12 +608,12 @@ public class Player : MonoBehaviour
 
     public void Damage(Vector3 Power)
     {
-        //hitStun = true;
+        //hitStun = true; 
         hitStunTimer = maxHitStunTime;
         overrideForce = Power - new Vector3(_attackersFacingDirection.x * armourCheck.knockBackResistance.x, 1 * armourCheck.knockBackResistance.y, 0) + knockbackResistance;
-        // use knockbackValue x and y to determine reaction
-        // if y > 15, you're being kicked into the air
-        // if total magnitude > 40, you're going flying
+        // use knockbackValue x and y to determine reaction 
+        // if y > 15, you're being kicked into the air 
+        // if total magnitude > 40, you're going flying 
     }
     public void FreezeCharacterAttacking()
     {
@@ -755,7 +751,7 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-    #region Direction Player is Facing
+    #region Direction Player is Facing 
     public int GetFacingDirection()
     {
         var _facingDirection = facingDirection;
@@ -780,7 +776,7 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
-    #region Jumping or Falling
+    #region Jumping or Falling 
     public void JumpingOrFallingAnimations()
     {
         if (HitStun == false)
@@ -817,17 +813,17 @@ public class Player : MonoBehaviour
 
         }
 
-        //if (rb.velocity.y != 0)
-        //{
-        //    if (rb.velocity.y > 0f)
-        //    {
-        //        _currentVerticalState = VState.jumping;
-        //    }
-        //    else if (rb.velocity.y < -0f)
-        //    {
-        //        _currentVerticalState = VState.falling;
-        //    }
-        //}
+        //if (rb.velocity.y != 0) 
+        //{ 
+        //    if (rb.velocity.y > 0f) 
+        //    { 
+        //        _currentVerticalState = VState.jumping; 
+        //    } 
+        //    else if (rb.velocity.y < -0f) 
+        //    { 
+        //        _currentVerticalState = VState.falling; 
+        //    } 
+        //} 
 
     }
     public void StartVerticalTracker()
@@ -842,7 +838,7 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
-    #region Raycasts
+    #region Raycasts 
     public void SetVelocityToZero()
     {
         rb.velocity = Vector3.zero;
@@ -872,10 +868,10 @@ public class Player : MonoBehaviour
             }
             AdjustPlayerOnGround(hit);
         }
-        else if(!hit.collider.CompareTag("Ground") || (!hit.collider.CompareTag("Platform")))
+        else if (!hit.collider.CompareTag("Ground") || (!hit.collider.CompareTag("Platform")))
         {
 
-            //_gravityOn = true;
+            //_gravityOn = true; 
         }
 
     }
@@ -897,10 +893,10 @@ public class Player : MonoBehaviour
         _gravityOn = false;
         AdjustPlayerOnGround(hit);
         rb.velocity = new Vector3(rb.velocity.x, 0, 0);
-        //if (distanceToGround >= 0 && distanceToGround <= 0.37f)
-        //{
-        //    rb.MovePosition(new Vector3(hit.point.x, hit.point.y, 0));
-        //}
+        //if (distanceToGround >= 0 && distanceToGround <= 0.37f) 
+        //{ 
+        //    rb.MovePosition(new Vector3(hit.point.x, hit.point.y, 0)); 
+        //} 
 
         _currentVerticalState = VState.grounded;
 

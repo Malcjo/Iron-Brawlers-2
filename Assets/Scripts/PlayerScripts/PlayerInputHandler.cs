@@ -10,7 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
     public PlayerCharacterEnum.Characters character;
     public LevelEnum.LevelTypes levelTypes;
     [SerializeField]
-    private Player self;
+    private Player player;
     private PlayerInput playerInput;
     //private PlayerControls playerControls;
     private Player.PlayerIndex _PlayerNumber;
@@ -67,8 +67,8 @@ public class PlayerInputHandler : MonoBehaviour
     private CameraScript cameraScript;
     [SerializeField] private bool rightBumperHeld;
     [SerializeField] private bool leftBumperHeld;
-    [SerializeField]private bool leftTriggerHeld;
-    [SerializeField]private bool rightTriggerHeld;
+    [SerializeField] private bool leftTriggerHeld;
+    [SerializeField] private bool rightTriggerHeld;
     [SerializeField] float joyStickDelay;
     [SerializeField] float contextValue;
     public bool exitingGame;
@@ -111,7 +111,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
         if (ispaused)
         {
-            self.CanTurn = false;
+            player.CanTurn = false;
             if (rightBumperHeld == true && leftBumperHeld == true)
             {
                 GameManager.instance.PausedGame(false);
@@ -121,9 +121,9 @@ public class PlayerInputHandler : MonoBehaviour
         }
         else if (ispaused == false)
         {
-            if (self != null)
+            if (player != null)
             {
-                self.CanTurn = true;
+                player.CanTurn = true;
             }
         }
     }
@@ -144,17 +144,17 @@ public class PlayerInputHandler : MonoBehaviour
         return !GameManager.instance.StartRound;
     }
     [SerializeField] private bool ispaused;
-    //private void FixedUpdate()
-    //{
-    //    HorizontalValue = 1;
-    //    if (AttackInputQueued)
-    //    {
-    //        AttackInputQueued = false;
-    //    }
-    //    if (AttackInputQueued == false)
-    //    {
-    //        AttackInputQueued = true;
-    //    }
+    //private void FixedUpdate() 
+    //{ 
+    //    HorizontalValue = 1; 
+    //    if (AttackInputQueued) 
+    //    { 
+    //        AttackInputQueued = false; 
+    //    } 
+    //    if (AttackInputQueued == false) 
+    //    { 
+    //        AttackInputQueued = true; 
+    //    } 
     //}
     private void StartGame()
     {
@@ -165,9 +165,9 @@ public class PlayerInputHandler : MonoBehaviour
         GameManager.instance.AddPlayerToList(playerCharacter);
         cameraScript = GameManager.instance.GetCameraScript();
         cameraScript.AddPlayers(playerCharacter);
-        self = playerCharacter.GetComponent<Player>();
-        self.SetUpInputDetectionScript(this);
-        self.playerNumber = _PlayerNumber;
+        player = playerCharacter.GetComponent<Player>();
+        player.SetUpInputDetectionScript(this);
+        player.playerNumber = _PlayerNumber;
         SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
 
     }
@@ -199,7 +199,8 @@ public class PlayerInputHandler : MonoBehaviour
     {
         return HorizontalValue;
     }
-    public bool ShouldJump() {
+    public bool ShouldJump()
+    {
         if (JumpInputQueued)
         {
             JumpInputQueued = false;
@@ -207,7 +208,8 @@ public class PlayerInputHandler : MonoBehaviour
         }
         return false;
     }
-    public bool ShouldAttack() {
+    public bool ShouldAttack()
+    {
         if (AttackInputQueued)
         {
             AttackInputQueued = false;
@@ -216,7 +218,8 @@ public class PlayerInputHandler : MonoBehaviour
         return false;
     }
 
-    public bool ShouldCrouch() {
+    public bool ShouldCrouch()
+    {
         return CrouchInputHeld;
     }
     public bool ShouldBlock()
@@ -415,7 +418,7 @@ public class PlayerInputHandler : MonoBehaviour
                         chara--;
                         if (chara < 0)
                         {
-                            chara = (int)PlayerCharacterEnum.Characters.End - 1;//goblin
+                            chara = (int)PlayerCharacterEnum.Characters.End - 1;//goblin 
                         }
                         CharacterSwitch();
                     }
@@ -424,7 +427,7 @@ public class PlayerInputHandler : MonoBehaviour
                         level--;
                         if (level < 0)
                         {
-                            level = (int)LevelEnum.LevelTypes.End - 1; // clouds
+                            level = (int)LevelEnum.LevelTypes.End - 1; // clouds 
 
                         }
                         LevelSwitch();
@@ -437,7 +440,7 @@ public class PlayerInputHandler : MonoBehaviour
                         chara++;
                         if (chara == (int)PlayerCharacterEnum.Characters.End)
                         {
-                            chara = 0;//sol
+                            chara = 0;//sol 
                         }
                         CharacterSwitch();
                     }
@@ -446,7 +449,7 @@ public class PlayerInputHandler : MonoBehaviour
                         level++;
                         if (level == (int)LevelEnum.LevelTypes.End)
                         {
-                            level = 0; // Bridge
+                            level = 0; // Bridge 
 
                         }
                         LevelSwitch();
@@ -460,7 +463,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
         else
         {
-            if (self != null)
+            if (player != null)
             {
                 if (CanControlCharacters)
                 {
@@ -469,17 +472,17 @@ public class PlayerInputHandler : MonoBehaviour
                         horizontalInput = context.ReadValue<float>();
                         if (!_Paused)
                         {
-                            self.ActionTriggered = true;
                             if (horizontalInput <= 0.35f && horizontalInput >= -0.35f)
                             {
-                                self.ActionTriggered = false;
                                 horizontalInput = 0;
                             }
                             HorizontalValue = horizontalInput;
-                            self.GetPlayerInputFromInputScript(HorizontalValue);
+                            player.GetPlayerInputFromInputScript(HorizontalValue);
                             WallCheck();
                         }
+
                     }
+
                 }
             }
         }
@@ -506,26 +509,26 @@ public class PlayerInputHandler : MonoBehaviour
                     primed = false;
                     if (!ChooseLevel)
                     {
-                        //    switch (chara)
-                        //    {
-                        //        case 0:
+                        //    switch (chara) 
+                        //    { 
+                        //        case 0: 
 
-                        //            switch (PlayerIndex)
-                        //            {
+                        //            switch (PlayerIndex) 
+                        //            { 
 
-                        //            }
-                        //            break;
+                        //            } 
+                        //            break; 
 
-                        //        case 1:
+                        //        case 1: 
 
-                        //            break;
-                        //    }
-                        if (chara == 0) //Sol Picked
+                        //            break; 
+                        //    } 
+                        if (chara == 0) //Sol Picked 
                         {
-                            if (PlayerIndex == 1) // player 1
+                            if (PlayerIndex == 1) // player 1 
                             {
                                 GameManager.instance.player1CharacterPuck.SetActive(true);
-                                //GameManager.instance.player1Character1Selected.SetActive(true);
+                                //GameManager.instance.player1Character1Selected.SetActive(true); 
                                 GameManager.instance.player1Character1PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character1BeenPicked == true)
                                 {
@@ -548,10 +551,10 @@ public class PlayerInputHandler : MonoBehaviour
                                 CharaReadied = true;
                             }
 
-                            else if (PlayerIndex == 2) // player 2
+                            else if (PlayerIndex == 2) // player 2 
                             {
                                 GameManager.instance.player2CharacterPuck.SetActive(true);
-                                //GameManager.instance.player2Character1Selected.SetActive(true);
+                                //GameManager.instance.player2Character1Selected.SetActive(true); 
                                 GameManager.instance.player2Character1PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character1BeenPicked == true)
                                 {
@@ -575,13 +578,13 @@ public class PlayerInputHandler : MonoBehaviour
                         }
 
 
-                        else if (chara == 1) //Goblin Picked
+                        else if (chara == 1) //Goblin Picked 
                         {
                             Debug.Log("Goblin");
-                            if (PlayerIndex == 1) // player 1
+                            if (PlayerIndex == 1) // player 1 
                             {
                                 GameManager.instance.player1CharacterPuck.SetActive(true);
-                                //GameManager.instance.player1Character2Selected.SetActive(true);
+                                //GameManager.instance.player1Character2Selected.SetActive(true); 
                                 GameManager.instance.player1Character2PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character2BeenPicked == true)
                                 {
@@ -599,10 +602,10 @@ public class PlayerInputHandler : MonoBehaviour
                                 CharaReadied = true;
                             }
 
-                            else if (PlayerIndex == 2) //player 2
+                            else if (PlayerIndex == 2) //player 2 
                             {
                                 GameManager.instance.player2CharacterPuck.SetActive(true);
-                                //GameManager.instance.player2Character2Selected.SetActive(true);
+                                //GameManager.instance.player2Character2Selected.SetActive(true); 
                                 GameManager.instance.player2Character2PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character2BeenPicked == true)
                                 {
@@ -628,7 +631,7 @@ public class PlayerInputHandler : MonoBehaviour
                         }
 
 
-                    } // Choose Character
+                    } // Choose Character 
                     else if (ChooseLevel)
                     {
                         canAct = false;
@@ -644,23 +647,23 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void BackInput(CallbackContext context)
     {
-        if(SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(0).buildIndex)
+        if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(0).buildIndex)
         {
             if (canAct)
             {
                 if (!ChooseLevel)
                 {
 
-                    //GameManager.instance.player1pressAToJoinUI.SetActive(true);
-                    //GameManager.instance.player1Character1PortraitPuck.SetActive(false);
-                    //GameManager.instance.player1Character1Background.SetActive(false);
-                    //GameManager.instance.player2pressAToJoinUI.SetActive(true);
-                    //GameManager.instance.player2Character1PortraitPuck.SetActive(false);
-                    //GameManager.instance.player2Character1Background.SetActive(false);
-                    //GameManager.instance.Character1BeenPicked = false;
-                    //GameManager.instance.Character2BeenPicked = false;
-                    //GameManager.instance.TurnOffCharacterSelectObj();
-                    //GameManager.instance.TurnOnMenuObj();
+                    //GameManager.instance.player1pressAToJoinUI.SetActive(true); 
+                    //GameManager.instance.player1Character1PortraitPuck.SetActive(false); 
+                    //GameManager.instance.player1Character1Background.SetActive(false); 
+                    //GameManager.instance.player2pressAToJoinUI.SetActive(true); 
+                    //GameManager.instance.player2Character1PortraitPuck.SetActive(false); 
+                    //GameManager.instance.player2Character1Background.SetActive(false); 
+                    //GameManager.instance.Character1BeenPicked = false; 
+                    //GameManager.instance.Character2BeenPicked = false; 
+                    //GameManager.instance.TurnOffCharacterSelectObj(); 
+                    //GameManager.instance.TurnOnMenuObj(); 
                     SceneManager.LoadScene(3);
                 }
                 else
@@ -685,19 +688,15 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!ispaused || CanControlCharacters)
         {
-
             if (!GameManager.instance.InRoundStarter)
             {
-                self.ActionTriggered = true;
                 if (context.started && primed)
                 {
-
                     primed = false;
                     JumpInputQueued = true;
                 }
                 if (context.canceled)
                 {
-                    self.ActionTriggered = false;
                     primed = true;
                 }
             }
@@ -713,13 +712,11 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 if (context.started && primed)
                 {
-                    self.ActionTriggered = true;
                     AttackInputQueued = true;
                     primed = false;
                 }
                 if (context.canceled)
                 {
-                    self.ActionTriggered = false;
                     primed = true;
                 }
             }
@@ -735,12 +732,10 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 if (context.started)
                 {
-                    self.ActionTriggered = true;
                     CrouchInputHeld = true;
                 }
                 if (context.canceled)
                 {
-                    self.ActionTriggered = false;
                     CrouchInputHeld = false;
                 }
             }
@@ -757,12 +752,10 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 if (context.started)
                 {
-                    self.ActionTriggered = true;
                     blockInputHeld = true;
                 }
                 if (context.canceled)
                 {
-                    self.ActionTriggered = false;
                     blockInputHeld = false;
                 }
             }
@@ -856,6 +849,7 @@ public class PlayerInputHandler : MonoBehaviour
                 }
             }
         }
+
     }
     public void HeavyInput(CallbackContext context)
     {
@@ -865,13 +859,11 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 if (context.started && primed)
                 {
-                    self.ActionTriggered = true;
                     primed = false;
                     heavyQueued = true;
                 }
                 if (context.canceled)
                 {
-                    self.ActionTriggered = false;
                     primed = true;
                 }
             }
@@ -898,7 +890,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
         {
-            if (!GameManager.instance.InRoundStarter)
+            if (CanControlCharacter())
             {
                 if (context.started)
                 {
@@ -911,7 +903,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void WallCheck()
     {
-        switch (self.GetCurrentWall())
+        switch (player.GetCurrentWall())
         {
             case Player.Wall.none:
                 break;
@@ -929,5 +921,5 @@ public class PlayerInputHandler : MonoBehaviour
                 break;
         }
     }
-}   
+}
 
