@@ -478,6 +478,11 @@ public class PlayerActions : MonoBehaviour
                 yield return null;
             }
             self.CanActOutOf = true;
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName(JABKEY))
+            {
+                Debug.Log("turn off hitbox from animation finishing");
+                hitboxManager.TurnOffHitBox();
+            }
         }
         //TransitionToAnimation(false, IDLEKEY, idleCrossfade);
         self.SetState(new IdleState());
@@ -628,6 +633,11 @@ public class PlayerActions : MonoBehaviour
                 yield return null;
             }
             self.CanActOutOf = true;
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName(SWEEPKEY))
+            {
+                Debug.Log("turn off hitbox from animation finishing");
+                hitboxManager.TurnOffHitBox();
+            }
         }
 
         self.SetState(new IdleState());
@@ -705,6 +715,11 @@ public class PlayerActions : MonoBehaviour
             }
 
             self.CanActOutOf = true;
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName(AERIALKEY))
+            {
+                Debug.Log("turn off hitbox from animation finishing");
+                hitboxManager.TurnOffHitBox();
+            }
         }
 
         self.moveCharacterOnXCounter = 5;
