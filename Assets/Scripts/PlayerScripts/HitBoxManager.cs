@@ -30,6 +30,7 @@ public class HitBoxManager : MonoBehaviour
     {
         playerInput = GetComponentInParent<PlayerInputHandler>();
         animationScript = GetComponentInChildren<PlayerActions>();
+        Debug.Log("turn off hitbox from start");
         hitBox.HideHitBoxes();
         blockObj.SetActive(false);
     }
@@ -88,9 +89,18 @@ public class HitBoxManager : MonoBehaviour
     {
         hitBox.ShowHitBoxes();
         yield return new WaitForSeconds(spawnTime);
+        Debug.Log("turn off hitbox from coroutine");
         hitBox.HideHitBoxes();
     }
-
+    public void TurnOnHitBox()
+    {
+        hitBox.ShowHitBoxes();
+    }
+    public void TurnOffHitBox()
+    {
+        Debug.Log("turn off hitbox from manager");
+        hitBox.HideHitBoxes();
+    }
     public IEnumerator FreezeFrames(float delayTime, float AnimationTime)
     {
         yield return new WaitForSeconds(delayTime);

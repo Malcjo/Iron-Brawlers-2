@@ -116,12 +116,18 @@ public class PlayerActions : MonoBehaviour
     {
         public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
+        [Range(0, 1)]
         public float CancelTime;
+        [Range(0, 1)]
         public float WhenToMoveCharacterInAnimation;
         public bool MoveOnX;
         public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
         public bool MoveOnY;
         public float MoveCharacterOnYStrength; public float MoveCharacterOnYMaxCounter;
+        [Range(0, 1)]
+        public float HitBoxTurnOn;
+        [Range(0, 1)]
+        public float HitBoxTurnOff;
 
     }
     [System.Serializable]
@@ -129,12 +135,18 @@ public class PlayerActions : MonoBehaviour
     {
         public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
+        [Range(0, 1)]
         public float CancelTime;
+        [Range(0, 1)]
         public float WhenToMoveCharacterInAnimation;
         public bool MoveOnX;
         public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
         public bool MoveOnY;
         public float MoveCharacterOnYStrength; public float MoveCharacterOnYMaxCounter;
+        [Range(0, 1)]
+        public float HitBoxTurnOn;
+        [Range(0, 1)]
+        public float HitBoxTurnOff;
 
     }
     [System.Serializable]
@@ -142,24 +154,36 @@ public class PlayerActions : MonoBehaviour
     {
         public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
+        [Range(0, 1)]
         public float CancelTime;
+        [Range(0, 1)]
         public float WhenToMoveCharacterInAnimation;
         public bool MoveOnX;
         public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
         public bool MoveOnY;
         public float MoveCharacterOnYStrength; public float MoveCharacterOnYMaxCounter;
+        [Range(0, 1)]
+        public float HitBoxTurnOn;
+        [Range(0, 1)]
+        public float HitBoxTurnOff;
     }
     [System.Serializable]
     public struct NeutralAerialVariables
     {
         public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
+        [Range(0, 1)]
         public float CancelTime;
+        [Range(0, 1)]
         public float WhenToMoveCharacterInAnimation;
         public bool MoveOnX;
         public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
         public bool MoveOnY;
         public float MoveCharacterOnYStrength; public float MoveCharacterOnYMaxCounter;
+        [Range(0, 1)]
+        public float HitBoxTurnOn;
+        [Range(0, 1)]
+        public float HitBoxTurnOff;
 
     }
     [System.Serializable]
@@ -167,7 +191,9 @@ public class PlayerActions : MonoBehaviour
     {
         public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
+        [Range(0, 1)]
         public float CancelTime;
+        [Range(0, 1)]
         public float WhenToMoveCharacterInAnimation;
         public bool MoveOnX;
         public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
@@ -179,7 +205,9 @@ public class PlayerActions : MonoBehaviour
     {
         public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
+        [Range(0, 1)]
         public float CancelTime;
+        [Range(0, 1)]
         public float WhenToMoveCharacterInAnimation;
         public bool MoveOnX;
         public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
@@ -191,12 +219,18 @@ public class PlayerActions : MonoBehaviour
     {
         public FollowDes FollowingDestination; public float HitBoxSize; public float DamageOnGauge;
         public float KnockbackXStrength; public float KnockbackYStrength;
+        [Range(0, 1)]
         public float CancelTime;
+        [Range(0, 1)]
         public float WhenToMoveCharacterInAnimation;
         public bool MoveOnX;
         public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
         public bool MoveOnY;
         public float MoveCharacterOnYStrength; public float MoveCharacterOnYMaxCounter;
+        [Range(0, 1)]
+        public float HitBoxTurnOn;
+        [Range(0, 1)]
+        public float HitBoxTurnOff;
     }
     [System.Serializable]
     public struct DashVariables
@@ -263,6 +297,7 @@ public class PlayerActions : MonoBehaviour
     }
     private void Update()
     {
+        animPercentageTracker = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
         JabCounter += 1 * Time.deltaTime;
         HeavyCounter += 1 * Time.deltaTime;
         SweepCounter += 1 * Time.deltaTime;
@@ -360,7 +395,34 @@ public class PlayerActions : MonoBehaviour
 
     public void Jab() 
     {
-        StartCoroutine(JabAction()); 
+        StartCoroutine(JabAction());
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName())
+        {
+            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= heavyVariables.HitBoxTurnOff)
+            {
+                hitboxManager.TurnOffHitBox();
+            }
+            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= heavyVariables.HitBoxTurnOn && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= heavyVariables.HitBoxTurnOff && !self.HaveHitPlayer)
+            {
+                hitboxManager.TurnOnHitBox();
+            }
+            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= heavyVariables.CancelTime)
+            {
+                self.CanActOutOf = true;
+                self.HaveHitPlayer = false;
+            }
+            if (self.ActionTriggered)
+            {
+                hitboxManager.TurnOffHitBox();
+            }
+            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
+            {
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName(HEAVYKEY))
+                {
+                    self.SetState(new IdleState());
+                }
+            }
+        }
     }
 
     private IEnumerator JabAction()
@@ -383,21 +445,39 @@ public class PlayerActions : MonoBehaviour
             }
             FindObjectOfType<AudioManager>().Play(AudioManager.JABMISS);
             hitboxScript._attackType = AttackType.Jab;
-            hitboxManager.JabAttack(0.5f);
+            //hitboxManager.JabAttack(0.5f);
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabVariables.CancelTime)
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName(JABKEY))
                 {
-                    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabVariables.WhenToMoveCharacterInAnimation)
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= jabVariables.HitBoxTurnOff)
                     {
-                        yield return null;
+                        hitboxManager.TurnOffHitBox();
                     }
-
-                    yield return null;
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= jabVariables.HitBoxTurnOn && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= jabVariables.HitBoxTurnOff && !self.HaveHitPlayer)
+                    {
+                        hitboxManager.TurnOnHitBox();
+                    }
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= jabVariables.CancelTime)
+                    {
+                        self.CanActOutOf = true;
+                        self.HaveHitPlayer = false;
+                    }
+                    if (self.ActionTriggered)
+                    {
+                        hitboxManager.TurnOffHitBox();
+                    }
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
+                    {
+                        if (anim.GetCurrentAnimatorStateInfo(0).IsName(JABKEY))
+                        {
+                            self.SetState(new IdleState());
+                        }
+                    }
                 }
                 yield return null;
-                self.CanActOutOf = true;
             }
+            self.CanActOutOf = true;
         }
         //TransitionToAnimation(false, IDLEKEY, idleCrossfade);
         self.SetState(new IdleState());
@@ -410,11 +490,12 @@ public class PlayerActions : MonoBehaviour
         }
         StartCoroutine(HeavyAction()); 
     }
-
+    [SerializeField] float animPercentageTracker;
     private IEnumerator HeavyAction()
     {
         if(HeavyCounter >= MaxHeavyTime)
         {
+
             self.CanDoAttack = false;
             if (HeavyParticle != null)
             {
@@ -425,40 +506,70 @@ public class PlayerActions : MonoBehaviour
             self.MoveCharacterOnXMaxValue = heavyVariables.MoveCharacterOnXMaxCounter;
             self.MoveCharacterOnYMaxValue = heavyVariables.MoveCharacterOnYMaxCounter;
             bool canMove = true;
-            TransitionToAnimation(true, HEAVYKEY, heavyCrossfade);
+
             FindObjectOfType<AudioManager>().Play(AudioManager.HEAVYMISS);
+            hitboxScript._attackType = AttackType.Heavy;
+            TransitionToAnimation(true, HEAVYKEY, heavyCrossfade);
             anim.speed = 1;
             yield return null;
-            hitboxScript._attackType = AttackType.Heavy;
-            hitboxManager.JabAttack(0.5f);
+            //hitboxManager.JabAttack(0.5f);
+
+
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.CancelTime)
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName(HEAVYKEY))
                 {
-                    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.WhenToMoveCharacterInAnimation)
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= heavyVariables.WhenToMoveCharacterInAnimation)
                     {
-                        yield return null;
+                        if (canMove == true)
+                        {
+                            if (heavyVariables.MoveOnY)
+                            {
+                                self.SetMoveCharacterOnYStrength(heavyVariables.MoveCharacterOnYStrength);
+                            }
+                            if (heavyVariables.MoveOnX)
+                            {
+                                self.SetMoveCharacterOnXStrength(heavyVariables.MoveCharacterOnXStrength);
+                            }
+                            canMove = false;
+                        }
                     }
-                    yield return null;
-                    if (canMove == true)
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= heavyVariables.HitBoxTurnOff)
                     {
-                        if (heavyVariables.MoveOnY)
-                        {
-                            self.SetMoveCharacterOnYStrength(heavyVariables.MoveCharacterOnYStrength);
-                        }
-                        if (heavyVariables.MoveOnX)
-                        {
-                            self.SetMoveCharacterOnXStrength(heavyVariables.MoveCharacterOnXStrength);
-                        }
-                        canMove = false;
+                        hitboxManager.TurnOffHitBox();
                     }
-                    yield return null;
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= heavyVariables.HitBoxTurnOn && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= heavyVariables.HitBoxTurnOff && !self.HaveHitPlayer)
+                    {
+                        hitboxManager.TurnOnHitBox();
+                    }
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= heavyVariables.CancelTime)
+                    {
+                        self.CanActOutOf = true;
+                        self.HaveHitPlayer = false;
+                    }
+
+                    if (self.ActionTriggered)
+                    {
+                        hitboxManager.TurnOffHitBox();
+                    }
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
+                    {
+                        if (anim.GetCurrentAnimatorStateInfo(0).IsName(HEAVYKEY))
+                        {
+                            self.SetState(new IdleState());
+                        }
+                    }
                 }
-                self.CanActOutOf = true;
                 yield return null;
             }
-        }
+            self.CanActOutOf = true;
 
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName(HEAVYKEY))
+            {
+                Debug.Log("turn off hitbox from animation finishing");
+                hitboxManager.TurnOffHitBox();
+            }
+        }
         self.SetState(new IdleState());
 
     }
@@ -484,16 +595,39 @@ public class PlayerActions : MonoBehaviour
             self.CanTurn = false;
             yield return null;
             hitboxScript._attackType = AttackType.LegSweep;
-            hitboxManager.LegSweep(0.5f);
+            //hitboxManager.LegSweep(0.5f);
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < sweepVariables.CancelTime)
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName(SWEEPKEY))
                 {
-                    yield return null;
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= sweepVariables.HitBoxTurnOff)
+                    {
+                        hitboxManager.TurnOffHitBox();
+                    }
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= sweepVariables.HitBoxTurnOn && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= sweepVariables.HitBoxTurnOff && !self.HaveHitPlayer)
+                    {
+                        hitboxManager.TurnOnHitBox();
+                    }
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= sweepVariables.CancelTime)
+                    {
+                        self.CanActOutOf = true;
+                        self.HaveHitPlayer = false;
+                    }
+                    if (self.ActionTriggered)
+                    {
+                        hitboxManager.TurnOffHitBox();
+                    }
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
+                    {
+                        if (anim.GetCurrentAnimatorStateInfo(0).IsName(SWEEPKEY))
+                        {
+                            self.SetState(new IdleState());
+                        }
+                    }
                 }
-                self.CanActOutOf = true;
                 yield return null;
             }
+            self.CanActOutOf = true;
         }
 
         self.SetState(new IdleState());
@@ -525,37 +659,52 @@ public class PlayerActions : MonoBehaviour
             self.StopMovingCharacterOnYAxis();
             yield return null;
             hitboxScript._attackType = AttackType.Aerial;
-            hitboxScript._attackDir = Attackdirection.Aerial;
-            hitboxManager.AeiralAttack();
+            //hitboxScript._attackDir = Attackdirection.Aerial;
+            //hitboxManager.AeiralAttack();
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.CancelTime)
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName(AERIALKEY))
                 {
-                    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.WhenToMoveCharacterInAnimation)
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= neutralAerialVariables.HitBoxTurnOff)
                     {
-                        yield return null;
+                        hitboxManager.TurnOffHitBox();
                     }
-                    if (heavyVariables.MoveOnY)
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= neutralAerialVariables.WhenToMoveCharacterInAnimation)
                     {
-                        if (anim.GetCurrentAnimatorStateInfo(0).IsName(AERIALKEY))
+                        if (neutralAerialVariables.MoveOnY)
                         {
                             self.SetMoveCharacterOnYStrength(neutralAerialVariables.MoveCharacterOnYStrength);
                         }
-                    }
-                    if (heavyVariables.MoveOnX)
-                    {
-                        if (anim.GetCurrentAnimatorStateInfo(0).IsName(AERIALKEY))
+                        if (neutralAerialVariables.MoveOnX)
                         {
-                            Debug.Log("Aerial move on X");
                             self.SetMoveCharacterOnXStrength(neutralAerialVariables.MoveCharacterOnXStrength);
                         }
                     }
-                    yield return null;
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= neutralAerialVariables.HitBoxTurnOn && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= neutralAerialVariables.HitBoxTurnOff && !self.HaveHitPlayer)
+                    {
+                        hitboxManager.TurnOnHitBox();
+                    }
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= neutralAerialVariables.CancelTime)
+                    {
+                        self.CanActOutOf = true;
+                        self.HaveHitPlayer = false;
+                    }
+                    if (self.ActionTriggered)
+                    {
+                        hitboxManager.TurnOffHitBox();
+                    }
+                    if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
+                    {
+                        if (anim.GetCurrentAnimatorStateInfo(0).IsName(AERIALKEY))
+                        {
+                            self.SetState(new IdleState());
+                        }
+                    }
                 }
-                self.CanActOutOf = true;
-
                 yield return null;
             }
+
+            self.CanActOutOf = true;
         }
 
         self.moveCharacterOnXCounter = 5;

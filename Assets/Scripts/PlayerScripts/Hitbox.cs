@@ -234,6 +234,7 @@ public class Hitbox : MonoBehaviour
     }
     public void HideHitBoxes()
     {
+
         meshRenderer.enabled = false;
         hitboxCollider.enabled = false;
 
@@ -262,64 +263,76 @@ public class Hitbox : MonoBehaviour
             HurtBox tempHurtBox = other.gameObject.GetComponent<HurtBox>();
             var tempHitPosiiton = other.transform.position;
             tempHurtBox.TurnOnHitBoxHit();
-            if (tempDefendingPlayer.Blocking == true || tempDefendingPlayer.CrouchBlocking == true)
+            if(tempAttackingPlayer.HaveHitPlayer == false)
             {
-                if(tempDefendingPlayer.Blocking == true)
+                Debug.Log("Hit Player");
+                if (tempDefendingPlayer.Blocking == true || tempDefendingPlayer.CrouchBlocking == true)
                 {
-                    if (_attackType != AttackType.LegSweep)
+                    if (tempDefendingPlayer.Blocking == true)
                     {
-                        //ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
-                        //HideHitBoxes();
-                        //return;
-                        tempDefendingPlayer.CanActOutOf = false;
-                        tempAttackingPlayer.GravityOn = false;
-                        DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
-                        tempDefendingPlayer.HideHitBoxes();
+                        if (_attackType != AttackType.LegSweep)
+                        {
+                            //ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
+                            //HideHitBoxes();
+                            //return;
+                            tempDefendingPlayer.CanActOutOf = false;
+                            tempAttackingPlayer.GravityOn = false;
+                            DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
+                            tempDefendingPlayer.HideHitBoxes();
+                            player.HaveHitPlayer = true;
+                        }
+                        else if (_attackType == AttackType.LegSweep)
+                        {
+                            tempDefendingPlayer.CanActOutOf = false;
+                            tempDefendingPlayer.CanMove = false;
+                            tempAttackingPlayer.GravityOn = false;
+                            DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
+                            tempDefendingPlayer.HideHitBoxes();
+                            player.HaveHitPlayer = true;
+                            //tempDefendingPlayer.ResetCharacterMaterialToStandard();
+                        }
                     }
-                    else if (_attackType == AttackType.LegSweep)
+                    if (tempDefendingPlayer.CrouchBlocking == true)
                     {
-                        tempDefendingPlayer.CanActOutOf = false;
-                        tempDefendingPlayer.CanMove = false;
-                        tempAttackingPlayer.GravityOn = false;
-                        DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
-                        tempDefendingPlayer.HideHitBoxes();
-                        //tempDefendingPlayer.ResetCharacterMaterialToStandard();
+                        if (_attackType == AttackType.LegSweep)
+                        {
+                            //ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
+                            //HideHitBoxes();
+                            //return;
+                            tempDefendingPlayer.CanActOutOf = false;
+                            tempAttackingPlayer.GravityOn = false;
+                            DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
+                            tempDefendingPlayer.HideHitBoxes();
+                            player.HaveHitPlayer = true;
+                        }
+                        else if (_attackType != AttackType.LegSweep)
+                        {
+                            tempDefendingPlayer.CanActOutOf = false;
+                            tempDefendingPlayer.CanMove = false;
+                            tempAttackingPlayer.GravityOn = false;
+                            DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
+                            tempDefendingPlayer.HideHitBoxes();
+                            player.HaveHitPlayer = true;
+                        }
                     }
                 }
-                if(tempDefendingPlayer.CrouchBlocking == true)
+                else
                 {
-                    if (_attackType == AttackType.LegSweep)
-                    {
-                        //ResetMoveValues(tempDefendingPlayer, tempAttackingPlayer);
-                        //HideHitBoxes();
-                        //return;
-                        tempDefendingPlayer.CanActOutOf = false;
-                        tempAttackingPlayer.GravityOn = false;
-                        DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
-                        tempDefendingPlayer.HideHitBoxes();
-                    }
-                    else if (_attackType != AttackType.LegSweep)
-                    {
-                        tempDefendingPlayer.CanActOutOf = false;
-                        tempDefendingPlayer.CanMove = false;
-                        tempAttackingPlayer.GravityOn = false;
-                        DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
-                        tempDefendingPlayer.HideHitBoxes();
-                    }
+                    tempDefendingPlayer.CanActOutOf = false;
+                    tempDefendingPlayer.CanMove = false;
+                    tempAttackingPlayer.GravityOn = false;
+                    DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
+                    tempDefendingPlayer.HideHitBoxes();
+                    player.HaveHitPlayer = true;
                 }
             }
-            else
-            {
-                tempDefendingPlayer.CanActOutOf = false;
-                tempDefendingPlayer.CanMove = false;
-                tempAttackingPlayer.GravityOn = false;
-                DamagingPlayer(tempDefendingPlayer, tempAttackingPlayer, temptArmourCheck, tempHurtBox);
-                tempDefendingPlayer.HideHitBoxes();
-            }
+            
+            player.HaveHitPlayer = true;
         }
     }
     private void DamagingPlayer(Player DefendingPlayer, Player attackingPlayer, ArmourCheck armourCheck, HurtBox hurtBox)
     {
+
         ApplyDamageToPlayer(DefendingPlayer, attackingPlayer, _attackType, armourCheck);
         if (hurtBox.BodyLocation == LocationTag.Chest)
         {
@@ -422,6 +435,7 @@ public class Hitbox : MonoBehaviour
             defendingPlayer.BlockKnockBack();
 
             ResetMoveValues(defendingPlayer, attackingPlayer);
+            Debug.Log("Hide hitbox from hitbox scritp");
             HideHitBoxes();
         }
         else if (!defendingPlayer.Blocking || !defendingPlayer.CrouchBlocking)
@@ -471,7 +485,9 @@ public class Hitbox : MonoBehaviour
                 defendingPlayer.JabKnockBack();
             }
             ResetMoveValues(defendingPlayer, attackingPlayer);
-            HideHitBoxes();
+            Debug.Log("Turn off hitbox from end of hitting");
+            hitBoxManager.TurnOffHitBox();
+            //HideHitBoxes();
         }
 
 

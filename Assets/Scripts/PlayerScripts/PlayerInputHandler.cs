@@ -10,7 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
     public PlayerCharacterEnum.Characters character;
     public LevelEnum.LevelTypes levelTypes;
     [SerializeField]
-    private Player player;
+    private Player self;
     private PlayerInput playerInput;
     //private PlayerControls playerControls;
     private Player.PlayerIndex _PlayerNumber;
@@ -111,7 +111,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
         if (ispaused)
         {
-            player.CanTurn = false;
+            self.CanTurn = false;
             if (rightBumperHeld == true && leftBumperHeld == true)
             {
                 GameManager.instance.PausedGame(false);
@@ -121,9 +121,9 @@ public class PlayerInputHandler : MonoBehaviour
         }
         else if (ispaused == false)
         {
-            if (player != null)
+            if (self != null)
             {
-                player.CanTurn = true;
+                self.CanTurn = true;
             }
         }
     }
@@ -165,9 +165,9 @@ public class PlayerInputHandler : MonoBehaviour
         GameManager.instance.AddPlayerToList(playerCharacter);
         cameraScript = GameManager.instance.GetCameraScript();
         cameraScript.AddPlayers(playerCharacter);
-        player = playerCharacter.GetComponent<Player>();
-        player.SetUpInputDetectionScript(this);
-        player.playerNumber = _PlayerNumber;
+        self = playerCharacter.GetComponent<Player>();
+        self.SetUpInputDetectionScript(this);
+        self.playerNumber = _PlayerNumber;
         SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
 
     }
@@ -460,7 +460,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
         else
         {
-            if (player != null)
+            if (self != null)
             {
                 if (CanControlCharacters)
                 {
@@ -469,17 +469,17 @@ public class PlayerInputHandler : MonoBehaviour
                         horizontalInput = context.ReadValue<float>();
                         if (!_Paused)
                         {
+                            self.ActionTriggered = true;
                             if (horizontalInput <= 0.35f && horizontalInput >= -0.35f)
                             {
+                                self.ActionTriggered = false;
                                 horizontalInput = 0;
                             }
                             HorizontalValue = horizontalInput;
-                            player.GetPlayerInputFromInputScript(HorizontalValue);
+                            self.GetPlayerInputFromInputScript(HorizontalValue);
                             WallCheck();
                         }
-
                     }
-
                 }
             }
         }
@@ -685,15 +685,19 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!ispaused || CanControlCharacters)
         {
+
             if (!GameManager.instance.InRoundStarter)
             {
+                self.ActionTriggered = true;
                 if (context.started && primed)
                 {
+
                     primed = false;
                     JumpInputQueued = true;
                 }
                 if (context.canceled)
                 {
+                    self.ActionTriggered = false;
                     primed = true;
                 }
             }
@@ -709,11 +713,13 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 if (context.started && primed)
                 {
+                    self.ActionTriggered = true;
                     AttackInputQueued = true;
                     primed = false;
                 }
                 if (context.canceled)
                 {
+                    self.ActionTriggered = false;
                     primed = true;
                 }
             }
@@ -729,10 +735,12 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 if (context.started)
                 {
+                    self.ActionTriggered = true;
                     CrouchInputHeld = true;
                 }
                 if (context.canceled)
                 {
+                    self.ActionTriggered = false;
                     CrouchInputHeld = false;
                 }
             }
@@ -749,10 +757,12 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 if (context.started)
                 {
+                    self.ActionTriggered = true;
                     blockInputHeld = true;
                 }
                 if (context.canceled)
                 {
+                    self.ActionTriggered = false;
                     blockInputHeld = false;
                 }
             }
@@ -846,7 +856,6 @@ public class PlayerInputHandler : MonoBehaviour
                 }
             }
         }
-
     }
     public void HeavyInput(CallbackContext context)
     {
@@ -856,11 +865,13 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 if (context.started && primed)
                 {
+                    self.ActionTriggered = true;
                     primed = false;
                     heavyQueued = true;
                 }
                 if (context.canceled)
                 {
+                    self.ActionTriggered = false;
                     primed = true;
                 }
             }
@@ -887,7 +898,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
         {
-            if (CanControlCharacter())
+            if (!GameManager.instance.InRoundStarter)
             {
                 if (context.started)
                 {
@@ -900,7 +911,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void WallCheck()
     {
-        switch (player.GetCurrentWall())
+        switch (self.GetCurrentWall())
         {
             case Player.Wall.none:
                 break;

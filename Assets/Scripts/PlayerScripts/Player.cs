@@ -140,6 +140,8 @@ public class Player : MonoBehaviour
     public bool primed;
     public bool inAction;
     public bool CanActOutOf;
+    public bool ActionTriggered;
+    public bool HaveHitPlayer;
     public void SetUpInputDetectionScript(PlayerInputHandler _playerInputDetection)
     {
         playerInputHandler = _playerInputDetection;
@@ -411,6 +413,7 @@ public class Player : MonoBehaviour
     }
     public void HideHitBoxes()
     {
+        Debug.Log("Hide hitbox from player");
         hitbox.gameObject.GetComponent<Hitbox>().HideHitBoxes();
     }
     private IEnumerator StopCharacter()
@@ -551,6 +554,7 @@ public class Player : MonoBehaviour
             {
                 //rb.velocity = _TempAttackedVelocity;
                 //GravityOn = true;
+                
                 freezeAttackingPlayer = false;
                 playerActions.ResumeCurrentAnimation();
             }

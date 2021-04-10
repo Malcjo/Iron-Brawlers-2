@@ -388,6 +388,7 @@ MonoBehaviour:
   HeavyCounter: 0
   SweepCounter: 0
   NeutralAerialCounter: 0
+  BlockCounter: 0
   JabParticle: {fileID: 2802247788416706418}
   HeavyParticle: {fileID: 6653377313978029403}
   SweepParticle: {fileID: 6885356112516483710}
@@ -441,6 +442,8 @@ MonoBehaviour:
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
+    HitBoxTurnOn: 0.18
+    HitBoxTurnOff: 0.4
   sweepVariables:
     FollowingDestination: 1
     HitBoxSize: 1
@@ -530,6 +533,7 @@ MonoBehaviour:
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
+  animPercentageTracker: 0
   LastState: 
   LastAnimation: 
   useHitSmearOnHeavy: 0
@@ -2676,6 +2680,8 @@ MonoBehaviour:
   primed: 0
   inAction: 0
   CanActOutOf: 0
+  ActionTriggered: 0
+  HaveHitPlayer: 0
   canDoAttack: 0
   _interuptSliderSetToZero: 0
   Delaycounter: 0
@@ -2739,6 +2745,7 @@ MonoBehaviour:
   LegArmourMesh:
   - {fileID: 7108789128252538770}
   - {fileID: 5587925335718672601}
+  amountOfArmourLeft: 0
 --- !u!114 &2535414095278585841
 MonoBehaviour:
   m_ObjectHideFlags: 0
