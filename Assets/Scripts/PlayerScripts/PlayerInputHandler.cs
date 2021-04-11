@@ -81,8 +81,23 @@ public class PlayerInputHandler : MonoBehaviour
 
         exitingGame = false;
     }
+    
     private void Update()
     {
+        if (GameManager.instance.TurnOffCanAct == true)
+        {
+            canAct = false;
+        }
+        if (PlayerIndex == 0)
+        {
+            if (GameManager.instance.AnyKeyToContinue == true)
+            {
+                if (Input.anyKey)
+                {
+                    GameManager.instance.LoadLevelContinue();
+                }
+            }
+        }
         ispaused = GameManager.instance.Paused;
         joyStickDelay += 1 * Time.deltaTime;
         if (joyStickDelay >= 10)
@@ -634,7 +649,8 @@ public class PlayerInputHandler : MonoBehaviour
                     } // Choose Character 
                     else if (ChooseLevel)
                     {
-                        canAct = false;
+                        GameManager.instance.TurnOffCanAct = true;
+                        //canAct = false;
                         GameManager.instance.SetLevelNumber((int)level + 1);
                         SetAllInputsToZero();
                         ChooseLevel = false;

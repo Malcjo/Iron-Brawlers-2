@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using JetBrains.Annotations;
 
 public class LoadLevel : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class LoadLevel : MonoBehaviour
     {
         LevelSelectNumber = var;
     }
+    public bool _Continue;
     IEnumerator DelayStartGame()
     {
         loadingScreenGroup.SetActive(true);
@@ -61,13 +63,17 @@ public class LoadLevel : MonoBehaviour
                 }
 
                 pressAnyButtonText.SetActive(true);
+                GameManager.instance.AnyKeyToContinue = true;
                 if (Input.anyKey)
                 {
+                    _Continue = false;
+                    GameManager.instance.AnyKeyToContinue = false;
                     GameManager.instance.ResetPlayersInputs();
                     if(musicFadeAnim != null)
                     {
                         musicFadeAnim.SetTrigger("FadeOut");
                     }
+
 
                     GameManager.instance.DisableMenuCanvas();
                     keyboardImgGroup.SetActive(false);
@@ -78,12 +84,14 @@ public class LoadLevel : MonoBehaviour
                     runningSol.SetActive(false);
                     Debug.Log("button pressed");
                     operation.allowSceneActivation = true;
+
                 }
             }
             Debug.Log(operation.progress);
 
             yield return null;
         }
+        
         yield return StartCoroutine(FadeLoadingScreen(0, 1));
         GameHasLoaded();
 
@@ -195,7 +203,7 @@ public class LoadLevel : MonoBehaviour
         GameManager.instance.player2Character1Background.SetActive(false);
         GameManager.instance.player2Character2Background.SetActive(false);
 
-
+        GameManager.instance.TurnOffCanAct = false;
 
         runningSol.SetActive(false);
         GameManager.instance.Character1BeenPicked = false;

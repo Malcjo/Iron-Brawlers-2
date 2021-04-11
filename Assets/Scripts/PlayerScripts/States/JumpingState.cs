@@ -110,6 +110,11 @@ public class JumpingState : PlayerState
             actions.ArmourBreak();
             self.SetState(new BusyState());
         }
+        if (DashCheck(input.leftTriggerInput))
+        {
+            self.SetState(new BusyState());
+            actions.Dash();
+        }
     }
 
     public override bool StickToGround() => false;

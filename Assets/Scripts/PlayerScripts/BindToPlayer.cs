@@ -44,6 +44,10 @@ public class BindToPlayer : MonoBehaviour
         }
 
     }
+    public void SetLoadLevelToContinue()
+    {
+        loadLevelScript._Continue = true;
+    }
     public void ResetBindToPlayer()
     {
         loadLevelScript.TurnCharacterLightOn();

@@ -284,6 +284,11 @@ public class MovingState : PlayerState
                 actions.ArmourBreak();
                 self.SetState(new BusyState());
             }
+            if (DashCheck(input.leftTriggerInput))
+            {
+                self.SetState(new BusyState());
+                actions.Dash();
+            }
         }
 
         if (JumpingCheck(input.jumpInput))

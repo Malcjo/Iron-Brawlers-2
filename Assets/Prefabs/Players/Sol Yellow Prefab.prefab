@@ -442,8 +442,6 @@ MonoBehaviour:
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
-    HitBoxTurnOn: 0.18
-    HitBoxTurnOff: 0.4
   sweepVariables:
     FollowingDestination: 1
     HitBoxSize: 1
@@ -504,15 +502,15 @@ MonoBehaviour:
     FollowingDestination: 0
     HitBoxSize: 2.5
     DamageOnGauge: 0
-    KnockbackXStrength: 0
-    KnockbackYStrength: 0
+    KnockbackXStrength: 30
+    KnockbackYStrength: -5
     CancelTime: 0
     WhenToMoveCharacterInAnimation: 0
     MoveOnX: 0
     MoveCharacterOnXStrength: 0
     MoveCharacterOnXMaxCounter: 0
     MoveOnY: 0
-    MoveCharacterOnYStrength: 4
+    MoveCharacterOnYStrength: 10
     MoveCharacterOnYMaxCounter: 0.1
   dashVariables:
     MoveCharacterOnXStrength: 12
@@ -533,7 +531,6 @@ MonoBehaviour:
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
-  animPercentageTracker: 0
   LastState: 
   LastAnimation: 
   useHitSmearOnHeavy: 0
@@ -2680,8 +2677,6 @@ MonoBehaviour:
   primed: 0
   inAction: 0
   CanActOutOf: 0
-  ActionTriggered: 0
-  HaveHitPlayer: 0
   canDoAttack: 0
   _interuptSliderSetToZero: 0
   Delaycounter: 0

@@ -5269,7 +5269,7 @@ MonoBehaviour:
     DamageOnGauge: 4
     KnockbackXStrength: 40
     KnockbackYStrength: 2.5
-    CancelTime: 0.85
+    CancelTime: 0.7
     WhenToMoveCharacterInAnimation: 0
     MoveOnX: 1
     MoveCharacterOnXStrength: 10
@@ -5300,11 +5300,11 @@ MonoBehaviour:
     CancelTime: 0.6
     WhenToMoveCharacterInAnimation: 0
     MoveOnX: 1
-    MoveCharacterOnXStrength: 0
-    MoveCharacterOnXMaxCounter: 0
+    MoveCharacterOnXStrength: 4
+    MoveCharacterOnXMaxCounter: 0.1
     MoveOnY: 0
-    MoveCharacterOnYStrength: 0
-    MoveCharacterOnYMaxCounter: 0
+    MoveCharacterOnYStrength: -0.5
+    MoveCharacterOnYMaxCounter: 0.1
   backAirVariables:
     FollowingDestination: 0
     HitBoxSize: 0
@@ -5337,15 +5337,15 @@ MonoBehaviour:
     FollowingDestination: 0
     HitBoxSize: 3
     DamageOnGauge: 2.5
-    KnockbackXStrength: 50
-    KnockbackYStrength: 0
+    KnockbackXStrength: 30
+    KnockbackYStrength: -5
     CancelTime: 0.01
     WhenToMoveCharacterInAnimation: 0
     MoveOnX: 0
     MoveCharacterOnXStrength: 0
     MoveCharacterOnXMaxCounter: 0
     MoveOnY: 1
-    MoveCharacterOnYStrength: 4
+    MoveCharacterOnYStrength: 10
     MoveCharacterOnYMaxCounter: 0.1
   dashVariables:
     MoveCharacterOnXStrength: 12
