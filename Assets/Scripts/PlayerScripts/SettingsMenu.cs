@@ -13,6 +13,11 @@ public class SettingsMenu : MonoBehaviour
 
     private void Start()
     {
+        audioMixer.SetFloat("MasterVolume", PlayerPrefs.GetFloat("MasterVolume", 0.6f));
+        audioMixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat("MusicVolume", 0.6f));
+        audioMixer.SetFloat("SFXVolume", PlayerPrefs.GetFloat("SFXVolume", 1.0f));
+    
+
         resolutions = Screen.resolutions;
 
         resolutionDropdown.ClearOptions();
@@ -49,16 +54,18 @@ public class SettingsMenu : MonoBehaviour
     public void SetMasterVolume (float masterVolume)
     {
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(masterVolume) * 20);
-       
+        PlayerPrefs.SetFloat("MasterVolume", masterVolume);
     }
     public void SetMusicVolume(float musicVolume)
     {
         audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 20);
-        
+        PlayerPrefs.SetFloat("MasterVolume", musicVolume);
+
     }
     public void SetSFXVolume(float sfxVolume)
     {
-        audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20); 
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
+        PlayerPrefs.SetFloat("MasterVolume", sfxVolume);
     }
 
     public void SetQuality (int qualityIndex)
