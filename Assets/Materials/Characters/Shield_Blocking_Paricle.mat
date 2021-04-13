@@ -92,7 +92,7 @@ Material:
     - _ZWrite: 0
     - __dummy__: 0
     m_Colors:
-    - _BaseColor: {r: 3.490566, g: 3.9531555, b: 4, a: 1}
+    - _BaseColor: {r: 0.9161426, g: 0.6933962, b: 1, a: 1}
     - _BaseMap_SinAnimParams: {r: 8.84, g: 0.02, b: 85.41, a: 3.43}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveGradientTexture: {r: 0.5707547, g: 1, b: 1, a: 1}
