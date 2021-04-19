@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5777754021054428488}
   - component: {fileID: 3628676537708215018}
   - component: {fileID: 5172949259174403765}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Dust 3d
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.78039217}
+      maxColor: {r: 0.2830189, g: 0.247171, b: 0.22534712, a: 0.98039216}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4890,7 +4890,7 @@ GameObject:
   - component: {fileID: 520484138419107845}
   - component: {fileID: 4114774353265101825}
   - component: {fileID: 7474459260188681210}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5101,7 +5101,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.8509804}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.6117647}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9761,8 +9761,8 @@ GameObject:
   - component: {fileID: 3583048005112685821}
   - component: {fileID: 3583048005112685820}
   - component: {fileID: 7558782774527425638}
-  m_Layer: 0
-  m_Name: ArmorBreak
+  m_Layer: 16
+  m_Name: ArmorBreak_Sol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9978,7 +9978,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.5686275}
+      maxColor: {r: 1, g: 0.25613004, b: 0, a: 0.5686275}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14698,7 +14698,7 @@ GameObject:
   - component: {fileID: 3924276614321067893}
   - component: {fileID: 3924276614321067891}
   - component: {fileID: 3924276614321067892}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: dUST
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15561,7 +15561,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 25
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -19577,7 +19577,7 @@ GameObject:
   - component: {fileID: 1029094497273088997}
   - component: {fileID: 5753690648378837329}
   - component: {fileID: 4756571756923854281}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19790,7 +19790,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.84705883}
+      maxColor: {r: 0.8666667, g: 0.57876897, b: 0.50980395, a: 0.84705883}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24458,7 +24458,7 @@ GameObject:
   - component: {fileID: 2666476843689850196}
   - component: {fileID: 4168650465634605146}
   - component: {fileID: 4040657997972997577}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Glow (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24669,7 +24669,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6313726, g: 0.15686274, b: 0.3718775, a: 1}
+      maxColor: {r: 1, g: 0.6361713, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24731,7 +24731,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -29328,7 +29328,7 @@ GameObject:
   - component: {fileID: 5857435794038866856}
   - component: {fileID: 4050753705522023131}
   - component: {fileID: 1530271783237569048}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29539,7 +29539,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.6129213, b: 0, a: 0.48235294}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -29601,7 +29601,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -34198,13 +34198,13 @@ GameObject:
   - component: {fileID: 5701855618140238684}
   - component: {fileID: 2114649665217552024}
   - component: {fileID: 6966320753586442762}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Dust 3d geo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5701855618140238684
 Transform:
   m_ObjectHideFlags: 0
@@ -39077,7 +39077,7 @@ GameObject:
   - component: {fileID: 6458341187719762663}
   - component: {fileID: 4907240997351159595}
   - component: {fileID: 2755582215868235238}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ShockWave (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39288,7 +39288,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.8509804}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.6117647}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
