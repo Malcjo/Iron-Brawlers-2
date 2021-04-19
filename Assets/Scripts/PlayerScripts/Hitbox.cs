@@ -320,8 +320,10 @@ public class Hitbox : MonoBehaviour
     }
     private void DamagingPlayer(Player DefendingPlayer, Player attackingPlayer, ArmourCheck armourCheck, HurtBox hurtBox)
     {
-        //DefendingPlayer.MoveCharacterOnYStrength = 0;
-        //DefendingPlayer.MoveCharacterOnXStrength = 0;
+        //DefendingPlayer.SetMoveCharacterOnXStrength(1);
+        //DefendingPlayer.SetMoveCharacterOnYStrength(1);
+        //DefendingPlayer.moveCharacterOnXCounter = 5;
+        //DefendingPlayer.moveCharacterOnYCounter = 5;
         ApplyDamageToPlayer(DefendingPlayer, attackingPlayer, _attackType, armourCheck);
         if (hurtBox.BodyLocation == LocationTag.Chest)
         {

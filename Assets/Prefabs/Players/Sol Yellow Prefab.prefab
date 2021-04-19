@@ -459,9 +459,11 @@ MonoBehaviour:
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
+    WhenToCreateHitBox: 0.001666
+    WhenToDestroyHitBox: 0.004666
   heavyVariables:
     FollowingDestination: 1
-    HitBoxSize: 1.2
+    HitBoxSize: 0.7
     DamageOnGauge: 4
     KnockbackXStrength: 40
     KnockbackYStrength: 2
@@ -3711,7 +3713,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3938678239750794650}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

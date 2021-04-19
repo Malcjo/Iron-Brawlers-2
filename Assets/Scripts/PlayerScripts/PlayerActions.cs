@@ -122,6 +122,7 @@ public class PlayerActions : MonoBehaviour
         public float MoveCharacterOnXStrength; public float MoveCharacterOnXMaxCounter;
         public bool MoveOnY;
         public float MoveCharacterOnYStrength; public float MoveCharacterOnYMaxCounter;
+        public float WhenToCreateHitBox; public float WhenToDestroyHitBox;
 
     }
     [System.Serializable]
@@ -363,6 +364,17 @@ public class PlayerActions : MonoBehaviour
         StartCoroutine(JabAction());
     }
 
+    public void CreateHitBox()
+    {
+        Debug.Log("CreateHitBox");
+        hitboxManager.CreateHitBox();
+    }
+    public void DestroyHitBox()
+    {
+        Debug.Log("DestroyHitBox");
+        hitboxManager.DestroyHitBox();
+    }
+
     private IEnumerator JabAction()
     {
         if (JabCounter >= MaxJabTime)
@@ -374,7 +386,7 @@ public class PlayerActions : MonoBehaviour
             anim.speed = 1;
 
             self.MoveCharacterOnXMaxValue = jabVariables.MoveCharacterOnXMaxCounter;
-
+            hitboxScript._attackType = AttackType.Jab;
 
             yield return null;
             if (JabParticle != null)
@@ -383,7 +395,8 @@ public class PlayerActions : MonoBehaviour
             }
             FindObjectOfType<AudioManager>().Play(AudioManager.JABMISS);
             hitboxScript._attackType = AttackType.Jab;
-            hitboxManager.JabAttack(0.5f);
+            
+            //hitboxManager.JabAttack(0.5f);
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
                 while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < jabVariables.CancelTime)
@@ -430,7 +443,7 @@ public class PlayerActions : MonoBehaviour
             anim.speed = 1;
             yield return null;
             hitboxScript._attackType = AttackType.Heavy;
-            hitboxManager.JabAttack(0.5f);
+            //hitboxManager.JabAttack(0.5f);
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
                 while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < heavyVariables.CancelTime)

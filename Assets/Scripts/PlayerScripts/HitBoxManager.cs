@@ -84,10 +84,29 @@ public class HitBoxManager : MonoBehaviour
         StopCoroutine(FreezeFrames(0, 0));
         StopCoroutine(SpawnHitBox(0));
     }
+    public void CreateHitBox()
+    {
+        hitBox.ShowHitBoxes();
+    }
+    public void DestroyHitBox()
+    {
+        hitBox.HideHitBoxes();
+    }
     public IEnumerator SpawnHitBox(float spawnTime)
     {
         hitBox.ShowHitBoxes();
         yield return new WaitForSeconds(spawnTime);
+        hitBox.HideHitBoxes();
+    }
+    public void CreateAndDestroyHitBox(float spawnDelay, float DestroyDelay)
+    {
+        StartCoroutine(_CreateAndDestroyHitBox(spawnDelay, DestroyDelay));
+    }
+    private IEnumerator _CreateAndDestroyHitBox(float spawnDelay, float DestroyDelay)
+    {
+        yield return new WaitForSeconds(spawnDelay);
+        hitBox.ShowHitBoxes();
+        yield return new WaitForSeconds(DestroyDelay);
         hitBox.HideHitBoxes();
     }
 
