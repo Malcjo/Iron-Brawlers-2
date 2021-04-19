@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shield_Blocking_Paricle
+  m_Name: Shield_Break
   m_Shader: {fileID: 4800000, guid: 387a49315b953e64a9f7b3877f01d6b1, type: 3}
   m_ShaderKeywords: TCP2_DISSOLVE TCP2_UV_NORMALS_FULL _ALPHAPREMULTIPLY_ON _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 4
@@ -92,7 +92,7 @@ Material:
     - _ZWrite: 0
     - __dummy__: 0
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.8786802, g: 0.3622641, b: 1, a: 1}
     - _BaseMap_SinAnimParams: {r: 8.84, g: 0.02, b: 85.41, a: 3.43}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveGradientTexture: {r: 0.5707547, g: 1, b: 1, a: 1}
