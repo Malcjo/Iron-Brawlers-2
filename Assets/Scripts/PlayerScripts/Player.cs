@@ -131,7 +131,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform StandaloneSpawnPoint;
 
     [SerializeField] private float moveCharacterOnXStrength;
+    public float MoveCharacterOnXStrength {set { moveCharacterOnXCounter = value; } }
+
     [SerializeField] private float moveCharacterOnYStrength;
+    public float MoveCharacterOnYStrength { set{ MoveCharacterOnYStrength = value; } }
     public float moveCharacterOnXCounter;
     public float moveCharacterOnYCounter;
 
