@@ -111,6 +111,10 @@ public class Hitbox : MonoBehaviour
     private void Start()
     {
     }
+    private void Update()
+    {
+        //HitboxPosition();
+    }
     private void FixedUpdate()
     {
         HitboxPosition();

@@ -509,6 +509,8 @@ MonoBehaviour:
     MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
+    WhenToCreateHitBox: 0
+    WhenToDestroyHitBox: 0
   heavyVariables:
     FollowingDestination: 1
     HitBoxSize: 1.2
@@ -539,7 +541,7 @@ MonoBehaviour:
     MoveCharacterOnYMaxCounter: 0
   neutralAerialVariables:
     FollowingDestination: 2
-    HitBoxSize: 1.8
+    HitBoxSize: 1.3
     DamageOnGauge: 3
     KnockbackXStrength: 35
     KnockbackYStrength: -0.5
