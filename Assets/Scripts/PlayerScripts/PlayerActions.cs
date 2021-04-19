@@ -497,7 +497,7 @@ public class PlayerActions : MonoBehaviour
             self.CanTurn = false;
             yield return null;
             hitboxScript._attackType = AttackType.LegSweep;
-            hitboxManager.LegSweep(0.5f);
+            //hitboxManager.LegSweep(0.5f);
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
                 while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < sweepVariables.CancelTime)
@@ -539,7 +539,7 @@ public class PlayerActions : MonoBehaviour
             yield return null;
             hitboxScript._attackType = AttackType.Aerial;
             hitboxScript._attackDir = Attackdirection.Aerial;
-            hitboxManager.AeiralAttack();
+            //hitboxManager.AeiralAttack();
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
                 while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < neutralAerialVariables.CancelTime)
@@ -612,7 +612,7 @@ public class PlayerActions : MonoBehaviour
             hitboxScript._attackDir = Attackdirection.Down;
             hitboxScript._attackType = AttackType.ArmourBreak;
             armourCheck.SetAllArmourOff();
-            hitboxManager.ArmourBreak();
+            //hitboxManager.ArmourBreak();
 
             self.MinusOneToJumpIndex();
             while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
