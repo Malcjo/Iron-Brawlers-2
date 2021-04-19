@@ -3471,7 +3471,7 @@ MonoBehaviour:
   landOnGroundDustParticle: {fileID: 2683131675211120295, guid: b5065ed3a60300b4da043e08e8ff2da6,
     type: 3}
   RunningParticle: {fileID: 0}
-  armourBreak: {fileID: 3583048005112685823, guid: 1172f9048ce219942b3447e0a53459ce,
+  armourBreak: {fileID: 3583048005112685823, guid: 152b1a14e97fed64e9ed806330efd946,
     type: 3}
   breakArmourPieceParticle: {fileID: 3583048005112685823, guid: 1172f9048ce219942b3447e0a53459ce,
     type: 3}
