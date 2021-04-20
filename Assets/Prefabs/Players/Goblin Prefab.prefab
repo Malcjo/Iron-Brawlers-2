@@ -5341,12 +5341,12 @@ MonoBehaviour:
     DamageOnGauge: 2.5
     KnockbackXStrength: 30
     KnockbackYStrength: -5
-    CancelTime: 0.01
+    CancelTime: 0.5
     WhenToMoveCharacterInAnimation: 0
     MoveOnX: 0
     MoveCharacterOnXStrength: 0
     MoveCharacterOnXMaxCounter: 0
-    MoveOnY: 1
+    MoveOnY: 0
     MoveCharacterOnYStrength: 0
     MoveCharacterOnYMaxCounter: 0
   dashVariables:

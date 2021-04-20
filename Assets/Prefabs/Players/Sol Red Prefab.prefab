@@ -584,10 +584,10 @@ MonoBehaviour:
   armourBreakVariables:
     FollowingDestination: 0
     HitBoxSize: 2.5
-    DamageOnGauge: 0
+    DamageOnGauge: 2.5
     KnockbackXStrength: 30
     KnockbackYStrength: -5
-    CancelTime: 0
+    CancelTime: 0.5
     WhenToMoveCharacterInAnimation: 0
     MoveOnX: 0
     MoveCharacterOnXStrength: 0
