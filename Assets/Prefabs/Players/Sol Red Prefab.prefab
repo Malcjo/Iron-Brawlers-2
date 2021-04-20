@@ -497,7 +497,7 @@ MonoBehaviour:
   knockDownCrossfade: 0.02
   jabVariables:
     FollowingDestination: 3
-    HitBoxSize: 0.4
+    HitBoxSize: 0.5
     DamageOnGauge: 2.5
     KnockbackXStrength: 25
     KnockbackYStrength: 10
@@ -513,7 +513,7 @@ MonoBehaviour:
     WhenToDestroyHitBox: 0
   heavyVariables:
     FollowingDestination: 1
-    HitBoxSize: 1.2
+    HitBoxSize: 0.8
     DamageOnGauge: 4
     KnockbackXStrength: 40
     KnockbackYStrength: 2
@@ -541,7 +541,7 @@ MonoBehaviour:
     MoveCharacterOnYMaxCounter: 0
   neutralAerialVariables:
     FollowingDestination: 2
-    HitBoxSize: 1.3
+    HitBoxSize: 1.5
     DamageOnGauge: 3
     KnockbackXStrength: 35
     KnockbackYStrength: -0.5
