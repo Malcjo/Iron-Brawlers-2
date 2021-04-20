@@ -72,7 +72,7 @@ public class PlayerActions : MonoBehaviour
     const string JUMPINGKEY = "JUMP";
     const string ARMOURBREAKKEY = "ARMOUR_BREAK";
     const string BLOCKKEY = "BLOCK_IDLE";
-    const string NORMALHITSTUNKEY = "HITSTUN_NORMAL_HIT";
+    const string NORMALHITSTUNKEY = "HITSTUN_HEAVY";
     const string KNOCKDOWNKEY = "KNOCKDOWN_NORMAL";
     const string GETTINGUPKEY = "GETTING_UP_NORMAL";
     const string KNOCKUPKEY = "HITSTUN_UP_AIR";

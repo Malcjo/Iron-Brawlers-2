@@ -451,7 +451,7 @@ MonoBehaviour:
     HitBoxSize: 0.5
     DamageOnGauge: 2.5
     KnockbackXStrength: 25
-    KnockbackYStrength: 10
+    KnockbackYStrength: 0
     CancelTime: 0.4
     WhenToMoveCharacterInAnimation: 0.2
     MoveOnX: 1
@@ -2714,6 +2714,7 @@ MonoBehaviour:
   canDoAttack: 0
   _interuptSliderSetToZero: 0
   Delaycounter: 0
+  InKnockBack: 0
   previousYVelocity: 0
   V3Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1181940027119994825

@@ -293,20 +293,14 @@ public class Player : MonoBehaviour
     }
     private void MoveCharacterOnX()
     {
-        if (!HitStun)
-        {
-            Debug.Log("Move Character On X");
-            rb.velocity = new Vector3(facingDirection * moveCharacterOnXStrength, rb.velocity.y, 0);
-        }
+        Debug.Log("Move Character On X");
+        rb.velocity = new Vector3(facingDirection * moveCharacterOnXStrength, rb.velocity.y, 0);
 
     }
     private void MoveCharacterOnY()
     {
-        if (!HitStun)
-        {
-            Debug.Log("Move Character On Y");
-            rb.velocity = new Vector3(rb.velocity.x, moveCharacterOnYStrength, 0);
-        }
+        Debug.Log("Move Character On Y");
+        rb.velocity = new Vector3(rb.velocity.x, moveCharacterOnYStrength, 0);
 
     }
     public void changeHeavyMoveValue(AttackType attackType, float value)
