@@ -44,17 +44,17 @@ public class JumpingState : PlayerState
                 self.WasAttacking = true;
                 self.SetState(new BusyState());
             }
-            if (!actions.IsDoubleJump)
-            {
-                if (self.VerticalState == Player.VState.jumping)
-                {
-                    actions.Jumping();
-                }
-                else
-                {
-                    actions.Falling();
-                }
-            }
+            //if (!actions.IsDoubleJump)
+            //{
+            //    if (self.VerticalState == Player.VState.jumping)
+            //    {
+            //        actions.Jumping();
+            //    }
+            //    else
+            //    {
+            //        actions.Falling();
+            //    }
+            //}
 
 
             if (JumpingCheck(input.jumpInput))

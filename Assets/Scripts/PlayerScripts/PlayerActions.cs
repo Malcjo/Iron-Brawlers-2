@@ -75,7 +75,9 @@ public class PlayerActions : MonoBehaviour
     const string NORMALHITSTUNKEY = "HITSTUN_NORMAL_HIT";
     const string KNOCKDOWNKEY = "KNOCKDOWN_NORMAL";
     const string GETTINGUPKEY = "GETTING_UP_NORMAL";
+    const string KNOCKUPKEY = "HITSTUN_UP_AIR";
     const string DASHKEY = "DASH";
+    const string FALLDOWNKEY = "KNOCKDOWN_AERIAL";
 
     [Header("Crossfade Timing")]
     [SerializeField] private float idleCrossfade;
@@ -97,6 +99,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float getUpCrossfade;
     [SerializeField] private float normalHitCrossfade;
     [SerializeField] private float knockDownCrossfade;
+    [SerializeField] private float knockUpCrossfade;
 
     [Header("Attack Variables")]
     public JabVariables jabVariables;
@@ -687,6 +690,16 @@ public class PlayerActions : MonoBehaviour
 
     public void Idle()
     {
+        //if (!anim.GetCurrentAnimatorStateInfo(0).IsName(IDLEKEY))
+        //{
+        //    anim.speed = 1;
+        //    TransitionToAnimation(false, IDLEKEY, idleCrossfade);
+        //    self.SetState(new IdleState());
+        //}
+        //else
+        //{
+        //    self.SetState(new IdleState());
+        //}
         if (self.VerticalState != Player.VState.grounded)
         {
             self.SetState(new JumpingState());
@@ -994,6 +1007,39 @@ public class PlayerActions : MonoBehaviour
         self.HitStun = false;
         self.SetState(new IdleState());
     }
+    public void KnockUp()
+    {
+        StartCoroutine(_KnockUp());
+    }
+    private IEnumerator _KnockUp()
+    {
+        self.HitStun = true;
+        self.CanActOutOf = false;
+        self.InKnockBack = true;
+        self.SetState(new BusyState());
+        TransitionToAnimation(false, FALLDOWNKEY, knockDownCrossfade);
+        yield return null;
+        while(anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+        {
+            yield return null;
+        }
+        //TransitionToAnimation(false, FALLINGKEY, fallingCrossfade);
+        //self.SetState(new JumpingState());
+        //if (self.VerticalState == Player.VState.grounded)
+        //{
+        //    TransitionToAnimation(false, IDLEKEY, idleCrossfade);
+        //    self.SetState(new IdleState());
+        //}
+        //else if(self.VerticalState == Player.VState.jumping)
+        //{
+        //    TransitionToAnimation(false, JUMPINGKEY, jumpCrossfade);
+        //    self.SetState(new JumpingState());
+        //}
+        //else if (self.VerticalState == Player.VState.falling)
+        //{
+
+        //}
+    }
     public void BlockKnockback()
     {
         StartCoroutine(_BlockKnockBack());
@@ -1013,7 +1059,6 @@ public class PlayerActions : MonoBehaviour
     {
         StartCoroutine(_KnockDown());
     }
-
     private IEnumerator _KnockDown()
     {
         self.CanActOutOf = false;
@@ -1035,16 +1080,17 @@ public class PlayerActions : MonoBehaviour
             }
             yield return null;
         }
-        _GetBackUp();
+        anim.speed = 1;
+        GetBackUp();
         //StopCoroutine(_KnockDown()); 
     }
-    private void _GetBackUp()
+    public void GetBackUp()
     {
         //self.SetState(new BusyState()); 
-        StartCoroutine(GetBackUp());
+        StartCoroutine(_GetBackUp());
     }
 
-    private IEnumerator GetBackUp()
+    private IEnumerator _GetBackUp()
     {
         self.HitStun = true;
         self.CanTurn = false;
