@@ -77,7 +77,7 @@ public class PlayerActions : MonoBehaviour
     const string GETTINGUPKEY = "GETTING_UP_NORMAL";
     const string KNOCKUPKEY = "HITSTUN_UP_AIR";
     const string DASHKEY = "DASH";
-    const string FALLDOWNKEY = "KNOCKDOWN_AERIAL";
+    const string TUMBLEKEY = "HITSTUN_TUMBLE";
 
     [Header("Crossfade Timing")]
     [SerializeField] private float idleCrossfade;
@@ -1017,7 +1017,7 @@ public class PlayerActions : MonoBehaviour
         self.CanActOutOf = false;
         self.InKnockBack = true;
         self.SetState(new BusyState());
-        TransitionToAnimation(false, FALLDOWNKEY, knockDownCrossfade);
+        TransitionToAnimation(false, TUMBLEKEY, knockDownCrossfade);
         yield return null;
         while(anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
         {
