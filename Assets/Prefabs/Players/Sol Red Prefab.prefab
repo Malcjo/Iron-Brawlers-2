@@ -483,7 +483,7 @@ MonoBehaviour:
   runCrossfade: 0.02
   jabCrossfade: 0.02
   heavyCrossfade: 0.02
-  crouchCrossfade: 0.02
+  crouchCrossfade: 0.04
   sweepCrossfade: 0.02
   neutralAerialCrossfade: 0.02
   dashCrossfade: 0.02

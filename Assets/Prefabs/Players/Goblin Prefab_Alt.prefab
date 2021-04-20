@@ -5233,11 +5233,11 @@ MonoBehaviour:
   DashParticle: {fileID: 44675475968405556}
   RollParticle: {fileID: 0}
   canDashParitcle: {fileID: 0}
-  idleCrossfade: 0.12
+  idleCrossfade: 0.06
   runCrossfade: 0.02
   jabCrossfade: 0.02
-  heavyCrossfade: 0.02
-  crouchCrossfade: 0.02
+  heavyCrossfade: 0.04
+  crouchCrossfade: 0.04
   sweepCrossfade: 0.02
   neutralAerialCrossfade: 0.02
   dashCrossfade: 0.02
@@ -5269,9 +5269,9 @@ MonoBehaviour:
     FollowingDestination: 7
     HitBoxSize: 1
     DamageOnGauge: 4
-    KnockbackXStrength: 40
+    KnockbackXStrength: 45
     KnockbackYStrength: 2.5
-    CancelTime: 0.7
+    CancelTime: 0.9
     WhenToMoveCharacterInAnimation: 0
     MoveOnX: 1
     MoveCharacterOnXStrength: 10

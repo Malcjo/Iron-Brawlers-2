@@ -73,8 +73,8 @@ ModelImporter:
       name: FALLING
       takeName: Take 001
       internalID: 0
-      firstFrame: 10
-      lastFrame: 19
+      firstFrame: 17.6
+      lastFrame: 19.7
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
