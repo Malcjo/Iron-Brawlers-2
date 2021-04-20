@@ -467,7 +467,8 @@ public class Hitbox : MonoBehaviour
                 defendingPlayer.HitStunTimer = defendingPlayer.MaxHitStun;
                 defendingPlayer.HitStun = true;
                 FindObjectOfType<AudioManager>().Play(AudioManager.JABHITUNARMOURED);
-                defendingPlayer.KnockDown();
+                defendingPlayer.KnockUp();
+                defendingPlayer.InKnockBack = true;
 
             }
             else if (attackType == AttackType.Jab)

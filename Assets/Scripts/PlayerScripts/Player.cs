@@ -585,12 +585,16 @@ public class Player : MonoBehaviour
     }
     #endregion
     #region Attacking and Damaging 
-
+    public bool InKnockBack = false;
     public void SetHitStun(bool var, AttackType _attackType)
     {
         if (_attackType == AttackType.Jab)
         {
         }
+    }
+    public void KnockUp()
+    {
+        playerActions.KnockUp();
     }
     public void KnockDown()
     {
@@ -802,18 +806,19 @@ public class Player : MonoBehaviour
         previousYVelocity = rb.velocity.y;
         if (_currentVerticalState != VState.grounded)
         {
-
-            if (previousYVelocity >= 0)
+            if (!HitStun)
             {
-                _currentVerticalState = VState.jumping;
-                _gravityOn = true;
+                if (previousYVelocity >= 0)
+                {
+                    _currentVerticalState = VState.jumping;
+                    _gravityOn = true;
+                }
+                else if (previousYVelocity < 0)
+                {
+                    _currentVerticalState = VState.falling;
+                    _gravityOn = true;
+                }
             }
-            else if (previousYVelocity < 0)
-            {
-                _currentVerticalState = VState.falling;
-                _gravityOn = true;
-            }
-
         }
 
         //if (rb.velocity.y != 0) 
@@ -893,6 +898,12 @@ public class Player : MonoBehaviour
     }
     private void LandOnGround(RaycastHit hit)
     {
+        if (InKnockBack)
+        {
+            HitStun = false;
+            InKnockBack = false;
+            playerActions.GetBackUp();
+        }
         _gravityOn = false;
         AdjustPlayerOnGround(hit);
         rb.velocity = new Vector3(rb.velocity.x, 0, 0);
@@ -908,6 +919,7 @@ public class Player : MonoBehaviour
     }
     public void PlayerGroundedIsFalse()
     {
+        //_gravityOn = true;
         _currentVerticalState = VState.falling;
     }
     public void RayCasterLeftWallCheck(RaycastHit hit)
