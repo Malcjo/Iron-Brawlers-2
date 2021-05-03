@@ -114,7 +114,7 @@ public class BindToPlayer : MonoBehaviour
 
         }
     }
-    
+    [SerializeField] private CharacterSelect characterSelect;
     
     IEnumerator delayRoundStart()
     {
@@ -127,15 +127,17 @@ public class BindToPlayer : MonoBehaviour
         {
             if(input.playerIndex == 1 - 1)
             {
-                GameManager.instance.player1pressAToJoinUI.SetActive(false);
-                GameManager.instance.player1Character1PortraitPuck.SetActive(true);
-                GameManager.instance.player1Character1Background.SetActive(true);
+                characterSelect.SetUpPlayer1();
+                //GameManager.instance.player1pressAToJoinUI.SetActive(false);
+                //GameManager.instance.player1Character1PortraitPuck.SetActive(true);
+                //GameManager.instance.player1Character1Background.SetActive(true);
             }
             else if (input.playerIndex == 2 - 1)
             {
-                GameManager.instance.player2pressAToJoinUI.SetActive(false);
-                GameManager.instance.player2Character1PortraitPuck.SetActive(true);
-                GameManager.instance.player2Character1Background.SetActive(true);
+                characterSelect.SetUpPlayer2();
+                //GameManager.instance.player2pressAToJoinUI.SetActive(false);
+                //GameManager.instance.player2Character1PortraitPuck.SetActive(true);
+                //GameManager.instance.player2Character1Background.SetActive(true);
             }
             players.Add(input.gameObject);
             input.gameObject.GetComponent<PlayerInputHandler>().SetInput(input);
