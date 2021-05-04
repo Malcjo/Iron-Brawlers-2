@@ -718,7 +718,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log("loading");
         loadLevelScript.TransitionBackToMainMenu();
     }
-    public bool InRoundStarter;
+    //public bool InRoundStarter;
     public void AddPlayerToList(GameObject player)
     {
         players.Add(player);
@@ -742,16 +742,16 @@ public class GameManager : MonoBehaviour
     }
     public void RoundStartCountDown()
     {
-        InRoundStarter = true;
         roundStartCounter = 0;
         if (players.Count > 1)
         {
+            bindToPlayer.players[1].GetComponent<PlayerInputHandler>().InRoundStarter = true;
             bindToPlayer.players[1].GetComponent<PlayerInputHandler>().CanControlCharacters = false;
             bindToPlayer.players[1].GetComponent<PlayerInputHandler>().primed = false;
             bindToPlayer.players[1].GetComponent<PlayerInputHandler>().SetAllInputsToZero();
             players[1].GetComponent<Player>().SetVelocityToZero();
         }
-
+        bindToPlayer.players[0].GetComponent<PlayerInputHandler>().InRoundStarter = true;
         bindToPlayer.players[0].GetComponent<PlayerInputHandler>().CanControlCharacters = false;
         bindToPlayer.players[0].GetComponent<PlayerInputHandler>().primed = false;
         bindToPlayer.players[0].GetComponent<PlayerInputHandler>().SetAllInputsToZero();
@@ -797,12 +797,14 @@ public class GameManager : MonoBehaviour
             if ((int)roundStartCounter >= 2.5f && FightActive == true && ReadyActive == true)
             {
                 FightUI.SetActive(false);
-                InRoundStarter = false;
+                //InRoundStarter = false;
                 ResetPlayersInputs();
                 if (players.Count > 1)
                 {
+                    bindToPlayer.players[1].GetComponent<PlayerInputHandler>().InRoundStarter = false;
                     bindToPlayer.players[1].gameObject.SetActive(true);
                 }
+                bindToPlayer.players[0].GetComponent<PlayerInputHandler>().InRoundStarter = false;
                 bindToPlayer.players[0].gameObject.SetActive(true);
                 _RoundStart = false;
             }

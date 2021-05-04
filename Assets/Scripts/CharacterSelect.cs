@@ -1,46 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class CharacterSelect : MonoBehaviour
 {
-    [SerializeField] private GameObject player1SolAnimated, player1SolAltAnimated, player1GoblinAnimated, player1GoblinAltAnimated;
-    [SerializeField] private GameObject player2SolAnimated, player2SolAltAnimated, player2GoblinAnimated, player2GoblinAltAnimated;
+    public PlayerInputManager playerInputManager;
+
+    [SerializeField] public GameObject player1SolAnimated, player1SolAltAnimated, player1GoblinAnimated, player1GoblinAltAnimated;
+    [SerializeField] public GameObject player2SolAnimated, player2SolAltAnimated, player2GoblinAnimated, player2GoblinAltAnimated;
     [Space(10)]
-    [SerializeField] private GameObject player1Character1PortraitPuck;
-    [SerializeField] private GameObject player1Character2PortraitPuck;
-    [SerializeField] private GameObject player2Character1PortraitPuck, player2Character2PortraitPuck;
-    [SerializeField] private GameObject player1CharacterPuck, player2CharacterPuck;
+    [SerializeField] public GameObject player1Character1PortraitPuck;
+    [SerializeField] public GameObject player1Character2PortraitPuck;
+    [SerializeField] public GameObject player2Character1PortraitPuck, player2Character2PortraitPuck;
+    [SerializeField] public GameObject player1CharacterPuck, player2CharacterPuck;
     [Space(10)]
-    [SerializeField] private GameObject Display1;
-    [SerializeField] private GameObject Display2;
-    [SerializeField] private GameObject Display3;
-    [SerializeField] private GameObject Display4;
+    [SerializeField] public GameObject Display1;
+    [SerializeField] public GameObject Display2;
+    [SerializeField] public GameObject Display3;
+    [SerializeField] public GameObject Display4;
+    [Space(10)] 
+    [SerializeField] public GameObject player1Character1Selected;
+    [SerializeField] public GameObject player1Character2Selected;
+    [SerializeField] public GameObject player2Character1Selected, player2Character2Selected;
+    [SerializeField] public GameObject character1ButtonSelected, character2ButtonSelected;
     [Space(10)]
-    [SerializeField] private GameObject player1Character1Selected;
-    [SerializeField] private GameObject player1Character2Selected;
-    [SerializeField] private GameObject player2Character1Selected, player2Character2Selected;
-    [SerializeField] private GameObject character1ButtonSelected, character2ButtonSelected;
+    [SerializeField] public GameObject LevelDisplay1Obj;
+    [SerializeField] public GameObject LevelDisplay2Obj;
+    [SerializeField] public GameObject level1DisplayImage, level1HighlightImage;
+    [SerializeField] public GameObject level2DisplayImage, level2HighlightImage;
     [Space(10)]
-    [SerializeField] private GameObject LevelDisplay1Obj;
-    [SerializeField] private GameObject LevelDisplay2Obj;
-    [SerializeField] private GameObject level1DisplayImage, level1HighlightImage;
-    [SerializeField] private GameObject level2DisplayImage, level2HighlightImage;
+    [SerializeField] public GameObject player1pressAToJoinUI;
+    [SerializeField] public GameObject player2pressAToJoinUI;
+    [SerializeField] public GameObject player1Character1Background, player1Character2Background;
+    [SerializeField] public GameObject player2Character1Background, player2Character2Background;
     [Space(10)]
-    [SerializeField] private GameObject player1pressAToJoinUI;
-    [SerializeField] private GameObject player2pressAToJoinUI;
-    [SerializeField] private GameObject player1Character1Background, player1Character2Background;
-    [SerializeField] private GameObject player2Character1Background, player2Character2Background;
+    [SerializeField] public GameObject player1SolPortrait;
+    [SerializeField] public GameObject player1SolAltPortrait;
+    [SerializeField] public GameObject player1GoblinPortrait;
+    [SerializeField] public GameObject player1GoblinAltPortrait;
     [Space(10)]
-    [SerializeField] private GameObject player1SolPortrait;
-    [SerializeField] private GameObject player1SolAltPortrait;
-    [SerializeField] private GameObject player1GoblinPortrait;
-    [SerializeField] private GameObject player1GoblinAltPortrait;
-    [Space(10)]
-    [SerializeField] private GameObject player2SolPortrait;
-    [SerializeField] private GameObject player2SolAltPortrait;
-    [SerializeField] private GameObject player2GoblinPortrait;
-    [SerializeField] private GameObject player2GoblinAltPortrait;
+    [SerializeField] public GameObject player2SolPortrait;
+    [SerializeField] public GameObject player2SolAltPortrait;
+    [SerializeField] public GameObject player2GoblinPortrait;
+    [SerializeField] public GameObject player2GoblinAltPortrait;
 
     public void SetUpPlayer1()
     {

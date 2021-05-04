@@ -142,12 +142,23 @@ public class BindToPlayer : MonoBehaviour
             players.Add(input.gameObject);
             input.gameObject.GetComponent<PlayerInputHandler>().SetInput(input);
             playerIndex = players.Count;
-            input.gameObject.GetComponent<PlayerInputHandler>().SetPlayerNumber(GameManager.instance.inputManager);
+            input.gameObject.GetComponent<PlayerInputHandler>().SetPlayerNumber(characterSelect.playerInputManager);
+            input.gameObject.GetComponent<PlayerInputHandler>().SetUpBind(this);
+            input.gameObject.GetComponent<PlayerInputHandler>().SetUpCharacterSelect(characterSelect);
             input.gameObject.GetComponent<PlayerInputHandler>().PlayerIndex = playerIndex;
             //input.gameObject.GetComponent<PlayerInputHandler>().canAct = true;
 
             DontDestroyOnLoad(input.gameObject);
         }
+    }
+
+    public void TurnOffCanAct()
+    {
+        if(players.Count > 1)
+        {
+            players[1].gameObject.GetComponent<PlayerInputHandler>().canAct = false;
+        }
+        players[0].gameObject.GetComponent<PlayerInputHandler>().canAct = false;
     }
     //public void ReadyPlayer()
     //{

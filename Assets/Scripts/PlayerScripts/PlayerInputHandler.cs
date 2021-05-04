@@ -72,6 +72,14 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] float joyStickDelay;
     [SerializeField] float contextValue;
     public bool exitingGame;
+    private CharacterSelect characterSelect;
+    private bool _inRoundStarter;
+
+
+    public bool InRoundStarter { get { return _inRoundStarter; } set { _inRoundStarter = value; } }
+    private BindToPlayer bind;
+    public BindToPlayer Bind { get { return bind; } set { bind = value; } }
+
     private void Awake()
     {
         currentScene = SceneManager.GetActiveScene();
@@ -81,7 +89,14 @@ public class PlayerInputHandler : MonoBehaviour
 
         exitingGame = false;
     }
-    
+    public void SetUpCharacterSelect(CharacterSelect CharSel)
+    {
+        characterSelect = CharSel;
+    }
+    public void SetUpBind(BindToPlayer _bind)
+    {
+        bind = _bind;
+    }
     private void Update()
     {
         if (GameManager.instance.TurnOffCanAct == true)
@@ -313,19 +328,19 @@ public class PlayerInputHandler : MonoBehaviour
             case PlayerCharacterEnum.Characters.Sol:
                 if (PlayerIndex == 1)
                 {
-                    GameManager.instance.player1Character1PortraitPuck.SetActive(true);
-                    GameManager.instance.player1Character2PortraitPuck.SetActive(false);
+                    characterSelect.player1Character1PortraitPuck.SetActive(true);
+                    characterSelect.player1Character2PortraitPuck.SetActive(false);
 
-                    GameManager.instance.player1Character1Background.SetActive(true);
-                    GameManager.instance.player1Character2Background.SetActive(false);
+                    characterSelect.player1Character1Background.SetActive(true);
+                    characterSelect.player1Character2Background.SetActive(false);
                 }
                 else if (PlayerIndex == 2)
                 {
-                    GameManager.instance.player2Character1PortraitPuck.SetActive(true);
-                    GameManager.instance.player2Character2PortraitPuck.SetActive(false);
+                    characterSelect.player2Character1PortraitPuck.SetActive(true);
+                    characterSelect.player2Character2PortraitPuck.SetActive(false);
 
-                    GameManager.instance.player2Character1Background.SetActive(true);
-                    GameManager.instance.player2Character2Background.SetActive(false);
+                    characterSelect.player2Character1Background.SetActive(true);
+                    characterSelect.player2Character2Background.SetActive(false);
                 }
                 if (GameManager.instance.Character1BeenPicked == false)
                 {
@@ -339,19 +354,19 @@ public class PlayerInputHandler : MonoBehaviour
             case PlayerCharacterEnum.Characters.Goblin:
                 if (PlayerIndex == 1)
                 {
-                    GameManager.instance.player1Character1PortraitPuck.SetActive(false);
-                    GameManager.instance.player1Character2PortraitPuck.SetActive(true);
-
-                    GameManager.instance.player1Character1Background.SetActive(false);
-                    GameManager.instance.player1Character2Background.SetActive(true);
+                    characterSelect.player1Character1PortraitPuck.SetActive(false);
+                    characterSelect.player1Character2PortraitPuck.SetActive(true);
+                    
+                    characterSelect.player1Character1Background.SetActive(false);
+                    characterSelect.player1Character2Background.SetActive(true);
                 }
                 else if (PlayerIndex == 2)
                 {
-                    GameManager.instance.player2Character1PortraitPuck.SetActive(false);
-                    GameManager.instance.player2Character2PortraitPuck.SetActive(true);
-
-                    GameManager.instance.player2Character1Background.SetActive(false);
-                    GameManager.instance.player2Character2Background.SetActive(true);
+                    characterSelect.player2Character1PortraitPuck.SetActive(false);
+                    characterSelect.player2Character2PortraitPuck.SetActive(true);
+                    
+                    characterSelect.player2Character1Background.SetActive(false);
+                    characterSelect.player2Character2Background.SetActive(true);
                 }
                 if (GameManager.instance.Character2BeenPicked == false)
                 {
@@ -373,31 +388,31 @@ public class PlayerInputHandler : MonoBehaviour
         switch (levelTypes)
         {
             case LevelEnum.LevelTypes.Bridge:
-                GameManager.instance.LevelDisplay1Obj.SetActive(true);
-                GameManager.instance.LevelDisplay2Obj.SetActive(false);
-
-                GameManager.instance.level1DisplayImage.SetActive(false);
-                GameManager.instance.level1HighlightImage.SetActive(true);
-                GameManager.instance.level2DisplayImage.SetActive(true);
-                GameManager.instance.level2HighlightImage.SetActive(false);
+                characterSelect.LevelDisplay1Obj.SetActive(true);
+                characterSelect.LevelDisplay2Obj.SetActive(false);
+                
+                characterSelect.level1DisplayImage.SetActive(false);
+                characterSelect.level1HighlightImage.SetActive(true);
+                characterSelect.level2DisplayImage.SetActive(true);
+                characterSelect.level2HighlightImage.SetActive(false);
                 break;
             case LevelEnum.LevelTypes.Clouds:
-                GameManager.instance.LevelDisplay1Obj.SetActive(false);
-                GameManager.instance.LevelDisplay2Obj.SetActive(true);
-
-                GameManager.instance.level1DisplayImage.SetActive(true);
-                GameManager.instance.level1HighlightImage.SetActive(false);
-                GameManager.instance.level2DisplayImage.SetActive(false);
-                GameManager.instance.level2HighlightImage.SetActive(true);
+                characterSelect.LevelDisplay1Obj.SetActive(false);
+                characterSelect.LevelDisplay2Obj.SetActive(true);
+                
+                characterSelect.level1DisplayImage.SetActive(true);
+                characterSelect.level1HighlightImage.SetActive(false);
+                characterSelect.level2DisplayImage.SetActive(false);
+                characterSelect.level2HighlightImage.SetActive(true);
                 break;
             case LevelEnum.LevelTypes.End:
-                GameManager.instance.LevelDisplay1Obj.SetActive(false);
-                GameManager.instance.LevelDisplay2Obj.SetActive(true);
-
-                GameManager.instance.level1DisplayImage.SetActive(true);
-                GameManager.instance.level1HighlightImage.SetActive(false);
-                GameManager.instance.level2DisplayImage.SetActive(false);
-                GameManager.instance.level2HighlightImage.SetActive(true);
+                characterSelect.LevelDisplay1Obj.SetActive(false);
+                characterSelect.LevelDisplay2Obj.SetActive(true);
+                
+                characterSelect.level1DisplayImage.SetActive(true);
+                characterSelect.level1HighlightImage.SetActive(false);
+                characterSelect.level2DisplayImage.SetActive(false);
+                characterSelect.level2HighlightImage.SetActive(true);
                 break;
         }
     }
@@ -482,7 +497,7 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 if (CanControlCharacters)
                 {
-                    if (!GameManager.instance.InRoundStarter)
+                    if (!_inRoundStarter)
                     {
                         horizontalInput = context.ReadValue<float>();
                         if (!_Paused)
@@ -542,25 +557,25 @@ public class PlayerInputHandler : MonoBehaviour
                         {
                             if (PlayerIndex == 1) // player 1 
                             {
-                                GameManager.instance.player1CharacterPuck.SetActive(true);
+                                characterSelect.player1CharacterPuck.SetActive(true);
                                 //GameManager.instance.player1Character1Selected.SetActive(true); 
-                                GameManager.instance.player1Character1PortraitPuck.SetActive(false);
+                                characterSelect.player1Character1PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character1BeenPicked == true)
                                 {
-                                    GameManager.instance.player1SolAltAnimated.SetActive(true);
-                                    GameManager.instance.player1SolAltPortrait.SetActive(true);
+                                    characterSelect.player1SolAltAnimated.SetActive(true);
+                                    characterSelect.player1SolAltPortrait.SetActive(true);
 
                                     GameManager.instance.ChangeCharacterModelIfSameIsChosen(1, solAlt, 0);
-                                    Animator anim = GameManager.instance.player1SolAltAnimated.GetComponentInChildren<Animator>();
+                                    Animator anim = characterSelect.player1SolAltAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
 
                                 }
                                 else if (GameManager.instance.Character1BeenPicked == false)
                                 {
-                                    Animator anim = GameManager.instance.player1SolAnimated.GetComponentInChildren<Animator>();
+                                    Animator anim = characterSelect.player1SolAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
-                                    GameManager.instance.player1SolAnimated.SetActive(true);
-                                    GameManager.instance.player1SolPortrait.SetActive(true);
+                                   characterSelect.player1SolAnimated.SetActive(true);
+                                    characterSelect.player1SolPortrait.SetActive(true);
                                     GameManager.instance.Character1BeenPicked = true;
                                 }
                                 CharaReadied = true;
@@ -568,24 +583,24 @@ public class PlayerInputHandler : MonoBehaviour
 
                             else if (PlayerIndex == 2) // player 2 
                             {
-                                GameManager.instance.player2CharacterPuck.SetActive(true);
+                                characterSelect.player2CharacterPuck.SetActive(true);
                                 //GameManager.instance.player2Character1Selected.SetActive(true); 
-                                GameManager.instance.player2Character1PortraitPuck.SetActive(false);
+                                characterSelect.player2Character1PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character1BeenPicked == true)
                                 {
-                                    Animator anim = GameManager.instance.player2SolAltAnimated.GetComponentInChildren<Animator>();
+                                    Animator anim = characterSelect.player2SolAltAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
-                                    GameManager.instance.player2SolAltAnimated.SetActive(true);
-                                    GameManager.instance.player2SolAltPortrait.SetActive(true);
+                                    characterSelect.player2SolAltAnimated.SetActive(true);
+                                    characterSelect.player2SolAltPortrait.SetActive(true);
 
                                     GameManager.instance.ChangeCharacterModelIfSameIsChosen(2, solAlt, 0);
                                 }
                                 else if (GameManager.instance.Character1BeenPicked == false)
                                 {
-                                    Animator anim = GameManager.instance.player2SolAnimated.GetComponentInChildren<Animator>();
+                                    Animator anim = characterSelect.player2SolAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
-                                    GameManager.instance.player2SolAnimated.SetActive(true);
-                                    GameManager.instance.player2SolPortrait.SetActive(true);
+                                    characterSelect.player2SolAnimated.SetActive(true);
+                                    characterSelect.player2SolPortrait.SetActive(true);
                                     GameManager.instance.Character1BeenPicked = true;
                                 }
                                 CharaReadied = true;
@@ -598,20 +613,20 @@ public class PlayerInputHandler : MonoBehaviour
                             Debug.Log("Goblin");
                             if (PlayerIndex == 1) // player 1 
                             {
-                                GameManager.instance.player1CharacterPuck.SetActive(true);
+                                characterSelect.player1CharacterPuck.SetActive(true);
                                 //GameManager.instance.player1Character2Selected.SetActive(true); 
-                                GameManager.instance.player1Character2PortraitPuck.SetActive(false);
+                                characterSelect.player1Character2PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character2BeenPicked == true)
                                 {
-                                    GameManager.instance.player1GoblinAltAnimated.SetActive(true);
-                                    GameManager.instance.player1GoblinAltPortrait.SetActive(true);
+                                    characterSelect.player1GoblinAltAnimated.SetActive(true);
+                                    characterSelect.player1GoblinAltPortrait.SetActive(true);
 
                                     GameManager.instance.ChangeCharacterModelIfSameIsChosen(1, goblinAlt, 1);
                                 }
                                 else if (GameManager.instance.Character2BeenPicked == false)
                                 {
-                                    GameManager.instance.player1GoblinAnimated.SetActive(true);
-                                    GameManager.instance.player1GoblinPortrait.SetActive(true);
+                                    characterSelect.player1GoblinAnimated.SetActive(true);
+                                    characterSelect.player1GoblinPortrait.SetActive(true);
                                     GameManager.instance.Character2BeenPicked = true;
                                 }
                                 CharaReadied = true;
@@ -619,20 +634,20 @@ public class PlayerInputHandler : MonoBehaviour
 
                             else if (PlayerIndex == 2) //player 2 
                             {
-                                GameManager.instance.player2CharacterPuck.SetActive(true);
+                                characterSelect.player2CharacterPuck.SetActive(true);
                                 //GameManager.instance.player2Character2Selected.SetActive(true); 
-                                GameManager.instance.player2Character2PortraitPuck.SetActive(false);
+                                characterSelect.player2Character2PortraitPuck.SetActive(false);
                                 if (GameManager.instance.Character2BeenPicked == true)
                                 {
-                                    GameManager.instance.player2GoblinAltAnimated.SetActive(true);
-                                    GameManager.instance.player2GoblinAltPortrait.SetActive(true);
+                                    characterSelect.player2GoblinAltAnimated.SetActive(true);
+                                    characterSelect.player2GoblinAltPortrait.SetActive(true);
 
                                     GameManager.instance.ChangeCharacterModelIfSameIsChosen(2, goblinAlt, 1);
                                 }
                                 else if (GameManager.instance.Character2BeenPicked == false)
                                 {
-                                    GameManager.instance.player2GoblinAnimated.SetActive(true);
-                                    GameManager.instance.player2GoblinPortrait.SetActive(true);
+                                    characterSelect.player2GoblinAnimated.SetActive(true);
+                                    characterSelect.player2GoblinPortrait.SetActive(true);
                                     GameManager.instance.Character2BeenPicked = true;
                                 }
                                 CharaReadied = true;
@@ -649,7 +664,8 @@ public class PlayerInputHandler : MonoBehaviour
                     } // Choose Character 
                     else if (ChooseLevel)
                     {
-                        GameManager.instance.TurnOffCanAct = true;
+                        bind.TurnOffCanAct();
+                        //GameManager.instance.TurnOffCanAct = true;
                         //canAct = false;
                         GameManager.instance.SetLevelNumber((int)level + 1);
                         SetAllInputsToZero();
@@ -704,7 +720,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!ispaused || CanControlCharacters)
         {
-            if (!GameManager.instance.InRoundStarter)
+            if (!_inRoundStarter)
             {
                 if (context.started && primed)
                 {
@@ -724,7 +740,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!ispaused || CanControlCharacters)
         {
-            if (!GameManager.instance.InRoundStarter)
+            if (!_inRoundStarter)
             {
                 if (context.started && primed)
                 {
@@ -744,7 +760,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!ispaused || CanControlCharacters)
         {
-            if (!GameManager.instance.InRoundStarter)
+            if (!_inRoundStarter)
             {
                 if (context.started)
                 {
@@ -764,7 +780,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!ispaused || CanControlCharacters)
         {
-            if (!GameManager.instance.InRoundStarter)
+            if (!_inRoundStarter)
             {
                 if (context.started)
                 {
@@ -781,7 +797,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (CanControlCharacters)
         {
-            if (!GameManager.instance.InRoundStarter)
+            if (!_inRoundStarter)
             {
                 if (context.started)
                 {
@@ -798,7 +814,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (CanControlCharacters)
         {
-            if (!GameManager.instance.InRoundStarter)
+            if (!_inRoundStarter)
             {
                 if (context.started)
                 {
@@ -816,7 +832,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (CanControlCharacters)
         {
-            if (!GameManager.instance.InRoundStarter)
+            if (!_inRoundStarter)
             {
                 if (context.started)
                 {
@@ -833,7 +849,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (CanControlCharacters)
         {
-            if (!GameManager.instance.InRoundStarter)
+            if (!_inRoundStarter)
             {
                 if (context.started && primed)
                 {
@@ -852,7 +868,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!ispaused || CanControlCharacters)
         {
-            if (!GameManager.instance.InRoundStarter)
+            if (!_inRoundStarter)
             {
                 if (context.started & primed)
                 {
@@ -871,7 +887,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!ispaused || CanControlCharacters)
         {
-            if (!GameManager.instance.InRoundStarter)
+            if (!_inRoundStarter)
             {
                 if (context.started && primed)
                 {
