@@ -1469,8 +1469,13 @@ MonoBehaviour:
   loadingScreenCanvasGroup: {fileID: 7475604462008723178}
   loadLevelScript: {fileID: 7475604462672402788}
   events: {fileID: 1661643758}
+  GoblinBeenPicked: 0
+  SolBeenPicked: 0
   playerIndex: 0
   Solo: 0
+  player1Ready: 0
+  player2Ready: 0
+  startGame: 0
   characterSelect: {fileID: 462281331322030540}
 --- !u!114 &462281331322030540
 MonoBehaviour:
@@ -1509,8 +1514,8 @@ MonoBehaviour:
   player2Character2Selected: {fileID: 1257065101097493908}
   character1ButtonSelected: {fileID: 0}
   character2ButtonSelected: {fileID: 0}
-  LevelDisplay1Obj: {fileID: 0}
-  LevelDisplay2Obj: {fileID: 0}
+  LevelDisplay1Obj: {fileID: 1257065101502038304}
+  LevelDisplay2Obj: {fileID: 1257065100909935402}
   level1DisplayImage: {fileID: 1257065101051433742}
   level1HighlightImage: {fileID: 1257065100935080649}
   level2DisplayImage: {fileID: 1257065102425403577}
@@ -1521,14 +1526,8 @@ MonoBehaviour:
   player1Character2Background: {fileID: 1257065101067349861}
   player2Character1Background: {fileID: 1257065101726571308}
   player2Character2Background: {fileID: 1257065101894530004}
-  player1SolPortrait: {fileID: 0}
-  player1SolAltPortrait: {fileID: 0}
-  player1GoblinPortrait: {fileID: 0}
-  player1GoblinAltPortrait: {fileID: 0}
-  player2SolPortrait: {fileID: 0}
-  player2SolAltPortrait: {fileID: 0}
-  player2GoblinPortrait: {fileID: 0}
-  player2GoblinAltPortrait: {fileID: 0}
+  ChooseYourStageText: {fileID: 1257065102176735919}
+  ChooseYourCharacterText: {fileID: 1257065101571093459}
 --- !u!1 &540631456788234445
 GameObject:
   m_ObjectHideFlags: 0
