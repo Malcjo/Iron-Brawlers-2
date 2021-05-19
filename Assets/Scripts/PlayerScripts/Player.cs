@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject hitbox, blockObj;
 
     [SerializeField] private PlayerInputHandler playerInputHandler;
+    public PlayerInputHandler PlayerInputHandler { get{ return playerInputHandler; } }
     [SerializeField] private ArmourCheck armourCheck;
     [SerializeField] private Raycasts raycasts;
     [SerializeField] private PlayerActions playerActions;

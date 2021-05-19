@@ -12,7 +12,7 @@ using System.Net.Http.Headers;
 public enum MenuLayer { Title, Main_Menu, Character_Select, Stage_Select, Settings, credits, GameScreen}
 public class GameManager : MonoBehaviour
 {
-    public bool AnyKeyToContinue;
+    //public bool AnyKeyToContinue;
     public bool Continue;
     MenuLayer currentScreen;
     MenuLayer PreviousLayer;

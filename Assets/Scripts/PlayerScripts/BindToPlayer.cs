@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.WSA.Input;
 
 public class BindToPlayer : MonoBehaviour
 {
     public List<GameObject> players = new List<GameObject>();
     [SerializeField] private PlayerJoinHandler join = null;
-
+    [SerializeField] private bool anyKeyToContinue;
+    public bool AnyKeyToContinue { get{ return anyKeyToContinue; }set{ anyKeyToContinue = value; } }
     [SerializeField] private Animator loadingScreenAnim;
     [SerializeField] private GameObject loadingScreenGroup, loadingText, pressAnyButtonText, loadScreenLight, characterSelectLight, dot1, dot2, dot3, keyboardImgGroup, controllerImgGrp, runningSol;
     [SerializeField] private CanvasGroup loadingScreenCanvasGroup;
@@ -16,9 +19,15 @@ public class BindToPlayer : MonoBehaviour
     [SerializeField] private LoadLevel loadLevelScript;
 
     public GameObject events = null;
-    
+
+    public bool GoblinBeenPicked;
+    public bool SolBeenPicked;
+
     Scene currentScene;
     Scene menuScene;
+    Scene CharacterSelect;
+    
+    
 
     public int playerIndex;
     public bool Solo = false;
@@ -32,7 +41,7 @@ public class BindToPlayer : MonoBehaviour
             currentScene = SceneManager.GetActiveScene();
         }
 
-        if (currentScene == menuScene)
+        if (currentScene == CharacterSelect)
         {
             join.SetPlayerBind(this);
             foreach (GameObject obj in players)
@@ -42,7 +51,13 @@ public class BindToPlayer : MonoBehaviour
             Debug.Log("clear");
             players.Clear();
         }
+    }
 
+    public void Start()
+    {
+        GoblinBeenPicked = false;
+        SolBeenPicked = false;
+        startGame = false;
     }
     public void SetLoadLevelToContinue()
     {
@@ -58,6 +73,24 @@ public class BindToPlayer : MonoBehaviour
         GameManager.instance.levelSelect = false;
         
     }
+    [SerializeField] private bool player1Ready;
+    [SerializeField] private bool player2Ready;
+    public bool Player1Ready { get{ return player1Ready; } }
+    public bool Player2Ready { get{ return player2Ready; } }
+    public void ReadyPlayer(int i)
+    {
+        switch (i)
+        {
+            case 1:
+                player1Ready = true;
+                break;
+            case 2:
+                player2Ready = true;
+                break;
+        }
+    }
+    [SerializeField] private bool startGame;
+    public bool StartGame { get{ return startGame; } set{ startGame = value; } }
     private void Update()   
     {
         //if (Input.GetKeyDown(KeyCode.Alpha9))
@@ -86,12 +119,12 @@ public class BindToPlayer : MonoBehaviour
         {
             if (!Solo)
             {
-                if (GameManager.instance.GetPlayer1Ready() == true && GameManager.instance.GetPlayer2Ready() == true)
+                if (player1Ready == true && player2Ready == true)
                 {
                     GameManager.instance.TransitionToLevelSelect();
                     //GameManager.instance.ChooseLevel = true;
                     GameManager.instance.levelSelect = true;
-                    if (GameManager.instance.StartGame == true)
+                    if (startGame == true)
                     {
                         loadLevelScript.StartGame();
                     }
@@ -99,13 +132,13 @@ public class BindToPlayer : MonoBehaviour
             }
             else if (Solo)
             {
-                if(GameManager.instance.GetPlayer1Ready() == true)
+                if(player1Ready == true)
                 {
                     GameManager.instance.StopPlayersFromJoining();
                     GameManager.instance.TransitionToLevelSelect();
                     //GameManager.instance.ChooseLevel = true;
                     GameManager.instance.levelSelect = true;
-                    if (GameManager.instance.StartGame == true)
+                    if (startGame == true)
                     {
                         loadLevelScript.StartGame();
                     }
@@ -152,6 +185,18 @@ public class BindToPlayer : MonoBehaviour
         }
     }
 
+    public void ChangeCharacterModelIfSameIsChosen(int index, GameObject character, float currentCharacter)
+    {
+        if (index == 1)
+        {
+            players[0].GetComponent<PlayerInputHandler>().SwitchModel(character, currentCharacter);
+        }
+        else if (index == 2)
+        {
+            players[1].GetComponent<PlayerInputHandler>().SwitchModel(character, currentCharacter);
+        }
+    }
+
     public void TurnOffCanAct()
     {
         if(players.Count > 1)
@@ -164,4 +209,72 @@ public class BindToPlayer : MonoBehaviour
     //{
     //    GameManager.instance.ReadyPlayer();
     //}
+
+
+    public void TransitionToLevelSelect()
+    {
+        _TransitionToLevelSelect();
+    }
+    private bool LevelTransitioned = false;
+    private void _TransitionToLevelSelect()
+    {
+        Animator _display1 = characterSelect.Display1.GetComponent<Animator>();
+        Animator _display2 = characterSelect.Display2.GetComponent<Animator>();
+        Animator _display3 = characterSelect.Display3.GetComponent<Animator>();
+        if (LevelTransitioned == false)
+        {
+            LevelTransitioned = true;
+            StartCoroutine(PlayerDisplay1Animation(_display1));
+            StartCoroutine(PlayerDisplay2Animation(_display2));
+            StartCoroutine(PlayerDisplay3Animation(_display3));
+
+            characterSelect.ChooseYourCharacterText.SetActive(false);
+            characterSelect.ChooseYourStageText.SetActive(true);
+            characterSelect.LevelDisplay1Obj.SetActive(true);
+            characterSelect.LevelDisplay2Obj.SetActive(false);
+
+            characterSelect.level1DisplayImage.SetActive(false);
+            characterSelect.level1HighlightImage.SetActive(true);
+            characterSelect.level2DisplayImage.SetActive(true);
+            characterSelect.level2HighlightImage.SetActive(false);
+        }
+    }
+    IEnumerator PlayerDisplay1Animation(Animator anim)
+    {
+        anim.Play("Transition");
+        yield return null;
+
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        {
+            yield return null;
+        }
+        anim.Play("LevelIdle");
+    }
+    IEnumerator PlayerDisplay2Animation(Animator anim)
+    {
+        anim.Play("Transition");
+        yield return null;
+
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        {
+            yield return null;
+        }
+        anim.Play("LevelIdle");
+    }
+    IEnumerator PlayerDisplay3Animation(Animator anim)
+    {
+        anim.Play("Transition");
+        yield return null;
+
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        {
+            yield return null;
+        }
+        anim.Play("LevelIdle");
+    }
+
+    public void SetLevelNumber(int var)
+    {
+        loadLevelScript.SetLevelSelectedNumber(var);
+    }
 }

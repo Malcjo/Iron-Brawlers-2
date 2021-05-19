@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -74,12 +75,38 @@ public class PlayerInputHandler : MonoBehaviour
     public bool exitingGame;
     private CharacterSelect characterSelect;
     private bool _inRoundStarter;
+    [Space(10)]
+    [SerializeField] public GameObject player1SolPortrait;
+    [SerializeField] public GameObject player1SolAltPortrait;
+    [SerializeField] public GameObject player1GoblinPortrait;
+    [SerializeField] public GameObject player1GoblinAltPortrait;
+    [Space(10)]
+    [SerializeField] public GameObject player2SolPortrait;
+    [SerializeField] public GameObject player2SolAltPortrait;
+    [SerializeField] public GameObject player2GoblinPortrait;
+    [SerializeField] public GameObject player2GoblinAltPortrait;
 
+    [SerializeField] public Slider player1Slider;
+    [SerializeField] public Slider player2Slider;
 
     public bool InRoundStarter { get { return _inRoundStarter; } set { _inRoundStarter = value; } }
     private BindToPlayer bind;
     public BindToPlayer Bind { get { return bind; } set { bind = value; } }
 
+
+
+    private void Start()
+    {
+        player1SolPortrait.SetActive(false);
+        player1SolAltPortrait.SetActive(false);
+        player1GoblinPortrait.SetActive(false);
+        player1GoblinAltPortrait.SetActive(false);
+
+        player2SolPortrait.SetActive(false);
+        player2SolAltPortrait.SetActive(false);
+        player2GoblinPortrait.SetActive(false);
+        player2GoblinAltPortrait.SetActive(false);
+    }
     private void Awake()
     {
         currentScene = SceneManager.GetActiveScene();
@@ -99,21 +126,26 @@ public class PlayerInputHandler : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager.instance.TurnOffCanAct == true)
-        {
-            canAct = false;
-        }
+        //if (GameManager.instance.TurnOffCanAct == true)
+        //{
+        //    canAct = false;
+        //}
         if (PlayerIndex == 0)
         {
-            if (GameManager.instance.AnyKeyToContinue == true)
+            if (bind.AnyKeyToContinue == true)
             {
                 if (Input.anyKey)
                 {
-                    GameManager.instance.LoadLevelContinue();
+                    bind.SetLoadLevelToContinue();
+                    //GameManager.instance.LoadLevelContinue();
                 }
             }
         }
-        ispaused = GameManager.instance.Paused;
+        if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
+        {
+            ispaused = GameManager.instance.Paused;
+        }
+
         joyStickDelay += 1 * Time.deltaTime;
         if (joyStickDelay >= 10)
         {
@@ -133,7 +165,8 @@ public class PlayerInputHandler : MonoBehaviour
         }
         if (readyAndWaiting)
         {
-            GameManager.instance.ReadyPlayer(PlayerIndex);
+            bind.ReadyPlayer(PlayerIndex);
+            //GameManager.instance.ReadyPlayer(PlayerIndex);
         }
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
         {
@@ -342,11 +375,11 @@ public class PlayerInputHandler : MonoBehaviour
                     characterSelect.player2Character1Background.SetActive(true);
                     characterSelect.player2Character2Background.SetActive(false);
                 }
-                if (GameManager.instance.Character1BeenPicked == false)
+                if (bind.SolBeenPicked == false)
                 {
                     playerPrefab = sol;
                 }
-                else if (GameManager.instance.Character1BeenPicked == true)
+                else if (bind.SolBeenPicked == true)
                 {
                     playerPrefab = solAlt;
                 }
@@ -368,11 +401,11 @@ public class PlayerInputHandler : MonoBehaviour
                     characterSelect.player2Character1Background.SetActive(false);
                     characterSelect.player2Character2Background.SetActive(true);
                 }
-                if (GameManager.instance.Character2BeenPicked == false)
+                if (bind.GoblinBeenPicked == false)
                 {
                     playerPrefab = goblin;
                 }
-                else if (GameManager.instance.Character2BeenPicked == true)
+                else if (bind.GoblinBeenPicked == true)
                 {
                     playerPrefab = goblinAlt;
                 }
@@ -420,7 +453,7 @@ public class PlayerInputHandler : MonoBehaviour
     public void HorizontalInput(CallbackContext context)
     {
 
-        if (currentScene.buildIndex == SceneManager.GetSceneByBuildIndex(0).buildIndex && canAct)
+        if (currentScene.buildIndex == SceneManager.GetSceneByBuildIndex(4).buildIndex && canAct)
         {
             if (context.started)
             {
@@ -530,7 +563,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void Activate(CallbackContext context)
     {
-        if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(0).buildIndex)
+        if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(4).buildIndex)
         {
             if (canAct)
             {
@@ -560,23 +593,23 @@ public class PlayerInputHandler : MonoBehaviour
                                 characterSelect.player1CharacterPuck.SetActive(true);
                                 //GameManager.instance.player1Character1Selected.SetActive(true); 
                                 characterSelect.player1Character1PortraitPuck.SetActive(false);
-                                if (GameManager.instance.Character1BeenPicked == true)
+                                if (bind.SolBeenPicked == true)
                                 {
                                     characterSelect.player1SolAltAnimated.SetActive(true);
-                                    characterSelect.player1SolAltPortrait.SetActive(true);
+                                    player1SolAltPortrait.SetActive(true);
 
-                                    GameManager.instance.ChangeCharacterModelIfSameIsChosen(1, solAlt, 0);
+                                    bind.ChangeCharacterModelIfSameIsChosen(1, solAlt, 0);
                                     Animator anim = characterSelect.player1SolAltAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
 
                                 }
-                                else if (GameManager.instance.Character1BeenPicked == false)
+                                else if (bind.SolBeenPicked == false)
                                 {
                                     Animator anim = characterSelect.player1SolAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
                                    characterSelect.player1SolAnimated.SetActive(true);
-                                    characterSelect.player1SolPortrait.SetActive(true);
-                                    GameManager.instance.Character1BeenPicked = true;
+                                    player1SolPortrait.SetActive(true);
+                                    bind.SolBeenPicked = true;
                                 }
                                 CharaReadied = true;
                             }
@@ -586,22 +619,22 @@ public class PlayerInputHandler : MonoBehaviour
                                 characterSelect.player2CharacterPuck.SetActive(true);
                                 //GameManager.instance.player2Character1Selected.SetActive(true); 
                                 characterSelect.player2Character1PortraitPuck.SetActive(false);
-                                if (GameManager.instance.Character1BeenPicked == true)
+                                if (bind.SolBeenPicked == true)
                                 {
                                     Animator anim = characterSelect.player2SolAltAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
                                     characterSelect.player2SolAltAnimated.SetActive(true);
-                                    characterSelect.player2SolAltPortrait.SetActive(true);
+                                    player2SolAltPortrait.SetActive(true);
 
-                                    GameManager.instance.ChangeCharacterModelIfSameIsChosen(2, solAlt, 0);
+                                    bind.ChangeCharacterModelIfSameIsChosen(2, solAlt, 0);
                                 }
-                                else if (GameManager.instance.Character1BeenPicked == false)
+                                else if (bind.SolBeenPicked == false)
                                 {
                                     Animator anim = characterSelect.player2SolAnimated.GetComponentInChildren<Animator>();
                                     anim.SetTrigger("Emote");
                                     characterSelect.player2SolAnimated.SetActive(true);
-                                    characterSelect.player2SolPortrait.SetActive(true);
-                                    GameManager.instance.Character1BeenPicked = true;
+                                    player2SolPortrait.SetActive(true);
+                                    bind.SolBeenPicked = true;
                                 }
                                 CharaReadied = true;
                             }
@@ -616,18 +649,18 @@ public class PlayerInputHandler : MonoBehaviour
                                 characterSelect.player1CharacterPuck.SetActive(true);
                                 //GameManager.instance.player1Character2Selected.SetActive(true); 
                                 characterSelect.player1Character2PortraitPuck.SetActive(false);
-                                if (GameManager.instance.Character2BeenPicked == true)
+                                if (bind.GoblinBeenPicked == true)
                                 {
                                     characterSelect.player1GoblinAltAnimated.SetActive(true);
-                                    characterSelect.player1GoblinAltPortrait.SetActive(true);
+                                    player1GoblinAltPortrait.SetActive(true);
 
-                                    GameManager.instance.ChangeCharacterModelIfSameIsChosen(1, goblinAlt, 1);
+                                    bind.ChangeCharacterModelIfSameIsChosen(1, goblinAlt, 1);
                                 }
-                                else if (GameManager.instance.Character2BeenPicked == false)
+                                else if (bind.GoblinBeenPicked == false)
                                 {
                                     characterSelect.player1GoblinAnimated.SetActive(true);
-                                    characterSelect.player1GoblinPortrait.SetActive(true);
-                                    GameManager.instance.Character2BeenPicked = true;
+                                    player1GoblinPortrait.SetActive(true);
+                                    bind.GoblinBeenPicked = true;
                                 }
                                 CharaReadied = true;
                             }
@@ -637,18 +670,18 @@ public class PlayerInputHandler : MonoBehaviour
                                 characterSelect.player2CharacterPuck.SetActive(true);
                                 //GameManager.instance.player2Character2Selected.SetActive(true); 
                                 characterSelect.player2Character2PortraitPuck.SetActive(false);
-                                if (GameManager.instance.Character2BeenPicked == true)
+                                if (bind.GoblinBeenPicked == true)
                                 {
                                     characterSelect.player2GoblinAltAnimated.SetActive(true);
-                                    characterSelect.player2GoblinAltPortrait.SetActive(true);
+                                    player2GoblinAltPortrait.SetActive(true);
 
-                                    GameManager.instance.ChangeCharacterModelIfSameIsChosen(2, goblinAlt, 1);
+                                    bind.ChangeCharacterModelIfSameIsChosen(2, goblinAlt, 1);
                                 }
-                                else if (GameManager.instance.Character2BeenPicked == false)
+                                else if (bind.GoblinBeenPicked == false)
                                 {
                                     characterSelect.player2GoblinAnimated.SetActive(true);
-                                    characterSelect.player2GoblinPortrait.SetActive(true);
-                                    GameManager.instance.Character2BeenPicked = true;
+                                    player2GoblinPortrait.SetActive(true);
+                                    bind.GoblinBeenPicked = true;
                                 }
                                 CharaReadied = true;
                             }
@@ -667,10 +700,10 @@ public class PlayerInputHandler : MonoBehaviour
                         bind.TurnOffCanAct();
                         //GameManager.instance.TurnOffCanAct = true;
                         //canAct = false;
-                        GameManager.instance.SetLevelNumber((int)level + 1);
+                        bind.SetLevelNumber((int)level + 1);
                         SetAllInputsToZero();
                         ChooseLevel = false;
-                        GameManager.instance.StartGame = true;
+                        bind.StartGame = true;
 
                     }
                 }
@@ -679,7 +712,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public void BackInput(CallbackContext context)
     {
-        if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(0).buildIndex)
+        if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(4).buildIndex)
         {
             if (canAct)
             {

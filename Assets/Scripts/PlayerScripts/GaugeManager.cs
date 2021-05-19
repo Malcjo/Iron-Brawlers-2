@@ -45,11 +45,13 @@ public class GaugeManager : MonoBehaviour
         
         if(self.playerNumber == Player.PlayerIndex.Player1)
         {
-            playerUI = GameManager.instance.GetPlayer1UI();
+            playerUI = self.PlayerInputHandler.player1Slider;
+            //playerUI = GameManager.instance.GetPlayer1UI();
         }
         else if(self.playerNumber == Player.PlayerIndex.Player2)
         {
-            playerUI = GameManager.instance.GetPlayer2UI();
+            playerUI = self.PlayerInputHandler.player2Slider;
+            //playerUI = GameManager.instance.GetPlayer2UI();
         }
 
         currentGauge = maxHealth;

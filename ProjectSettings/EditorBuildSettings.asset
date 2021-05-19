@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/BufferScene.unity
     guid: 156d2a0c8649ca04b9de23256b7e9e76
+  - enabled: 1
+    path: Assets/_Scenes/CharacterSelect.unity
+    guid: e52630642ad2fb242ae5f43b0f275b05
   - enabled: 0
     path: Assets/_Scenes/Programming test Scene.unity
     guid: 3ba537d0a6e65fb4cbd17023e6f04487

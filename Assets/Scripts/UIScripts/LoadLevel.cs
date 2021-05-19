@@ -63,11 +63,13 @@ public class LoadLevel : MonoBehaviour
                 }
 
                 pressAnyButtonText.SetActive(true);
-                GameManager.instance.AnyKeyToContinue = true;
+                bind.AnyKeyToContinue = true;
+                //GameManager.instance.AnyKeyToContinue = true;
                 if (Input.anyKey)
                 {
                     _Continue = false;
-                    GameManager.instance.AnyKeyToContinue = false;
+                    bind.AnyKeyToContinue = false;
+                    //GameManager.instance.AnyKeyToContinue = false;
                     GameManager.instance.ResetPlayersInputs();
                     if(musicFadeAnim != null)
                     {

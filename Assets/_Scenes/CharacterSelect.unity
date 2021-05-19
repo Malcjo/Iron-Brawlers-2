@@ -1453,6 +1453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   players: []
   join: {fileID: 1661643759}
+  anyKeyToContinue: 0
   loadingScreenAnim: {fileID: 7475604462672402789}
   loadingScreenGroup: {fileID: 7475604462672402798}
   loadingText: {fileID: 7475604462305993892}
@@ -1483,6 +1484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 549e424c12a9dd546963c3992672737e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInputManager: {fileID: 1661643760}
   player1SolAnimated: {fileID: 6956553936619735232}
   player1SolAltAnimated: {fileID: 1257065102761770507}
   player1GoblinAnimated: {fileID: 1257065101043909535}
@@ -119525,7 +119527,7 @@ MonoBehaviour:
   player2Wins: {fileID: 0}
   loadingScreenCanvasGroup: {fileID: 7475604462008723178}
   musicFadeAnim: {fileID: 0}
-  bind: {fileID: 0}
+  bind: {fileID: 462281331322030539}
   LevelSelectNumber: 0
   _Continue: 0
 --- !u!95 &7475604462672402789

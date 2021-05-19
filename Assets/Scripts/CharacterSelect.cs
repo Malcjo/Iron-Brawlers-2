@@ -35,16 +35,8 @@ public class CharacterSelect : MonoBehaviour
     [SerializeField] public GameObject player2pressAToJoinUI;
     [SerializeField] public GameObject player1Character1Background, player1Character2Background;
     [SerializeField] public GameObject player2Character1Background, player2Character2Background;
-    [Space(10)]
-    [SerializeField] public GameObject player1SolPortrait;
-    [SerializeField] public GameObject player1SolAltPortrait;
-    [SerializeField] public GameObject player1GoblinPortrait;
-    [SerializeField] public GameObject player1GoblinAltPortrait;
-    [Space(10)]
-    [SerializeField] public GameObject player2SolPortrait;
-    [SerializeField] public GameObject player2SolAltPortrait;
-    [SerializeField] public GameObject player2GoblinPortrait;
-    [SerializeField] public GameObject player2GoblinAltPortrait;
+
+    [SerializeField] public GameObject ChooseYourStageText, ChooseYourCharacterText;
 
     public void SetUpPlayer1()
     {
