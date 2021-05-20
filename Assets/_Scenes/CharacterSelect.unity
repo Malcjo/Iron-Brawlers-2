@@ -1468,6 +1468,7 @@ MonoBehaviour:
   runningSol: {fileID: 7475604461911906772}
   loadingScreenCanvasGroup: {fileID: 7475604462008723178}
   loadLevelScript: {fileID: 7475604462672402788}
+  inputManager: {fileID: 1661643760}
   events: {fileID: 1661643758}
   GoblinBeenPicked: 0
   SolBeenPicked: 0

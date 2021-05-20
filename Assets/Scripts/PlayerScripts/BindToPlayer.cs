@@ -17,8 +17,8 @@ public class BindToPlayer : MonoBehaviour
     [SerializeField] private CanvasGroup loadingScreenCanvasGroup;
 
     [SerializeField] private LoadLevel loadLevelScript;
-
-    public GameObject events = null;
+    [SerializeField] PlayerInputManager inputManager;
+    public GameObject events;
 
     public bool GoblinBeenPicked;
     public bool SolBeenPicked;
@@ -70,7 +70,7 @@ public class BindToPlayer : MonoBehaviour
         playerIndex = 0;
         join = FindObjectOfType<PlayerJoinHandler>();
         players.Clear();
-        GameManager.instance.levelSelect = false;
+        //GameManager.instance.levelSelect = false;
         
     }
     [SerializeField] private bool player1Ready;
@@ -115,15 +115,15 @@ public class BindToPlayer : MonoBehaviour
         {
             Solo = false;
         }
-        if (SceneManager.GetActiveScene() == menuScene)
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
         {
             if (!Solo)
             {
                 if (player1Ready == true && player2Ready == true)
                 {
-                    GameManager.instance.TransitionToLevelSelect();
+                    TransitionToLevelSelect();
                     //GameManager.instance.ChooseLevel = true;
-                    GameManager.instance.levelSelect = true;
+                    //GameManager.instance.levelSelect = true;
                     if (startGame == true)
                     {
                         loadLevelScript.StartGame();
@@ -134,10 +134,11 @@ public class BindToPlayer : MonoBehaviour
             {
                 if(player1Ready == true)
                 {
-                    GameManager.instance.StopPlayersFromJoining();
-                    GameManager.instance.TransitionToLevelSelect();
+                    inputManager.DisableJoining();
+                    //GameManager.instance.StopPlayersFromJoining();
+                    TransitionToLevelSelect();
                     //GameManager.instance.ChooseLevel = true;
-                    GameManager.instance.levelSelect = true;
+                    //GameManager.instance.levelSelect = true;
                     if (startGame == true)
                     {
                         loadLevelScript.StartGame();
