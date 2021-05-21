@@ -245,6 +245,12 @@ public class GameManager : MonoBehaviour
         system.firstSelectedGameObject = PlayButton.gameObject;
         system.SetSelectedGameObject(system.firstSelectedGameObject);
     }
+    public void GoToCharacterSelectScene()
+    {
+        MainMenu.gameObject.SetActive(false);
+        SceneManager.LoadScene(4);
+        
+    }
     public void SetLevelNumber(int var)
     {
         loadLevelScript.SetLevelSelectedNumber(var);
@@ -812,10 +818,14 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
     }
+    public void ConnectBindToPlayer(BindToPlayer bind)
+    {
+        bindToPlayer = bind;
+    }
 
     public void ResetPlayersInputs()
     {
-        if (players.Count > 1)
+        if (bindToPlayer.players.Count > 1)
         {
             bindToPlayer.players[1].GetComponent<PlayerInputHandler>().CanControlCharacters = true;
             bindToPlayer.players[1].GetComponent<PlayerInputHandler>().primed = true;

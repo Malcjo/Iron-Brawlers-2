@@ -119510,7 +119510,7 @@ MonoBehaviour:
   loadingText: {fileID: 7475604462305993892}
   pressAnyButtonText: {fileID: 7475604462554406037}
   loadScreenLight: {fileID: 7475604462226559515}
-  characterSelectLight: {fileID: 0}
+  characterSelectLight: {fileID: 1257065102294230523}
   dot1: {fileID: 7475604462192508040}
   dot2: {fileID: 7475604463707819250}
   dot3: {fileID: 7475604462374608236}
@@ -119569,7 +119569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7475604462681039424
 RectTransform:
   m_ObjectHideFlags: 0

@@ -155,8 +155,6 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (playerCharacter == null)
         {
-
-
             if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
             {
                 currentScene = SceneManager.GetActiveScene();

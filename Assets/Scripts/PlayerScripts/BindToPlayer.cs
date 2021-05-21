@@ -33,6 +33,7 @@ public class BindToPlayer : MonoBehaviour
     public bool Solo = false;
     private void OnEnable()
     {
+        GameManager.instance.ConnectBindToPlayer(this);
         menuScene = SceneManager.GetSceneByBuildIndex(0);
         currentScene = SceneManager.GetActiveScene();
 
