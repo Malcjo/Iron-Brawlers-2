@@ -130,17 +130,21 @@ public class PlayerInputHandler : MonoBehaviour
         //{
         //    canAct = false;
         //}
-        if (PlayerIndex == 0)
+        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4)) // check if in character select scene
         {
-            if (bind.AnyKeyToContinue == true)
+            if (PlayerIndex == 0)
             {
-                if (Input.anyKey)
+                if (bind.AnyKeyToContinue == true)
                 {
-                    bind.SetLoadLevelToContinue();
-                    //GameManager.instance.LoadLevelContinue();
+                    if (Input.anyKey)
+                    {
+                        bind.SetLoadLevelToContinue();
+                        //GameManager.instance.LoadLevelContinue();
+                    }
                 }
             }
         }
+
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(1).buildIndex || SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(2).buildIndex)
         {
             ispaused = GameManager.instance.Paused;

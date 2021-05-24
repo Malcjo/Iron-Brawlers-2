@@ -42,7 +42,7 @@ public class GaugeManager : MonoBehaviour
 
     private void Start()
     {
-        
+        playerUI = self.GetComponentInChildren<Slider>();
         if(self.playerNumber == Player.PlayerIndex.Player1)
         {
             playerUI = self.PlayerInputHandler.player1Slider;

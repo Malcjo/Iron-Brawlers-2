@@ -539,44 +539,48 @@ public class GameManager : MonoBehaviour
     }
     private void EnableJoiningManager()
     {
-        switch (sceneIndex)
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
         {
-            case 0:
-                foreach (Player ob in FindObjectsOfType(typeof(Player)))
-                {
-                    Destroy(ob);
-                }
-                inputManager.DisableJoining();
-                break;
-            case 1:
-                inputManager.DisableJoining();
-                break;
-            case 2:
-                //inputManager.EnableJoining();
-                break;
-            case 3:
-                inputManager.DisableJoining();
-                break;
-            case 4:
-                inputManager.DisableJoining();
-                break;
-            case 5:
-                inputManager.DisableJoining();
-                break;
-            case 6:
-                inputManager.DisableJoining();
-                break;
-            case 7:
-                belowBounds = 0;
-                inputManager.DisableJoining();
-                break;
-            case 8:
-                inputManager.DisableJoining();
-                break;
-            case 9:
-                inputManager.DisableJoining();
-                break;
+            switch (sceneIndex)
+            {
+                case 0:
+                    foreach (Player ob in FindObjectsOfType(typeof(Player)))
+                    {
+                        Destroy(ob);
+                    }
+                    inputManager.DisableJoining();
+                    break;
+                case 1:
+                    inputManager.DisableJoining();
+                    break;
+                case 2:
+                    //inputManager.EnableJoining();
+                    break;
+                case 3:
+                    inputManager.DisableJoining();
+                    break;
+                case 4:
+                    inputManager.DisableJoining();
+                    break;
+                case 5:
+                    inputManager.DisableJoining();
+                    break;
+                case 6:
+                    inputManager.DisableJoining();
+                    break;
+                case 7:
+                    belowBounds = 0;
+                    inputManager.DisableJoining();
+                    break;
+                case 8:
+                    inputManager.DisableJoining();
+                    break;
+                case 9:
+                    inputManager.DisableJoining();
+                    break;
+            }
         }
+        
     }
     public void EnabledJoining()
     {

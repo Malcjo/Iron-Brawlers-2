@@ -12333,7 +12333,7 @@ MonoBehaviour:
   maxHealth: 10
   noHealth: 0
   armourBreakingPoint: 3
-  playerUI: {fileID: 0}
+  playerUI: {fileID: 9011973057594521544}
   self: {fileID: 6920566488468720987}
   WaitTime: 0
   counterDelay: 0
