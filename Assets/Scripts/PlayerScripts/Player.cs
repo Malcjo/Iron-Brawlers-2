@@ -161,6 +161,13 @@ public class Player : MonoBehaviour
     {
         gaugeManager.ConnectGague(gauge);
     }
+
+    public void ConnectGauge()
+    {
+        GameManager.instance.ConnectionGauges(this, playerInputHandler.PlayerIndex);
+    }
+
+
     public enum Wall
     {
         leftWall,

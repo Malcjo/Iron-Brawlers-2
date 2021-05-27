@@ -452,20 +452,57 @@ public class GameManager : MonoBehaviour
     public void SetUpGaugeConnections()
     {
         MoveGameMangerOutWithTimerCo();
-        if (players.Count > 1)
+
+    }
+    public void ConnectionGauges(Player player, int number)
+    {
+        //MoveGameMangerOutWithTimerCo();
+        SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1) || SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
         {
-            players[2].gameObject.GetComponent<Player>().ConnectGaugeManager(player1Gauge);
+            if(number == 1)
+            {
+                Debug.Log("connect to player 1");
+                player.ConnectGaugeManager(player1Gauge);
+            }
+            else if (number == 2)
+            {
+                Debug.Log("connect to player 2");
+                player.ConnectGaugeManager(player2Gauge);
+            }
+
+            //if (players.Count <= 1)
+            //{
+            //    Debug.Log("count <= 1");
+            //    Debug.Log(players.Count);
+            //    Debug.Log(players[0]);
+            //    Player player1 = players[0].gameObject.GetComponent<Player>();
+            //    Debug.Log(player1);
+            //    player1.ConnectGaugeManager(player1Gauge);
+            //    //seems to try and attach before is able to so results in not being connected
+            //    //if keyboards spawns in as well then player 1 attaches but player 2 doesn't
+
+            //}
+            //else
+            //{
+            //    Debug.Log("count > 1");
+            //    players[0].gameObject.GetComponent<Player>().ConnectGaugeManager(player1Gauge);
+            //    players[1].gameObject.GetComponent<Player>().ConnectGaugeManager(player2Gauge);
+            //}
+            StartCoroutine(MoveGameMangerOutWithTimer());
         }
-        players[1].gameObject.GetComponent<Player>().ConnectGaugeManager(player1Gauge);
+
     }
     public void MoveGameMangerOutWithTimerCo()
     {
         SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
+        //ConnectionGauges();
         StartCoroutine(MoveGameMangerOutWithTimer());
     }
     IEnumerator MoveGameMangerOutWithTimer()
     {
-        yield return new WaitForSeconds(1f);
+
+        yield return new WaitForSeconds(2f);
         SetThisToDontDestroy();
     }
     private void MoveGameManagerOutOfDontDestroy()

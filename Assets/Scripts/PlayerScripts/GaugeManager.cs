@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class GaugeManager : MonoBehaviour
 {
@@ -42,8 +43,14 @@ public class GaugeManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.instance.SetUpGaugeConnections();
-        playerUI = self.GetComponentInChildren<Slider>();
+        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1) || SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2)) 
+        {
+            self.ConnectGauge();
+            //GameManager.instance.SetUpGaugeConnections();
+        }
+
+
+        //playerUI = self.GetComponentInChildren<Slider>();
         if(self.playerNumber == Player.PlayerIndex.Player1)
         {
             playerUI = self.PlayerInputHandler.player1Slider;
@@ -54,7 +61,7 @@ public class GaugeManager : MonoBehaviour
             playerUI = self.PlayerInputHandler.player2Slider;
             //playerUI = GameManager.instance.GetPlayer2UI();
         }
-
+        
         currentGauge = maxHealth;
         gauge.maxValue = maxHealth;
         gauge.minValue = noHealth;
@@ -70,6 +77,8 @@ public class GaugeManager : MonoBehaviour
     }
     public void ConnectGague(Slider gauge)
     {
+        Debug.Log(gauge);
+        Debug.Log("conntecting gauge" + playerUI);
         playerUI = gauge;
     }
     private float repairCount;
@@ -84,7 +93,10 @@ public class GaugeManager : MonoBehaviour
             repairCount = 1;
         }
         StopGaugeFromGettingMoreThanMinGauge();
-        playerUI.value = currentGauge;
+        if(playerUI != null)
+        {
+            playerUI.value = currentGauge;
+        }
         GaugeVariableChecker();
         ManualRepairGauge();
         delayRepiarStart();
