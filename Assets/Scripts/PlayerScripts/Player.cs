@@ -157,6 +157,10 @@ public class Player : MonoBehaviour
     //{ 
     //    return (int)playerNumber; 
     //} 
+    public void ConnectGaugeManager(Slider gauge)
+    {
+        gaugeManager.ConnectGague(gauge);
+    }
     public enum Wall
     {
         leftWall,

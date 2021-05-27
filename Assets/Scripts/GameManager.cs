@@ -78,6 +78,9 @@ public class GameManager : MonoBehaviour
     public GameObject player1SolPortrait, player1SolAltPortrait, player1GoblinPortrait, player1GoblinAltPortrait;
     public GameObject player2SolPortrait, player2SolAltPortrait, player2GoblinPortrait, player2GoblinAltPortrait;
 
+    [SerializeField] private Slider player1Gauge;
+    [SerializeField] private Slider player2Gauge;
+    
     [SerializeField] private LoadLevel loadLevelScript;
 
     [SerializeField] private GameObject PauseScreen;
@@ -445,6 +448,25 @@ public class GameManager : MonoBehaviour
     private void SetThisToDontDestroy()
     {
         DontDestroyOnLoad(this.gameObject);
+    }
+    public void SetUpGaugeConnections()
+    {
+        MoveGameMangerOutWithTimerCo();
+        if (players.Count > 1)
+        {
+            players[2].gameObject.GetComponent<Player>().ConnectGaugeManager(player1Gauge);
+        }
+        players[1].gameObject.GetComponent<Player>().ConnectGaugeManager(player1Gauge);
+    }
+    public void MoveGameMangerOutWithTimerCo()
+    {
+        SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
+        StartCoroutine(MoveGameMangerOutWithTimer());
+    }
+    IEnumerator MoveGameMangerOutWithTimer()
+    {
+        yield return new WaitForSeconds(1f);
+        SetThisToDontDestroy();
     }
     private void MoveGameManagerOutOfDontDestroy()
     {

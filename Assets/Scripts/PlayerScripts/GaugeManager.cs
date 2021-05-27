@@ -42,6 +42,7 @@ public class GaugeManager : MonoBehaviour
 
     private void Start()
     {
+        GameManager.instance.SetUpGaugeConnections();
         playerUI = self.GetComponentInChildren<Slider>();
         if(self.playerNumber == Player.PlayerIndex.Player1)
         {
@@ -66,6 +67,10 @@ public class GaugeManager : MonoBehaviour
         //    }
         //    repair = StartCoroutine(RepairGauge());
         //}
+    }
+    public void ConnectGague(Slider gauge)
+    {
+        playerUI = gauge;
     }
     private float repairCount;
     private void Update()
