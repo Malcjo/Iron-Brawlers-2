@@ -59,6 +59,27 @@ public class BindToPlayer : MonoBehaviour
         GoblinBeenPicked = false;
         SolBeenPicked = false;
         startGame = false;
+        delayCounter = 0;
+        inputManager.DisableJoining();
+
+    }
+    private float delayCounter;
+    private void FixedUpdate()
+    {
+        DelayAbilityForPlayersToJoin();
+    }
+    private void DelayAbilityForPlayersToJoin()
+    {
+        if (delayCounter > 2)
+        {
+            inputManager.EnableJoining();
+            return;
+        }
+        else if(delayCounter < 2)
+        {
+            delayCounter += 1 * Time.deltaTime;
+        }
+
     }
     public void SetLoadLevelToContinue()
     {
@@ -127,6 +148,7 @@ public class BindToPlayer : MonoBehaviour
                     //GameManager.instance.levelSelect = true;
                     if (startGame == true)
                     {
+                        startGame = false;
                         loadLevelScript.StartGame();
                     }
                 }
@@ -142,6 +164,7 @@ public class BindToPlayer : MonoBehaviour
                     //GameManager.instance.levelSelect = true;
                     if (startGame == true)
                     {
+                        startGame = false;
                         loadLevelScript.StartGame();
                     }
                 }

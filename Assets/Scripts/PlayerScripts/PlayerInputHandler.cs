@@ -97,6 +97,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Start()
     {
+        canTransitionToLevel = true;
+
         player1SolPortrait.SetActive(false);
         player1SolAltPortrait.SetActive(false);
         player1GoblinPortrait.SetActive(false);
@@ -705,13 +707,24 @@ public class PlayerInputHandler : MonoBehaviour
                         bind.SetLevelNumber((int)level + 1);
                         SetAllInputsToZero();
                         ChooseLevel = false;
-                        bind.StartGame = true;
+                        if(canTransitionToLevel == true)
+                        {
+                            bind.StartGame = true;
+                            canTransitionToLevel = false;
+                        }
+                        else
+                        {
+                            bind.StartGame = false;
+                        }
+
 
                     }
                 }
             }
         }
     }
+    private bool canTransitionToLevel  = true;
+    public bool CanTransisitonToLevel { get { return canTransitionToLevel; } }
     public void BackInput(CallbackContext context)
     {
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByBuildIndex(4).buildIndex)
