@@ -456,6 +456,10 @@ public class GameManager : MonoBehaviour
     }
     public void ConnectionGauges(Player player, int number)
     {
+        //TO FIX!!!!!!
+        // need to attach sliders from game manager to players, within here as this is where the delay/ game manager is moved and controlled
+        //TO FIX!!!!!!
+
         //MoveGameMangerOutWithTimerCo();
         SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1) || SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
